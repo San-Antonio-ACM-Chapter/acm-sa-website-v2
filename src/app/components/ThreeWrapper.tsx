@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { Canvas } from '@react-three/fiber'
-import { PerformanceMonitor } from '@react-three/drei'
-import { useState, useEffect } from 'react'
+import { PerformanceMonitor } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useEffect, useState } from "react";
 
 /**
  * A wrapper component for integrating WebGL-based 3D rendering as a backdrop with support for handling devices without WebGL capabilities.
@@ -14,57 +14,62 @@ import { useState, useEffect } from 'react'
  * @return {JSX.Element} The rendered WebGL canvas positioned as a backdrop, or fallback content if WebGL is unsupported.
  */
 export function ThreeWrapper({
-    children,
-    fallback,
-    backdrop = true
+  children,
+  fallback,
+  backdrop = true,
 }: {
-    children: React.ReactNode
-    fallback?: React.ReactNode
-    backdrop?: boolean
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+  backdrop?: boolean;
 }) {
-    const [dpr, setDpr] = useState(1)
-    const [hasWebGL, setHasWebGL] = useState(false)
+  const [dpr, setDpr] = useState(1);
+  const [hasWebGL, setHasWebGL] = useState(false);
 
-    useEffect(() => {
-        const canvas = document.createElement('canvas')
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl')
-        setHasWebGL(!!gl)
-    }, [])
+  useEffect(() => {
+    const canvas = document.createElement("canvas");
+    const gl =
+      canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    setHasWebGL(!!gl);
+  }, []);
 
-    if (!hasWebGL) {
-        return backdrop ? (
-            <div
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: -1,
-                }}
-            >
-                {fallback}
-            </div>
-        ) : (
-            fallback || <div>Your device doesn't support 3D graphics</div>
-        )
-    }
+  if (!hasWebGL) {
+    return backdrop ? (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: -1,
+        }}
+      >
+        {fallback}
+      </div>
+    ) : (
+      fallback || <div>Your device doesn't support 3D graphics</div>
+    );
+  }
 
-    return (
-        <Canvas
-            dpr={dpr}
-            style={backdrop ? {
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                zIndex: -1,
-            } : undefined}
-        >
-            <PerformanceMonitor onDecline={() => setDpr(0.5)}>
-                {children}
-            </PerformanceMonitor>
-        </Canvas>
-    )
+  return (
+    <Canvas
+      dpr={dpr}
+      style={
+        backdrop
+          ? {
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: -1,
+            }
+          : undefined
+      }
+    >
+      <PerformanceMonitor onDecline={() => setDpr(0.5)}>
+        {children}
+      </PerformanceMonitor>
+    </Canvas>
+  );
 }

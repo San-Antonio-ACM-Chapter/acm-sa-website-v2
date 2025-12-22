@@ -9,12 +9,12 @@
   --shadow: rgba(0, 0, 0, 0.1);
 
   /* Spacing - Responsive */
-  --spacing-xs: 0.5rem;   /* 8px */
-  --spacing-sm: 1rem;     /* 16px */
-  --spacing-md: 1.5rem;   /* 24px */
-  --spacing-lg: 2rem;     /* 32px */
-  --spacing-xl: 3rem;     /* 48px */
-  --spacing-2xl: 4rem;    /* 64px */
+  --spacing-xs: 0.5rem; /* 8px */
+  --spacing-sm: 1rem; /* 16px */
+  --spacing-md: 1.5rem; /* 24px */
+  --spacing-lg: 2rem; /* 32px */
+  --spacing-xl: 3rem; /* 48px */
+  --spacing-2xl: 4rem; /* 64px */
 
   /* Container widths */
   --container-sm: 640px;
@@ -23,15 +23,15 @@
   --container-xl: 1280px;
 
   /* Typography - Mobile first */
-  --font-size-xs: 0.75rem;    /* 12px */
-  --font-size-sm: 0.875rem;   /* 14px */
-  --font-size-base: 1rem;     /* 16px */
-  --font-size-lg: 1.125rem;   /* 18px */
-  --font-size-xl: 1.25rem;    /* 20px */
-  --font-size-2xl: 1.5rem;    /* 24px */
-  --font-size-3xl: 1.875rem;  /* 30px */
-  --font-size-4xl: 2.25rem;   /* 36px */
-  --font-size-5xl: 3rem;      /* 48px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
 
   /* Line heights */
   --line-height-tight: 1.25;
@@ -62,9 +62,9 @@
 /* Tablet adjustments */
 @media (min-width: 768px) {
   :root {
-    --spacing-xl: 4rem;     /* 64px */
-    --spacing-2xl: 6rem;    /* 96px */
-    --font-size-3xl: 2rem;  /* 32px */
+    --spacing-xl: 4rem; /* 64px */
+    --spacing-2xl: 6rem; /* 96px */
+    --font-size-3xl: 2rem; /* 32px */
     --font-size-4xl: 2.5rem; /* 40px */
     --font-size-5xl: 3.5rem; /* 56px */
   }
@@ -73,10 +73,10 @@
 /* Desktop adjustments */
 @media (min-width: 1024px) {
   :root {
-    --spacing-xl: 5rem;     /* 80px */
-    --spacing-2xl: 8rem;    /* 128px */
-    --font-size-4xl: 3rem;  /* 48px */
-    --font-size-5xl: 4rem;  /* 64px */
+    --spacing-xl: 5rem; /* 80px */
+    --spacing-2xl: 8rem; /* 128px */
+    --font-size-4xl: 3rem; /* 48px */
+    --font-size-5xl: 4rem; /* 64px */
   }
 }
 
@@ -103,9 +103,9 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   -webkit-font-smoothing: antialiased;
@@ -114,7 +114,12 @@ body {
 }
 
 /* Typography - Responsive headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   line-height: var(--line-height-tight);
   margin-bottom: var(--spacing-sm);
@@ -136,7 +141,8 @@ h4 {
   font-size: var(--font-size-lg);
 }
 
-h5, h6 {
+h5,
+h6 {
   font-size: var(--font-size-base);
 }
 
@@ -299,4 +305,3 @@ select:focus {
     scroll-behavior: auto !important;
   }
 }
-
