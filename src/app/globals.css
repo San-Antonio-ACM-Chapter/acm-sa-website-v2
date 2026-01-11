@@ -1,12 +1,16 @@
 /* CSS Custom Properties - Mobile First */
 :root {
-  /* Colors */
-  --background: #ffffff;
-  --foreground: #171717;
-  --accent: #0070f3;
-  --accent-hover: #0051cc;
+  /* Colors - ACM SA Brand Colors */
+  --primary: #30BCED; /* Light Blue - Primary brand color */
+  --secondary: #E84855; /* Coral Red - Secondary brand color */
+  --background: #FFFFFF; /* White background */
+  --foreground: #171717; /* Dark text on light backgrounds */
+  --foreground-light: #FFFFFF; /* White text on dark backgrounds */
+  --accent: #30BCED; /* Primary blue for accents */
+  --accent-hover: #E84855; /* Red for hover states */
   --border: #e5e5e5;
-  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow: rgba(48, 188, 237, 0.15); /* Blue-tinted shadow */
+  --shadow-red: rgba(232, 72, 85, 0.15); /* Red-tinted shadow */
 
   /* Spacing - Responsive */
   --spacing-xs: 0.5rem; /* 8px */
@@ -52,10 +56,12 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --accent: #3291ff;
-    --accent-hover: #66a9ff;
+    --foreground-light: #FFFFFF;
+    --accent: #30BCED;
+    --accent-hover: #E84855;
     --border: #333333;
-    --shadow: rgba(255, 255, 255, 0.1);
+    --shadow: rgba(48, 188, 237, 0.2);
+    --shadow-red: rgba(232, 72, 85, 0.2);
   }
 }
 
@@ -243,6 +249,86 @@ select:focus {
   margin-right: auto;
   padding-left: var(--spacing-sm);
   padding-right: var(--spacing-sm);
+}
+
+/* Brand Color Utilities */
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.bg-white {
+  background-color: #FFFFFF;
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-white {
+  color: #FFFFFF;
+}
+
+.text-black {
+  color: #171717;
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.border-secondary {
+  border-color: var(--secondary);
+}
+
+/* Button Variants */
+.btn-primary {
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary);
+  color: #FFFFFF;
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: #FFFFFF;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  color: var(--secondary);
+  border: 2px solid var(--secondary);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--secondary);
+  color: #FFFFFF;
 }
 
 @media (min-width: 768px) {
