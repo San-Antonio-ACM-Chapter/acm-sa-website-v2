@@ -2,7 +2,6 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import { SHOPIFY_STORE_DOMAIN } from '@/lib/shopify/client';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -43,9 +42,8 @@ export default function LoginPage() {
   };
 
   const handleForgotPassword = () => {
-    // Redirect to Shopify's password reset page
-    const resetUrl = `https://${SHOPIFY_STORE_DOMAIN}/account/reset`;
-    window.open(resetUrl, '_blank');
+    // Password reset to be implemented
+    alert('Password reset functionality coming soon');
   };
 
   return (
@@ -151,16 +149,8 @@ export default function LoginPage() {
       </form>
 
       <div style={{ marginTop: '2rem', textAlign: 'center', fontSize: 'var(--font-size-sm)' }}>
-        <p>
-          Don't have an account?{' '}
-          <a
-            href={`https://${SHOPIFY_STORE_DOMAIN}/account/register`}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: 'var(--accent)', textDecoration: 'underline' }}
-          >
-            Create one
-          </a>
+        <p style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+          Account registration coming soon
         </p>
       </div>
     </main>

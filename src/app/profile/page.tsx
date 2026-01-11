@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { SHOPIFY_STORE_DOMAIN } from '@/lib/shopify/client';
 
 interface User {
   email: string;
@@ -53,8 +52,8 @@ export default function ProfilePage() {
   };
 
   const handleManageSubscription = () => {
-    // Redirect to Shopify customer account portal
-    window.location.href = `https://${SHOPIFY_STORE_DOMAIN}/account`;
+    // Subscription management to be implemented with Stripe
+    alert('Subscription management coming soon');
   };
 
   if (loading) {
