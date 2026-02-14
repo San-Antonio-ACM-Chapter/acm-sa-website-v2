@@ -4,46 +4,46 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getIronSession } from '@/lib/session';
+// import { getIronSession } from '@/lib/session';
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  // Protected routes that require authentication
-  const protectedRoutes = ['/profile'];
-
-  // Check if the current route is protected
-  const isProtectedRoute = protectedRoutes.some((route) =>
-    pathname.startsWith(route)
-  );
-
-  if (isProtectedRoute) {
-    try {
-      const session = await getIronSession();
-
-      // If no user session, redirect to login
-      if (!session.user) {
-        const loginUrl = new URL('/login', request.url);
-        loginUrl.searchParams.set('redirect', pathname);
-        return NextResponse.redirect(loginUrl);
-      }
-
-      // Check if session has expired
-      const expiresAt = new Date(session.user.expiresAt);
-      if (expiresAt < new Date()) {
-        session.destroy();
-        const loginUrl = new URL('/login', request.url);
-        loginUrl.searchParams.set('redirect', pathname);
-        loginUrl.searchParams.set('expired', 'true');
-        return NextResponse.redirect(loginUrl);
-      }
-    } catch (error) {
-      console.error('Middleware error:', error);
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-  }
-
-  return NextResponse.next();
+  // const { pathname } = request.nextUrl;
+  //
+  // // Protected routes that require authentication
+  // const protectedRoutes = ['/profile'];
+  //
+  // // Check if the current route is protected
+  // const isProtectedRoute = protectedRoutes.some((route) =>
+  //   pathname.startsWith(route)
+  // );
+  //
+  // if (isProtectedRoute) {
+  //   try {
+  //     const session = await getIronSession();
+  //
+  //     // If no user session, redirect to login
+  //     if (!session.user) {
+  //       const loginUrl = new URL('/login', request.url);
+  //       loginUrl.searchParams.set('redirect', pathname);
+  //       return NextResponse.redirect(loginUrl);
+  //     }
+  //
+  //     // Check if session has expired
+  //     const expiresAt = new Date(session.user.expiresAt);
+  //     if (expiresAt < new Date()) {
+  //       session.destroy();
+  //       const loginUrl = new URL('/login', request.url);
+  //       loginUrl.searchParams.set('redirect', pathname);
+  //       loginUrl.searchParams.set('expired', 'true');
+  //       return NextResponse.redirect(loginUrl);
+  //     }
+  //   } catch (error) {
+  //     console.error('Middleware error:', error);
+  //     return NextResponse.redirect(new URL('/login', request.url));
+  //   }
+  // }
+  //
+  // return NextResponse.next();
 }
 
 // Configure which routes the middleware runs on
