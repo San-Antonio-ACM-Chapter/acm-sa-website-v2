@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { margin: 0; padding: 50px; }
+    .test-bg {
+      background: linear-gradient(45deg, red, blue, green);
+      padding: 50px;
+      font-size: 40px;
+      font-weight: bold;
+      color: white;
+    }
+    .blur-box {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 2px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-bg">
+    THIS TEXT SHOULD BE BLURRED UNDER THE WHITE BOX
+  </div>
+  <div class="blur-box">
+    <h1>If backdrop-filter works, the text below should be blurred</h1>
+  </div>
+  <script>
+    const supported = CSS.supports('backdrop-filter', 'blur(1px)') || 
+                     CSS.supports('-webkit-backdrop-filter', 'blur(1px)');
+    console.log('backdrop-filter supported:', supported);
+    document.querySelector('.blur-box h1').textContent += ' - Supported: ' + supported;
+  </script>
+</body>
+</html>
