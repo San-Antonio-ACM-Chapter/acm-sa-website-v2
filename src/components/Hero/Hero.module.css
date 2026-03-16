@@ -1,5 +1,9 @@
-/*hero container should be center aligned at all times*/
+/* Hero container - centered layout with flexbox */
 .heroContainer {
+    --logo-size: 100px;
+    --city-offset-x: 178px;
+    --city-offset-y: 30px;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -13,7 +17,7 @@
 }
 
 .heroContainer img {
-    height: 100px
+    height: var(--logo-size);
 }
 
 .heroContainer h1 {
@@ -28,7 +32,7 @@
     flex-direction: row;
     position: absolute;
     font-size: 1.5rem;
-    transform: translate(178px, 30px)
+    transform: translate(var(--city-offset-x), var(--city-offset-y));
 }
 
 .heroContainer h2 {
@@ -58,7 +62,45 @@
     }
 }
 
-/* Example: Style the last child of heroContainer */
-.heroContainer > *:last-child {
-    /* Styles for the last child element */
+/* Responsive Design */
+@media (max-width: 768px) {
+    .heroContainer {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .heroContainer img {
+        height: 80px;
+    }
+
+    .heroContainer h1 {
+        font-size: 2rem;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .heroContainer span {
+        position: static;
+        transform: none;
+        font-size: 1.2rem;
+        justify-content: center;
+    }
 }
+
+@media (max-width: 480px) {
+    .heroContainer img {
+        height: 60px;
+    }
+
+    .heroContainer h1 {
+        font-size: 1.5rem;
+        max-width: 300px;
+    }
+
+    .heroContainer span {
+        font-size: 1rem;
+    }
+}
+
