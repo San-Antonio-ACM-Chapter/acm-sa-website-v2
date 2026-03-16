@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
 import type React from "react";
 import "./globals.css";
-import {Space_Grotesk} from 'next/font/google'
+import {JetBrains_Mono, Jockey_One} from 'next/font/google'
 
-const spaceGrotesk = Space_Grotesk({
+const jockeyOne = Jockey_One({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-space-grotesk',
+  weight: ['400'],
+  variable: '--font-jockey-one',
 });
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['100','200','300','400','500','600','700'],
+  variable: '--font-jetbrains-mono',
+})
 
 export const metadata: Metadata = {
   title: "ACM San Antonio",
   description: "Association for Computing Machinery - San Antonio Chapter",
+  icons: {
+    icon: "/acm-logo.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={spaceGrotesk.className}>
+    <html lang="en" className={`${jockeyOne.variable} ${jetbrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   );
