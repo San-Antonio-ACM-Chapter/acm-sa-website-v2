@@ -1,4 +1,4 @@
-.sectionAbout, .sectionEvents{
+.sectionAbout, .sectionEvents, .sectionContact{
     background-color: #FAFAFA;
     Padding: 2rem 10rem;
     height: 100vh;
@@ -8,6 +8,83 @@
     background-color: #FFFFFF;
 }
 
+.sectionContact {
+    background-color: #EAEAEA;
+}
+
+.sectionContact span {
+    display: flex;
+    flex-direction: row;
+}
+
+.sectionContact span div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 2rem;
+}
+
+.sectionContact span div ul li img {
+    width: 64px;
+    height: 64px;
+    padding: 8px;
+    background-color: white;
+    border-right: 2px solid var(--primary);
+}
+
+.sectionContact span div ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    background-color: #FFFFFF;
+}
+
+.sectionContact span div ul li a {
+    display: flex;
+    align-items: center;
+    color: var(--foreground);
+    text-decoration: none;
+    font-weight: bold;
+    background-color: transparent;
+    height: 64px;
+    width: 100%;
+    padding-left: 0.5rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.sectionContact span div ul li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--primary);
+    z-index: -1;
+    transition: width 0.3s ease;
+}
+
+.sectionContact span div ul li a:hover {
+    color: #FFFFFF;
+}
+
+.sectionContact span div ul li a:hover::before {
+    width: 100%;
+}
+
+.sectionContact span div:last-child {
+    border-left: 2px solid var(--secondary);
+    padding-left: 1rem;
+}
+
+.sectionContact span div ul {
+    font-family: var(--font-jetbrains-mono);
+    list-style-type: none;
+    padding-left: 0;
+}
+
 .section p {
     font-family: var(--font-jetbrains-mono);
     font-size: 1.1em;
@@ -15,6 +92,8 @@
     padding-left: 1rem;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     a {
         color: var(--primary);
         text-decoration: none;
