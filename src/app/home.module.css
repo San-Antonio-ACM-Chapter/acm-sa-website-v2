@@ -1,75 +1,76 @@
-.sectionAbout, .sectionEvents, .sectionContact{
-    background-color: #FAFAFA;
-    Padding: 2rem 10rem;
-    height: 100vh;
+.sectionAbout,
+.sectionEvents,
+.sectionContact {
+  background-color: #fafafa;
+  Padding: 2rem 10rem;
+  height: 100vh;
 }
 
 .sectionHome {
-    background-image: url('../../public/san-antonio-map.png');
+  background-image: url("../../public/san-antonio-map.png");
 }
 
 .sectionEvents {
-    background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .sectionContact {
-    background-color: #EAEAEA;
+  background-color: #eaeaea;
 }
 
 .sectionContact span {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .sectionContact span div {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    margin-right: 2rem;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
 }
 
-
 .sectionContact span div:last-child {
-    border-left: 2px solid var(--secondary);
-    padding-left: 1rem;
+  border-left: 2px solid var(--secondary);
+  padding-left: 1rem;
 }
 
 .sectionContact span div ul {
-    font-family: var(--font-jetbrains-mono);
-    list-style-type: none;
-    padding-left: 0;
+  font-family: var(--font-jetbrains-mono);
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .section p {
-    font-family: var(--font-jetbrains-mono);
-    font-size: 1.1em;
-    border-left: 2px solid var(--primary);
-    padding-left: 1rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    a {
-        color: var(--primary);
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.1s ease-in-out;
-    }
-    a:hover {
-        color: #FFFFFF;
-        background-color: var(--primary);
-        transition: 0.1s ease-in-out;
-    }
+  font-family: var(--font-jetbrains-mono);
+  font-size: 1.1em;
+  border-left: 2px solid var(--primary);
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.1s ease-in-out;
+  }
+  a:hover {
+    color: #ffffff;
+    background-color: var(--primary);
+    transition: 0.1s ease-in-out;
+  }
 }
 
 .section h2 {
-    font-family: var(--font-jockey-one);
-    font-size: 2.5em;
-    line-height: 3em;
+  font-family: var(--font-jockey-one);
+  font-size: 2.5em;
+  line-height: 3em;
 }
 
 .section h3 {
-    font-family: var(--font-jockey-one);
-    font-size: 1.8em;
-    line-height: 2em;
+  font-family: var(--font-jockey-one);
+  font-size: 1.8em;
+  line-height: 2em;
 }

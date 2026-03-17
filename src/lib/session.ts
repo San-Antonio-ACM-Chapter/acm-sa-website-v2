@@ -14,4 +14,3 @@ export async function getSession() {
   // TODO: Implement session management for Stripe
   return null;
 }
-

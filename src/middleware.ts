@@ -3,10 +3,10 @@
  * Runs before requests to protected routes
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from "next/server";
 // import { getIronSession } from '@/lib/session';
 
-export async function middleware(request: NextRequest) {
+export async function middleware(_request: NextRequest) {
   // const { pathname } = request.nextUrl;
   //
   // // Protected routes that require authentication
@@ -57,7 +57,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public folder
      */
-    '/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\..*|public).*)',
+    "/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\..*|public).*)",
   ],
 };
-

@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect } from 'react';
-import styles from './Hero.module.css'
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import styles from "./Hero.module.css";
 
 type HeroProps = {
   imgOptions?: {
@@ -34,17 +35,15 @@ type HeroProps = {
  *  cityTypingSpeed={72}
  * />
  */
-const Hero = (
-  {
-    imgOptions = {
-      img: "/acm-logo.svg",
-      alt: "The Association for Computing Machinery Logo"
-    },
-    title = "The Association for Computing Machinery",
-    city = "San Antonio",
-    cityTypingSpeed = 72
-  }: HeroProps
-) => {
+const Hero = ({
+  imgOptions = {
+    img: "/acm-logo.svg",
+    alt: "The Association for Computing Machinery Logo",
+  },
+  title = "The Association for Computing Machinery",
+  city = "San Antonio",
+  cityTypingSpeed = 72,
+}: HeroProps) => {
   const [displayedCity, setDisplayedCity] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isTyping, setIsTyping] = useState<boolean>(true);
@@ -61,7 +60,7 @@ const Hero = (
     } else {
       setIsTyping(false);
     }
-  }, [currentIndex, city]);
+  }, [currentIndex, city, cityTypingSpeed]);
 
   /**
    * Splits the city into 3 parts for animation effect:
@@ -82,22 +81,28 @@ const Hero = (
     return [
       leadingWords ? `${leadingWords}_` : null,
       lastWord.slice(0, -1),
-      lastWord.slice(-1)
+      lastWord.slice(-1),
     ];
   })();
 
   return (
     <div className={styles.heroContainer}>
-        <img src={imgOptions.img} alt={imgOptions.alt} />
-        <h1>{title}</h1>
-        <span>
-          {cityParts.map((part, index) => (
-            <h2 key={index}>{part}</h2>
-          ))}
-          {isTyping && <h2 className={styles.cursor}>_</h2>}
-        </span>
+      <Image
+        src={imgOptions.img || "/acm-logo.svg"}
+        alt={imgOptions.alt || "ACM Logo"}
+        width={100}
+        height={100}
+        priority
+      />
+      <h1>{title}</h1>
+      <span>
+        {cityParts[0] && <h2 key="leading">{cityParts[0]}</h2>}
+        {cityParts[1] && <h2 key="middle">{cityParts[1]}</h2>}
+        {cityParts[2] && <h2 key="last">{cityParts[2]}</h2>}
+        {isTyping && <h2 className={styles.cursor}>_</h2>}
+      </span>
     </div>
-  )
-}
+  );
+};
 
 export default Hero;
