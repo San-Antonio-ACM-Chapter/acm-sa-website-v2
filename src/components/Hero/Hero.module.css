@@ -25,6 +25,8 @@
   font-size: 3rem;
   width: 600px;
   line-height: 1.1;
+  color: var(--foreground);
+  transition: color 0.3s ease;
 }
 
 .heroContainer span {

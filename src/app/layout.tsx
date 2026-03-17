@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type React from "react";
 import "./globals.css";
 import { JetBrains_Mono, Jockey_One } from "next/font/google";
+import { ThemeProvider } from "@/lib/ThemeContext";
 
 const jockeyOne = Jockey_One({
   subsets: ["latin"],
@@ -33,7 +34,9 @@ export default function RootLayout({
       lang="en"
       className={`${jockeyOne.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
