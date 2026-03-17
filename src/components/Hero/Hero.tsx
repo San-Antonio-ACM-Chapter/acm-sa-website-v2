@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from 'react';
 import styles from './Hero.module.css'
 
 type HeroProps = {
@@ -7,6 +9,7 @@ type HeroProps = {
   };
   title?: string;
   city?: string;
+  cityTypingSpeed?: number; // Optional prop to control the speed of the city animation
 };
 
 /**
@@ -18,6 +21,7 @@ type HeroProps = {
  * @param imgOptions
  * @param title
  * @param city - the city name to display (e.g., "San Antonio")
+ * @param cityAnimationSpeed
  * @example
  * <Hero
  *  imgOptions={
@@ -27,6 +31,7 @@ type HeroProps = {
  *    }
  *  title="The Association for Computing Machinery"
  *  city="San Antonio"
+ *  cityTypingSpeed={72}
  * />
  */
 const Hero = (
@@ -36,9 +41,27 @@ const Hero = (
       alt: "The Association for Computing Machinery Logo"
     },
     title = "The Association for Computing Machinery",
-    city = "San Antonio"
+    city = "San Antonio",
+    cityTypingSpeed = 72
   }: HeroProps
 ) => {
+  const [displayedCity, setDisplayedCity] = useState<string>("");
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isTyping, setIsTyping] = useState<boolean>(true);
+
+  // Typing animation effect
+  useEffect(() => {
+    if (currentIndex < city.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedCity(city.slice(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+      }, cityTypingSpeed); // 150ms delay between each character
+
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTyping(false);
+    }
+  }, [currentIndex, city]);
 
   /**
    * Splits the city into 3 parts for animation effect:
@@ -52,12 +75,12 @@ const Hero = (
    * - "New York City" -> ["New York_", "Cit", "y"]
    */
   const cityParts = (() => {
-    const words = city.split(" ");
+    const words = displayedCity.split(" ");
     const lastWord = words[words.length - 1];
     const leadingWords = words.slice(0, -1).join(" ");
 
     return [
-      leadingWords ? `${leadingWords}_` : "_",
+      leadingWords ? `${leadingWords}_` : null,
       lastWord.slice(0, -1),
       lastWord.slice(-1)
     ];
@@ -71,6 +94,7 @@ const Hero = (
           {cityParts.map((part, index) => (
             <h2 key={index}>{part}</h2>
           ))}
+          {isTyping && <h2 className={styles.cursor}>_</h2>}
         </span>
     </div>
   )

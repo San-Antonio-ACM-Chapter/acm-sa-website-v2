@@ -48,7 +48,11 @@
 
 .heroContainer h2:last-child{
     animation: pulse 1s infinite steps(1);
-    animation-delay: 1s;
+    animation-delay: 0.4s;
+}
+
+.cursor {
+    color: var(--primary);
 }
 
 @keyframes pulse {
