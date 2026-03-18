@@ -5,6 +5,32 @@
   Padding: 2rem 10rem;
   height: 100vh;
   transition: background-color 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.sectionHome {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.sectionAbout:focus,
+.sectionEvents:focus,
+.sectionContact:focus,
+.sectionHome:focus {
+  outline: none;
+}
+
+/* Prevent all elements inside sections from receiving focus on anchor navigation */
+.sectionAbout *:focus,
+.sectionEvents *:focus,
+.sectionContact *:focus,
+.sectionHome *:focus {
+  outline: none;
 }
 
 .sectionHome {
@@ -12,6 +38,13 @@
   background-color: var(--background);
   background-blend-mode: normal;
   transition: background-color 0.3s ease;
+}
+
+.section h2 {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  cursor: default;
 }
 
 [data-theme="dark"] .sectionHome {

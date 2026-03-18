@@ -7,13 +7,13 @@ const Home = () => {
   return (
     <div>
       <Navigator />
-      <section className={styles.sectionHome} id="home" title="home">
+      <section className={styles.sectionHome} id="home" tabIndex={-1}>
         <Hero />
       </section>
       <section
         className={`${styles.sectionAbout} ${styles.section}`}
         id="about"
-        title="about"
+        tabIndex={-1}
       >
         <h2>About</h2>
         <h3>What is ACM?</h3>
@@ -52,7 +52,7 @@ const Home = () => {
       <section
         className={`${styles.sectionEvents} ${styles.section}`}
         id="events"
-        title="events"
+        tabIndex={-1}
       >
         <h2>Events</h2>
         {/* <!-- WIP --> */}
@@ -60,7 +60,7 @@ const Home = () => {
       <section
         className={`${styles.sectionContact} ${styles.section}`}
         id="contact"
-        title="contact"
+        tabIndex={-1}
       >
         <h2>Contact</h2>
         {/* <!-- WIP --> */}

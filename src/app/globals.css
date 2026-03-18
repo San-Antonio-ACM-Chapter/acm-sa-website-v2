@@ -2,7 +2,7 @@
   /* Colors - ACM SA Brand Colors */
   --primary: #30bced; /* Light Blue - Primary brand color */
   --secondary: #e84855; /* Coral Red - Secondary brand color */
-  --background: rgba(255,255,255,0); /* White background */
+  --background: rgba(255,255,255,1); /* White background */
   --foreground: #171717; /* Dark text on light backgrounds */
   --foreground-light: #ffffff; /* White text on dark backgrounds */
   --accent: #30bced; /* Primary blue for accents */
