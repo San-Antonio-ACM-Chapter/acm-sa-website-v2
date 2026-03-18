@@ -1,126 +1,23 @@
-.sectionAbout,
-.sectionEvents,
-.sectionContact {
-  background-color: var(--section-bg-primary);
-  Padding: 2rem 10rem;
-  height: 100vh;
-  transition: background-color 0.3s ease;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-.sectionHome {
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-.sectionAbout:focus,
-.sectionEvents:focus,
-.sectionContact:focus,
-.sectionHome:focus {
-  outline: none;
-}
-
-/* Prevent all elements inside sections from receiving focus on anchor navigation */
-.sectionAbout *:focus,
-.sectionEvents *:focus,
-.sectionContact *:focus,
-.sectionHome *:focus {
-  outline: none;
-}
-
 .sectionHome {
   background-image: url("../../public/san-antonio-map.png");
   background-color: var(--background);
   background-blend-mode: normal;
   transition: background-color 0.3s ease;
-}
-
-.section h2 {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  cursor: default;
+  -ms-user-select: none;
+}
+
+.sectionHome:focus {
+  outline: none;
+}
+
+.sectionHome *:focus {
+  outline: none;
 }
 
 [data-theme="dark"] .sectionHome {
   background-blend-mode: color-burn;
 }
 
-.sectionEvents {
-  background-color: var(--section-bg-secondary);
-}
-
-.sectionContact {
-  background-color: var(--section-bg-tertiary);
-}
-
-.sectionContact span {
-  display: flex;
-  flex-direction: row;
-}
-
-.sectionContact span div {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  margin-right: 2rem;
-}
-
-.sectionContact span div:last-child {
-  border-left: 2px solid var(--secondary);
-  padding-left: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.sectionContact span div ul {
-  font-family: var(--font-jetbrains-mono);
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.section p {
-  font-family: var(--font-jetbrains-mono);
-  font-size: 1.1em;
-  border-left: 2px solid var(--primary);
-  padding-left: 1rem;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  color: var(--foreground);
-  transition:
-    color 0.3s ease,
-    border-color 0.3s ease;
-  a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.1s ease-in-out;
-  }
-  a:hover {
-    color: var(--foreground-light);
-    background-color: var(--primary);
-    transition: 0.1s ease-in-out;
-  }
-}
-
-.section h2 {
-  font-family: var(--font-jockey-one);
-  font-size: 2.5em;
-  line-height: 3em;
-  color: var(--foreground);
-  transition: color 0.3s ease;
-}
-
-.section h3 {
-  font-family: var(--font-jockey-one);
-  font-size: 1.8em;
-  line-height: 2em;
-  color: var(--foreground);
-  transition: color 0.3s ease;
-}
