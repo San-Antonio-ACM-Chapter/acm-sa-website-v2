@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   // Empty turbopack config to use Next.js 16 defaults
   turbopack: {},
   output: "export",
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
