@@ -39,7 +39,7 @@ const ContactSection = () => {
             </ul>
           </div>
           <div className={styles.column}>
-            <h3>Other Organizations we Recommend</h3>
+            <h3>Organizations We Partner With</h3>
             <p>
               as an organization we often connect and collaborate with these
               great communities!
