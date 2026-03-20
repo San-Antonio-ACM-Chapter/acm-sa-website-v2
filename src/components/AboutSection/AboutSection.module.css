@@ -65,3 +65,48 @@
   transition: 0.1s ease-in-out;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .aboutSection {
+    padding: 2rem 2rem;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .aboutSection h2 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+
+  .aboutSection h3 {
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    padding-top: 1rem;
+  }
+
+  .aboutSection p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutSection {
+    padding: 1.5rem 1rem;
+  }
+
+  .aboutSection h2 {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+  }
+
+  .aboutSection h3 {
+    font-size: 1.3rem;
+    line-height: 1.6rem;
+  }
+
+  .aboutSection p {
+    font-size: 0.95rem;
+    padding-left: 0.75rem;
+  }
+}
+
