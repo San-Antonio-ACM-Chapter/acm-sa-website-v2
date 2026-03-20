@@ -1,9 +1,20 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import styles from "./Navigator.module.css";
 
 const Navigator = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <nav className={styles.navigatorContainer}>
       <div className={styles.logoContainer}>
@@ -12,18 +23,28 @@ const Navigator = () => {
       </div>
       <div className={styles.navRight}>
         <ThemeToggle />
-        <ul>
+        <button
+          className={`${styles.hamburger} ${isMenuOpen ? styles.active : ""}`}
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul className={isMenuOpen ? styles.menuOpen : ""}>
           <li>
-            <a href="#home">Home</a>
+            <a href="#home" onClick={closeMenu}>Home</a>
           </li>
           <li>
-            <a href="#about">About</a>
+            <a href="#about" onClick={closeMenu}>About</a>
           </li>
           <li>
-            <a href="#events">Events</a>
+            <a href="#events" onClick={closeMenu}>Events</a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <a href="#contact" onClick={closeMenu}>Contact</a>
           </li>
         </ul>
       </div>

@@ -14,14 +14,6 @@
     border-color 0.3s ease;
 }
 
-@supports ((-webkit-backdrop-filter: initial) or (backdrop-filter: initial)) {
-  .navigatorContainer {
-    background-color: var(--nav-bg);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    backdrop-filter: saturate(180%) blur(20px);
-  }
-}
-
 .navRight {
   display: flex;
   flex-direction: row;
@@ -29,6 +21,18 @@
   height: 100%;
   padding: 0;
   margin: 0;
+}
+
+@supports ((-webkit-backdrop-filter: initial) or (backdrop-filter: initial)) {
+  .navigatorContainer {
+    background-color: var(--nav-bg);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  .menuOpen {
+    background-color: var(--background);
+  }
 }
 
 .navigatorContainer ul {
@@ -106,17 +110,89 @@
   width: auto;
 }
 
+/* Hamburger Menu Button - Hidden on Desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 15px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background-color: var(--foreground);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 /* Mobile Responsive Styles */
 
 /* Tablets and small desktops */
 @media screen and (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
   .navigatorContainer ul {
-    font-size: 1em;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--background);
+    flex-direction: column;
+    padding: 20px 0;
+    padding-top: 85px;
+    border-left: 2px solid var(--nav-border);
+    transition: right 0.3s ease;
+    font-size: 1.1em;
+  }
+
+  .navigatorContainer ul.menuOpen {
+    right: 0;
+  }
+
+  .navigatorContainer ul li {
+    width: 100%;
+    height: auto;
   }
 
   .navigatorContainer ul li a {
-    padding: 0 15px;
-    height: 60px;
+    width: 100%;
+    height: 50px;
+    padding: 0 30px;
+    justify-content: flex-start;
+  }
+
+  .navigatorContainer ul li a::before {
+    left: 0;
+    width: 0;
+    height: 100%;
+  }
+
+  .navigatorContainer ul li a:hover::before {
+    width: 100%;
   }
 
   .navigatorContainer h1 {
@@ -140,12 +216,16 @@
   }
 
   .navigatorContainer ul {
-    font-size: 0.85em;
+    top: 0;
+    height: 100vh;
+    width: 200px;
+    font-size: 1em;
+    padding-top: 75px;
   }
 
   .navigatorContainer ul li a {
-    padding: 0 10px;
-    height: 55px;
+    height: 48px;
+    padding: 0 25px;
   }
 
   .navigatorContainer h1 {
@@ -161,17 +241,40 @@
   .navigatorContainer img {
     height: 34px;
   }
+
+  .hamburger {
+    width: 28px;
+    height: 23px;
+    margin-right: 10px;
+  }
+
+  .hamburger span {
+    width: 28px;
+    height: 2.5px;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
 }
 
 /* Mobile phones - smaller screens (iPhone SE, iPhone 12/13 mini, etc.) */
 @media screen and (max-width: 375px) {
   .navigatorContainer ul {
-    font-size: 0.75em;
+    top: 0;
+    height: 100vh;
+    width: 180px;
+    font-size: 0.95em;
+    padding-top: 70px;
   }
 
   .navigatorContainer ul li a {
-    padding: 0 8px;
-    height: 50px;
+    height: 45px;
+    padding: 0 20px;
   }
 
   .navigatorContainer h1 {
@@ -186,17 +289,39 @@
   .navigatorContainer img {
     height: 30px;
   }
+
+  .hamburger {
+    width: 26px;
+    height: 21px;
+  }
+
+  .hamburger span {
+    width: 26px;
+    height: 2px;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
 }
 
 /* Very small mobile phones (iPhone SE 1st gen, older Android phones) */
 @media screen and (max-width: 320px) {
   .navigatorContainer ul {
-    font-size: 0.65em;
+    top: 0;
+    height: 100vh;
+    width: 160px;
+    font-size: 0.9em;
+    padding-top: 68px;
   }
 
   .navigatorContainer ul li a {
-    padding: 0 6px;
-    height: 48px;
+    height: 42px;
+    padding: 0 15px;
   }
 
   .navigatorContainer h1 {
@@ -210,6 +335,25 @@
 
   .navigatorContainer img {
     height: 28px;
+  }
+
+  .hamburger {
+    width: 24px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+  }
+
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
   }
 }
 
