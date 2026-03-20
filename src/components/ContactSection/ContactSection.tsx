@@ -49,15 +49,16 @@ const ContactSection = () => {
                 name={"The Greater Gaming Society"}
                 alt={"gaming society logo"}
                 url={"https://www.facebook.com/groups/ggssa/"}
+                icon={"/ggs-logo.png"}
               />
               <SocialLink
-                name={"Dev SA"}
+                name={"DEV SA"}
                 alt={"devsa logo"}
                 url={"https://devsa.io/"}
                 icon={"/devsa-logo.svg"}
               />
               <SocialLink
-                name={"geekdom"}
+                name={"Geekdom"}
                 alt={"geekdom logo"}
                 url={"https://geekdom.com/"}
                 icon={"/geekdom.svg"}
@@ -66,6 +67,7 @@ const ContactSection = () => {
                 name={"Techbloc"}
                 alt={"techblock logo"}
                 url={"https://satechbloc.com/"}
+                icon={"/tech-bloc.png"}
               />
               <SocialLink
                 name={"Geeks &&"}
