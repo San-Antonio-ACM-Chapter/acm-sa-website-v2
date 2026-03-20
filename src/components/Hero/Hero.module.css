@@ -99,15 +99,16 @@
 
 @media (max-width: 480px) {
   .heroContainer img {
-    height: 60px;
+    height: 200px;
   }
 
   .heroContainer h1 {
-    font-size: 1.5rem;
-    max-width: 300px;
+    font-size: 2rem;
+    width: 100%;
+    padding: 0 1rem;
   }
 
   .heroContainer span {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }

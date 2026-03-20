@@ -90,8 +90,8 @@ const Hero = ({
       <Image
         src={imgOptions.img || "/acm-logo.svg"}
         alt={imgOptions.alt || "ACM Logo"}
-        width={100}
-        height={100}
+        width={175}
+        height={175}
         priority
       />
       <h1>{title}</h1>
