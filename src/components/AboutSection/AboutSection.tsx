@@ -23,9 +23,9 @@ const AboutSection = () => {
         is a global organization dedicated to advancing computing as a science
         and profession.
       </p>
-      <h3>What does it mean to be an ACM City Chapter?</h3>
+      <h3>What does it mean to be an ACM Professional Chapter?</h3>
       <p>
-        ACM <strong>San Antonio</strong> is a city chapter of the ACM, which
+        ACM <strong>San Antonio</strong> is a professional chapter of the ACM, which
         means that we are a local branch of the larger organization. We are
         dedicated to providing opportunities for everyone in the San Antonio
         area to learn about and engage with computing.
