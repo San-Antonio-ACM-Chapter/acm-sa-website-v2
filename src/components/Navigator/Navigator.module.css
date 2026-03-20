@@ -105,3 +105,111 @@
   height: 44px;
   width: auto;
 }
+
+/* Mobile Responsive Styles */
+
+/* Tablets and small desktops */
+@media screen and (max-width: 768px) {
+  .navigatorContainer ul {
+    font-size: 1em;
+  }
+
+  .navigatorContainer ul li a {
+    padding: 0 15px;
+    height: 60px;
+  }
+
+  .navigatorContainer h1 {
+    font-size: 1.3em;
+  }
+
+  .logoContainer {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .navigatorContainer img {
+    height: 38px;
+  }
+}
+
+/* Mobile phones - larger screens (iPhone 14 Pro Max, Pixel 7 Pro, etc.) */
+@media screen and (max-width: 480px) {
+  .navigatorContainer {
+    padding: 0;
+  }
+
+  .navigatorContainer ul {
+    font-size: 0.85em;
+  }
+
+  .navigatorContainer ul li a {
+    padding: 0 10px;
+    height: 55px;
+  }
+
+  .navigatorContainer h1 {
+    font-size: 1.1em;
+  }
+
+  .logoContainer {
+    padding: 5px;
+    padding-left: 10px;
+    gap: 6px;
+  }
+
+  .navigatorContainer img {
+    height: 34px;
+  }
+}
+
+/* Mobile phones - smaller screens (iPhone SE, iPhone 12/13 mini, etc.) */
+@media screen and (max-width: 375px) {
+  .navigatorContainer ul {
+    font-size: 0.75em;
+  }
+
+  .navigatorContainer ul li a {
+    padding: 0 8px;
+    height: 50px;
+  }
+
+  .navigatorContainer h1 {
+    font-size: 1em;
+  }
+
+  .logoContainer {
+    padding: 5px;
+    gap: 5px;
+  }
+
+  .navigatorContainer img {
+    height: 30px;
+  }
+}
+
+/* Very small mobile phones (iPhone SE 1st gen, older Android phones) */
+@media screen and (max-width: 320px) {
+  .navigatorContainer ul {
+    font-size: 0.65em;
+  }
+
+  .navigatorContainer ul li a {
+    padding: 0 6px;
+    height: 48px;
+  }
+
+  .navigatorContainer h1 {
+    font-size: 0.9em;
+  }
+
+  .logoContainer {
+    padding: 4px;
+    gap: 4px;
+  }
+
+  .navigatorContainer img {
+    height: 28px;
+  }
+}
+
