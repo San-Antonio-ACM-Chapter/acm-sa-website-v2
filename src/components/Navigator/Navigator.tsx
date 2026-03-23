@@ -35,16 +35,24 @@ const Navigator = () => {
         </button>
         <ul className={isMenuOpen ? styles.menuOpen : ""}>
           <li>
-            <a href="#home" onClick={closeMenu}>Home</a>
+            <a href="#home" onClick={closeMenu}>
+              Home
+            </a>
           </li>
           <li>
-            <a href="#about" onClick={closeMenu}>About</a>
+            <a href="#about" onClick={closeMenu}>
+              About
+            </a>
           </li>
           <li>
-            <a href="#events" onClick={closeMenu}>Events</a>
+            <a href="#events" onClick={closeMenu}>
+              Events
+            </a>
           </li>
           <li>
-            <a href="#contact" onClick={closeMenu}>Contact</a>
+            <a href="#contact" onClick={closeMenu}>
+              Contact
+            </a>
           </li>
         </ul>
       </div>

@@ -1,7 +1,7 @@
 .eventsSection {
   background-color: var(--section-bg-secondary);
   padding: 2rem 10rem;
-  height: 100vh;
+  min-height: 100vh;
   transition: background-color 0.3s ease;
   user-select: none;
   -webkit-user-select: none;
@@ -27,6 +27,7 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   cursor: default;
+  margin-bottom: 1rem;
 }
 
 .eventsSection h3 {
@@ -65,17 +66,119 @@
   transition: 0.1s ease-in-out;
 }
 
+.filterButtons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filterButton {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--nav-border);
+  background-color: transparent;
+  color: var(--foreground);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.filterButton:hover {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: var(--foreground-light);
+}
+
+.filterButton.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--foreground-light);
+}
+
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.loadingState,
+.errorState,
+.emptyState {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.loadingState p,
+.errorState p,
+.emptyState p {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 1.2rem;
+  color: var(--foreground);
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.errorState p {
+  color: #ff4444;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.viewAllButton {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: var(--foreground-light);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.viewAllButton:hover {
+  background-color: var(--secondary);
+  transform: scale(1.05);
+}
+
+.viewAllButton:active {
+  transform: scale(0.98);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .eventsSection {
     padding: 2rem 2rem;
-    height: auto;
     min-height: 100vh;
   }
 
   .eventsSection h2 {
     font-size: 2rem;
     line-height: 2.5rem;
+  }
+
+  .eventsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .filterButtons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .filterButton {
+    width: 100%;
   }
 
   .eventsSection h3 {
@@ -99,6 +202,19 @@
     line-height: 2.2rem;
   }
 
+  .eventsGrid {
+    gap: 1rem;
+  }
+
+  .filterButtons {
+    gap: 0.5rem;
+  }
+
+  .filterButton {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+
   .eventsSection h3 {
     font-size: 1.3rem;
     line-height: 1.6rem;
@@ -108,5 +224,15 @@
     font-size: 0.95rem;
     padding-left: 0.75rem;
   }
-}
 
+  .loadingState p,
+  .errorState p,
+  .emptyState p {
+    font-size: 1rem;
+  }
+
+  .viewAllButton {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}

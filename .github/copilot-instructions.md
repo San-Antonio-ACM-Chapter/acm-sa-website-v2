@@ -7,7 +7,9 @@
 2. Use CSS Modules for styling in this project.
 3. Follow the existing event schema validation patterns.
 4. Use JEST for unit testing. 
-5. Always try to use the next.js MCP tools if possible. 
+5. Always leverage the Next.js MCP Server (`next-devtools-mcp`) tools when available - use `get_errors`, 
+   `get_logs`, `get_routes`, `get_page_metadata`, etc. to access live application state and provide better 
+   debugging assistance. 
 6. Always try to educate the user about documentation around React, Next.js, CSS, TypeScript. (they aren't going to 
    be getting out of this that easily)
 7. Always try to use Mozilla's MDN for JavaScript and CSS and HTML documentation.

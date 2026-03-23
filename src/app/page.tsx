@@ -14,7 +14,7 @@ const Home = () => {
       </section>
       <AboutSection />
       <EventsSection />
-      <ContactSection/>
+      <ContactSection />
     </div>
   );
 };

@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`EventCard should match snapshot with featured event 1`] = `
+<div>
+  <div
+    class="eventCard featured"
+  >
+    <div
+      class="featuredBadge"
+    >
+      Featured
+    </div>
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 1:00 PM
+      </p>
+    </div>
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <div
+      class="eventDetails"
+    >
+      <div
+        class="eventLocation"
+      >
+        <span
+          class="locationIcon"
+        >
+          📍
+        </span>
+        <span>
+          Test Venue
+          , 123 Test St
+        </span>
+      </div>
+    </div>
+    <div
+      class="eventTags"
+    >
+      <span
+        class="tag"
+      >
+        testing
+      </span>
+      <span
+        class="tag"
+      >
+        jest
+      </span>
+    </div>
+    <div
+      class="eventFooter"
+    >
+      <p
+        class="organizer"
+      >
+        Organized by 
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EventCard should match snapshot with regular event 1`] = `
+<div>
+  <div
+    class="eventCard "
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 1:00 PM
+      </p>
+    </div>
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <div
+      class="eventDetails"
+    >
+      <div
+        class="eventLocation"
+      >
+        <span
+          class="locationIcon"
+        >
+          📍
+        </span>
+        <span>
+          Test Venue
+          , 123 Test St
+        </span>
+      </div>
+    </div>
+    <div
+      class="eventTags"
+    >
+      <span
+        class="tag"
+      >
+        testing
+      </span>
+      <span
+        class="tag"
+      >
+        jest
+      </span>
+    </div>
+    <div
+      class="eventFooter"
+    >
+      <p
+        class="organizer"
+      >
+        Organized by 
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EventCard should match snapshot with virtual event 1`] = `
+<div>
+  <div
+    class="eventCard "
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 1:00 PM
+      </p>
+    </div>
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <div
+      class="eventDetails"
+    >
+      <div
+        class="eventLocation"
+      >
+        <span
+          class="locationIcon"
+        >
+          📍
+        </span>
+        <span>
+          Virtual Event
+        </span>
+      </div>
+    </div>
+    <div
+      class="eventTags"
+    >
+      <span
+        class="tag"
+      >
+        testing
+      </span>
+      <span
+        class="tag"
+      >
+        jest
+      </span>
+    </div>
+    <div
+      class="eventFooter"
+    >
+      <p
+        class="organizer"
+      >
+        Organized by 
+      </p>
+    </div>
+  </div>
+</div>
+`;

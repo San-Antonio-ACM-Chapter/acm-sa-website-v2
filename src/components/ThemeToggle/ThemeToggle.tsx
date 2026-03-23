@@ -1,5 +1,5 @@
 "use client";
-import { useTheme } from "@/lib/ThemeContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import styles from "./ThemeToggle.module.css";
 
 const ThemeToggle = () => {

@@ -1,0 +1,97 @@
+{
+  "events": [
+    {
+      "id": "hackathon-spring-2026",
+      "title": "ACM SA Spring Hackathon 2026",
+      "description": "Join us for our annual Spring Hackathon! Build amazing projects, network with fellow developers, and compete for prizes. All skill levels welcome!",
+      "date": "2026-04-15T09:00:00.000Z",
+      "endDate": "2026-04-16T18:00:00.000Z",
+      "location": {
+        "venue": "Geekdom",
+        "address": "131 Soledad St",
+        "city": "San Antonio",
+        "state": "TX",
+        "isVirtual": false
+      },
+      "imageUrl": "/events/hackathon-spring-2026.jpg",
+      "registrationUrl": "https://example.com/register/hackathon-spring-2026",
+      "tags": ["hackathon", "competition", "coding"],
+      "capacity": 100,
+      "isFeatured": true,
+      "organizer": "ACM San Antonio"
+    },
+    {
+      "id": "web-dev-workshop-march-2026",
+      "title": "Modern Web Development Workshop",
+      "description": "Learn the fundamentals of modern web development with React and Next.js. Hands-on session covering components, routing, and deployment.",
+      "date": "2026-03-28T14:00:00.000Z",
+      "endDate": "2026-03-28T17:00:00.000Z",
+      "location": {
+        "venue": "Tech Bloc",
+        "address": "123 Tech Blvd",
+        "city": "San Antonio",
+        "state": "TX",
+        "isVirtual": false
+      },
+      "registrationUrl": "https://example.com/register/web-dev-workshop",
+      "tags": ["workshop", "web development", "react", "nextjs"],
+      "capacity": 50,
+      "isFeatured": true,
+      "organizer": "ACM San Antonio"
+    },
+    {
+      "id": "ai-ml-speaker-series-april-2026",
+      "title": "AI/ML Speaker Series: The Future of AI",
+      "description": "Join industry experts as they discuss the latest trends in artificial intelligence and machine learning. Q&A session to follow.",
+      "date": "2026-04-05T18:00:00.000Z",
+      "endDate": "2026-04-05T20:00:00.000Z",
+      "location": {
+        "venue": "Virtual Event",
+        "city": "San Antonio",
+        "state": "TX",
+        "isVirtual": true,
+        "virtualLink": "https://zoom.us/j/example"
+      },
+      "tags": ["speaker series", "AI", "machine learning"],
+      "isFeatured": false,
+      "organizer": "ACM San Antonio"
+    },
+    {
+      "id": "career-fair-prep-march-2026",
+      "title": "Tech Career Fair Preparation",
+      "description": "Get ready for upcoming tech career fairs! Learn how to polish your resume, ace technical interviews, and make a great impression.",
+      "date": "2026-03-25T17:00:00.000Z",
+      "endDate": "2026-03-25T19:00:00.000Z",
+      "location": {
+        "venue": "Geekdom",
+        "address": "131 Soledad St",
+        "city": "San Antonio",
+        "state": "TX",
+        "isVirtual": false
+      },
+      "tags": ["career", "networking", "professional development"],
+      "capacity": 75,
+      "isFeatured": false,
+      "organizer": "ACM San Antonio"
+    },
+    {
+      "id": "game-dev-jam-may-2026",
+      "title": "Game Development Game Jam",
+      "description": "A collaborative event with Greater Gaming Society! Create a game in 48 hours with a team. No experience necessary - just bring your creativity!",
+      "date": "2026-05-10T18:00:00.000Z",
+      "endDate": "2026-05-12T18:00:00.000Z",
+      "location": {
+        "venue": "Geekdom",
+        "address": "131 Soledad St",
+        "city": "San Antonio",
+        "state": "TX",
+        "isVirtual": false
+      },
+      "registrationUrl": "https://example.com/register/game-jam",
+      "tags": ["game jam", "game development", "collaboration"],
+      "capacity": 60,
+      "isFeatured": true,
+      "organizer": "ACM San Antonio & Greater Gaming Society"
+    }
+  ]
+}

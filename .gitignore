@@ -12,7 +12,9 @@
 
 # testing
 /coverage
+/coverage-final.json
 /.jest-cache
+*.lcov
 
 # next.js
 /.next/
@@ -45,8 +47,11 @@ src/.env.local
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # IDE files
 .vscode/
 .idea/
+.fleet/
+
+# Biome
+.biome-cache/
