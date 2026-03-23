@@ -15,6 +15,58 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  notify-pr-opened:
+    name: Notify Discord PR Opened
+    runs-on: ubuntu-latest
+    if: ${{ github.event.action == 'opened' }}
+
+    steps:
+      - name: Send pull request notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_ROLE_ID: "1485499573056049233"
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          ACTOR: ${{ github.event.pull_request.user.login }}
+          ACTOR_AVATAR_URL: ${{ github.event.pull_request.user.avatar_url }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "Missing DISCORD_WEBHOOK_URL secret."
+            exit 1
+          fi
+
+          timestamp=$(TZ=America/Chicago date '+%a, %b %-d, %Y %-I:%M %p')
+
+          payload=$(cat <<EOF
+          {
+            "content": "<@&$DISCORD_ROLE_ID>",
+            "allowed_mentions": {
+              "parse": [],
+              "roles": ["$DISCORD_ROLE_ID"]
+            },
+            "embeds": [
+              {
+                "title": "$PR_TITLE",
+                "author": {
+                  "name": "$ACTOR",
+                  "icon_url": "$ACTOR_AVATAR_URL"
+                },
+                "description": "[link]($PR_URL)",
+                "color": 3447003,
+                "footer": {
+                  "text": "$timestamp"
+                }
+              }
+            ]
+          }
+          EOF
+          )
+
+          curl --fail --silent --show-error \
+            --header "Content-Type: application/json" \
+            --data "$payload" \
+            "$DISCORD_WEBHOOK_URL"
+
   validate-pr-body:
     name: Validate PR Description
     runs-on: ubuntu-latest

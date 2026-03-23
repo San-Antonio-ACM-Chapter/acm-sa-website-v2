@@ -172,7 +172,7 @@ jobs:
                   "name": "$ACTOR",
                   "icon_url": "$ACTOR_AVATAR_URL"
                 },
-                "description": "$lint_icon Lint\n$test_icon Tests\n$build_icon Build\n$deploy_icon Deployment\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL) | [Repository]($REPOSITORY_URL)\n",
+                "description": "$lint_icon Lint\n$test_icon Tests\n$build_icon Build\n$deploy_icon Deployment\n\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL) | [Repository]($REPOSITORY_URL)\n",
                 "color": 15158332,
                 "footer": {
                   "text": "$timestamp"
@@ -221,7 +221,7 @@ jobs:
                   "name": "$ACTOR",
                   "icon_url": "$ACTOR_AVATAR_URL"
                 },
-                "description": "[acmsa.org](https://acm-sa-website-v2.onrender.com)\n\n✅ Build\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL) | [Repository]($REPOSITORY_URL)\n",
+                "description": "[acmsa.org](https://acm-sa-website-v2.onrender.com)\n\n✅ Build\n\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL) | [Repository]($REPOSITORY_URL)\n",
                 "color": 3066993,
                 "footer": {
                   "text": "$timestamp"
