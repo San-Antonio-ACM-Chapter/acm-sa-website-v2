@@ -47,6 +47,7 @@ exports[`Navigator should match snapshot 1`] = `
         aria-expanded="false"
         aria-label="Toggle menu"
         class="hamburger "
+        type="button"
       >
         <span />
         <span />
