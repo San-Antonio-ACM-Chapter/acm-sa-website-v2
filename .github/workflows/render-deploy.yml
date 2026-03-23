@@ -117,6 +117,7 @@ jobs:
           SHA: ${{ github.sha }}
           COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
           ACTOR: ${{ github.actor }}
+          ACTOR_AVATAR_URL: ${{ github.event.sender.avatar_url }}
           LINT_RESULT: ${{ needs.lint.result }}
           TEST_RESULT: ${{ needs.test.result }}
           BUILD_RESULT: ${{ needs.build.result }}
@@ -169,7 +170,8 @@ jobs:
               {
                 "title": "Pipeline Failure",
                 "author": {
-                  "name": "$ACTOR"
+                  "name": "$ACTOR",
+                  "icon_url": "$ACTOR_AVATAR_URL"
                 },
                 "description": "$lint_icon Lint\n$test_icon Tests\n$build_icon Build\n$deploy_icon Deployment\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL) | [Repository]($REPOSITORY_URL)\n",
                 "color": 15158332,
@@ -201,6 +203,7 @@ jobs:
           REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
           COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
           ACTOR: ${{ github.actor }}
+          ACTOR_AVATAR_URL: ${{ github.event.sender.avatar_url }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           if [ -z "$DISCORD_WEBHOOK_URL" ]; then
@@ -216,7 +219,8 @@ jobs:
               {
                 "title": "Deployment Success",
                 "author": {
-                  "name": "$ACTOR"
+                  "name": "$ACTOR",
+                  "icon_url": "$ACTOR_AVATAR_URL"
                 },
                 "description": "[acmsa.org](https://acm-sa-website-v2.onrender.com)\n\n✅ Build\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL) | [Repository]($REPOSITORY_URL)\n",
                 "color": 3066993,
