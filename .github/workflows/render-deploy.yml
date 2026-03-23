@@ -12,8 +12,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci:
-    name: Lint, Test, and Build
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -32,8 +32,46 @@ jobs:
       - name: Run Biome lint checks
         run: npm run lint
 
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
       - name: Run test suite
         run: npm test -- --runInBand
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+    if: ${{ needs.lint.result == 'success' && needs.test.result == 'success' }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build application
         run: npm run build
@@ -41,8 +79,8 @@ jobs:
   deploy:
     name: Deploy to Render
     runs-on: ubuntu-latest
-    needs: ci
-    if: ${{ needs.ci.result == 'success' && github.ref_name == 'main' }}
+    needs: build
+    if: ${{ needs.build.result == 'success' && github.ref_name == 'main' }}
 
     steps:
       - name: Trigger Render deploy
@@ -58,51 +96,27 @@ jobs:
             --request POST \
             "$RENDER_DEPLOY_HOOK_URL"
 
-  notify:
-    name: Notify Discord
+  notify-failure:
+    name: Notify Discord Failure
     runs-on: ubuntu-latest
     needs:
-      - ci
+      - lint
+      - test
+      - build
       - deploy
-    if: ${{ always() }}
+    if: ${{ always() && (needs.lint.result == 'failure' || needs.test.result == 'failure' || needs.build.result == 'failure' || needs.deploy.result == 'failure') }}
 
     steps:
-      - name: Send success notification
-        if: ${{ needs.ci.result == 'success' && (needs.deploy.result == 'success' || (needs.deploy.result == 'skipped' && github.ref_name != 'main')) }}
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          REPOSITORY: ${{ github.repository }}
-          BRANCH: ${{ github.ref_name }}
-          SHA: ${{ github.sha }}
-          ACTOR: ${{ github.actor }}
-          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        run: |
-          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
-            echo "Missing DISCORD_WEBHOOK_URL secret."
-            exit 1
-          fi
-
-          payload=$(cat <<EOF
-          {
-            "content": "Workflow passed for \`$REPOSITORY\` on \`$BRANCH\` by \`$ACTOR\`.\nCommit: \`$SHA\`\nDeploy status: \`${{ needs.deploy.result }}\`\nWorkflow: $RUN_URL"
-          }
-          EOF
-          )
-
-          curl --fail --silent --show-error \
-            --header "Content-Type: application/json" \
-            --data "$payload" \
-            "$DISCORD_WEBHOOK_URL"
-
       - name: Send failure notification
-        if: ${{ needs.ci.result != 'success' || needs.deploy.result == 'failure' }}
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           REPOSITORY: ${{ github.repository }}
           BRANCH: ${{ github.ref_name }}
           SHA: ${{ github.sha }}
           ACTOR: ${{ github.actor }}
-          CI_RESULT: ${{ needs.ci.result }}
+          LINT_RESULT: ${{ needs.lint.result }}
+          TEST_RESULT: ${{ needs.test.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
           DEPLOY_RESULT: ${{ needs.deploy.result }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
@@ -113,7 +127,45 @@ jobs:
 
           payload=$(cat <<EOF
           {
-            "content": "Render deploy blocked or failed for \`$REPOSITORY\` on \`$BRANCH\` by \`$ACTOR\`.\nCommit: \`$SHA\`\nCI result: \`$CI_RESULT\`\nDeploy result: \`$DEPLOY_RESULT\`\nWorkflow: $RUN_URL"
+            "content": "Workflow failed for \`$REPOSITORY\` on \`$BRANCH\` by \`$ACTOR\`.\nCommit: \`$SHA\`\nLint: \`$LINT_RESULT\`\nTest: \`$TEST_RESULT\`\nBuild: \`$BUILD_RESULT\`\nDeploy: \`$DEPLOY_RESULT\`\nWorkflow: $RUN_URL"
+          }
+          EOF
+          )
+
+          curl --fail --silent --show-error \
+            --header "Content-Type: application/json" \
+            --data "$payload" \
+            "$DISCORD_WEBHOOK_URL"
+
+  notify-success:
+    name: Notify Discord Success
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+      - build
+      - deploy
+    if: ${{ always() && needs.lint.result == 'success' && needs.test.result == 'success' && needs.build.result == 'success' && (needs.deploy.result == 'success' || (needs.deploy.result == 'skipped' && github.ref_name != 'main')) }}
+
+    steps:
+      - name: Send success notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          REPOSITORY: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+          SHA: ${{ github.sha }}
+          ACTOR: ${{ github.actor }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "Missing DISCORD_WEBHOOK_URL secret."
+            exit 1
+          fi
+
+          payload=$(cat <<EOF
+          {
+            "content": "Workflow passed for \`$REPOSITORY\` on \`$BRANCH\` by \`$ACTOR\`.\nCommit: \`$SHA\`\nDeploy status: \`$DEPLOY_RESULT\`\nWorkflow: $RUN_URL"
           }
           EOF
           )
