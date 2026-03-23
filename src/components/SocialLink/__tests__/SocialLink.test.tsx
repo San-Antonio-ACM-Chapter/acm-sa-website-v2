@@ -4,17 +4,23 @@ import SocialLink from "../SocialLink";
 describe("SocialLink", () => {
   it("should match snapshot with default props", () => {
     const { container } = render(
-      <SocialLink href="https://example.com" icon="/test-icon.svg" />,
+      <SocialLink
+        name="Test Social"
+        url="https://example.com"
+        alt="Test icon"
+        icon="/test-icon.svg"
+      />,
     );
     expect(container).toMatchSnapshot();
   });
 
-  it("should match snapshot with label", () => {
+  it("should match snapshot with custom icon", () => {
     const { container } = render(
       <SocialLink
-        href="https://example.com"
-        icon="/test-icon.svg"
-        label="Test Social"
+        name="Custom Social"
+        url="https://example.com"
+        alt="Custom social icon"
+        icon="/custom-icon.svg"
       />,
     );
     expect(container).toMatchSnapshot();

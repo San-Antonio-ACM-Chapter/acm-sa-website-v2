@@ -1,11 +1,38 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`SocialLink should match snapshot with custom icon 1`] = `
+<div>
+  <li
+    class="socialLink"
+  >
+    <img
+      alt="Custom social icon"
+      data-nimg="1"
+      decoding="async"
+      height="24"
+      loading="lazy"
+      src="/custom-icon.svg"
+      style="color: transparent;"
+      width="24"
+    />
+    <a
+      href="https://example.com"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Custom Social
+    </a>
+  </li>
+</div>
+`;
+
 exports[`SocialLink should match snapshot with default props 1`] = `
 <div>
   <li
     class="socialLink"
   >
     <img
+      alt="Test icon"
       data-nimg="1"
       decoding="async"
       height="24"
@@ -15,31 +42,12 @@ exports[`SocialLink should match snapshot with default props 1`] = `
       width="24"
     />
     <a
+      href="https://example.com"
       rel="noopener noreferrer"
       target="_blank"
-    />
-  </li>
-</div>
-`;
-
-exports[`SocialLink should match snapshot with label 1`] = `
-<div>
-  <li
-    class="socialLink"
-  >
-    <img
-      data-nimg="1"
-      decoding="async"
-      height="24"
-      loading="lazy"
-      src="/test-icon.svg"
-      style="color: transparent;"
-      width="24"
-    />
-    <a
-      rel="noopener noreferrer"
-      target="_blank"
-    />
+    >
+      Test Social
+    </a>
   </li>
 </div>
 `;
