@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import EventCard from "../EventCard";
 import type { Event } from "@/components/EventsSection/EventsSection";
+import EventCard from "../EventCard";
 
 describe("EventCard", () => {
   const mockEvent: Event = {

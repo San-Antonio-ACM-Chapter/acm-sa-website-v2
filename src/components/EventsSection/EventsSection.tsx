@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import styles from "./EventsSection.module.css";
 import EventCard from "@/components/EventCard/EventCard";
+import styles from "./EventsSection.module.css";
 
 export type EventLocation = {
   venue?: string;

@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import Navigator from "../Navigator";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import Navigator from "../Navigator";
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {

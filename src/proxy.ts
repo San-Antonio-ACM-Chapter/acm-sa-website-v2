@@ -1,12 +1,12 @@
 /**
- * Next.js Middleware for route protection
+ * Next.js Proxy for route protection
  * Runs before requests to protected routes
  */
 
 import type { NextRequest } from "next/server";
 // import { getIronSession } from '@/lib/session';
 
-export async function middleware(_request: NextRequest) {
+export async function proxy(_request: NextRequest) {
   // const { pathname } = request.nextUrl;
   //
   // // Protected routes that require authentication
@@ -38,7 +38,7 @@ export async function middleware(_request: NextRequest) {
   //       return NextResponse.redirect(loginUrl);
   //     }
   //   } catch (error) {
-  //     console.error('Middleware error:', error);
+  //     console.error('Proxy error:', error);
   //     return NextResponse.redirect(new URL('/login', request.url));
   //   }
   // }
@@ -46,7 +46,7 @@ export async function middleware(_request: NextRequest) {
   // return NextResponse.next();
 }
 
-// Configure which routes the middleware runs on
+// Configure which routes the proxy runs on
 export const config = {
   matcher: [
     /*

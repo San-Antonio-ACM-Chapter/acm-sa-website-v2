@@ -1,5 +1,5 @@
-import styles from "./EventCard.module.css";
 import type { Event } from "@/components/EventsSection/EventsSection";
+import styles from "./EventCard.module.css";
 
 interface EventCardProps {
   event: Event;

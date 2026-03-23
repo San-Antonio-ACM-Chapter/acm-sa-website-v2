@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import ThemeToggle from "../ThemeToggle";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import ThemeToggle from "../ThemeToggle";
 
 // Mock window.matchMedia
 Object.defineProperty(window, "matchMedia", {

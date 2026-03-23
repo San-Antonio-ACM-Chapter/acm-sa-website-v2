@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
+import { useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import styles from "./Navigator.module.css";
 
@@ -24,6 +24,7 @@ const Navigator = () => {
       <div className={styles.navRight}>
         <ThemeToggle />
         <button
+          type="button"
           className={`${styles.hamburger} ${isMenuOpen ? styles.active : ""}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"

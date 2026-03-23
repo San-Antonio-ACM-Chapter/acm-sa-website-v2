@@ -1,5 +1,5 @@
-import styles from "./ContactSection.module.css";
 import SocialLink from "@/components/SocialLink/SocialLink";
+import styles from "./ContactSection.module.css";
 
 const ContactSection = () => {
   return (
