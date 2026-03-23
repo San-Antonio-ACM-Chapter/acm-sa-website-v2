@@ -1,7 +1,6 @@
 .eventCard {
-  background-color: var(--background);
-  border: 2px solid var(--nav-border);
-  border-radius: 8px;
+  background-color: var(--event-card-bg);
+  border-left: 2px solid var(--nav-border);
   padding: 1.5rem;
   transition: all 0.3s ease;
   position: relative;
@@ -26,6 +25,38 @@
   border-color: var(--primary);
 }
 
+.eventImageContainer {
+  position: relative;
+  width: calc(100% + 3rem);
+  margin: -1.5rem -1.5rem 0 -1.5rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.eventImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.headshotOverlay {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  overflow: hidden;
+  border: 3px solid var(--nav-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 1);
+  background-color: var(--event-card-bg);
+}
+
+.headshotImage {
+  display: block;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
 .featuredBadge {
   position: absolute;
   top: -12px;
@@ -33,19 +64,18 @@
   background-color: var(--secondary);
   color: var(--foreground-light);
   padding: 0.25rem 0.75rem;
-  border-radius: 4px;
   font-family: var(--font-jetbrains-mono);
   font-size: 0.75rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  z-index: 10;
 }
 
 .eventHeader {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  margin-top: 0.5rem;
 }
 
 .eventTitle {
@@ -108,7 +138,6 @@
   background-color: var(--nav-bg);
   color: var(--foreground);
   padding: 0.25rem 0.75rem;
-  border-radius: 12px;
   font-family: var(--font-jetbrains-mono);
   font-size: 0.75rem;
   border: 1px solid var(--nav-border);
@@ -142,7 +171,6 @@
   background-color: var(--primary);
   color: var(--foreground-light);
   padding: 0.6rem 1.2rem;
-  border-radius: 4px;
   font-family: var(--font-jetbrains-mono);
   font-size: 0.9rem;
   font-weight: 600;
@@ -166,6 +194,11 @@
 @media (max-width: 768px) {
   .eventCard {
     padding: 1.25rem;
+  }
+
+  .eventImageContainer {
+    width: calc(100% + 2.5rem);
+    margin: -1.25rem -1.25rem 0 -1.25rem;
   }
 
   .eventTitle {
@@ -195,6 +228,22 @@
 @media (max-width: 480px) {
   .eventCard {
     padding: 1rem;
+  }
+
+  .eventImageContainer {
+    width: calc(100% + 2rem);
+    margin: -1rem -1rem 0 -1rem;
+  }
+
+  .headshotOverlay {
+    bottom: 8px;
+    right: 8px;
+    border-width: 2px;
+  }
+
+  .headshotImage {
+    width: 60px;
+    height: 60px;
   }
 
   .eventTitle {

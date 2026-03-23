@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import type { Event } from "@/components/EventsSection/EventsSection";
 import styles from "./EventCard.module.css";
 
@@ -68,6 +69,29 @@ const EventCard = ({ event }: EventCardProps) => {
       className={`${styles.eventCard} ${event.isFeatured ? styles.featured : ""}`}
     >
       {event.isFeatured && <div className={styles.featuredBadge}>Featured</div>}
+
+      {event.imageUrl && (
+        <div className={styles.eventImageContainer}>
+          <Image
+            src={event.imageUrl}
+            alt={`${event.title} promotional image`}
+            width={600}
+            height={300}
+            className={styles.eventImage}
+          />
+          {event.headshotUrl && (
+            <div className={styles.headshotOverlay}>
+              <Image
+                src={event.headshotUrl}
+                alt={`${event.organizer || 'Speaker'} headshot`}
+                width={80}
+                height={80}
+                className={styles.headshotImage}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       <div className={styles.eventHeader}>
         <h3 className={styles.eventTitle}>{event.title}</h3>

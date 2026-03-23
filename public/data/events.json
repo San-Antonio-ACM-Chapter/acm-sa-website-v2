@@ -13,7 +13,8 @@
         "state": "TX",
         "isVirtual": false
       },
-      "imageUrl": "/events/hackathon-spring-2026.jpg",
+      "imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=300&fit=crop&q=80",
+      "headshotUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&q=80",
       "registrationUrl": "https://example.com/register/hackathon-spring-2026",
       "tags": ["hackathon", "competition", "coding"],
       "capacity": 100,
@@ -33,6 +34,8 @@
         "state": "TX",
         "isVirtual": false
       },
+      "imageUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=300&fit=crop&q=80",
+      "headshotUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&q=80",
       "registrationUrl": "https://example.com/register/web-dev-workshop",
       "tags": ["workshop", "web development", "react", "nextjs"],
       "capacity": 50,
@@ -52,6 +55,8 @@
         "isVirtual": true,
         "virtualLink": "https://zoom.us/j/example"
       },
+      "imageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop&q=80",
+      "headshotUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&q=80",
       "tags": ["speaker series", "AI", "machine learning"],
       "isFeatured": false,
       "organizer": "ACM San Antonio"
@@ -69,6 +74,7 @@
         "state": "TX",
         "isVirtual": false
       },
+      "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&h=300&fit=crop&q=80",
       "tags": ["career", "networking", "professional development"],
       "capacity": 75,
       "isFeatured": false,
@@ -87,6 +93,8 @@
         "state": "TX",
         "isVirtual": false
       },
+      "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=300&fit=crop&q=80",
+      "headshotUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&q=80",
       "registrationUrl": "https://example.com/register/game-jam",
       "tags": ["game jam", "game development", "collaboration"],
       "capacity": 60,
