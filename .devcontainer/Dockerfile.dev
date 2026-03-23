@@ -1,0 +1,34 @@
+# Development Dockerfile for ACM SA Website V2
+FROM node:20-alpine
+
+# Install additional tools for development
+RUN apk add --no-cache \
+    git \
+    zsh \
+    curl \
+    vim
+
+# Install oh-my-zsh for better terminal experience
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package.json package-lock.json* ./
+
+# Install all dependencies (including devDependencies)
+RUN npm install
+
+# Copy the rest of the application
+COPY . .
+
+# Expose the dev server port
+EXPOSE 3000
+
+# Set default shell to zsh
+SHELL ["/bin/zsh", "-c"]
+
+# Default command for development
+CMD ["npm", "run", "dev"]
+
