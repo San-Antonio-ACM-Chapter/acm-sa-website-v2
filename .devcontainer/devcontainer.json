@@ -68,4 +68,3 @@
     "source=${localWorkspaceFolder}/node_modules,target=${containerWorkspaceFolder}/node_modules,type=bind,consistency=cached"
   ]
 }
-

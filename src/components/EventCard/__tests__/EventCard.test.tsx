@@ -3,23 +3,31 @@ import type { Event } from "@/components/EventsSection/EventsSection";
 import EventCard from "../EventCard";
 
 // Mock Date methods to return consistent timezone-independent results
-const mockToLocaleDateString = jest.fn((locale: string, options?: Intl.DateTimeFormatOptions) => {
-  // Return a consistent format regardless of timezone
-  if (options?.weekday && options?.month && options?.day && options?.year && options?.hour) {
-    return "Wed, Apr 15, 2026, 6:00 PM";
-  }
-  if (options?.weekday && options?.month && options?.day && options?.year) {
-    return "Wed, Apr 15, 2026";
-  }
-  return "4/15/2026";
-});
+const mockToLocaleDateString = jest.fn(
+  (_locale: string, options?: Intl.DateTimeFormatOptions) => {
+    // Return a consistent format regardless of timezone
+    if (
+      options?.weekday &&
+      options?.month &&
+      options?.day &&
+      options?.year &&
+      options?.hour
+    ) {
+      return "Wed, Apr 15, 2026, 6:00 PM";
+    }
+    if (options?.weekday && options?.month && options?.day && options?.year) {
+      return "Wed, Apr 15, 2026";
+    }
+    return "4/15/2026";
+  },
+);
 
 const mockToLocaleTimeString = jest.fn(() => "6:00 PM");
 
 beforeAll(() => {
-  // @ts-ignore - Mock the Date prototype methods
+  // @ts-expect-error - Mock the Date prototype methods
   Date.prototype.toLocaleDateString = mockToLocaleDateString;
-  // @ts-ignore - Mock the Date prototype methods
+  // @ts-expect-error - Mock the Date prototype methods
   Date.prototype.toLocaleTimeString = mockToLocaleTimeString;
 });
 
