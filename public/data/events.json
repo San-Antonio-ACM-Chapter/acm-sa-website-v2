@@ -21,6 +21,25 @@
       "tags": ["speaker series", "data analytics", "systems thinking", "social services", "AI/ML", "ethics"],
       "isFeatured": false,
       "organizer": "Geeks && {...} and ACM San Antonio"
+    },
+    {
+      "id": "312889977",
+      "title": "ACM San Antonio Monthly Meetup - May 2026",
+      "description": "ACM San Antonio is a local community for people who care about computing. Learning it, building with it, and connecting with others who do. Our goal is to grow interest in modern computing and create a welcoming space for education, collaboration, and communication across the San Antonio tech community.\n\nAGENDA:\n6:00 PM — Doors open + meet & greet\n6:30 PM — ACM San Antonio announcements\n6:35 PM — Featured session\n7:30 PM — Q&A + networking\n(Timing is approximate — we'll keep things moving and leave room for questions + conversation.)",
+      "date": "2026-05-13T23:00:00.000Z",
+      "endDate": "2026-05-14T01:00:00.000Z",
+      "location": {
+        "venue": "TBD",
+        "city": "San Antonio",
+        "state": "TX",
+        "isVirtual": false,
+        "virtualLink": "Link visible for attendees"
+      },
+      "imageUrl": "https://secure.meetupstatic.com/photos/event/3/d/8/7/highres_532215751.webp?w=1080",
+      "meetupLink": "https://www.meetup.com/acm-sa/events/312889977/",
+      "tags": ["monthly meetup", "networking", "community"],
+      "isFeatured": true,
+      "organizer": "ACM San Antonio"
     }
   ]
 }
