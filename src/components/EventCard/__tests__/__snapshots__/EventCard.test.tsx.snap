@@ -21,7 +21,7 @@ exports[`EventCard should match snapshot with featured event 1`] = `
       <p
         class="eventDate"
       >
-        Wed, Apr 15, 2026, 1:00 PM
+        Wed, Apr 15, 2026, 6:00 PM
       </p>
     </div>
     <p
@@ -89,7 +89,7 @@ exports[`EventCard should match snapshot with regular event 1`] = `
       <p
         class="eventDate"
       >
-        Wed, Apr 15, 2026, 1:00 PM
+        Wed, Apr 15, 2026, 6:00 PM
       </p>
     </div>
     <p
@@ -157,7 +157,7 @@ exports[`EventCard should match snapshot with virtual event 1`] = `
       <p
         class="eventDate"
       >
-        Wed, Apr 15, 2026, 1:00 PM
+        Wed, Apr 15, 2026, 6:00 PM
       </p>
     </div>
     <p

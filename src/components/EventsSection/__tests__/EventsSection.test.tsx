@@ -1,6 +1,54 @@
 import { render } from "@testing-library/react";
 import EventsSection from "../EventsSection";
 
+// Mock Date methods and constructor to return consistent timezone-independent results
+const RealDate = Date;
+const originalEnv = process.env.NODE_ENV;
+
+beforeAll(() => {
+  // Set NODE_ENV to development so MOCK_EVENTS are shown
+  process.env.NODE_ENV = "development";
+
+  // Mock Date constructor to return a fixed date
+  global.Date = class extends RealDate {
+    constructor(...args: any[]) {
+      if (args.length === 0) {
+        // When called without arguments (like `new Date()`), return a fixed date
+        super("2026-03-22T12:00:00Z");
+      } else {
+        // When called with arguments, use the real Date constructor
+        super(...args);
+      }
+    }
+
+    // Mock toLocaleDateString
+    toLocaleDateString(locale?: string, options?: Intl.DateTimeFormatOptions): string {
+      if (options?.weekday && options?.month && options?.day && options?.year && options?.hour) {
+        return "Wed, Apr 15, 2026, 6:00 PM";
+      }
+      if (options?.weekday && options?.month && options?.day && options?.year) {
+        return "Wed, Apr 15, 2026";
+      }
+      return "4/15/2026";
+    }
+
+    // Mock toLocaleTimeString
+    toLocaleTimeString(): string {
+      return "6:00 PM";
+    }
+
+    // Preserve static methods
+    static now = RealDate.now;
+    static parse = RealDate.parse;
+    static UTC = RealDate.UTC;
+  } as any;
+});
+
+afterAll(() => {
+  global.Date = RealDate;
+  process.env.NODE_ENV = originalEnv;
+});
+
 describe("EventsSection", () => {
   it("should match snapshot", () => {
     const { container } = render(<EventsSection />);

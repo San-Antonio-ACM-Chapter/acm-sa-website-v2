@@ -129,6 +129,17 @@ docker-compose down
 - ✅ **VS Code Extensions** - Biome, Jest, Copilot auto-installed
 - ✅ **Port 3000** forwarded for dev server
 
+### Verifying the Dev Container is Working
+
+Once the container is running, you should:
+
+1. **Check the terminal output** - You should see Next.js dev server logs
+2. **Open http://localhost:3000** - Your app should be running
+3. **Make a code change** - Hot reload should update the browser automatically
+4. **Run a command** - Try `npm test` in the terminal (executes inside container)
+
+**You can now code normally!** All file changes sync automatically, and your IDE works as expected. The only difference is that Node.js and npm commands run inside the container instead of your local machine.
+
 See `.devcontainer/README.md` for detailed documentation.
 
 ## Code Quality & Formatting

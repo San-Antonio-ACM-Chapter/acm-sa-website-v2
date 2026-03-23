@@ -11,11 +11,164 @@ exports[`EventsSection should match snapshot 1`] = `
       Events
     </h2>
     <div
-      class="emptyState"
+      class="filterButtons"
     >
-      <p>
-        No events scheduled at the moment. Check back soon!
-      </p>
+      <button
+        class="filterButton active"
+        type="button"
+      >
+        Upcoming (
+        2
+        )
+      </button>
+      <button
+        class="filterButton "
+        type="button"
+      >
+        All Events (
+        2
+        )
+      </button>
+    </div>
+    <div
+      class="eventsGrid"
+    >
+      <div
+        class="eventCard featured"
+      >
+        <div
+          class="featuredBadge"
+        >
+          Featured
+        </div>
+        <div
+          class="eventHeader"
+        >
+          <h3
+            class="eventTitle"
+          >
+            Web Development Workshop
+          </h3>
+          <p
+            class="eventDate"
+          >
+            Wed, Apr 15, 2026, 6:00 PM
+          </p>
+        </div>
+        <p
+          class="eventDescription"
+        >
+          Learn the fundamentals of modern web development with React and TypeScript.
+        </p>
+        <div
+          class="eventDetails"
+        >
+          <div
+            class="eventLocation"
+          >
+            <span
+              class="locationIcon"
+            >
+              📍
+            </span>
+            <span>
+              UTSA Main Campus
+              , One UTSA Circle
+            </span>
+          </div>
+        </div>
+        <div
+          class="eventTags"
+        >
+          <span
+            class="tag"
+          >
+            workshop
+          </span>
+          <span
+            class="tag"
+          >
+            web development
+          </span>
+          <span
+            class="tag"
+          >
+            react
+          </span>
+        </div>
+        <div
+          class="eventFooter"
+        >
+          <p
+            class="organizer"
+          >
+            Organized by 
+          </p>
+        </div>
+      </div>
+      <div
+        class="eventCard "
+      >
+        <div
+          class="eventHeader"
+        >
+          <h3
+            class="eventTitle"
+          >
+            Career Fair Networking Night
+          </h3>
+          <p
+            class="eventDate"
+          >
+            Wed, Apr 15, 2026, 6:00 PM
+          </p>
+        </div>
+        <p
+          class="eventDescription"
+        >
+          Connect with local tech companies and learn about career opportunities.
+        </p>
+        <div
+          class="eventDetails"
+        >
+          <div
+            class="eventLocation"
+          >
+            <span
+              class="locationIcon"
+            >
+              📍
+            </span>
+            <span>
+              Tech Bloc
+              , 123 E Houston St
+            </span>
+          </div>
+        </div>
+        <div
+          class="eventTags"
+        >
+          <span
+            class="tag"
+          >
+            career
+          </span>
+          <span
+            class="tag"
+          >
+            networking
+          </span>
+        </div>
+        <div
+          class="eventFooter"
+        >
+          <p
+            class="organizer"
+          >
+            Organized by 
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 </div>
