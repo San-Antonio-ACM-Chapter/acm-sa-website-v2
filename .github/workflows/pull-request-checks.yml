@@ -15,6 +15,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validate-pr-body:
+    name: Validate PR Description
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate pull request body
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if [ -z "$PR_BODY" ] || [ "$PR_BODY" = "null" ]; then
+            echo "Pull request description is required."
+            exit 1
+          fi
+
+          if printf '%s' "$PR_BODY" | grep -Fq "Describe the change in 1-3 sentences."; then
+            echo "Pull request description still contains template placeholder text in Summary."
+            exit 1
+          fi
+
+          if printf '%s' "$PR_BODY" | grep -Fq "Attach before/after screenshots or a short recording for any visible UI change."; then
+            echo "Pull request description still contains template placeholder text in Screenshots / Recording."
+            exit 1
+          fi
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
