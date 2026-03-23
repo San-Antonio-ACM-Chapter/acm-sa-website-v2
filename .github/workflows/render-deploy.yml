@@ -82,6 +82,8 @@ jobs:
     if: ${{ needs.build.result == 'success' }}
 
     steps:
+      # This only confirms GitHub successfully triggered the Render deploy hook.
+      # It does not wait for or verify Render's final build/deploy status.
       - name: Trigger Render deploy
         env:
           RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}

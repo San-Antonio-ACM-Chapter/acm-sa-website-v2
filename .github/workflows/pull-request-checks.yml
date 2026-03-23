@@ -6,6 +6,7 @@ on:
       - main
     types:
       - opened
+      - edited
       - synchronize
       - reopened
       - ready_for_review
@@ -18,13 +19,13 @@ jobs:
   notify-pr-opened:
     name: Notify Discord PR Opened
     runs-on: ubuntu-latest
-    if: ${{ github.event.action == 'opened' }}
+    if: ${{ github.event.action == 'opened' && !github.event.pull_request.draft }}
 
     steps:
       - name: Send pull request notification
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          DISCORD_ROLE_ID: "1485499573056049233"
+          DISCORD_ROLE_ID: "1485514867376001124"
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_URL: ${{ github.event.pull_request.html_url }}
           ACTOR: ${{ github.event.pull_request.user.login }}
@@ -51,7 +52,7 @@ jobs:
                   "name": "$ACTOR",
                   "icon_url": "$ACTOR_AVATAR_URL"
                 },
-                "description": "[link]($PR_URL)",
+                "description": "[Review Here]($PR_URL)",
                 "color": 3447003,
                 "footer": {
                   "text": "$timestamp"
@@ -70,6 +71,7 @@ jobs:
   validate-pr-body:
     name: Validate PR Description
     runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
 
     steps:
       - name: Validate pull request body
@@ -94,6 +96,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
 
     steps:
       - name: Check out repository
@@ -114,6 +117,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
 
     steps:
       - name: Check out repository
