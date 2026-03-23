@@ -21,9 +21,10 @@ The events system uses a JSON-based schema with Zod validation to manage and dis
    - Both client-side and server-side loading support
 
 3. **EventCard Component** (`src/components/EventCard/`)
-   - Displays individual event information
+   - Displays individual event information as a clickable link to the event's Meetup page
    - Responsive design with mobile support
-   - Shows featured badge, tags, and registration links
+   - Shows featured badge, tags, and event details
+   - Entire card acts as a navigation button/link to meetupLink
 
 4. **EventsSection Component** (`src/components/EventsSection/`)
    - Main events display section
@@ -52,7 +53,7 @@ Events are stored in `/public/data/events.json` and must follow this schema:
         "virtualLink": "https://zoom.us/j/example"
       },
       "imageUrl": "/events/image.jpg",
-      "registrationUrl": "https://example.com/register",
+      "meetupLink": "https://www.meetup.com/acm-sa/events/unique-event-id",
       "tags": ["tag1", "tag2"],
       "capacity": 100,
       "isFeatured": true,
@@ -70,6 +71,7 @@ Events are stored in `/public/data/events.json` and must follow this schema:
 - `title` (string): Event title
 - `description` (string): Event description
 - `date` (string): ISO 8601 datetime string for event start
+- `meetupLink` (string): URL to the event's Meetup.com page
 - `location` (object): Event location details
   - `venue` (string): Venue name
 
@@ -82,7 +84,6 @@ Events are stored in `/public/data/events.json` and must follow this schema:
 - `location.isVirtual` (boolean): Whether the event is virtual (defaults to false)
 - `location.virtualLink` (string): URL for virtual event
 - `imageUrl` (string): Path to event image
-- `registrationUrl` (string): URL for event registration
 - `tags` (array): Array of tag strings
 - `capacity` (number): Maximum number of attendees
 - `isFeatured` (boolean): Whether to feature the event (defaults to false)
@@ -112,7 +113,7 @@ Events are stored in `/public/data/events.json` and must follow this schema:
     "state": "TX",
     "isVirtual": false
   },
-  "registrationUrl": "https://example.com/register/python-workshop",
+  "meetupLink": "https://www.meetup.com/acm-sa/events/python-workshop-june-2026",
   "tags": ["workshop", "python", "beginner"],
   "capacity": 30,
   "isFeatured": false,

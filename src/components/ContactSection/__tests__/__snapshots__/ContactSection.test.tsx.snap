@@ -7,212 +7,216 @@ exports[`ContactSection should match snapshot 1`] = `
     id="contact"
     tabindex="-1"
   >
-    <h2>
-      Contact
-    </h2>
-    <span
-      class="contentWrapper"
+    <div
+      class="outerWrapper"
     >
+      <h2>
+        Contact
+      </h2>
       <div
-        class="column"
+        class="contentWrapper"
       >
-        <h3>
-          Social Media
-        </h3>
-        <p>
-          contact us on social media by using the following links! extra text
-        </p>
-        <ul
-          class="linkList"
+        <div
+          class="column"
         >
-          <li
-            class="socialLink"
+          <h3>
+            Social Media
+          </h3>
+          <p>
+            contact us on social media by using the following links! extra text
+          </p>
+          <ul
+            class="linkList"
           >
-            <img
-              alt="discord logo"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/discord.svg"
-              style="color: transparent;"
-              width="24"
-            />
-            <a
-              href="https://discord.gg/hx9Aewv4"
-              rel="noopener noreferrer"
-              target="_blank"
+            <li
+              class="socialLink"
             >
-              ACM SA Discord
-            </a>
-          </li>
-          <li
-            class="socialLink"
-          >
-            <img
-              alt="devsa logo"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/devsa-logo.svg"
-              style="color: transparent;"
-              width="24"
-            />
-            <a
-              href="https://discord.gg/WqHxcmCX"
-              rel="noopener noreferrer"
-              target="_blank"
+              <img
+                alt="discord logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/discord.svg"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://discord.gg/hx9Aewv4"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                ACM SA Discord
+              </a>
+            </li>
+            <li
+              class="socialLink"
             >
-              DEV SA Discord
-            </a>
-          </li>
-          <li
-            class="socialLink"
-          >
-            <img
-              alt="linkedin logo"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/linkedin.svg"
-              style="color: transparent;"
-              width="24"
-            />
-            <a
-              href="https://www.linkedin.com/company/acm-san-antonio"
-              rel="noopener noreferrer"
-              target="_blank"
+              <img
+                alt="devsa logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/devsa-logo.svg"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://discord.gg/WqHxcmCX"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                DEV SA Discord
+              </a>
+            </li>
+            <li
+              class="socialLink"
             >
-              Linkedin
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div
-        class="column"
-      >
-        <h3>
-          Organizations We Partner With
-        </h3>
-        <p>
-          as an organization we often connect and collaborate with these great communities!
-        </p>
-        <ul
-          class="linkList"
+              <img
+                alt="linkedin logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/linkedin.svg"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://www.linkedin.com/company/acm-san-antonio"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Linkedin
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="column"
         >
-          <li
-            class="socialLink"
+          <h3>
+            Organizations We Partner With
+          </h3>
+          <p>
+            as an organization we often connect and collaborate with these great communities!
+          </p>
+          <ul
+            class="linkList"
           >
-            <img
-              alt="gaming society logo"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/_next/image?url=%2Fggs-logo.png&w=48&q=75"
-              srcset="/_next/image?url=%2Fggs-logo.png&w=32&q=75 1x, /_next/image?url=%2Fggs-logo.png&w=48&q=75 2x"
-              style="color: transparent;"
-              width="24"
-            />
-            <a
-              href="https://www.facebook.com/groups/ggssa/"
-              rel="noopener noreferrer"
-              target="_blank"
+            <li
+              class="socialLink"
             >
-              The Greater Gaming Society
-            </a>
-          </li>
-          <li
-            class="socialLink"
-          >
-            <img
-              alt="devsa logo"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/devsa-logo.svg"
-              style="color: transparent;"
-              width="24"
-            />
-            <a
-              href="https://devsa.io/"
-              rel="noopener noreferrer"
-              target="_blank"
+              <img
+                alt="gaming society logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/_next/image?url=%2Fggs-logo.png&w=48&q=75"
+                srcset="/_next/image?url=%2Fggs-logo.png&w=32&q=75 1x, /_next/image?url=%2Fggs-logo.png&w=48&q=75 2x"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://www.facebook.com/groups/ggssa/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                The Greater Gaming Society
+              </a>
+            </li>
+            <li
+              class="socialLink"
             >
-              DEV SA
-            </a>
-          </li>
-          <li
-            class="socialLink"
-          >
-            <img
-              alt="geekdom logo"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/geekdom.svg"
-              style="color: transparent;"
-              width="24"
-            />
-            <a
-              href="https://geekdom.com/"
-              rel="noopener noreferrer"
-              target="_blank"
+              <img
+                alt="devsa logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/devsa-logo.svg"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://devsa.io/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                DEV SA
+              </a>
+            </li>
+            <li
+              class="socialLink"
             >
-              Geekdom
-            </a>
-          </li>
-          <li
-            class="socialLink"
-          >
-            <img
-              alt="techblock logo"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/_next/image?url=%2Ftech-bloc.png&w=48&q=75"
-              srcset="/_next/image?url=%2Ftech-bloc.png&w=32&q=75 1x, /_next/image?url=%2Ftech-bloc.png&w=48&q=75 2x"
-              style="color: transparent;"
-              width="24"
-            />
-            <a
-              href="https://satechbloc.com/"
-              rel="noopener noreferrer"
-              target="_blank"
+              <img
+                alt="geekdom logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/geekdom.svg"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://geekdom.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Geekdom
+              </a>
+            </li>
+            <li
+              class="socialLink"
             >
-              Techbloc
-            </a>
-          </li>
-          <li
-            class="socialLink"
-          >
-            <img
-              alt="geeks and logo"
-              data-nimg="1"
-              decoding="async"
-              height="24"
-              loading="lazy"
-              src="/_next/image?url=%2Fgeeksand.png&w=48&q=75"
-              srcset="/_next/image?url=%2Fgeeksand.png&w=32&q=75 1x, /_next/image?url=%2Fgeeksand.png&w=48&q=75 2x"
-              style="color: transparent;"
-              width="24"
-            />
-            <a
-              href="https://www.geeksanddrinks.tech/"
-              rel="noopener noreferrer"
-              target="_blank"
+              <img
+                alt="techblock logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/_next/image?url=%2Ftech-bloc.png&w=48&q=75"
+                srcset="/_next/image?url=%2Ftech-bloc.png&w=32&q=75 1x, /_next/image?url=%2Ftech-bloc.png&w=48&q=75 2x"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://satechbloc.com/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Techbloc
+              </a>
+            </li>
+            <li
+              class="socialLink"
             >
-              Geeks &&
-            </a>
-          </li>
-        </ul>
+              <img
+                alt="geeks and logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/_next/image?url=%2Fgeeksand.png&w=48&q=75"
+                srcset="/_next/image?url=%2Fgeeksand.png&w=32&q=75 1x, /_next/image?url=%2Fgeeksand.png&w=48&q=75 2x"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://www.geeksanddrinks.tech/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Geeks &&
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </span>
+    </div>
   </section>
 </div>
 `;

@@ -22,7 +22,7 @@ export type Event = {
   location: EventLocation;
   imageUrl?: string;
   headshotUrl?: string;
-  registrationUrl?: string;
+  meetupLink: string;
   tags: string[];
   capacity?: number;
   isFeatured: boolean;

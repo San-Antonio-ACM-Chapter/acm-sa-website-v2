@@ -65,7 +65,10 @@ const EventCard = ({ event }: EventCardProps) => {
   };
 
   return (
-    <div
+    <a
+      href={event.meetupLink}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`${styles.eventCard} ${event.isFeatured ? styles.featured : ""}`}
     >
       {event.isFeatured && <div className={styles.featuredBadge}>Featured</div>}
@@ -108,15 +111,10 @@ const EventCard = ({ event }: EventCardProps) => {
           {event.location.isVirtual ? (
             <span>Virtual Event</span>
           ) : event.location.mapsLink ? (
-            <a
-              href={event.location.mapsLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.locationLink}
-            >
+            <span className={styles.locationLink}>
               {event.location.venue}
               {event.location.address && `, ${event.location.address}`}
-            </a>
+            </span>
           ) : (
             <span>
               {event.location.venue}
@@ -145,30 +143,8 @@ const EventCard = ({ event }: EventCardProps) => {
 
       <div className={styles.eventFooter}>
         <p className={styles.organizer}>Organized by {event.organizer}</p>
-        {event.registrationUrl && (
-          <a
-            href={event.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.registerButton}
-          >
-            Register Now
-          </a>
-        )}
-        {event.location.isVirtual &&
-          event.location.virtualLink &&
-          !event.registrationUrl && (
-            <a
-              href={event.location.virtualLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.registerButton}
-            >
-              Join Event
-            </a>
-          )}
       </div>
-    </div>
+    </a>
   );
 };
 

@@ -34,6 +34,7 @@ describe("EventCard", () => {
       address: "123 Test St",
       isVirtual: false,
     },
+    meetupLink: "https://www.meetup.com/acm-sa/events/test-event-1",
     tags: ["testing", "jest"],
     isFeatured: false,
     registrationRequired: false,
