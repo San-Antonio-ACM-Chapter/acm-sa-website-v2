@@ -1,3 +1,5 @@
+"use client";
+import { useState, useEffect } from "react";
 import type { Event } from "@/components/EventsSection/EventsSection";
 import styles from "./EventCard.module.css";
 
@@ -6,6 +8,12 @@ interface EventCardProps {
 }
 
 const EventCard = ({ event }: EventCardProps) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -64,7 +72,7 @@ const EventCard = ({ event }: EventCardProps) => {
       <div className={styles.eventHeader}>
         <h3 className={styles.eventTitle}>{event.title}</h3>
         <p className={styles.eventDate}>
-          {formatDateRange(event.date, event.endDate)}
+          {mounted ? formatDateRange(event.date, event.endDate) : "Loading date..."}
         </p>
       </div>
 
