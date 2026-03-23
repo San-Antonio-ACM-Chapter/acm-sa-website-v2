@@ -108,9 +108,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 0.75rem 0;
-  border-top: 1px solid var(--nav-border);
-  border-bottom: 1px solid var(--nav-border);
+  padding: 0.75rem;
+  background-color: var(--nav-bg);
 }
 
 .eventLocation,
@@ -121,6 +120,17 @@
   font-family: var(--font-jetbrains-mono);
   font-size: 0.85rem;
   color: var(--foreground);
+}
+
+.locationLink {
+  color: var(--foreground);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.locationLink:hover {
+  color: var(--primary);
+  text-decoration: underline;
 }
 
 .locationIcon,

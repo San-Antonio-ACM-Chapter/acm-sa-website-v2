@@ -10,6 +10,7 @@ export type EventLocation = {
   state?: string;
   isVirtual: boolean;
   virtualLink?: string;
+  mapsLink?: string;
 };
 
 export type Event = {

@@ -32,7 +32,8 @@
         "address": "123 Tech Blvd",
         "city": "San Antonio",
         "state": "TX",
-        "isVirtual": false
+        "isVirtual": false,
+        "mapsLink": "https://maps.google.com/?q=Tech+Bloc,123+Tech+Blvd,San+Antonio,TX"
       },
       "imageUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=300&fit=crop&q=80",
       "headshotUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&q=80",
@@ -72,7 +73,8 @@
         "address": "131 Soledad St",
         "city": "San Antonio",
         "state": "TX",
-        "isVirtual": false
+        "isVirtual": false,
+        "mapsLink": "https://maps.google.com/?q=Geekdom,131+Soledad+St,San+Antonio,TX"
       },
       "imageUrl": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&h=300&fit=crop&q=80",
       "tags": ["career", "networking", "professional development"],
@@ -91,7 +93,8 @@
         "address": "131 Soledad St",
         "city": "San Antonio",
         "state": "TX",
-        "isVirtual": false
+        "isVirtual": false,
+        "mapsLink": "https://maps.google.com/?q=Geekdom,131+Soledad+St,San+Antonio,TX"
       },
       "imageUrl": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=300&fit=crop&q=80",
       "headshotUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&q=80",

@@ -105,16 +105,24 @@ const EventCard = ({ event }: EventCardProps) => {
       <div className={styles.eventDetails}>
         <div className={styles.eventLocation}>
           <span className={styles.locationIcon}>📍</span>
-          <span>
-            {event.location.isVirtual ? (
-              "Virtual Event"
-            ) : (
-              <>
-                {event.location.venue}
-                {event.location.address && `, ${event.location.address}`}
-              </>
-            )}
-          </span>
+          {event.location.isVirtual ? (
+            <span>Virtual Event</span>
+          ) : event.location.mapsLink ? (
+            <a
+              href={event.location.mapsLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.locationLink}
+            >
+              {event.location.venue}
+              {event.location.address && `, ${event.location.address}`}
+            </a>
+          ) : (
+            <span>
+              {event.location.venue}
+              {event.location.address && `, ${event.location.address}`}
+            </span>
+          )}
         </div>
 
         {event.capacity && (
