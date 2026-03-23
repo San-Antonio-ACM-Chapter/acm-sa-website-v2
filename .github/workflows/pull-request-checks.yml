@@ -19,7 +19,7 @@ jobs:
   notify-pr-opened:
     name: Notify Discord PR Opened
     runs-on: ubuntu-latest
-    if: ${{ github.event.action == 'opened' && !github.event.pull_request.draft }}
+    if: ${{ (github.event.action == 'opened' && !github.event.pull_request.draft) || github.event.action == 'ready_for_review' }}
 
     steps:
       - name: Send pull request notification
