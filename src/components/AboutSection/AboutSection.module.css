@@ -7,14 +7,14 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.aboutSection:focus {
-  outline: none;
-}
-
-.aboutSection *:focus {
-  outline: none;
+.contentWrapper {
+  max-width: 1000px;
+  width: 100%;
 }
 
 .aboutSection h2 {

@@ -62,59 +62,61 @@ const EventsSection = () => {
 
   return (
     <section className={styles.eventsSection} id="events" tabIndex={-1}>
-      <h2>Events</h2>
+      <div className={styles.contentWrapper}>
+        <h2>Events</h2>
 
-      {loading && (
-        <div className={styles.emptyState}>
-          <p>Loading events...</p>
-        </div>
-      )}
-
-      {!loading && events.length === 0 && (
-        <div className={styles.emptyState}>
-          <p>No events scheduled at the moment. Check back soon!</p>
-        </div>
-      )}
-
-      {!loading && events.length > 0 && (
-        <>
-          <div className={styles.filterButtons}>
-            <button
-              className={`${styles.filterButton} ${!showAll ? styles.active : ""}`}
-              onClick={() => setShowAll(false)}
-              type="button"
-            >
-              Upcoming ({upcomingEvents.length})
-            </button>
-            <button
-              className={`${styles.filterButton} ${showAll ? styles.active : ""}`}
-              onClick={() => setShowAll(true)}
-              type="button"
-            >
-              All Events ({events.length})
-            </button>
+        {loading && (
+          <div className={styles.emptyState}>
+            <p>Loading events...</p>
           </div>
+        )}
 
-          <div className={styles.eventsGrid}>
-            {displayedEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
+        {!loading && events.length === 0 && (
+          <div className={styles.emptyState}>
+            <p>No events scheduled at the moment. Check back soon!</p>
           </div>
+        )}
 
-          {!showAll && upcomingEvents.length === 0 && (
-            <div className={styles.emptyState}>
-              <p>No upcoming events. Check out our past events!</p>
+        {!loading && events.length > 0 && (
+          <>
+            <div className={styles.filterButtons}>
               <button
-                className={styles.viewAllButton}
+                className={`${styles.filterButton} ${!showAll ? styles.active : ""}`}
+                onClick={() => setShowAll(false)}
+                type="button"
+              >
+                Upcoming ({upcomingEvents.length})
+              </button>
+              <button
+                className={`${styles.filterButton} ${showAll ? styles.active : ""}`}
                 onClick={() => setShowAll(true)}
                 type="button"
               >
-                View All Events
+                All Events ({events.length})
               </button>
             </div>
-          )}
-        </>
-      )}
+
+            <div className={styles.eventsGrid}>
+              {displayedEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
+
+            {!showAll && upcomingEvents.length === 0 && (
+              <div className={styles.emptyState}>
+                <p>No upcoming events. Check out our past events!</p>
+                <button
+                  className={styles.viewAllButton}
+                  onClick={() => setShowAll(true)}
+                  type="button"
+                >
+                  View All Events
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </section>
   );
 };
