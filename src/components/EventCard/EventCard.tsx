@@ -64,6 +64,20 @@ const EventCard = ({ event }: EventCardProps) => {
     return formatDate(start);
   };
 
+  const parseDescription = (description: string) => {
+    const agendaMatch = description.match(/AGENDA[:\s]*([\s\S]*?)(?:\n\n|$)/i);
+
+    if (agendaMatch) {
+      const mainDescription = description.substring(0, agendaMatch.index).trim();
+      const agenda = agendaMatch[1].trim();
+      return { mainDescription, agenda };
+    }
+
+    return { mainDescription: description, agenda: null };
+  };
+
+  const { mainDescription, agenda } = parseDescription(event.description);
+
   return (
     <a
       href={event.meetupLink}
@@ -103,7 +117,18 @@ const EventCard = ({ event }: EventCardProps) => {
         </p>
       </div>
 
-      <p className={styles.eventDescription}>{event.description}</p>
+      <p className={styles.eventDescription}>{mainDescription}</p>
+
+      {agenda && (
+        <div className={styles.agendaSection}>
+          <h4 className={styles.agendaTitle}>Agenda</h4>
+          <div className={styles.agendaContent}>
+            {agenda.split('\n').map((line, index) => (
+              <p key={index} className={styles.agendaItem}>{line}</p>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className={styles.eventDetails}>
         <div className={styles.eventLocation}>

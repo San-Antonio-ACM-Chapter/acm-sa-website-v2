@@ -34,8 +34,6 @@
 
 .eventCard:hover {
   border-color: var(--primary);
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .eventCard:hover .eventTitle,
@@ -148,8 +146,51 @@
   color: var(--foreground);
   line-height: 1.6;
   margin: 0;
-  flex-grow: 1;
   transition: color 0.3s ease;
+}
+
+.agendaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: var(--nav-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.agendaTitle {
+  font-family: var(--font-jockey-one);
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.agendaContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.agendaItem {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.85rem !important;
+  color: var(--event-card-text-lighter);
+  margin: 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.eventCard:hover .agendaTitle,
+.eventCard:hover .agendaItem {
+  color: var(--foreground-light);
+}
+
+.eventCard:hover .agendaSection {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--foreground-light);
 }
 
 .eventDetails {

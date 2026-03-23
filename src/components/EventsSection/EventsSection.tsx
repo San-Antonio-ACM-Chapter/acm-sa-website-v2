@@ -52,13 +52,21 @@ const EventsSection = () => {
     loadEvents();
   }, []);
 
+  const sortEventsByDate = (eventsToSort: Event[]) => {
+    return [...eventsToSort].sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateA - dateB; // Ascending order (soonest first)
+    });
+  };
+
   const now = new Date();
   const upcomingEvents = events.filter((event) => {
     const eventDate = new Date(event.endDate ?? event.date);
     return eventDate >= now;
   });
 
-  const displayedEvents = showAll ? events : upcomingEvents;
+  const displayedEvents = sortEventsByDate(showAll ? events : upcomingEvents);
 
   return (
     <section className={styles.eventsSection} id="events" tabIndex={-1}>
