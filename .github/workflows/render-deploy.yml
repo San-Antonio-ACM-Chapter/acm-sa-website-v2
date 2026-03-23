@@ -179,26 +179,54 @@ jobs:
             --data "$payload" \
             "$DISCORD_WEBHOOK_URL"
 
+  notify-success-preview:
+    name: Notify Discord Preview Success
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ always() && github.ref_name != 'main' && needs.build.result == 'success' }}
+
+    steps:
+      - name: Send preview success notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "Missing DISCORD_WEBHOOK_URL secret."
+            exit 1
+          fi
+
+          payload=$(cat <<EOF
+          {
+            "embeds": [
+              {
+                "title": "Preview Pipeline Success",
+                "description": "[ACM SA Website v2](${{ github.server_url }}/${{ github.repository }})\n✅ Build\n🔘 Deployment\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL)",
+                "color": 3447003
+              }
+            ]
+          }
+          EOF
+          )
+
+          curl --fail --silent --show-error \
+            --header "Content-Type: application/json" \
+            --data "$payload" \
+            "$DISCORD_WEBHOOK_URL"
+
   notify-success:
-    name: Notify Discord Success
+    name: Notify Discord Deployment Success
     runs-on: ubuntu-latest
     needs:
-      - lint
-      - test
-      - build
       - deploy
-    if: ${{ always() && needs.lint.result == 'success' && needs.test.result == 'success' && needs.build.result == 'success' && (needs.deploy.result == 'success' || (needs.deploy.result == 'skipped' && github.ref_name != 'main')) }}
+    if: ${{ always() && github.ref_name == 'main' && needs.deploy.result == 'success' }}
 
     steps:
       - name: Send success notification
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          REPOSITORY: ${{ github.repository }}
-          BRANCH: ${{ github.ref_name }}
-          SHA: ${{ github.sha }}
           COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
-          ACTOR: ${{ github.actor }}
-          DEPLOY_RESULT: ${{ needs.deploy.result }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           if [ -z "$DISCORD_WEBHOOK_URL" ]; then
