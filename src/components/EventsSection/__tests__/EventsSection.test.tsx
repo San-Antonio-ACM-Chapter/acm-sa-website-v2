@@ -2,131 +2,155 @@ import { render, screen } from "@testing-library/react";
 import type { Event } from "@/lib/events";
 import EventsSection from "../EventsSection";
 
-// Mock Date methods and constructor to return consistent timezone-independent results
-const RealDate = Date;
-const originalEnv = process.env.NODE_ENV;
-const originalFetch = global.fetch;
-const consoleErrorSpy = jest
-  .spyOn(console, "error")
-  .mockImplementation(() => {});
-type MockDateArgs =
-  | []
-  | [value: string | number | Date]
-  | [
-      year: number,
-      monthIndex: number,
-      date?: number,
-      hours?: number,
-      minutes?: number,
-      seconds?: number,
-      ms?: number,
-    ];
+const BLUE_CARD_CLASS = "eventCardBlue";
+const RED_CARD_CLASS = "eventCardRed";
 
-beforeAll(() => {
-  // Mock Date constructor to return a fixed date
-  // @ts-expect-error - We're intentionally overriding the Date class for testing
-  global.Date = class extends RealDate {
-    constructor(...args: MockDateArgs) {
-      if (args.length === 0) {
-        // When called without arguments (like `new Date()`), return a fixed date
-        super("2026-03-22T12:00:00Z");
-      } else {
-        // When called with arguments, use the real Date constructor
-        // @ts-expect-error - Spread operator needed for dynamic arguments
-        super(...args);
-      }
-    }
-
-    // Mock toLocaleDateString
-    toLocaleDateString(
-      _locale?: string,
-      options?: Intl.DateTimeFormatOptions,
-    ): string {
-      if (
-        options?.weekday &&
-        options?.month &&
-        options?.day &&
-        options?.year &&
-        options?.hour
-      ) {
-        return "Wed, Apr 15, 2026, 6:00 PM";
-      }
-      if (options?.weekday && options?.month && options?.day && options?.year) {
-        return "Wed, Apr 15, 2026";
-      }
-      return "4/15/2026";
-    }
-
-    // Mock toLocaleTimeString
-    toLocaleTimeString(): string {
-      return "6:00 PM";
-    }
-
-    // Preserve static methods (prevent tree-shaking)
-    static now = RealDate.now;
-    static parse = RealDate.parse;
-    static UTC = RealDate.UTC;
-  };
-
-  global.fetch = jest
-    .fn()
-    .mockRejectedValue(new Error("Failed to load events")) as typeof fetch;
-});
-
-afterAll(() => {
-  global.Date = RealDate;
-  global.fetch = originalFetch;
-  consoleErrorSpy.mockRestore();
-  Object.defineProperty(process.env, "NODE_ENV", {
-    value: originalEnv,
-    writable: true,
-    configurable: true,
-  });
+const buildEvent = (overrides: Partial<Event>): Event => ({
+  id: "event-1",
+  title: "Test Event",
+  description: "This is a test event description",
+  date: "2026-03-24T00:00:00.000Z",
+  location: {
+    venue: "Test Venue",
+    address: "123 Test St",
+    isVirtual: false,
+  },
+  meetupLink: "https://devsa.community/events/test-event",
+  tags: ["testing"],
+  isFeatured: false,
+  organizer: "ACM San Antonio",
+  registrationRequired: true,
+  ...overrides,
 });
 
 describe("EventsSection", () => {
-  const mockEvents: Event[] = [
-    {
-      id: "test-event-1",
-      title: "Test Event",
-      description: "This is a test event description",
-      date: "2026-04-15T18:00:00Z",
-      location: {
-        venue: "Test Venue",
-        address: "123 Test St",
-        isVirtual: false,
-      },
-      meetupLink: "https://devsa.community/events/test-event-1",
-      tags: ["testing", "jest"],
-      isFeatured: false,
-      organizer: "ACM SA",
-      registrationRequired: true,
-    },
-    {
-      id: "test-event-2",
-      title: "Tomorrow Event",
-      description: "This is another test event description",
-      date: "2026-04-16T18:00:00Z",
-      location: {
-        venue: "Another Venue",
-        isVirtual: true,
-      },
-      meetupLink: "https://devsa.community/events/test-event-2",
-      tags: ["virtual"],
-      isFeatured: false,
-      organizer: "ACM San Antonio",
-      registrationRequired: true,
-    },
-  ];
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date("2026-03-23T15:00:00.000Z"));
+  });
 
-  it("renders future events and marks the next one as upcoming", () => {
-    render(<EventsSection events={mockEvents} />);
+  afterEach(() => {
+    jest.useRealTimers();
+  });
 
-    expect(screen.getByText("Test Event")).toBeInTheDocument();
-    expect(screen.getByText("Tomorrow Event")).toBeInTheDocument();
+  it("filters out past events", () => {
+    const events: Event[] = [
+      buildEvent({
+        id: "past-event",
+        title: "Past Event",
+        date: "2026-03-22T23:00:00.000Z",
+        endDate: "2026-03-23T01:00:00.000Z",
+      }),
+      buildEvent({
+        id: "future-event",
+        title: "Future Event",
+        date: "2026-03-24T23:00:00.000Z",
+        endDate: "2026-03-25T01:00:00.000Z",
+      }),
+    ];
+
+    render(<EventsSection events={events} />);
+
+    expect(screen.queryByText("Past Event")).not.toBeInTheDocument();
+    expect(screen.getByText("Future Event")).toBeInTheDocument();
+  });
+
+  it("shows Live Now for an active event and Upcoming for the next future event", () => {
+    const events: Event[] = [
+      buildEvent({
+        id: "live-event",
+        title: "Live Event",
+        date: "2026-03-23T14:00:00.000Z",
+        endDate: "2026-03-23T16:00:00.000Z",
+      }),
+      buildEvent({
+        id: "upcoming-event",
+        title: "Upcoming Event",
+        date: "2026-03-24T18:00:00.000Z",
+        endDate: "2026-03-24T20:00:00.000Z",
+      }),
+    ];
+
+    render(<EventsSection events={events} />);
+
+    const liveCard = screen.getByText("Live Event").closest("a");
+    const upcomingCard = screen.getByText("Upcoming Event").closest("a");
+
+    expect(screen.getByText("Live Now")).toBeInTheDocument();
     expect(screen.getByText("Upcoming")).toBeInTheDocument();
+    expect(liveCard).toHaveTextContent("Live Now");
+    expect(upcomingCard).toHaveTextContent("Upcoming");
+  });
+
+  it("shows Happening Today for a later-today event and Upcoming for the next future event", () => {
+    const events: Event[] = [
+      buildEvent({
+        id: "today-event",
+        title: "Today Event",
+        date: "2026-03-23T23:00:00.000Z",
+        endDate: "2026-03-24T01:00:00.000Z",
+      }),
+      buildEvent({
+        id: "next-event",
+        title: "Next Event",
+        date: "2026-03-24T18:00:00.000Z",
+        endDate: "2026-03-24T20:00:00.000Z",
+      }),
+    ];
+
+    render(<EventsSection events={events} />);
+
+    const todayCard = screen.getByText("Today Event").closest("a");
+    const nextCard = screen.getByText("Next Event").closest("a");
+
+    expect(screen.getByText("Happening Today")).toBeInTheDocument();
+    expect(screen.getByText("Upcoming")).toBeInTheDocument();
+    expect(todayCard).toHaveTextContent("Happening Today");
+    expect(nextCard).toHaveTextContent("Upcoming");
+  });
+
+  it("alternates visible card accents blue then red", () => {
+    const events: Event[] = [
+      buildEvent({
+        id: "event-1",
+        title: "Event One",
+        date: "2026-03-24T18:00:00.000Z",
+      }),
+      buildEvent({
+        id: "event-2",
+        title: "Event Two",
+        date: "2026-03-25T18:00:00.000Z",
+      }),
+      buildEvent({
+        id: "event-3",
+        title: "Event Three",
+        date: "2026-03-26T18:00:00.000Z",
+      }),
+    ];
+
+    render(<EventsSection events={events} />);
+
+    const eventLinks = screen.getAllByRole("link");
+
+    expect(eventLinks[0]).toHaveClass(BLUE_CARD_CLASS);
+    expect(eventLinks[1]).toHaveClass(RED_CARD_CLASS);
+    expect(eventLinks[2]).toHaveClass(BLUE_CARD_CLASS);
+  });
+
+  it("shows the empty state when no future events remain", () => {
+    const events: Event[] = [
+      buildEvent({
+        id: "past-event",
+        title: "Past Event",
+        date: "2026-03-22T23:00:00.000Z",
+        endDate: "2026-03-23T01:00:00.000Z",
+      }),
+    ];
+
+    render(<EventsSection events={events} />);
+
     expect(
-      screen.queryByText("No events scheduled at the moment. Check back soon!"),
-    ).not.toBeInTheDocument();
+      screen.getByText("No events scheduled at the moment. Check back soon!"),
+    ).toBeInTheDocument();
   });
 });
