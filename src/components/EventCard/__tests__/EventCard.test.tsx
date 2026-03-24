@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import type { Event } from "@/components/EventsSection/EventsSection";
+import type { Event } from "@/lib/events";
 import EventCard from "../EventCard";
 
 // Mock Date methods to return consistent timezone-independent results

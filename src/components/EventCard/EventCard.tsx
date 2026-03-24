@@ -1,14 +1,22 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import type { Event } from "@/components/EventsSection/EventsSection";
+import type { Event } from "@/lib/events";
 import styles from "./EventCard.module.css";
 
 interface EventCardProps {
   event: Event;
+  statusLabel?: string;
+  statusTone?: "neutral" | "accent" | "live";
+  accentVariant?: "blue" | "red";
 }
 
-const EventCard = ({ event }: EventCardProps) => {
+const EventCard = ({
+  event,
+  statusLabel,
+  statusTone = "neutral",
+  accentVariant = "blue",
+}: EventCardProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -83,7 +91,7 @@ const EventCard = ({ event }: EventCardProps) => {
       href={event.meetupLink}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${styles.eventCard} ${event.isFeatured ? styles.featured : ""}`}
+      className={`${styles.eventCard} ${styles[`eventCard${accentVariant[0].toUpperCase()}${accentVariant.slice(1)}`]} ${event.isFeatured ? styles.featured : ""}`}
     >
       {event.isFeatured && <div className={styles.featuredBadge}>Featured</div>}
 
@@ -111,6 +119,14 @@ const EventCard = ({ event }: EventCardProps) => {
       )}
 
       <div className={styles.eventHeader}>
+        {statusLabel && (
+          <div
+            className={`${styles.statusChip} ${styles[`statusChip${statusTone[0].toUpperCase()}${statusTone.slice(1)}`]} ${styles[`statusChip${accentVariant[0].toUpperCase()}${accentVariant.slice(1)}`]}`}
+          >
+            {statusTone === "live" && <span className={styles.liveDot} aria-hidden="true" />}
+            <span>{statusLabel}</span>
+          </div>
+        )}
         <h3 className={styles.eventTitle}>{event.title}</h3>
         <p className={styles.eventDate}>
           {mounted ? formatDateRange(event.date, event.endDate) : "Loading date..."}
@@ -168,6 +184,7 @@ const EventCard = ({ event }: EventCardProps) => {
 
       <div className={styles.eventFooter}>
         <p className={styles.organizer}>Organized by {event.organizer}</p>
+        <span className={styles.eventLinkHint}>View details →</span>
       </div>
     </a>
   );

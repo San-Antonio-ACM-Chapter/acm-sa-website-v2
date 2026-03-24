@@ -1,128 +1,100 @@
 "use client";
-import { useState, useEffect } from "react";
 import EventCard from "@/components/EventCard/EventCard";
+import type { Event } from "@/lib/events";
 import styles from "./EventsSection.module.css";
 
-export type EventLocation = {
-  venue?: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  isVirtual: boolean;
-  virtualLink?: string;
-  mapsLink?: string;
+interface EventsSectionProps {
+  events: Event[];
+}
+
+const DEFAULT_EVENT_DURATION_MS = 2 * 60 * 60 * 1000;
+
+const chicagoDateFormatter = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "America/Chicago",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+
+const getChicagoDateKey = (value: Date) => chicagoDateFormatter.format(value);
+
+const getEventEndTime = (event: Event) =>
+  event.endDate ? new Date(event.endDate) : new Date(new Date(event.date).getTime() + DEFAULT_EVENT_DURATION_MS);
+
+const isLiveNow = (event: Event, now: Date) => {
+  const start = new Date(event.date);
+  const end = getEventEndTime(event);
+  return now >= start && now <= end;
 };
 
-export type Event = {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  endDate?: string;
-  location: EventLocation;
-  imageUrl?: string;
-  headshotUrl?: string;
-  meetupLink: string;
-  tags: string[];
-  capacity?: number;
-  isFeatured: boolean;
-  organizer?: string;
-  registrationRequired?: boolean;
+const isHappeningToday = (event: Event, now: Date) => {
+  const start = new Date(event.date);
+  return getChicagoDateKey(start) === getChicagoDateKey(now) && start > now;
 };
 
-const EventsSection = () => {
-  const [showAll, setShowAll] = useState(false);
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadEvents = async () => {
-      try {
-        const response = await fetch('/data/events.json');
-        const data = await response.json();
-        setEvents(data.events || []);
-      } catch (error) {
-        console.error('Failed to load events:', error);
-        setEvents([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadEvents();
-  }, []);
-
-  const sortEventsByDate = (eventsToSort: Event[]) => {
-    return [...eventsToSort].sort((a, b) => {
-      const dateA = new Date(a.date).getTime();
-      const dateB = new Date(b.date).getTime();
-      return dateA - dateB; // Ascending order (soonest first)
-    });
-  };
-
+const getEventStatus = (event: Event, nextUpcomingEventId?: string) => {
   const now = new Date();
-  const upcomingEvents = events.filter((event) => {
-    const eventDate = new Date(event.endDate ?? event.date);
-    return eventDate >= now;
-  });
+  const start = new Date(event.date);
 
-  const displayedEvents = sortEventsByDate(showAll ? events : upcomingEvents);
+  if (isLiveNow(event, now)) {
+    return { label: "Live Now", tone: "live" as const };
+  }
+
+  if (isHappeningToday(event, now)) {
+    return { label: "Happening Today", tone: "accent" as const };
+  }
+
+  if (event.id === nextUpcomingEventId) {
+    return { label: "Upcoming", tone: "neutral" as const };
+  }
+
+  return undefined;
+};
+
+const EventsSection = ({ events }: EventsSectionProps) => {
+  const now = new Date();
+  const sortedEvents = [...events].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const nextUpcomingEvent = sortedEvents.find((event) => {
+    if (getEventEndTime(event) < now) {
+      return false;
+    }
+
+    if (isLiveNow(event, now) || isHappeningToday(event, now)) {
+      return false;
+    }
+
+    return new Date(event.date) > now;
+  });
+  const visibleEvents = sortedEvents.filter((event) => getEventEndTime(event) >= new Date());
 
   return (
     <section className={styles.eventsSection} id="events" tabIndex={-1}>
       <div className={styles.contentWrapper}>
         <h2>Events</h2>
 
-        {loading && (
-          <div className={styles.emptyState}>
-            <p>Loading events...</p>
-          </div>
-        )}
-
-        {!loading && events.length === 0 && (
+        {visibleEvents.length === 0 && (
           <div className={styles.emptyState}>
             <p>No events scheduled at the moment. Check back soon!</p>
           </div>
         )}
 
-        {!loading && events.length > 0 && (
-          <>
-            <div className={styles.filterButtons}>
-              <button
-                className={`${styles.filterButton} ${!showAll ? styles.active : ""}`}
-                onClick={() => setShowAll(false)}
-                type="button"
-              >
-                Upcoming ({upcomingEvents.length})
-              </button>
-              <button
-                className={`${styles.filterButton} ${showAll ? styles.active : ""}`}
-                onClick={() => setShowAll(true)}
-                type="button"
-              >
-                All Events ({events.length})
-              </button>
-            </div>
+        {visibleEvents.length > 0 && (
+          <div className={styles.eventsGrid}>
+            {visibleEvents.map((event, index) => {
+              const status = getEventStatus(event, nextUpcomingEvent?.id);
+              const accentVariant = index % 2 === 0 ? "blue" : "red";
 
-            <div className={styles.eventsGrid}>
-              {displayedEvents.map((event) => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
-
-            {!showAll && upcomingEvents.length === 0 && (
-              <div className={styles.emptyState}>
-                <p>No upcoming events. Check out our past events!</p>
-                <button
-                  className={styles.viewAllButton}
-                  onClick={() => setShowAll(true)}
-                  type="button"
-                >
-                  View All Events
-                </button>
-              </div>
-            )}
-          </>
+              return (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  statusLabel={status?.label}
+                  statusTone={status?.tone}
+                  accentVariant={accentVariant}
+                />
+              );
+            })}
+          </div>
         )}
       </div>
     </section>

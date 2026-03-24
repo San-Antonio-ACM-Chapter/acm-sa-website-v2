@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
 import EventsSection from "../EventsSection";
+import type { Event } from "@/lib/events";
 
 // Mock Date methods and constructor to return consistent timezone-independent results
 const RealDate = Date;
@@ -60,8 +61,27 @@ afterAll(() => {
 });
 
 describe("EventsSection", () => {
+  const mockEvents: Event[] = [
+    {
+      id: "test-event-1",
+      title: "Test Event",
+      description: "This is a test event description",
+      date: "2026-04-15T18:00:00Z",
+      location: {
+        venue: "Test Venue",
+        address: "123 Test St",
+        isVirtual: false,
+      },
+      meetupLink: "https://devsa.community/events/test-event-1",
+      tags: ["testing", "jest"],
+      isFeatured: false,
+      organizer: "ACM SA",
+      registrationRequired: true,
+    },
+  ];
+
   it("should match snapshot", () => {
-    const { container } = render(<EventsSection />);
+    const { container } = render(<EventsSection events={mockEvents} />);
     expect(container).toMatchSnapshot();
   });
 });

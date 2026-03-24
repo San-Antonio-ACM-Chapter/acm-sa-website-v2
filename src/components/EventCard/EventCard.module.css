@@ -1,4 +1,5 @@
 .eventCard {
+  --event-accent: var(--primary);
   background-color: var(--event-card-bg);
   border-left: 2px solid var(--nav-border);
   padding: 1.5rem;
@@ -33,7 +34,7 @@
 }
 
 .eventCard:hover {
-  border-color: var(--primary);
+  border-color: var(--event-accent);
 }
 
 .eventCard:hover .eventTitle,
@@ -42,6 +43,7 @@
 .eventCard:hover .eventLocation,
 .eventCard:hover .eventCapacity,
 .eventCard:hover .organizer,
+.eventCard:hover .eventLinkHint,
 .eventCard:hover .locationLink {
   color: var(--foreground-light);
 }
@@ -67,6 +69,16 @@
 
 .featured:hover {
   border-color: var(--primary);
+}
+
+.eventCardBlue {
+  --event-accent: var(--primary);
+  border-left-color: var(--primary);
+}
+
+.eventCardRed {
+  --event-accent: var(--secondary);
+  border-left-color: var(--secondary);
 }
 
 .eventImageContainer {
@@ -122,6 +134,66 @@
   gap: 0.5rem;
 }
 
+.statusChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--nav-border);
+  background-color: var(--nav-bg);
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.statusChipNeutral {
+  color: var(--foreground);
+}
+
+.statusChipAccent {
+  color: var(--event-accent);
+  border-color: var(--event-accent);
+}
+
+.statusChipLive {
+  color: #ff8a8a;
+  border-color: rgba(255, 82, 82, 0.65);
+  background-color: rgba(255, 82, 82, 0.08);
+}
+
+.liveDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #ff5252;
+  box-shadow: 0 0 0 rgba(255, 82, 82, 0.7);
+  animation: livePulse 1.6s infinite;
+}
+
+.statusChipBlue {
+  --event-accent: var(--primary);
+}
+
+.statusChipRed {
+  --event-accent: var(--secondary);
+}
+
+@keyframes livePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(255, 82, 82, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
+  }
+}
+
 .eventTitle {
   font-family: var(--font-jockey-one);
   font-size: 1.5rem;
@@ -134,7 +206,7 @@
 .eventDate {
   font-family: var(--font-jetbrains-mono);
   font-size: 0.9rem;
-  color: var(--primary);
+  color: var(--event-accent);
   margin: 0;
   font-weight: 500;
   transition: color 0.3s ease;
@@ -147,6 +219,10 @@
   line-height: 1.6;
   margin: 0;
   transition: color 0.3s ease;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .agendaSection {
@@ -246,9 +322,9 @@
 }
 
 .tag:hover {
-  background-color: var(--primary);
+  background-color: var(--event-accent);
   color: var(--foreground-light);
-  border-color: var(--primary);
+  border-color: var(--event-accent);
 }
 
 .eventFooter {
@@ -267,6 +343,20 @@
   margin: 0;
   flex-grow: 1;
   transition: color 0.3s ease;
+}
+
+.eventLinkHint {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--event-accent);
+  white-space: nowrap;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.eventCard:hover .eventLinkHint {
+  transform: translateX(4px);
 }
 
 .registerButton {
