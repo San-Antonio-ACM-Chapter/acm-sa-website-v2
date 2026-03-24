@@ -1,0 +1,59 @@
+.agendaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: var(--nav-bg);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.agendaTitle {
+  font-family: var(--font-jockey-one);
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.agendaContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.agendaItem {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.85rem;
+  color: var(--event-card-text-lighter);
+  margin: 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.agendaNote {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.8rem;
+  color: var(--event-card-text-lighter);
+  margin: 0.5rem 0 0 0;
+  line-height: 1.5;
+  font-style: italic;
+  opacity: 0.8;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover states when parent EventCard is hovered */
+div:hover .agendaTitle,
+div:hover .agendaItem,
+div:hover .agendaNote {
+  color: var(--foreground-light);
+}
+
+div:hover .agendaSection {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--foreground-light);
+}
+

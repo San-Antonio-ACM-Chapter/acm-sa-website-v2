@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`EventCardAgenda matches snapshot when agenda is undefined 1`] = `<div />`;
+
+exports[`EventCardAgenda matches snapshot when agenda items are empty 1`] = `<div />`;
+
+exports[`EventCardAgenda matches snapshot with agenda but no note 1`] = `
+<div>
+  <div
+    class="agendaSection"
+  >
+    <h4
+      class="agendaTitle"
+    >
+      Agenda
+    </h4>
+    <div
+      class="agendaContent"
+    >
+      <p
+        class="agendaItem"
+      >
+        6:00 PM
+         — 
+        Doors open
+      </p>
+      <p
+        class="agendaItem"
+      >
+        7:00 PM
+         — 
+        Main session
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EventCardAgenda matches snapshot with full agenda 1`] = `
+<div>
+  <div
+    class="agendaSection"
+  >
+    <h4
+      class="agendaTitle"
+    >
+      Agenda
+    </h4>
+    <div
+      class="agendaContent"
+    >
+      <p
+        class="agendaItem"
+      >
+        6:00 PM
+         — 
+        Doors open + meet & greet
+      </p>
+      <p
+        class="agendaItem"
+      >
+        6:30 PM
+         — 
+        ACM San Antonio announcements
+      </p>
+      <p
+        class="agendaItem"
+      >
+        6:35 PM
+         — 
+        Featured session
+      </p>
+      <p
+        class="agendaItem"
+      >
+        7:30 PM
+         — 
+        Q&A + networking
+      </p>
+      <p
+        class="agendaNote"
+      >
+        (Timing is approximate — we'll keep things moving and leave room for questions + conversation.)
+      </p>
+    </div>
+  </div>
+</div>
+`;

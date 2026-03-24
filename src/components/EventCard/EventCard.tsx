@@ -3,74 +3,38 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { Event } from "@/components/EventsSection/EventsSection";
 import styles from "./EventCard.module.css";
-
+import { formatDateRange } from "./EventCard.utils";
+import EventCardAgenda from "./EventCardAgenda/EventCardAgenda";
 interface EventCardProps {
   event: Event;
 }
 
 const EventCard = ({ event }: EventCardProps) => {
   const [mounted, setMounted] = useState(false);
+  // will be used to expand or collapse the event card
+  const [isCardOpen, setIsCardOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    });
+  const handleCardClick = () => {
+    setIsCardOpen(!isCardOpen);
   };
-
-  const formatDateRange = (start: string, end?: string) => {
-    const startDate = new Date(start);
-    const startFormatted = startDate.toLocaleDateString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-
-    if (end) {
-      const endDate = new Date(end);
-      const endFormatted = endDate.toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      });
-
-      if (startFormatted === endFormatted) {
-        // Same day event
-        const startTime = startDate.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-        });
-        const endTime = endDate.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-        });
-        return `${startFormatted}, ${startTime} - ${endTime}`;
-      }
-      // Multi-day event
-      return `${startFormatted} - ${endFormatted}`;
-    }
-
-    return formatDate(start);
-  };
-
 
   return (
-    <a
-      href={event.meetupLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`${styles.eventCard} ${event.isFeatured ? styles.featured : ""}`}
+    <div
+      className={`${styles.eventCard} ${event.isFeatured ? styles.featured : ""} ${isCardOpen ? styles.open : ""}`}
+      onClick={handleCardClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleCardClick();
+        }
+      }}
+      aria-expanded={isCardOpen}
     >
       {event.isFeatured && <div className={styles.featuredBadge}>Featured</div>}
 
@@ -106,73 +70,58 @@ const EventCard = ({ event }: EventCardProps) => {
         </p>
       </div>
 
-      <p className={styles.eventDescription}>{event.description}</p>
+      {/*everything above this comment should be revealed when the card is collapsed (collapsed by default),
+       everything below this comment should be revealed only when the card is opened (the user has tapped or clicked
+        ont he card)*/}
 
-      {event.agenda && Object.keys(event.agenda.items).length > 0 && (
-        <div className={styles.agendaSection}>
-          <h4 className={styles.agendaTitle}>Agenda</h4>
-          <div className={styles.agendaContent}>
-            {Object.entries(event.agenda.items).map(([time, description]) => {
-              // Format time from 24-hour to 12-hour format
-              const [hours, minutes] = time.split(':');
-              const hour = Number.parseInt(hours, 10);
-              const isPM = hour >= 12;
-              const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
-              const formattedTime = `${displayHour}:${minutes} ${isPM ? 'PM' : 'AM'}`;
+      {isCardOpen && (
+        <>
+          <p className={styles.eventDescription}>{event.description}</p>
 
-              return (
-                <p key={`${event.id}-agenda-${time}`} className={styles.agendaItem}>
-                  {formattedTime} — {description}
-                </p>
-              );
-            })}
-            {event.agenda.note && (
-              <p className={styles.agendaNote}>{event.agenda.note}</p>
+          <EventCardAgenda agenda={event.agenda} eventId={event.id} />
+
+          <div className={styles.eventDetails}>
+            <div className={styles.eventLocation}>
+              <span className={styles.locationIcon}>📍</span>
+              {event.location.isVirtual ? (
+                <span>Virtual Event</span>
+              ) : event.location.mapsLink ? (
+                <span className={styles.locationLink}>
+                  {event.location.venue}
+                  {event.location.address && `, ${event.location.address}`}
+                </span>
+              ) : (
+                <span>
+                  {event.location.venue}
+                  {event.location.address && `, ${event.location.address}`}
+                </span>
+              )}
+            </div>
+
+            {event.capacity && (
+              <div className={styles.eventCapacity}>
+                <span className={styles.capacityIcon}>👥</span>
+                <span>Capacity: {event.capacity}</span>
+              </div>
             )}
           </div>
-        </div>
-      )}
 
-      <div className={styles.eventDetails}>
-        <div className={styles.eventLocation}>
-          <span className={styles.locationIcon}>📍</span>
-          {event.location.isVirtual ? (
-            <span>Virtual Event</span>
-          ) : event.location.mapsLink ? (
-            <span className={styles.locationLink}>
-              {event.location.venue}
-              {event.location.address && `, ${event.location.address}`}
-            </span>
-          ) : (
-            <span>
-              {event.location.venue}
-              {event.location.address && `, ${event.location.address}`}
-            </span>
+          {event.tags.length > 0 && (
+            <div className={styles.eventTags}>
+              {event.tags.map((tag) => (
+                <span key={tag} className={styles.tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
           )}
-        </div>
 
-        {event.capacity && (
-          <div className={styles.eventCapacity}>
-            <span className={styles.capacityIcon}>👥</span>
-            <span>Capacity: {event.capacity}</span>
+          <div className={styles.eventFooter}>
+            <p className={styles.organizer}>Organized by {event.organizer}</p>
           </div>
-        )}
-      </div>
-
-      {event.tags.length > 0 && (
-        <div className={styles.eventTags}>
-          {event.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
+        </>
       )}
-
-      <div className={styles.eventFooter}>
-        <p className={styles.organizer}>Organized by {event.organizer}</p>
-      </div>
-    </a>
+    </div>
   );
 };
 

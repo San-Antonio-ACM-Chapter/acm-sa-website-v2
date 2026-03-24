@@ -1,12 +1,43 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`EventCard should match snapshot with featured event 1`] = `
+exports[`EventCard should match snapshot with featured event (closed) 1`] = `
 <div>
-  <a
-    class="eventCard featured"
-    href="https://www.meetup.com/acm-sa/events/test-event-1"
-    rel="noopener noreferrer"
-    target="_blank"
+  <div
+    aria-expanded="false"
+    class="eventCard featured "
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="featuredBadge"
+    >
+      Featured
+    </div>
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EventCard should match snapshot with featured event (opened) 1`] = `
+<div>
+  <div
+    aria-expanded="true"
+    class="eventCard featured open"
+    role="button"
+    tabindex="0"
   >
     <div
       class="featuredBadge"
@@ -72,17 +103,43 @@ exports[`EventCard should match snapshot with featured event 1`] = `
         Organized by 
       </p>
     </div>
-  </a>
+  </div>
 </div>
 `;
 
-exports[`EventCard should match snapshot with regular event 1`] = `
+exports[`EventCard should match snapshot with regular event (closed) 1`] = `
 <div>
-  <a
-    class="eventCard "
-    href="https://www.meetup.com/acm-sa/events/test-event-1"
-    rel="noopener noreferrer"
-    target="_blank"
+  <div
+    aria-expanded="false"
+    class="eventCard  "
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EventCard should match snapshot with regular event (opened) 1`] = `
+<div>
+  <div
+    aria-expanded="true"
+    class="eventCard  open"
+    role="button"
+    tabindex="0"
   >
     <div
       class="eventHeader"
@@ -143,17 +200,43 @@ exports[`EventCard should match snapshot with regular event 1`] = `
         Organized by 
       </p>
     </div>
-  </a>
+  </div>
 </div>
 `;
 
-exports[`EventCard should match snapshot with virtual event 1`] = `
+exports[`EventCard should match snapshot with virtual event (closed) 1`] = `
 <div>
-  <a
-    class="eventCard "
-    href="https://www.meetup.com/acm-sa/events/test-event-1"
-    rel="noopener noreferrer"
-    target="_blank"
+  <div
+    aria-expanded="false"
+    class="eventCard  "
+    role="button"
+    tabindex="0"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EventCard should match snapshot with virtual event (opened) 1`] = `
+<div>
+  <div
+    aria-expanded="true"
+    class="eventCard  open"
+    role="button"
+    tabindex="0"
   >
     <div
       class="eventHeader"
@@ -213,6 +296,6 @@ exports[`EventCard should match snapshot with virtual event 1`] = `
         Organized by 
       </p>
     </div>
-  </a>
+  </div>
 </div>
 `;

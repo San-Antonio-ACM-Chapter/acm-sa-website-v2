@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import type { Event } from "@/components/EventsSection/EventsSection";
 import EventCard from "../EventCard";
 
@@ -48,12 +48,21 @@ describe("EventCard", () => {
     registrationRequired: false,
   };
 
-  it("should match snapshot with regular event", () => {
+  it("should match snapshot with regular event (closed)", () => {
     const { container } = render(<EventCard event={mockEvent} />);
     expect(container).toMatchSnapshot();
   });
 
-  it("should match snapshot with featured event", () => {
+  it("should match snapshot with regular event (opened)", () => {
+    const { container } = render(<EventCard event={mockEvent} />);
+    const card = container.querySelector('[role="button"]');
+    if (card) {
+      fireEvent.click(card);
+    }
+    expect(container).toMatchSnapshot();
+  });
+
+  it("should match snapshot with featured event (closed)", () => {
     const featuredEvent: Event = {
       ...mockEvent,
       isFeatured: true,
@@ -62,7 +71,20 @@ describe("EventCard", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("should match snapshot with virtual event", () => {
+  it("should match snapshot with featured event (opened)", () => {
+    const featuredEvent: Event = {
+      ...mockEvent,
+      isFeatured: true,
+    };
+    const { container } = render(<EventCard event={featuredEvent} />);
+    const card = container.querySelector('[role="button"]');
+    if (card) {
+      fireEvent.click(card);
+    }
+    expect(container).toMatchSnapshot();
+  });
+
+  it("should match snapshot with virtual event (closed)", () => {
     const virtualEvent: Event = {
       ...mockEvent,
       location: {
@@ -70,6 +92,21 @@ describe("EventCard", () => {
       },
     };
     const { container } = render(<EventCard event={virtualEvent} />);
+    expect(container).toMatchSnapshot();
+  });
+
+  it("should match snapshot with virtual event (opened)", () => {
+    const virtualEvent: Event = {
+      ...mockEvent,
+      location: {
+        isVirtual: true,
+      },
+    };
+    const { container } = render(<EventCard event={virtualEvent} />);
+    const card = container.querySelector('[role="button"]');
+    if (card) {
+      fireEvent.click(card);
+    }
     expect(container).toMatchSnapshot();
   });
 });
