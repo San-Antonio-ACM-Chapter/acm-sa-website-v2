@@ -5,7 +5,9 @@ import EventsSection from "../EventsSection";
 const RealDate = Date;
 const originalEnv = process.env.NODE_ENV;
 const originalFetch = global.fetch;
-const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+const consoleErrorSpy = jest
+  .spyOn(console, "error")
+  .mockImplementation(() => {});
 type MockDateArgs =
   | []
   | [value: string | number | Date]
@@ -72,7 +74,9 @@ beforeAll(() => {
     static UTC = RealDate.UTC;
   };
 
-  global.fetch = jest.fn().mockRejectedValue(new Error("Failed to load events")) as typeof fetch;
+  global.fetch = jest
+    .fn()
+    .mockRejectedValue(new Error("Failed to load events")) as typeof fetch;
 });
 
 afterAll(() => {
