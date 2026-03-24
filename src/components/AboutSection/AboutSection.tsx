@@ -24,17 +24,18 @@ const AboutSection = () => {
         <p>
           ACM <strong>San Antonio</strong> is a professional chapter of the ACM,
           which means that we are a local branch of the larger organization. We
-          are dedicated to providing opportunities for everyone in the San Antonio
-          area to learn about and engage with computing.
+          are dedicated to providing opportunities for everyone in the San
+          Antonio area to learn about and engage with computing.
         </p>
         <p>
-          Our primary objective is to foster a community of all things technology
-          oriented in the San Antonio area. We believe that by bringing together a
-          diverse community we can create a platform for learning, collaboration,
-          and innovation. We have conducted a wide variety of{" "}
-          <a href="#events">events</a> ranging from workshops, hackathons, speaker
-          series, focused topics, and more. We are always looking for new ways to
-          engage with our community and provide value to our members.
+          Our primary objective is to foster a community of all things
+          technology oriented in the San Antonio area. We believe that by
+          bringing together a diverse community we can create a platform for
+          learning, collaboration, and innovation. We have conducted a wide
+          variety of <a href="#events">events</a> ranging from workshops,
+          hackathons, speaker series, focused topics, and more. We are always
+          looking for new ways to engage with our community and provide value to
+          our members.
         </p>
       </div>
     </section>

@@ -11,7 +11,8 @@ const ContactSection = () => {
           <div className={styles.column}>
             <h3>Social Media</h3>
             <p>
-              contact us on social media by using the following links! extra text
+              contact us on social media by using the following links! extra
+              text
             </p>
             <ul className={styles.linkList}>
               <SocialLink
@@ -37,8 +38,8 @@ const ContactSection = () => {
           <div className={styles.column}>
             <h3>Organizations We Partner With</h3>
             <p>
-              as an organization we often connect and collaborate with these great
-              communities!
+              as an organization we often connect and collaborate with these
+              great communities!
             </p>
             <ul className={styles.linkList}>
               <SocialLink

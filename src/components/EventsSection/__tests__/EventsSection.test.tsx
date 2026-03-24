@@ -28,13 +28,13 @@ beforeAll(() => {
   // Mock Date constructor to return a fixed date
   // @ts-expect-error - We're intentionally overriding the Date class for testing
   global.Date = class extends RealDate {
-    constructor(...args: any[]) {
+    constructor(...args: MockDateArgs) {
       if (args.length === 0) {
         // When called without arguments (like `new Date()`), return a fixed date
         super("2026-03-22T12:00:00Z");
       } else {
         // When called with arguments, use the real Date constructor
-        // @ts-ignore - Spread operator needed for dynamic arguments
+        // @ts-expect-error - Spread operator needed for dynamic arguments
         super(...args);
       }
     }

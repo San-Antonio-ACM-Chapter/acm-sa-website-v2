@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import EventCard from "@/components/EventCard/EventCard";
 import styles from "./EventsSection.module.css";
 
@@ -38,11 +38,11 @@ const EventsSection = () => {
   useEffect(() => {
     const loadEvents = async () => {
       try {
-        const response = await fetch('/data/events.json');
+        const response = await fetch("/data/events.json");
         const data = await response.json();
         setEvents(data.events || []);
       } catch (error) {
-        console.error('Failed to load events:', error);
+        console.error("Failed to load events:", error);
         setEvents([]);
       } finally {
         setLoading(false);

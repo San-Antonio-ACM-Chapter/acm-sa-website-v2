@@ -36,30 +36,6 @@
   border-color: var(--primary);
 }
 
-.eventCard:hover .eventTitle,
-.eventCard:hover .eventDate,
-.eventCard:hover .eventDescription,
-.eventCard:hover .eventLocation,
-.eventCard:hover .eventCapacity,
-.eventCard:hover .organizer,
-.eventCard:hover .locationLink {
-  color: var(--foreground-light);
-}
-
-.eventCard:hover .eventDetails {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.eventCard:hover .tag {
-  color: var(--foreground-light);
-  background-color: rgba(255, 255, 255, 0.2);
-  border-color: var(--foreground-light);
-}
-
-.eventCard:hover .locationLink:hover {
-  text-decoration: underline;
-}
-
 .featured {
   border-color: var(--secondary);
   border-width: 3px;
@@ -155,7 +131,9 @@
   gap: 0.5rem;
   padding: 0.75rem;
   background-color: var(--nav-bg);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .agendaTitle {
@@ -176,7 +154,7 @@
 
 .agendaItem {
   font-family: var(--font-jetbrains-mono);
-  font-size: 0.85rem !important;
+  font-size: 0.85rem;
   color: var(--event-card-text-lighter);
   margin: 0;
   line-height: 1.5;
@@ -281,6 +259,30 @@
   border: none;
   cursor: pointer;
   white-space: nowrap;
+}
+
+.eventCard:hover .eventTitle,
+.eventCard:hover .eventDate,
+.eventCard:hover .eventDescription,
+.eventCard:hover .eventLocation,
+.eventCard:hover .eventCapacity,
+.eventCard:hover .organizer,
+.eventCard:hover .locationLink {
+  color: var(--foreground-light);
+}
+
+.eventCard:hover .eventDetails {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.eventCard:hover .tag {
+  color: var(--foreground-light);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--foreground-light);
+}
+
+.eventCard:hover .locationLink:hover {
+  text-decoration: underline;
 }
 
 .registerButton:hover {
