@@ -161,8 +161,20 @@
   transition: color 0.3s ease;
 }
 
+.agendaNote {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.8rem;
+  color: var(--event-card-text-lighter);
+  margin: 0.5rem 0 0 0;
+  line-height: 1.5;
+  font-style: italic;
+  opacity: 0.8;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
 .eventCard:hover .agendaTitle,
-.eventCard:hover .agendaItem {
+.eventCard:hover .agendaItem,
+.eventCard:hover .agendaNote {
   color: var(--foreground-light);
 }
 

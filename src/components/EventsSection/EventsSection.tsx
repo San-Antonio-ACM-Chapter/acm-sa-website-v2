@@ -17,6 +17,10 @@ export type Event = {
   id: string;
   title: string;
   description: string;
+  agenda?: {
+    items: Record<string, string>;
+    note?: string;
+  };
   date: string;
   endDate?: string;
   location: EventLocation;

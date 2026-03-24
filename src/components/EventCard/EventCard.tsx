@@ -64,21 +64,6 @@ const EventCard = ({ event }: EventCardProps) => {
     return formatDate(start);
   };
 
-  const parseDescription = (description: string) => {
-    const agendaMatch = description.match(/AGENDA[:\s]*([\s\S]*?)(?:\n\n|$)/i);
-
-    if (agendaMatch) {
-      const mainDescription = description
-        .substring(0, agendaMatch.index)
-        .trim();
-      const agenda = agendaMatch[1].trim();
-      return { mainDescription, agenda };
-    }
-
-    return { mainDescription: description, agenda: null };
-  };
-
-  const { mainDescription, agenda } = parseDescription(event.description);
 
   return (
     <a
@@ -121,17 +106,29 @@ const EventCard = ({ event }: EventCardProps) => {
         </p>
       </div>
 
-      <p className={styles.eventDescription}>{mainDescription}</p>
+      <p className={styles.eventDescription}>{event.description}</p>
 
-      {agenda && (
+      {event.agenda && Object.keys(event.agenda.items).length > 0 && (
         <div className={styles.agendaSection}>
           <h4 className={styles.agendaTitle}>Agenda</h4>
           <div className={styles.agendaContent}>
-            {agenda.split("\n").map((line) => (
-              <p key={`${event.id}-${line}`} className={styles.agendaItem}>
-                {line}
-              </p>
-            ))}
+            {Object.entries(event.agenda.items).map(([time, description]) => {
+              // Format time from 24-hour to 12-hour format
+              const [hours, minutes] = time.split(':');
+              const hour = Number.parseInt(hours, 10);
+              const isPM = hour >= 12;
+              const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+              const formattedTime = `${displayHour}:${minutes} ${isPM ? 'PM' : 'AM'}`;
+
+              return (
+                <p key={`${event.id}-agenda-${time}`} className={styles.agendaItem}>
+                  {formattedTime} — {description}
+                </p>
+              );
+            })}
+            {event.agenda.note && (
+              <p className={styles.agendaNote}>{event.agenda.note}</p>
+            )}
           </div>
         </div>
       )}
