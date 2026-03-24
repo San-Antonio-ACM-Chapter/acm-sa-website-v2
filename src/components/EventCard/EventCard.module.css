@@ -1,12 +1,11 @@
 .eventCard {
   background-color: var(--event-card-bg);
   border-left: 2px solid var(--nav-border);
-  padding: 1.5rem;
   transition: all 0.3s ease;
   position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: row;
+  gap: 0;
   height: fit-content;
   overflow: hidden;
   z-index: 1;
@@ -15,6 +14,29 @@
 
 .eventCard.open {
   height: auto;
+}
+
+.eventCardLeft {
+  background-color: rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.eventCardRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  margin: 1.5rem;
+}
+
+.eventCard:hover .eventCardLeft {
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .eventCard::before {
@@ -48,33 +70,33 @@
 
 .eventImageContainer {
   position: relative;
-  width: calc(100% + 3rem);
-  margin: -1.5rem -1.5rem 0 -1.5rem;
+  width: 100%;
+  height: 200px;
   overflow: hidden;
   z-index: 1;
 }
 
 .eventImage {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
 }
 
 .headshotOverlay {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  bottom: 8px;
+  right: 8px;
   overflow: hidden;
-  border: 3px solid var(--nav-border);
+  border-bottom: 3px solid var(--nav-border);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 1);
   background-color: var(--event-card-bg);
 }
 
 .headshotImage {
   display: block;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
 }
 
@@ -97,14 +119,15 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin: 1rem;
 }
 
 .eventTitle {
   font-family: var(--font-jockey-one);
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: var(--foreground);
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.2;
   transition: color 0.3s ease;
 }
 
@@ -124,6 +147,11 @@
   line-height: 1.6;
   margin: 0;
   transition: color 0.3s ease;
+}
+
+.descriptionCollapsed {
+  /* Description visible on desktop (horizontal layout) */
+  display: block;
 }
 
 
@@ -250,19 +278,44 @@
   transform: scale(0.98);
 }
 
-/* Responsive Design */
+/* Responsive Design - Mobile List View */
 @media (max-width: 768px) {
   .eventCard {
-    padding: 1.25rem;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .eventCardLeft {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .eventCardRight {
+    width: 100%;
+    margin: 1.25rem;
+    min-width: 0;
+  }
+
+  .eventHeader {
+    margin: 1rem;
+  }
+
+  .descriptionCollapsed {
+    /* Hide description on mobile when collapsed */
+    display: none;
   }
 
   .eventImageContainer {
-    width: calc(100% + 2.5rem);
-    margin: -1.25rem -1.25rem 0 -1.25rem;
+    width: 100%;
+    height: 180px;
   }
 
   .eventTitle {
+    width: 92%;
     font-size: 1.3rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   .eventDate {
@@ -287,12 +340,28 @@
 
 @media (max-width: 480px) {
   .eventCard {
-    padding: 1rem;
+    flex-direction: column;
   }
 
+  .eventCardLeft {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .eventCardRight {
+    width: 100%;
+    margin: 1rem;
+    min-width: 0;
+  }
+
+  .eventHeader {
+    margin: 0.75rem;
+  }
+
+
   .eventImageContainer {
-    width: calc(100% + 2rem);
-    margin: -1rem -1rem 0 -1rem;
+    width: 100%;
+    height: 160px;
   }
 
   .headshotOverlay {
@@ -302,12 +371,15 @@
   }
 
   .headshotImage {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
 
   .eventTitle {
     font-size: 1.2rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   .eventDate {

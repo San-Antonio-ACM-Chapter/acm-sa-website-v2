@@ -14,7 +14,20 @@ exports[`EventCard should match snapshot with featured event (closed) 1`] = `
       Featured
     </div>
     <div
-      class="eventHeader"
+      class="eventCardLeft"
+    >
+      <div
+        class="eventHeader"
+      >
+        <p
+          class="eventDate"
+        >
+          Wed, Apr 15, 2026, 6:00 PM
+        </p>
+      </div>
+    </div>
+    <div
+      class="eventCardRight"
     >
       <h3
         class="eventTitle"
@@ -22,9 +35,9 @@ exports[`EventCard should match snapshot with featured event (closed) 1`] = `
         Test Event
       </h3>
       <p
-        class="eventDate"
+        class="eventDescription descriptionCollapsed"
       >
-        Wed, Apr 15, 2026, 6:00 PM
+        This is a test event description
       </p>
     </div>
   </div>
@@ -45,7 +58,20 @@ exports[`EventCard should match snapshot with featured event (opened) 1`] = `
       Featured
     </div>
     <div
-      class="eventHeader"
+      class="eventCardLeft"
+    >
+      <div
+        class="eventHeader"
+      >
+        <p
+          class="eventDate"
+        >
+          Wed, Apr 15, 2026, 6:00 PM
+        </p>
+      </div>
+    </div>
+    <div
+      class="eventCardRight"
     >
       <h3
         class="eventTitle"
@@ -53,55 +79,50 @@ exports[`EventCard should match snapshot with featured event (opened) 1`] = `
         Test Event
       </h3>
       <p
-        class="eventDate"
+        class="eventDescription "
       >
-        Wed, Apr 15, 2026, 6:00 PM
+        This is a test event description
       </p>
-    </div>
-    <p
-      class="eventDescription"
-    >
-      This is a test event description
-    </p>
-    <div
-      class="eventDetails"
-    >
       <div
-        class="eventLocation"
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
       >
         <span
-          class="locationIcon"
+          class="tag"
         >
-          📍
+          testing
         </span>
-        <span>
-          Test Venue
-          , 123 Test St
+        <span
+          class="tag"
+        >
+          jest
         </span>
       </div>
-    </div>
-    <div
-      class="eventTags"
-    >
-      <span
-        class="tag"
+      <div
+        class="eventFooter"
       >
-        testing
-      </span>
-      <span
-        class="tag"
-      >
-        jest
-      </span>
-    </div>
-    <div
-      class="eventFooter"
-    >
-      <p
-        class="organizer"
-      >
-        Organized by 
-      </p>
+        <p
+          class="organizer"
+        >
+          Organized by 
+        </p>
+      </div>
     </div>
   </div>
 </div>
@@ -116,7 +137,20 @@ exports[`EventCard should match snapshot with regular event (closed) 1`] = `
     tabindex="0"
   >
     <div
-      class="eventHeader"
+      class="eventCardLeft"
+    >
+      <div
+        class="eventHeader"
+      >
+        <p
+          class="eventDate"
+        >
+          Wed, Apr 15, 2026, 6:00 PM
+        </p>
+      </div>
+    </div>
+    <div
+      class="eventCardRight"
     >
       <h3
         class="eventTitle"
@@ -124,9 +158,9 @@ exports[`EventCard should match snapshot with regular event (closed) 1`] = `
         Test Event
       </h3>
       <p
-        class="eventDate"
+        class="eventDescription descriptionCollapsed"
       >
-        Wed, Apr 15, 2026, 6:00 PM
+        This is a test event description
       </p>
     </div>
   </div>
@@ -142,7 +176,20 @@ exports[`EventCard should match snapshot with regular event (opened) 1`] = `
     tabindex="0"
   >
     <div
-      class="eventHeader"
+      class="eventCardLeft"
+    >
+      <div
+        class="eventHeader"
+      >
+        <p
+          class="eventDate"
+        >
+          Wed, Apr 15, 2026, 6:00 PM
+        </p>
+      </div>
+    </div>
+    <div
+      class="eventCardRight"
     >
       <h3
         class="eventTitle"
@@ -150,55 +197,50 @@ exports[`EventCard should match snapshot with regular event (opened) 1`] = `
         Test Event
       </h3>
       <p
-        class="eventDate"
+        class="eventDescription "
       >
-        Wed, Apr 15, 2026, 6:00 PM
+        This is a test event description
       </p>
-    </div>
-    <p
-      class="eventDescription"
-    >
-      This is a test event description
-    </p>
-    <div
-      class="eventDetails"
-    >
       <div
-        class="eventLocation"
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
       >
         <span
-          class="locationIcon"
+          class="tag"
         >
-          📍
+          testing
         </span>
-        <span>
-          Test Venue
-          , 123 Test St
+        <span
+          class="tag"
+        >
+          jest
         </span>
       </div>
-    </div>
-    <div
-      class="eventTags"
-    >
-      <span
-        class="tag"
+      <div
+        class="eventFooter"
       >
-        testing
-      </span>
-      <span
-        class="tag"
-      >
-        jest
-      </span>
-    </div>
-    <div
-      class="eventFooter"
-    >
-      <p
-        class="organizer"
-      >
-        Organized by 
-      </p>
+        <p
+          class="organizer"
+        >
+          Organized by 
+        </p>
+      </div>
     </div>
   </div>
 </div>
@@ -213,7 +255,20 @@ exports[`EventCard should match snapshot with virtual event (closed) 1`] = `
     tabindex="0"
   >
     <div
-      class="eventHeader"
+      class="eventCardLeft"
+    >
+      <div
+        class="eventHeader"
+      >
+        <p
+          class="eventDate"
+        >
+          Wed, Apr 15, 2026, 6:00 PM
+        </p>
+      </div>
+    </div>
+    <div
+      class="eventCardRight"
     >
       <h3
         class="eventTitle"
@@ -221,9 +276,9 @@ exports[`EventCard should match snapshot with virtual event (closed) 1`] = `
         Test Event
       </h3>
       <p
-        class="eventDate"
+        class="eventDescription descriptionCollapsed"
       >
-        Wed, Apr 15, 2026, 6:00 PM
+        This is a test event description
       </p>
     </div>
   </div>
@@ -239,7 +294,20 @@ exports[`EventCard should match snapshot with virtual event (opened) 1`] = `
     tabindex="0"
   >
     <div
-      class="eventHeader"
+      class="eventCardLeft"
+    >
+      <div
+        class="eventHeader"
+      >
+        <p
+          class="eventDate"
+        >
+          Wed, Apr 15, 2026, 6:00 PM
+        </p>
+      </div>
+    </div>
+    <div
+      class="eventCardRight"
     >
       <h3
         class="eventTitle"
@@ -247,54 +315,49 @@ exports[`EventCard should match snapshot with virtual event (opened) 1`] = `
         Test Event
       </h3>
       <p
-        class="eventDate"
+        class="eventDescription "
       >
-        Wed, Apr 15, 2026, 6:00 PM
+        This is a test event description
       </p>
-    </div>
-    <p
-      class="eventDescription"
-    >
-      This is a test event description
-    </p>
-    <div
-      class="eventDetails"
-    >
       <div
-        class="eventLocation"
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Virtual Event
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
       >
         <span
-          class="locationIcon"
+          class="tag"
         >
-          📍
+          testing
         </span>
-        <span>
-          Virtual Event
+        <span
+          class="tag"
+        >
+          jest
         </span>
       </div>
-    </div>
-    <div
-      class="eventTags"
-    >
-      <span
-        class="tag"
+      <div
+        class="eventFooter"
       >
-        testing
-      </span>
-      <span
-        class="tag"
-      >
-        jest
-      </span>
-    </div>
-    <div
-      class="eventFooter"
-    >
-      <p
-        class="organizer"
-      >
-        Organized by 
-      </p>
+        <p
+          class="organizer"
+        >
+          Organized by 
+        </p>
+      </div>
     </div>
   </div>
 </div>
