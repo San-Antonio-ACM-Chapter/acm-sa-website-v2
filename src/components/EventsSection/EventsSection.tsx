@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import EventCard from "@/components/EventCard/EventCard";
 import type { Event } from "@/lib/events";
 import styles from "./EventsSection.module.css";
@@ -8,6 +9,7 @@ interface EventsSectionProps {
 }
 
 const DEFAULT_EVENT_DURATION_MS = 2 * 60 * 60 * 1000;
+const MOBILE_BREAKPOINT = 900;
 
 const chicagoDateFormatter = new Intl.DateTimeFormat("en-CA", {
   timeZone: "America/Chicago",
@@ -52,7 +54,46 @@ const getEventStatus = (event: Event, nextUpcomingEventId?: string) => {
   return undefined;
 };
 
+const formatCompactDate = (dateString: string) =>
+  new Date(dateString).toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+
+const getIsMobileViewport = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
+
 const EventsSection = ({ events }: EventsSectionProps) => {
+  const [, setIsMobileViewport] = useState(getIsMobileViewport);
+  const [showAllEvents, setShowAllEvents] = useState(false);
+
+  useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia !== "function"
+    ) {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`);
+    const handleChange = (event: MediaQueryListEvent) => {
+      setIsMobileViewport(event.matches);
+    };
+
+    setIsMobileViewport(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
+
   const now = new Date();
   const sortedEvents = [...events].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
@@ -71,6 +112,16 @@ const EventsSection = ({ events }: EventsSectionProps) => {
   const visibleEvents = sortedEvents.filter(
     (event) => getEventEndTime(event) >= new Date(),
   );
+  const featuredEventLimit = 2;
+  const compactPreviewLimit = 0;
+  const featuredEvents = visibleEvents.slice(0, featuredEventLimit);
+  const remainingEvents = visibleEvents.slice(featuredEventLimit);
+  const compactPreviewEvents = showAllEvents
+    ? []
+    : remainingEvents.slice(0, compactPreviewLimit);
+  const compactEvents = showAllEvents ? remainingEvents : [];
+  const hiddenEventCount = remainingEvents.length - compactPreviewEvents.length;
+  const hasHiddenEvents = hiddenEventCount > 0;
 
   return (
     <section className={styles.eventsSection} id="events" tabIndex={-1}>
@@ -85,7 +136,7 @@ const EventsSection = ({ events }: EventsSectionProps) => {
 
         {visibleEvents.length > 0 && (
           <div className={styles.eventsGrid}>
-            {visibleEvents.map((event, index) => {
+            {featuredEvents.map((event, index) => {
               const status = getEventStatus(event, nextUpcomingEvent?.id);
               const accentVariant = index % 2 === 0 ? "blue" : "red";
 
@@ -99,6 +150,75 @@ const EventsSection = ({ events }: EventsSectionProps) => {
                 />
               );
             })}
+
+            {((showAllEvents && compactEvents.length > 0) ||
+              (!showAllEvents && compactPreviewEvents.length > 0)) && (
+              <div className={styles.compactList}>
+                {(showAllEvents ? compactEvents : compactPreviewEvents).map(
+                  (event, index) => {
+                    const status = getEventStatus(event, nextUpcomingEvent?.id);
+                    const accentVariant =
+                      (featuredEvents.length + index) % 2 === 0
+                        ? "blue"
+                        : "red";
+
+                    return (
+                      <a
+                        key={event.id}
+                        className={`${styles.compactEvent} ${accentVariant === "blue" ? styles.compactEventBlue : styles.compactEventRed}`}
+                        href={event.meetupLink}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <div className={styles.compactHeader}>
+                          <div className={styles.compactTitleWrap}>
+                            {status && (
+                              <span
+                                className={`${styles.compactStatus} ${status.tone === "live" ? styles.compactStatusLive : status.tone === "accent" ? styles.compactStatusAccent : styles.compactStatusNeutral}`}
+                              >
+                                {status.label}
+                              </span>
+                            )}
+                            <h3 className={styles.compactTitle}>
+                              {event.title}
+                            </h3>
+                          </div>
+                          <span className={styles.compactDate}>
+                            {formatCompactDate(event.date)}
+                          </span>
+                        </div>
+
+                        <div className={styles.compactMeta}>
+                          <span className={styles.compactVenue}>
+                            {event.location.isVirtual
+                              ? "Virtual Event"
+                              : event.location.venue || "TBA"}
+                          </span>
+                          <span className={styles.compactOrganizer}>
+                            {event.organizer}
+                          </span>
+                        </div>
+                      </a>
+                    );
+                  },
+                )}
+              </div>
+            )}
+
+            {hasHiddenEvents && !showAllEvents && (
+              <button
+                className={styles.seeMoreButton}
+                onClick={() => setShowAllEvents(true)}
+                type="button"
+              >
+                <span className={styles.seeMoreEyebrow}>More Events</span>
+                <span className={styles.seeMoreTitle}>See more events</span>
+                <span className={styles.seeMoreMeta}>
+                  {hiddenEventCount} more upcoming{" "}
+                  {hiddenEventCount === 1 ? "event" : "events"}
+                </span>
+              </button>
+            )}
           </div>
         )}
       </div>

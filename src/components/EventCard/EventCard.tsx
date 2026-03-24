@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import type { Event } from "@/components/EventsSection/EventsSection";
+import type { Event } from "@/lib/events";
 import styles from "./EventCard.module.css";
 
 interface EventCardProps {
@@ -130,78 +130,83 @@ const EventCard = ({
         </div>
       )}
 
-      <div className={styles.eventHeader}>
-        {statusLabel && (
-          <div
-            className={`${styles.statusChip} ${statusToneClass} ${statusAccentClass}`}
-          >
-            {statusTone === "live" && (
-              <span className={styles.liveDot} aria-hidden="true" />
-            )}
-            <span>{statusLabel}</span>
-          </div>
-        )}
-        <h3 className={styles.eventTitle}>{event.title}</h3>
-        <p className={styles.eventDate}>
-          {mounted
-            ? formatDateRange(event.date, event.endDate)
-            : "Loading date..."}
-        </p>
-      </div>
-
-      <p className={styles.eventDescription}>{mainDescription}</p>
-
-      {agenda && (
-        <div className={styles.agendaSection}>
-          <h4 className={styles.agendaTitle}>Agenda</h4>
-          <div className={styles.agendaContent}>
-            {agenda.split("\n").map((line) => (
-              <p key={`${event.id}-${line}`} className={styles.agendaItem}>
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className={styles.eventDetails}>
-        <div className={styles.eventLocation}>
-          <span className={styles.locationIcon}>📍</span>
-          {event.location.isVirtual ? (
-            <span>Virtual Event</span>
-          ) : event.location.mapsLink ? (
-            <span className={styles.locationLink}>
-              {event.location.venue}
-              {event.location.address && `, ${event.location.address}`}
-            </span>
-          ) : (
-            <span>
-              {event.location.venue}
-              {event.location.address && `, ${event.location.address}`}
-            </span>
+      <div className={styles.eventMain}>
+        <div className={styles.eventHeader}>
+          {statusLabel && (
+            <div
+              className={`${styles.statusChip} ${statusToneClass} ${statusAccentClass}`}
+            >
+              {statusTone === "live" && (
+                <span className={styles.liveDot} aria-hidden="true" />
+              )}
+              <span>{statusLabel}</span>
+            </div>
           )}
+          <h3 className={styles.eventTitle}>{event.title}</h3>
+          <p className={styles.eventDate}>
+            {mounted
+              ? formatDateRange(event.date, event.endDate)
+              : "Loading date..."}
+          </p>
         </div>
 
-        {event.capacity && (
-          <div className={styles.eventCapacity}>
-            <span className={styles.capacityIcon}>👥</span>
-            <span>Capacity: {event.capacity}</span>
+        <div className={styles.eventMeta}>
+          <div className={styles.eventDetails}>
+            <div className={styles.eventLocation}>
+              <span className={styles.locationIcon}>📍</span>
+              {event.location.isVirtual ? (
+                <span>Virtual Event</span>
+              ) : event.location.mapsLink ? (
+                <span className={styles.locationLink}>
+                  {event.location.venue}
+                  {event.location.address && `, ${event.location.address}`}
+                </span>
+              ) : (
+                <span>
+                  {event.location.venue}
+                  {event.location.address && `, ${event.location.address}`}
+                </span>
+              )}
+            </div>
+
+            {event.capacity && (
+              <div className={styles.eventCapacity}>
+                <span className={styles.capacityIcon}>👥</span>
+                <span>Capacity: {event.capacity}</span>
+              </div>
+            )}
           </div>
-        )}
+
+          {event.tags.length > 0 && (
+            <div className={styles.eventTags}>
+              {event.tags.map((tag) => (
+                <span key={tag} className={styles.tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <p className={styles.organizer}>Organized by {event.organizer}</p>
+        </div>
       </div>
 
-      {event.tags.length > 0 && (
-        <div className={styles.eventTags}>
-          {event.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
+      <div className={styles.eventAside}>
+        <p className={styles.eventDescription}>{mainDescription}</p>
 
-      <div className={styles.eventFooter}>
-        <p className={styles.organizer}>Organized by {event.organizer}</p>
+        {agenda && (
+          <div className={styles.agendaSection}>
+            <h4 className={styles.agendaTitle}>Agenda</h4>
+            <div className={styles.agendaContent}>
+              {agenda.split("\n").map((line) => (
+                <p key={`${event.id}-${line}`} className={styles.agendaItem}>
+                  {line}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
+
         <span className={styles.eventLinkHint}>View details →</span>
       </div>
     </a>

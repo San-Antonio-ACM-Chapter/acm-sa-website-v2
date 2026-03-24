@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import type { Event } from "@/lib/events";
 import EventsSection from "../EventsSection";
 
@@ -27,6 +27,19 @@ describe("EventsSection", () => {
   beforeEach(() => {
     jest.useFakeTimers();
     jest.setSystemTime(new Date("2026-03-23T15:00:00.000Z"));
+    Object.defineProperty(window, "matchMedia", {
+      writable: true,
+      value: jest.fn().mockImplementation((query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      })),
+    });
   });
 
   afterEach(() => {
@@ -134,7 +147,6 @@ describe("EventsSection", () => {
 
     expect(eventLinks[0]).toHaveClass(BLUE_CARD_CLASS);
     expect(eventLinks[1]).toHaveClass(RED_CARD_CLASS);
-    expect(eventLinks[2]).toHaveClass(BLUE_CARD_CLASS);
   });
 
   it("shows the empty state when no future events remain", () => {
@@ -152,5 +164,46 @@ describe("EventsSection", () => {
     expect(
       screen.getByText("No events scheduled at the moment. Check back soon!"),
     ).toBeInTheDocument();
+  });
+
+  it("shows a see more button after 2 events on desktop and expands on click", () => {
+    const events: Event[] = [
+      buildEvent({
+        id: "event-1",
+        title: "Event One",
+        date: "2026-03-24T18:00:00.000Z",
+      }),
+      buildEvent({
+        id: "event-2",
+        title: "Event Two",
+        date: "2026-03-25T18:00:00.000Z",
+      }),
+      buildEvent({
+        id: "event-3",
+        title: "Event Three",
+        date: "2026-03-26T18:00:00.000Z",
+      }),
+      buildEvent({
+        id: "event-4",
+        title: "Event Four",
+        date: "2026-03-27T18:00:00.000Z",
+      }),
+    ];
+
+    render(<EventsSection events={events} />);
+
+    expect(screen.getByText("Event One")).toBeInTheDocument();
+    expect(screen.getByText("Event Two")).toBeInTheDocument();
+    expect(screen.queryByText("Event Three")).not.toBeInTheDocument();
+    expect(screen.queryByText("Event Four")).not.toBeInTheDocument();
+    expect(screen.getByText("See more events")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /see more events/i }));
+
+    expect(screen.getByText("Event Three")).toBeInTheDocument();
+    const compactExpandedEvent = screen.getByText("Event Four").closest("a");
+
+    expect(screen.getByText("Event Four")).toBeInTheDocument();
+    expect(compactExpandedEvent).toHaveTextContent("Test Venue");
   });
 });

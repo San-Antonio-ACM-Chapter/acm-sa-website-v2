@@ -13,7 +13,7 @@
 }
 
 .contentWrapper {
-  max-width: 1000px;
+  max-width: 1120px;
   width: 100%;
 }
 
@@ -51,10 +51,199 @@
 }
 
 .eventsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   margin-bottom: 2rem;
+}
+
+.seeMoreButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 1.1rem 1.25rem;
+  border: 1px dashed var(--nav-border);
+  background:
+    linear-gradient(135deg, rgba(39, 192, 255, 0.08), transparent 42%),
+    var(--event-card-bg);
+  color: var(--foreground);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.seeMoreButton:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.seeMoreEyebrow {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary);
+}
+
+.seeMoreTitle {
+  font-family: var(--font-jockey-one);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.seeMoreMeta {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.88rem;
+  opacity: 0.8;
+}
+
+.compactList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.compactEvent {
+  --compact-accent: var(--primary);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 0.95rem 1rem;
+  border-left: 3px solid var(--compact-accent);
+  background-color: var(--event-card-bg);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.compactEvent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--compact-accent) 14%, transparent),
+      transparent 55%
+    ), linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 35%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.compactEvent > * {
+  position: relative;
+  z-index: 1;
+}
+
+.compactEvent:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+}
+
+.compactEvent:hover::before {
+  opacity: 1;
+}
+
+.compactEventBlue {
+  --compact-accent: var(--primary);
+}
+
+.compactEventRed {
+  --compact-accent: var(--secondary);
+}
+
+.compactHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.compactTitleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.compactStatus {
+  width: fit-content;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--nav-border);
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.compactStatusNeutral {
+  color: var(--foreground);
+}
+
+.compactStatusAccent {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.compactStatusLive {
+  color: #ff8a8a;
+  border-color: rgba(255, 82, 82, 0.65);
+}
+
+.compactTitle {
+  font-family: var(--font-jockey-one);
+  font-size: 1.15rem;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.compactDate {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.82rem;
+  color: var(--compact-accent);
+  white-space: nowrap;
+}
+
+.compactMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.82rem;
+  opacity: 0.86;
+}
+
+.compactEvent:hover .compactTitle,
+.compactEvent:hover .compactVenue,
+.compactEvent:hover .compactOrganizer,
+.compactEvent:hover .compactDate {
+  color: var(--foreground-light);
+}
+
+.compactEvent:hover .compactStatus {
+  border-color: var(--foreground-light);
+  color: var(--foreground-light);
+}
+
+.compactVenue::before {
+  content: "At ";
+  opacity: 0.75;
+}
+
+.compactOrganizer::before {
+  content: "By ";
+  opacity: 0.75;
 }
 
 .loadingState,
@@ -99,8 +288,16 @@
   }
 
   .eventsGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .compactHeader {
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .compactDate {
+    white-space: normal;
   }
   .eventsSection h3 {
     font-size: 1.5rem;
@@ -125,6 +322,10 @@
 
   .eventsGrid {
     gap: 1rem;
+  }
+
+  .seeMoreButton {
+    padding: 1rem;
   }
   .eventsSection h3 {
     font-size: 1.3rem;
