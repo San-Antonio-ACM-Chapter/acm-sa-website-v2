@@ -15,7 +15,11 @@ const run = async () => {
   };
 
   if (shouldWrite) {
-    await writeFile(outputPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+    await writeFile(
+      outputPath,
+      `${JSON.stringify(payload, null, 2)}\n`,
+      "utf8",
+    );
     console.log(`Wrote ${events.length} ACM SA events to ${outputPath}`);
     return;
   }

@@ -11,16 +11,16 @@ const nextConfig: NextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
       {
-        protocol: 'https',
-        hostname: 'secure.meetupstatic.com',
+        protocol: "https",
+        hostname: "secure.meetupstatic.com",
       },
       {
-        protocol: 'https',
-        hostname: 'secure-content.meetupstatic.com',
+        protocol: "https",
+        hostname: "secure-content.meetupstatic.com",
       },
     ],
   },

@@ -24,42 +24,13 @@
   left: 0;
   width: 0;
   height: 100%;
-  background-color: var(--primary);
+  background-color: var(--event-accent);
   z-index: -1;
   transition: width 0.3s ease;
 }
 
 .eventCard:hover::before {
   width: 100%;
-}
-
-.eventCard:hover {
-  border-color: var(--event-accent);
-}
-
-.eventCard:hover .eventTitle,
-.eventCard:hover .eventDate,
-.eventCard:hover .eventDescription,
-.eventCard:hover .eventLocation,
-.eventCard:hover .eventCapacity,
-.eventCard:hover .organizer,
-.eventCard:hover .eventLinkHint,
-.eventCard:hover .locationLink {
-  color: var(--foreground-light);
-}
-
-.eventCard:hover .eventDetails {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.eventCard:hover .tag {
-  color: var(--foreground-light);
-  background-color: rgba(255, 255, 255, 0.2);
-  border-color: var(--foreground-light);
-}
-
-.eventCard:hover .locationLink:hover {
-  text-decoration: underline;
 }
 
 .featured {
@@ -147,7 +118,10 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .statusChipNeutral {
@@ -231,7 +205,9 @@
   gap: 0.5rem;
   padding: 0.75rem;
   background-color: var(--nav-bg);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .agendaTitle {
@@ -252,21 +228,11 @@
 
 .agendaItem {
   font-family: var(--font-jetbrains-mono);
-  font-size: 0.85rem !important;
+  font-size: 0.85rem;
   color: var(--event-card-text-lighter);
   margin: 0;
   line-height: 1.5;
   transition: color 0.3s ease;
-}
-
-.eventCard:hover .agendaTitle,
-.eventCard:hover .agendaItem {
-  color: var(--foreground-light);
-}
-
-.eventCard:hover .agendaSection {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: var(--foreground-light);
 }
 
 .eventDetails {
@@ -352,11 +318,45 @@
   letter-spacing: 0.08em;
   color: var(--event-accent);
   white-space: nowrap;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .eventCard:hover .eventLinkHint {
   transform: translateX(4px);
+}
+
+.eventCard:hover {
+  border-color: var(--event-accent);
+}
+
+.eventCard:hover .eventTitle,
+.eventCard:hover .eventDate,
+.eventCard:hover .eventDescription,
+.eventCard:hover .eventLocation,
+.eventCard:hover .eventCapacity,
+.eventCard:hover .organizer,
+.eventCard:hover .eventLinkHint,
+.eventCard:hover .locationLink,
+.eventCard:hover .agendaTitle,
+.eventCard:hover .agendaItem {
+  color: var(--foreground-light);
+}
+
+.eventCard:hover .eventDetails,
+.eventCard:hover .agendaSection {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.eventCard:hover .tag {
+  color: var(--foreground-light);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--foreground-light);
+}
+
+.eventCard:hover .locationLink:hover {
+  text-decoration: underline;
 }
 
 .registerButton {

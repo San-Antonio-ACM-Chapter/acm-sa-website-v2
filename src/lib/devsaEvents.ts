@@ -1,5 +1,5 @@
-import type { ImportedEvent } from "@/lib/events";
 import { parseDevsaFeed } from "@/lib/devsaFeed";
+import type { ImportedEvent } from "@/lib/events";
 
 const FEED_URL = "https://devsa.community/api/events/feed";
 const CACHE_SECONDS = 60 * 60 * 12;
@@ -11,7 +11,9 @@ export const getDevsaAcmEvents = async (): Promise<ImportedEvent[]> => {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch DEVSA feed: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch DEVSA feed: ${response.status} ${response.statusText}`,
+      );
     }
 
     const xml = await response.text();

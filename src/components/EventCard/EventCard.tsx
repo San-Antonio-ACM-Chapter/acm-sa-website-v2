@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import type { Event } from "@/lib/events";
 import styles from "./EventCard.module.css";
 
@@ -76,7 +76,9 @@ const EventCard = ({
     const agendaMatch = description.match(/AGENDA[:\s]*([\s\S]*?)(?:\n\n|$)/i);
 
     if (agendaMatch) {
-      const mainDescription = description.substring(0, agendaMatch.index).trim();
+      const mainDescription = description
+        .substring(0, agendaMatch.index)
+        .trim();
       const agenda = agendaMatch[1].trim();
       return { mainDescription, agenda };
     }
@@ -85,13 +87,23 @@ const EventCard = ({
   };
 
   const { mainDescription, agenda } = parseDescription(event.description);
+  const accentClass =
+    styles[
+      `eventCard${accentVariant[0].toUpperCase()}${accentVariant.slice(1)}`
+    ];
+  const statusToneClass =
+    styles[`statusChip${statusTone[0].toUpperCase()}${statusTone.slice(1)}`];
+  const statusAccentClass =
+    styles[
+      `statusChip${accentVariant[0].toUpperCase()}${accentVariant.slice(1)}`
+    ];
 
   return (
     <a
       href={event.meetupLink}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${styles.eventCard} ${styles[`eventCard${accentVariant[0].toUpperCase()}${accentVariant.slice(1)}`]} ${event.isFeatured ? styles.featured : ""}`}
+      className={`${styles.eventCard} ${accentClass} ${event.isFeatured ? styles.featured : ""}`}
     >
       {event.isFeatured && <div className={styles.featuredBadge}>Featured</div>}
 
@@ -108,7 +120,7 @@ const EventCard = ({
             <div className={styles.headshotOverlay}>
               <Image
                 src={event.headshotUrl}
-                alt={`${event.organizer || 'Speaker'} headshot`}
+                alt={`${event.organizer || "Speaker"} headshot`}
                 width={80}
                 height={80}
                 className={styles.headshotImage}
@@ -121,15 +133,19 @@ const EventCard = ({
       <div className={styles.eventHeader}>
         {statusLabel && (
           <div
-            className={`${styles.statusChip} ${styles[`statusChip${statusTone[0].toUpperCase()}${statusTone.slice(1)}`]} ${styles[`statusChip${accentVariant[0].toUpperCase()}${accentVariant.slice(1)}`]}`}
+            className={`${styles.statusChip} ${statusToneClass} ${statusAccentClass}`}
           >
-            {statusTone === "live" && <span className={styles.liveDot} aria-hidden="true" />}
+            {statusTone === "live" && (
+              <span className={styles.liveDot} aria-hidden="true" />
+            )}
             <span>{statusLabel}</span>
           </div>
         )}
         <h3 className={styles.eventTitle}>{event.title}</h3>
         <p className={styles.eventDate}>
-          {mounted ? formatDateRange(event.date, event.endDate) : "Loading date..."}
+          {mounted
+            ? formatDateRange(event.date, event.endDate)
+            : "Loading date..."}
         </p>
       </div>
 
@@ -139,8 +155,10 @@ const EventCard = ({
         <div className={styles.agendaSection}>
           <h4 className={styles.agendaTitle}>Agenda</h4>
           <div className={styles.agendaContent}>
-            {agenda.split('\n').map((line, index) => (
-              <p key={index} className={styles.agendaItem}>{line}</p>
+            {agenda.split("\n").map((line) => (
+              <p key={line} className={styles.agendaItem}>
+                {line}
+              </p>
             ))}
           </div>
         </div>

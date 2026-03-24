@@ -1,36 +1,37 @@
-import { render } from "@testing-library/react";
-import EventsSection from "../EventsSection";
+import { render, screen } from "@testing-library/react";
 import type { Event } from "@/lib/events";
+import EventsSection from "../EventsSection";
 
 // Mock Date methods and constructor to return consistent timezone-independent results
 const RealDate = Date;
-const originalEnv = process.env.NODE_ENV;
 
 beforeAll(() => {
-  // Set NODE_ENV to development so MOCK_EVENTS are shown
-  Object.defineProperty(process.env, "NODE_ENV", {
-    value: "development",
-    writable: true,
-    configurable: true,
-  });
-
   // Mock Date constructor to return a fixed date
   // @ts-expect-error - We're intentionally overriding the Date class for testing
   global.Date = class extends RealDate {
-    constructor(...args: any[]) {
+    constructor(...args: ConstructorParameters<DateConstructor>) {
       if (args.length === 0) {
         // When called without arguments (like `new Date()`), return a fixed date
         super("2026-03-22T12:00:00Z");
       } else {
         // When called with arguments, use the real Date constructor
-        // @ts-ignore - Spread operator needed for dynamic arguments
+        // @ts-expect-error - Date constructor overloads are not modeled well with spread here
         super(...args);
       }
     }
 
     // Mock toLocaleDateString
-    toLocaleDateString(locale?: string, options?: Intl.DateTimeFormatOptions): string {
-      if (options?.weekday && options?.month && options?.day && options?.year && options?.hour) {
+    toLocaleDateString(
+      _locale?: string,
+      options?: Intl.DateTimeFormatOptions,
+    ): string {
+      if (
+        options?.weekday &&
+        options?.month &&
+        options?.day &&
+        options?.year &&
+        options?.hour
+      ) {
         return "Wed, Apr 15, 2026, 6:00 PM";
       }
       if (options?.weekday && options?.month && options?.day && options?.year) {
@@ -53,11 +54,6 @@ beforeAll(() => {
 
 afterAll(() => {
   global.Date = RealDate;
-  Object.defineProperty(process.env, "NODE_ENV", {
-    value: originalEnv,
-    writable: true,
-    configurable: true,
-  });
 });
 
 describe("EventsSection", () => {
@@ -78,10 +74,31 @@ describe("EventsSection", () => {
       organizer: "ACM SA",
       registrationRequired: true,
     },
+    {
+      id: "test-event-2",
+      title: "Tomorrow Event",
+      description: "This is another test event description",
+      date: "2026-04-16T18:00:00Z",
+      location: {
+        venue: "Another Venue",
+        isVirtual: true,
+      },
+      meetupLink: "https://devsa.community/events/test-event-2",
+      tags: ["virtual"],
+      isFeatured: false,
+      organizer: "ACM San Antonio",
+      registrationRequired: true,
+    },
   ];
 
-  it("should match snapshot", () => {
-    const { container } = render(<EventsSection events={mockEvents} />);
-    expect(container).toMatchSnapshot();
+  it("renders future events and marks the next one as upcoming", () => {
+    render(<EventsSection events={mockEvents} />);
+
+    expect(screen.getByText("Test Event")).toBeInTheDocument();
+    expect(screen.getByText("Tomorrow Event")).toBeInTheDocument();
+    expect(screen.getByText("Upcoming")).toBeInTheDocument();
+    expect(
+      screen.queryByText("No events scheduled at the moment. Check back soon!"),
+    ).not.toBeInTheDocument();
   });
 });

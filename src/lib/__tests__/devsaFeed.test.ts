@@ -1,4 +1,8 @@
-import { isAcmSaHostedEvent, parseDevsaDescription, parseDevsaFeed } from "@/lib/devsaFeed";
+import {
+  isAcmSaHostedEvent,
+  parseDevsaDescription,
+  parseDevsaFeed,
+} from "@/lib/devsaFeed";
 
 describe("parseDevsaDescription", () => {
   it("extracts the structured prelude from the DEVSA item description", () => {
@@ -60,7 +64,8 @@ describe("parseDevsaFeed", () => {
           venue: "Geekdom 3rd Floor",
           isVirtual: false,
         },
-        meetupLink: "https://devsa.community/events/people-not-widgets-ai-april-mmd0sz0d",
+        meetupLink:
+          "https://devsa.community/events/people-not-widgets-ai-april-mmd0sz0d",
         tags: ["hybrid"],
         isFeatured: false,
         organizer: "Geeks && {...}, ACM San Antonio",

@@ -18,7 +18,14 @@
       "imageUrl": "https://secure.meetupstatic.com/photos/event/7/f/e/6/highres_532712742.webp?w=1080",
       "headshotUrl": "https://secure-content.meetupstatic.com/images/classic-events/532654087/200x200.webp",
       "meetupLink": "https://www.meetup.com/acm-sa/events/313183678/",
-      "tags": ["speaker series", "data analytics", "systems thinking", "social services", "AI/ML", "ethics"],
+      "tags": [
+        "speaker series",
+        "data analytics",
+        "systems thinking",
+        "social services",
+        "AI/ML",
+        "ethics"
+      ],
       "isFeatured": false,
       "organizer": "Geeks && {...} and ACM San Antonio"
     },

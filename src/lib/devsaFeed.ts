@@ -42,20 +42,25 @@ const decodeXmlEntities = (value: string) =>
     .replace(/&quot;/g, '"')
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
-    .replace(/&#(\d+);/g, (_, code: string) => String.fromCharCode(Number.parseInt(code, 10)))
-    .replace(
-      /&#x([0-9a-f]+);/gi,
-      (_, code: string) => String.fromCharCode(Number.parseInt(code, 16)),
+    .replace(/&#(\d+);/g, (_, code: string) =>
+      String.fromCharCode(Number.parseInt(code, 10)),
+    )
+    .replace(/&#x([0-9a-f]+);/gi, (_, code: string) =>
+      String.fromCharCode(Number.parseInt(code, 16)),
     );
 
 const getItemField = (itemXml: string, tagName: string) => {
-  const match = itemXml.match(new RegExp(`<${tagName}(?:\\s+[^>]*)?>([\\s\\S]*?)<\\/${tagName}>`, "i"));
+  const match = itemXml.match(
+    new RegExp(`<${tagName}(?:\\s+[^>]*)?>([\\s\\S]*?)<\\/${tagName}>`, "i"),
+  );
   return match ? decodeXmlEntities(match[1].trim()) : undefined;
 };
 
-const stripMarkdownLinks = (value: string) => value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)");
+const stripMarkdownLinks = (value: string) =>
+  value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)");
 
-const normalizeWhitespace = (value: string) => value.replace(/\s+/g, " ").trim();
+const normalizeWhitespace = (value: string) =>
+  value.replace(/\s+/g, " ").trim();
 
 const normalizeOrganizerName = (value: string) =>
   normalizeWhitespace(value).replace(/\bACM SA\b/gi, "ACM San Antonio");
@@ -69,7 +74,15 @@ const parseChicagoDateToIso = (value: string) => {
     throw new Error(`Unsupported DEVSA date format: ${value}`);
   }
 
-  const [, monthName, dayString, yearString, hourString, minuteString, meridiem] = match;
+  const [
+    ,
+    monthName,
+    dayString,
+    yearString,
+    hourString,
+    minuteString,
+    meridiem,
+  ] = match;
   const month = MONTH_INDEX[monthName];
 
   if (month === undefined) {
@@ -80,7 +93,7 @@ const parseChicagoDateToIso = (value: string) => {
   const year = Number.parseInt(yearString, 10);
   const minute = Number.parseInt(minuteString, 10);
   const rawHour = Number.parseInt(hourString, 10);
-  const hour = rawHour % 12 + (meridiem === "PM" ? 12 : 0);
+  const hour = (rawHour % 12) + (meridiem === "PM" ? 12 : 0);
 
   return chicagoTimeToUtcIso(year, month, day, hour, minute);
 };
@@ -98,7 +111,9 @@ const getChicagoParts = (utcMillis: number) => {
   });
 
   const parts = formatter.formatToParts(new Date(utcMillis));
-  const partMap = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  const partMap = Object.fromEntries(
+    parts.map((part) => [part.type, part.value]),
+  );
 
   return {
     year: Number.parseInt(partMap.year, 10),
@@ -142,14 +157,22 @@ const chicagoTimeToUtcIso = (
   return new Date(utcMillis).toISOString();
 };
 
-export const parseDevsaDescription = (description: string): DevsaFeedDescriptionParts | null => {
+export const parseDevsaDescription = (
+  description: string,
+): DevsaFeedDescriptionParts | null => {
   const segments = description.split(" · ");
 
   if (segments.length < 5) {
     return null;
   }
 
-  const [dateLabel, venueLabel, formatSegment, hostedBySegment, ...bodySegments] = segments;
+  const [
+    dateLabel,
+    venueLabel,
+    formatSegment,
+    hostedBySegment,
+    ...bodySegments
+  ] = segments;
   const formatMatch = formatSegment.match(/^Format:\s*(.+)$/i);
   const hostedByMatch = hostedBySegment.match(/^Hosted by\s+(.+)$/i);
 
@@ -168,7 +191,9 @@ export const parseDevsaDescription = (description: string): DevsaFeedDescription
 
 export const isAcmSaHostedEvent = (hostedBy: string) => {
   const normalized = hostedBy.toLowerCase();
-  return normalized.includes("acm sa") || normalized.includes("acm san antonio");
+  return (
+    normalized.includes("acm sa") || normalized.includes("acm san antonio")
+  );
 };
 
 const makeEventId = (guid: string) => {
@@ -176,7 +201,10 @@ const makeEventId = (guid: string) => {
   return lastSegment ?? guid;
 };
 
-const buildTags = (descriptionParts: DevsaFeedDescriptionParts, category?: string) => {
+const buildTags = (
+  descriptionParts: DevsaFeedDescriptionParts,
+  category?: string,
+) => {
   const tags = new Set<string>();
 
   if (category) {
@@ -246,7 +274,9 @@ export const parseDevsaFeed = (xml: string) => {
       source: {
         feed: "devsa",
         guid: parsedItem.guid,
-        publishedAt: parsedItem.pubDate ? new Date(parsedItem.pubDate).toISOString() : undefined,
+        publishedAt: parsedItem.pubDate
+          ? new Date(parsedItem.pubDate).toISOString()
+          : undefined,
         category: parsedItem.category,
         format: descriptionParts.format,
         hostedBy: descriptionParts.hostedBy,
@@ -255,5 +285,7 @@ export const parseDevsaFeed = (xml: string) => {
     });
   }
 
-  return importedEvents.sort((left, right) => left.date.localeCompare(right.date));
+  return importedEvents.sort((left, right) =>
+    left.date.localeCompare(right.date),
+  );
 };

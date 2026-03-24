@@ -19,7 +19,9 @@ const chicagoDateFormatter = new Intl.DateTimeFormat("en-CA", {
 const getChicagoDateKey = (value: Date) => chicagoDateFormatter.format(value);
 
 const getEventEndTime = (event: Event) =>
-  event.endDate ? new Date(event.endDate) : new Date(new Date(event.date).getTime() + DEFAULT_EVENT_DURATION_MS);
+  event.endDate
+    ? new Date(event.endDate)
+    : new Date(new Date(event.date).getTime() + DEFAULT_EVENT_DURATION_MS);
 
 const isLiveNow = (event: Event, now: Date) => {
   const start = new Date(event.date);
@@ -34,7 +36,6 @@ const isHappeningToday = (event: Event, now: Date) => {
 
 const getEventStatus = (event: Event, nextUpcomingEventId?: string) => {
   const now = new Date();
-  const start = new Date(event.date);
 
   if (isLiveNow(event, now)) {
     return { label: "Live Now", tone: "live" as const };
@@ -53,7 +54,9 @@ const getEventStatus = (event: Event, nextUpcomingEventId?: string) => {
 
 const EventsSection = ({ events }: EventsSectionProps) => {
   const now = new Date();
-  const sortedEvents = [...events].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const sortedEvents = [...events].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+  );
   const nextUpcomingEvent = sortedEvents.find((event) => {
     if (getEventEndTime(event) < now) {
       return false;
@@ -65,7 +68,9 @@ const EventsSection = ({ events }: EventsSectionProps) => {
 
     return new Date(event.date) > now;
   });
-  const visibleEvents = sortedEvents.filter((event) => getEventEndTime(event) >= new Date());
+  const visibleEvents = sortedEvents.filter(
+    (event) => getEventEndTime(event) >= new Date(),
+  );
 
   return (
     <section className={styles.eventsSection} id="events" tabIndex={-1}>
