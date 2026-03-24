@@ -11,7 +11,8 @@ const ContactSection = () => {
           <div className={styles.column}>
             <h3>Social Media</h3>
             <p>
-              contact us on social media by using the following links! extra text
+              contact us on social media by using the following links! extra
+              text
             </p>
             <ul className={styles.linkList}>
               <SocialLink
@@ -21,7 +22,7 @@ const ContactSection = () => {
                 icon={"/discord.svg"}
               />
               <SocialLink
-                name={"DEV SA Discord"}
+                name={"DEVSA Discord"}
                 alt={"devsa logo"}
                 url={"https://discord.gg/WqHxcmCX"}
                 icon={"/devsa-logo.svg"}
@@ -37,8 +38,8 @@ const ContactSection = () => {
           <div className={styles.column}>
             <h3>Organizations We Partner With</h3>
             <p>
-              as an organization we often connect and collaborate with these great
-              communities!
+              as an organization we often connect and collaborate with these
+              great communities!
             </p>
             <ul className={styles.linkList}>
               <SocialLink
@@ -48,9 +49,9 @@ const ContactSection = () => {
                 icon={"/ggs-logo.png"}
               />
               <SocialLink
-                name={"DEV SA"}
+                name={"DEVSA"}
                 alt={"devsa logo"}
-                url={"https://devsa.io/"}
+                url={"https://www.devsa.community/"}
                 icon={"/devsa-logo.svg"}
               />
               <SocialLink
@@ -66,7 +67,7 @@ const ContactSection = () => {
                 icon={"/tech-bloc.png"}
               />
               <SocialLink
-                name={"Geeks &&"}
+                name={"Geeks && {...}"}
                 alt={"geeks and logo"}
                 url={"https://www.geeksanddrinks.tech/"}
                 icon={"/geeksand.png"}

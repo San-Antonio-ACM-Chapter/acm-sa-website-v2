@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import type { Event } from "@/components/EventsSection/EventsSection";
 import styles from "./EventCard.module.css";
 
@@ -68,7 +68,9 @@ const EventCard = ({ event }: EventCardProps) => {
     const agendaMatch = description.match(/AGENDA[:\s]*([\s\S]*?)(?:\n\n|$)/i);
 
     if (agendaMatch) {
-      const mainDescription = description.substring(0, agendaMatch.index).trim();
+      const mainDescription = description
+        .substring(0, agendaMatch.index)
+        .trim();
       const agenda = agendaMatch[1].trim();
       return { mainDescription, agenda };
     }
@@ -100,7 +102,7 @@ const EventCard = ({ event }: EventCardProps) => {
             <div className={styles.headshotOverlay}>
               <Image
                 src={event.headshotUrl}
-                alt={`${event.organizer || 'Speaker'} headshot`}
+                alt={`${event.organizer || "Speaker"} headshot`}
                 width={80}
                 height={80}
                 className={styles.headshotImage}
@@ -113,7 +115,9 @@ const EventCard = ({ event }: EventCardProps) => {
       <div className={styles.eventHeader}>
         <h3 className={styles.eventTitle}>{event.title}</h3>
         <p className={styles.eventDate}>
-          {mounted ? formatDateRange(event.date, event.endDate) : "Loading date..."}
+          {mounted
+            ? formatDateRange(event.date, event.endDate)
+            : "Loading date..."}
         </p>
       </div>
 
@@ -123,8 +127,10 @@ const EventCard = ({ event }: EventCardProps) => {
         <div className={styles.agendaSection}>
           <h4 className={styles.agendaTitle}>Agenda</h4>
           <div className={styles.agendaContent}>
-            {agenda.split('\n').map((line, index) => (
-              <p key={index} className={styles.agendaItem}>{line}</p>
+            {agenda.split("\n").map((line) => (
+              <p key={`${event.id}-${line}`} className={styles.agendaItem}>
+                {line}
+              </p>
             ))}
           </div>
         </div>
