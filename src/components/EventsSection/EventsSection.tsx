@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import EventCard from "@/components/EventCard/EventCard";
+import Button from "@/components/Button/Button";
 import styles from "./EventsSection.module.css";
 
 export type EventLocation = {
@@ -92,20 +93,18 @@ const EventsSection = () => {
         {!loading && events.length > 0 && (
           <>
             <div className={styles.filterButtons}>
-              <button
-                className={`${styles.filterButton} ${!showAll ? styles.active : ""}`}
+              <Button
+                active={!showAll}
                 onClick={() => setShowAll(false)}
-                type="button"
               >
                 Upcoming ({upcomingEvents.length})
-              </button>
-              <button
-                className={`${styles.filterButton} ${showAll ? styles.active : ""}`}
+              </Button>
+              <Button
+                active={showAll}
                 onClick={() => setShowAll(true)}
-                type="button"
               >
                 All Events ({events.length})
-              </button>
+              </Button>
             </div>
 
             <div className={styles.eventsGrid}>
@@ -117,13 +116,12 @@ const EventsSection = () => {
             {!showAll && upcomingEvents.length === 0 && (
               <div className={styles.emptyState}>
                 <p>No upcoming events. Check out our past events!</p>
-                <button
-                  className={styles.viewAllButton}
+                <Button
+                  variant="primary"
                   onClick={() => setShowAll(true)}
-                  type="button"
                 >
                   View All Events
-                </button>
+                </Button>
               </div>
             )}
           </>

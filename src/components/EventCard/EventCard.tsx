@@ -5,6 +5,8 @@ import type { Event } from "@/components/EventsSection/EventsSection";
 import styles from "./EventCard.module.css";
 import { formatDateRange } from "./EventCard.utils";
 import EventCardAgenda from "./EventCardAgenda/EventCardAgenda";
+import Button from "@/components/Button/Button";
+
 interface EventCardProps {
   event: Event;
 }
@@ -18,23 +20,13 @@ const EventCard = ({ event }: EventCardProps) => {
     setMounted(true);
   }, []);
 
-  const handleCardClick = () => {
+  const handleToggle = () => {
     setIsCardOpen(!isCardOpen);
   };
 
   return (
     <div
       className={`${styles.eventCard} ${event.isFeatured ? styles.featured : ""} ${isCardOpen ? styles.open : ""}`}
-      onClick={handleCardClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          handleCardClick();
-        }
-      }}
-      aria-expanded={isCardOpen}
     >
       {event.isFeatured && <div className={styles.featuredBadge}>Featured</div>}
 
@@ -95,10 +87,15 @@ const EventCard = ({ event }: EventCardProps) => {
                 {event.location.isVirtual ? (
                   <span>Virtual Event</span>
                 ) : event.location.mapsLink ? (
-                  <span className={styles.locationLink}>
+                  <a
+                    href={event.location.mapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.locationLink}
+                  >
                     {event.location.venue}
                     {event.location.address && `, ${event.location.address}`}
-                  </span>
+                  </a>
                 ) : (
                   <span>
                     {event.location.venue}
@@ -130,6 +127,21 @@ const EventCard = ({ event }: EventCardProps) => {
             </div>
           </>
         )}
+
+        {/* Action Buttons */}
+        <div className={styles.eventActions}>
+          <Button variant="outline" onClick={handleToggle}>
+            {isCardOpen ? "Show Less" : "Show More"}
+          </Button>
+          <Button
+            variant="primary"
+            href={event.meetupLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on Meetup
+          </Button>
+        </div>
       </div>
     </div>
   );

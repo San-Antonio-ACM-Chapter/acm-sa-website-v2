@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Button should match snapshot as link 1`] = `
+<div>
+  <a
+    class="button outline  "
+    href="https://example.com"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    Link Button
+  </a>
+</div>
+`;
+
+exports[`Button should match snapshot with active state 1`] = `
+<div>
+  <button
+    class="button outline active "
+    type="button"
+  >
+    Active Button
+  </button>
+</div>
+`;
+
+exports[`Button should match snapshot with outline variant 1`] = `
+<div>
+  <button
+    class="button outline  "
+    type="button"
+  >
+    Click Me
+  </button>
+</div>
+`;
+
+exports[`Button should match snapshot with primary variant 1`] = `
+<div>
+  <button
+    class="button primary  "
+    type="button"
+  >
+    Primary Button
+  </button>
+</div>
+`;
+
+exports[`Button should match snapshot with secondary variant 1`] = `
+<div>
+  <button
+    class="button secondary  "
+    type="button"
+  >
+    Secondary Button
+  </button>
+</div>
+`;
