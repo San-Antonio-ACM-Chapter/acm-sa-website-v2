@@ -36,4 +36,3 @@ const EventCardAgenda = ({ agenda, eventId }: EventCardAgendaProps) => {
 };
 
 export default EventCardAgenda;
-

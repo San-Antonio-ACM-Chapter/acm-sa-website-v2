@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Button from "@/components/Button/Button";
 import type { Event } from "@/components/EventsSection/EventsSection";
 import styles from "./EventCard.module.css";
 import { formatDateRange } from "./EventCard.utils";
 import EventCardAgenda from "./EventCardAgenda/EventCardAgenda";
-import Button from "@/components/Button/Button";
 
 interface EventCardProps {
   event: Event;
@@ -69,7 +69,9 @@ const EventCard = ({ event }: EventCardProps) => {
         <h3 className={styles.eventTitle}>{event.title}</h3>
 
         {/* Description - always visible on desktop, hidden on mobile when collapsed */}
-        <p className={`${styles.eventDescription} ${!isCardOpen ? styles.descriptionCollapsed : ""}`}>
+        <p
+          className={`${styles.eventDescription} ${!isCardOpen ? styles.descriptionCollapsed : ""}`}
+        >
           {event.description}
         </p>
 

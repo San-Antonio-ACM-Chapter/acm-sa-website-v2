@@ -42,7 +42,9 @@
   line-height: 1.5;
   font-style: italic;
   opacity: 0.8;
-  transition: color 0.3s ease, opacity 0.3s ease;
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
 }
 
 /* Hover states when parent EventCard is hovered */
@@ -56,4 +58,3 @@ div:hover .agendaSection {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: var(--foreground-light);
 }
-

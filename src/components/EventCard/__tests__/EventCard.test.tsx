@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import type { Event } from "@/components/EventsSection/EventsSection";
 import EventCard from "../EventCard";
 
