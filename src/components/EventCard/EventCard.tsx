@@ -1,3 +1,6 @@
+"use client";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 import type { Event } from "@/components/EventsSection/EventsSection";
 import styles from "./EventCard.module.css";
 
@@ -6,6 +9,12 @@ interface EventCardProps {
 }
 
 const EventCard = ({ event }: EventCardProps) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -55,34 +64,88 @@ const EventCard = ({ event }: EventCardProps) => {
     return formatDate(start);
   };
 
+  const parseDescription = (description: string) => {
+    const agendaMatch = description.match(/AGENDA[:\s]*([\s\S]*?)(?:\n\n|$)/i);
+
+    if (agendaMatch) {
+      const mainDescription = description.substring(0, agendaMatch.index).trim();
+      const agenda = agendaMatch[1].trim();
+      return { mainDescription, agenda };
+    }
+
+    return { mainDescription: description, agenda: null };
+  };
+
+  const { mainDescription, agenda } = parseDescription(event.description);
+
   return (
-    <div
+    <a
+      href={event.meetupLink}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`${styles.eventCard} ${event.isFeatured ? styles.featured : ""}`}
     >
       {event.isFeatured && <div className={styles.featuredBadge}>Featured</div>}
 
+      {event.imageUrl && (
+        <div className={styles.eventImageContainer}>
+          <Image
+            src={event.imageUrl}
+            alt={`${event.title} promotional image`}
+            width={600}
+            height={300}
+            className={styles.eventImage}
+          />
+          {event.headshotUrl && (
+            <div className={styles.headshotOverlay}>
+              <Image
+                src={event.headshotUrl}
+                alt={`${event.organizer || 'Speaker'} headshot`}
+                width={80}
+                height={80}
+                className={styles.headshotImage}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
       <div className={styles.eventHeader}>
         <h3 className={styles.eventTitle}>{event.title}</h3>
         <p className={styles.eventDate}>
-          {formatDateRange(event.date, event.endDate)}
+          {mounted ? formatDateRange(event.date, event.endDate) : "Loading date..."}
         </p>
       </div>
 
-      <p className={styles.eventDescription}>{event.description}</p>
+      <p className={styles.eventDescription}>{mainDescription}</p>
+
+      {agenda && (
+        <div className={styles.agendaSection}>
+          <h4 className={styles.agendaTitle}>Agenda</h4>
+          <div className={styles.agendaContent}>
+            {agenda.split('\n').map((line, index) => (
+              <p key={index} className={styles.agendaItem}>{line}</p>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className={styles.eventDetails}>
         <div className={styles.eventLocation}>
           <span className={styles.locationIcon}>📍</span>
-          <span>
-            {event.location.isVirtual ? (
-              "Virtual Event"
-            ) : (
-              <>
-                {event.location.venue}
-                {event.location.address && `, ${event.location.address}`}
-              </>
-            )}
-          </span>
+          {event.location.isVirtual ? (
+            <span>Virtual Event</span>
+          ) : event.location.mapsLink ? (
+            <span className={styles.locationLink}>
+              {event.location.venue}
+              {event.location.address && `, ${event.location.address}`}
+            </span>
+          ) : (
+            <span>
+              {event.location.venue}
+              {event.location.address && `, ${event.location.address}`}
+            </span>
+          )}
         </div>
 
         {event.capacity && (
@@ -105,30 +168,8 @@ const EventCard = ({ event }: EventCardProps) => {
 
       <div className={styles.eventFooter}>
         <p className={styles.organizer}>Organized by {event.organizer}</p>
-        {event.registrationUrl && (
-          <a
-            href={event.registrationUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.registerButton}
-          >
-            Register Now
-          </a>
-        )}
-        {event.location.isVirtual &&
-          event.location.virtualLink &&
-          !event.registrationUrl && (
-            <a
-              href={event.location.virtualLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.registerButton}
-            >
-              Join Event
-            </a>
-          )}
       </div>
-    </div>
+    </a>
   );
 };
 

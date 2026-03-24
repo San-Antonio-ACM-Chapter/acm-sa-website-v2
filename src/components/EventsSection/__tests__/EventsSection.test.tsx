@@ -19,16 +19,22 @@ type MockDateArgs =
 
 beforeAll(() => {
   // Set NODE_ENV to development so MOCK_EVENTS are shown
-  process.env.NODE_ENV = "development";
+  Object.defineProperty(process.env, "NODE_ENV", {
+    value: "development",
+    writable: true,
+    configurable: true,
+  });
 
   // Mock Date constructor to return a fixed date
-  const MockDate = class extends RealDate {
-    constructor(...args: MockDateArgs) {
+  // @ts-expect-error - We're intentionally overriding the Date class for testing
+  global.Date = class extends RealDate {
+    constructor(...args: any[]) {
       if (args.length === 0) {
         // When called without arguments (like `new Date()`), return a fixed date
         super("2026-03-22T12:00:00Z");
       } else {
         // When called with arguments, use the real Date constructor
+        // @ts-ignore - Spread operator needed for dynamic arguments
         super(...args);
       }
     }
@@ -58,18 +64,20 @@ beforeAll(() => {
       return "6:00 PM";
     }
 
-    // Preserve static methods
+    // Preserve static methods (prevent tree-shaking)
     static now = RealDate.now;
     static parse = RealDate.parse;
     static UTC = RealDate.UTC;
   };
-
-  global.Date = MockDate as DateConstructor;
 });
 
 afterAll(() => {
   global.Date = RealDate;
-  process.env.NODE_ENV = originalEnv;
+  Object.defineProperty(process.env, "NODE_ENV", {
+    value: originalEnv,
+    writable: true,
+    configurable: true,
+  });
 });
 
 describe("EventsSection", () => {

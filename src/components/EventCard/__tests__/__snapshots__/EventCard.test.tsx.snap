@@ -2,8 +2,11 @@
 
 exports[`EventCard should match snapshot with featured event 1`] = `
 <div>
-  <div
+  <a
     class="eventCard featured"
+    href="https://www.meetup.com/acm-sa/events/test-event-1"
+    rel="noopener noreferrer"
+    target="_blank"
   >
     <div
       class="featuredBadge"
@@ -69,14 +72,17 @@ exports[`EventCard should match snapshot with featured event 1`] = `
         Organized by 
       </p>
     </div>
-  </div>
+  </a>
 </div>
 `;
 
 exports[`EventCard should match snapshot with regular event 1`] = `
 <div>
-  <div
+  <a
     class="eventCard "
+    href="https://www.meetup.com/acm-sa/events/test-event-1"
+    rel="noopener noreferrer"
+    target="_blank"
   >
     <div
       class="eventHeader"
@@ -137,14 +143,17 @@ exports[`EventCard should match snapshot with regular event 1`] = `
         Organized by 
       </p>
     </div>
-  </div>
+  </a>
 </div>
 `;
 
 exports[`EventCard should match snapshot with virtual event 1`] = `
 <div>
-  <div
+  <a
     class="eventCard "
+    href="https://www.meetup.com/acm-sa/events/test-event-1"
+    rel="noopener noreferrer"
+    target="_blank"
   >
     <div
       class="eventHeader"
@@ -204,6 +213,6 @@ exports[`EventCard should match snapshot with virtual event 1`] = `
         Organized by 
       </p>
     </div>
-  </div>
+  </a>
 </div>
 `;

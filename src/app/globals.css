@@ -11,6 +11,12 @@
   --shadow: rgba(48, 188, 237, 0.15); /* Blue-tinted shadow */
   --shadow-red: rgba(232, 72, 85, 0.15); /* Red-tinted shadow */
 
+  /* Event Card Colors */
+  --event-card-bg: #ffffff;
+  --event-card-border: #e5e5e5;
+  --event-card-text: #171717;
+  --event-card-text-lighter: #333333;
+
   /* Section backgrounds */
   --section-bg-primary: #fafafa;
   --section-bg-secondary: #ffffff;
@@ -33,6 +39,12 @@
   --border: #2a2a2a;
   --shadow: rgba(48, 188, 237, 0.25); /* Stronger shadow in dark mode */
   --shadow-red: rgba(232, 72, 85, 0.25); /* Stronger red shadow in dark mode */
+
+  /* Event Card Colors */
+  --event-card-bg: #171717;
+  --event-card-border: #2a2a2a;
+  --event-card-text: #e5e5e5;
+  --event-card-text-lighter: #cccccc;
 
   /* Section backgrounds */
   --section-bg-primary: #121212;
