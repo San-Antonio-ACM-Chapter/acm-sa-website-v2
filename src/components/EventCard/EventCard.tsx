@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import type { Event } from "@/lib/events";
+import type { Event } from "@/components/EventsSection/EventsSection";
 import styles from "./EventCard.module.css";
 
 interface EventCardProps {
@@ -156,7 +156,7 @@ const EventCard = ({
           <h4 className={styles.agendaTitle}>Agenda</h4>
           <div className={styles.agendaContent}>
             {agenda.split("\n").map((line) => (
-              <p key={line} className={styles.agendaItem}>
+              <p key={`${event.id}-${line}`} className={styles.agendaItem}>
                 {line}
               </p>
             ))}

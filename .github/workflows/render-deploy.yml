@@ -1,0 +1,240 @@
+name: Render Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: render-production
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Biome lint checks
+        run: npm run lint
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run test suite
+        run: npm test -- --runInBand
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+    if: ${{ needs.lint.result == 'success' && needs.test.result == 'success' }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+  deploy:
+    name: Deploy to Render
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ needs.build.result == 'success' }}
+
+    steps:
+      # This only confirms GitHub successfully triggered the Render deploy hook.
+      # It does not wait for or verify Render's final build/deploy status.
+      - name: Trigger Render deploy
+        env:
+          RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
+            echo "Missing RENDER_DEPLOY_HOOK_URL secret."
+            exit 1
+          fi
+
+          curl --fail --silent --show-error \
+            --request POST \
+            "$RENDER_DEPLOY_HOOK_URL"
+
+  notify-failure:
+    name: Notify Discord Pipeline Failure
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+      - build
+      - deploy
+    if: ${{ always() && (needs.lint.result == 'failure' || needs.test.result == 'failure' || needs.build.result == 'failure' || needs.deploy.result == 'failure') }}
+
+    steps:
+      - name: Send failure notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_ROLE_ID: '1485499573056049233'
+          REPOSITORY: ${{ github.repository }}
+          REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+          SHA: ${{ github.sha }}
+          COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
+          ACTOR: ${{ github.actor }}
+          ACTOR_AVATAR_URL: ${{ github.event.sender.avatar_url }}
+          LINT_RESULT: ${{ needs.lint.result }}
+          TEST_RESULT: ${{ needs.test.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "Missing DISCORD_WEBHOOK_URL secret."
+            exit 1
+          fi
+
+          timestamp=$(TZ=America/Chicago date '+%a, %b %-d, %Y %-I:%M %p')
+
+          lint_icon="🔘"
+          if [ "$LINT_RESULT" = "success" ]; then
+            lint_icon="✅"
+          elif [ "$LINT_RESULT" = "failure" ]; then
+            lint_icon="❌"
+          fi
+
+          test_icon="🔘"
+          if [ "$TEST_RESULT" = "success" ]; then
+            test_icon="✅"
+          elif [ "$TEST_RESULT" = "failure" ]; then
+            test_icon="❌"
+          fi
+
+          build_icon="🔘"
+          if [ "$BUILD_RESULT" = "success" ]; then
+            build_icon="✅"
+          elif [ "$BUILD_RESULT" = "failure" ]; then
+            build_icon="❌"
+          fi
+
+          deploy_icon="🔘"
+          if [ "$DEPLOY_RESULT" = "success" ]; then
+            deploy_icon="✅"
+          elif [ "$DEPLOY_RESULT" = "failure" ]; then
+            deploy_icon="❌"
+          fi
+
+          payload=$(cat <<EOF
+          {
+            "content": "<@&$DISCORD_ROLE_ID>",
+            "allowed_mentions": {
+              "parse": [],
+              "roles": ["$DISCORD_ROLE_ID"]
+            },
+            "embeds": [
+              {
+                "title": "Pipeline Failure",
+                "author": {
+                  "name": "$ACTOR",
+                  "icon_url": "$ACTOR_AVATAR_URL"
+                },
+                "description": "$lint_icon Lint\n$test_icon Tests\n$build_icon Build\n$deploy_icon Deployment\n\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL) | [Repository]($REPOSITORY_URL)\n",
+                "color": 15158332,
+                "footer": {
+                  "text": "$timestamp"
+                }
+              }
+            ]
+          }
+          EOF
+          )
+
+          curl --fail --silent --show-error \
+            --header "Content-Type: application/json" \
+            --data "$payload" \
+            "$DISCORD_WEBHOOK_URL"
+
+  notify-success:
+    name: Notify Discord Deployment Success
+    runs-on: ubuntu-latest
+    needs:
+      - deploy
+    if: ${{ always() && needs.deploy.result == 'success' }}
+
+    steps:
+      - name: Send success notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
+          COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
+          ACTOR: ${{ github.actor }}
+          ACTOR_AVATAR_URL: ${{ github.event.sender.avatar_url }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "Missing DISCORD_WEBHOOK_URL secret."
+            exit 1
+          fi
+
+          timestamp=$(TZ=America/Chicago date '+%a, %b %-d, %Y %-I:%M %p')
+
+          payload=$(cat <<EOF
+          {
+            "embeds": [
+              {
+                "title": "Deployment Success",
+                "author": {
+                  "name": "$ACTOR",
+                  "icon_url": "$ACTOR_AVATAR_URL"
+                },
+                "description": "[acmsa.org](https://acm-sa-website-v2.onrender.com)\n\n✅ Build\n\n[Commit]($COMMIT_URL) | [Workflow]($RUN_URL) | [Repository]($REPOSITORY_URL)\n",
+                "color": 3066993,
+                "footer": {
+                  "text": "$timestamp"
+                }
+              }
+            ]
+          }
+          EOF
+          )
+
+          curl --fail --silent --show-error \
+            --header "Content-Type: application/json" \
+            --data "$payload" \
+            "$DISCORD_WEBHOOK_URL"

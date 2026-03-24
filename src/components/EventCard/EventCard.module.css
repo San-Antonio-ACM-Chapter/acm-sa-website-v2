@@ -33,6 +33,10 @@
   width: 100%;
 }
 
+.eventCard:hover {
+  border-color: var(--primary);
+}
+
 .featured {
   border-color: var(--secondary);
   border-width: 3px;
@@ -371,6 +375,30 @@
   border: none;
   cursor: pointer;
   white-space: nowrap;
+}
+
+.eventCard:hover .eventTitle,
+.eventCard:hover .eventDate,
+.eventCard:hover .eventDescription,
+.eventCard:hover .eventLocation,
+.eventCard:hover .eventCapacity,
+.eventCard:hover .organizer,
+.eventCard:hover .locationLink {
+  color: var(--foreground-light);
+}
+
+.eventCard:hover .eventDetails {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.eventCard:hover .tag {
+  color: var(--foreground-light);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--foreground-light);
+}
+
+.eventCard:hover .locationLink:hover {
+  text-decoration: underline;
 }
 
 .registerButton:hover {

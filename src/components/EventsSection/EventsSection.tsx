@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import EventCard from "@/components/EventCard/EventCard";
 import type { Event } from "@/lib/events";
 import styles from "./EventsSection.module.css";

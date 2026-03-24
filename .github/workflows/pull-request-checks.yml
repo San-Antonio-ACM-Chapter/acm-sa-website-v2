@@ -1,0 +1,136 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+      - ready_for_review
+
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  notify-pr-opened:
+    name: Notify Discord PR Opened
+    runs-on: ubuntu-latest
+    if: ${{ (github.event.action == 'opened' && !github.event.pull_request.draft) || github.event.action == 'ready_for_review' }}
+
+    steps:
+      - name: Send pull request notification
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_ROLE_ID: "1485514867376001124"
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          ACTOR: ${{ github.event.pull_request.user.login }}
+          ACTOR_AVATAR_URL: ${{ github.event.pull_request.user.avatar_url }}
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "Missing DISCORD_WEBHOOK_URL secret."
+            exit 1
+          fi
+
+          timestamp=$(TZ=America/Chicago date '+%a, %b %-d, %Y %-I:%M %p')
+
+          payload=$(cat <<EOF
+          {
+            "content": "<@&$DISCORD_ROLE_ID>",
+            "allowed_mentions": {
+              "parse": [],
+              "roles": ["$DISCORD_ROLE_ID"]
+            },
+            "embeds": [
+              {
+                "title": "$PR_TITLE",
+                "author": {
+                  "name": "$ACTOR",
+                  "icon_url": "$ACTOR_AVATAR_URL"
+                },
+                "description": "[Review Here]($PR_URL)",
+                "color": 3447003,
+                "footer": {
+                  "text": "$timestamp"
+                }
+              }
+            ]
+          }
+          EOF
+          )
+
+          curl --fail --silent --show-error \
+            --header "Content-Type: application/json" \
+            --data "$payload" \
+            "$DISCORD_WEBHOOK_URL"
+
+  validate-pr-body:
+    name: Validate PR Description
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+
+    steps:
+      - name: Validate pull request body
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if [ -z "$PR_BODY" ] || [ "$PR_BODY" = "null" ]; then
+            echo "Pull request description is required."
+            exit 1
+          fi
+
+          if printf '%s' "$PR_BODY" | grep -Fq "Describe the change in 1-3 sentences."; then
+            echo "Pull request description still contains template placeholder text in Summary."
+            exit 1
+          fi
+
+          if printf '%s' "$PR_BODY" | grep -Fq "Attach before/after screenshots or a short recording for any visible UI change."; then
+            echo "Pull request description still contains template placeholder text in Screenshots / Recording."
+            exit 1
+          fi
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Biome lint checks
+        run: npm run lint
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run test suite
+        run: npm test -- --runInBand

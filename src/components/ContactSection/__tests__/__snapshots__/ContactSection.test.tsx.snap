@@ -67,7 +67,7 @@ exports[`ContactSection should match snapshot 1`] = `
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                DEV SA Discord
+                DEVSA Discord
               </a>
             </li>
             <li
@@ -141,11 +141,11 @@ exports[`ContactSection should match snapshot 1`] = `
                 width="24"
               />
               <a
-                href="https://devsa.io/"
+                href="https://www.devsa.community/"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                DEV SA
+                DEVSA
               </a>
             </li>
             <li
@@ -210,7 +210,7 @@ exports[`ContactSection should match snapshot 1`] = `
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Geeks &&
+                Geeks && {...}
               </a>
             </li>
           </ul>
