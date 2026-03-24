@@ -4,6 +4,8 @@ import EventsSection from "../EventsSection";
 // Mock Date methods and constructor to return consistent timezone-independent results
 const RealDate = Date;
 const originalEnv = process.env.NODE_ENV;
+const originalFetch = global.fetch;
+const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 type MockDateArgs =
   | []
   | [value: string | number | Date]
@@ -69,10 +71,14 @@ beforeAll(() => {
     static parse = RealDate.parse;
     static UTC = RealDate.UTC;
   };
+
+  global.fetch = jest.fn().mockRejectedValue(new Error("Failed to load events")) as typeof fetch;
 });
 
 afterAll(() => {
   global.Date = RealDate;
+  global.fetch = originalFetch;
+  consoleErrorSpy.mockRestore();
   Object.defineProperty(process.env, "NODE_ENV", {
     value: originalEnv,
     writable: true,
