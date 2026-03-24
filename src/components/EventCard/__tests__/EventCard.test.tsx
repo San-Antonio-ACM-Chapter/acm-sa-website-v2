@@ -27,7 +27,6 @@ const mockToLocaleTimeString = jest.fn(() => "6:00 PM");
 beforeAll(() => {
   // @ts-expect-error - Mock the Date prototype methods
   Date.prototype.toLocaleDateString = mockToLocaleDateString;
-  // @ts-expect-error - Mock the Date prototype methods
   Date.prototype.toLocaleTimeString = mockToLocaleTimeString;
 });
 
