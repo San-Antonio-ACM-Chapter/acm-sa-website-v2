@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react";
-import type { Event } from "@/components/EventsSection/EventsSection";
+import { render, screen } from "@testing-library/react";
+import type { Event } from "@/lib/events";
 import EventCard from "../EventCard";
 
 // Mock Date methods to return consistent timezone-independent results
@@ -48,28 +48,50 @@ describe("EventCard", () => {
     registrationRequired: false,
   };
 
-  it("should match snapshot with regular event", () => {
-    const { container } = render(<EventCard event={mockEvent} />);
-    expect(container).toMatchSnapshot();
+  it("renders a regular event card", () => {
+    render(<EventCard event={mockEvent} />);
+
+    expect(screen.getByText("Test Event")).toBeInTheDocument();
+    expect(screen.getByText("Wed, Apr 15, 2026, 6:00 PM")).toBeInTheDocument();
+    expect(
+      screen.getByText("This is a test event description"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("testing")).toBeInTheDocument();
+    expect(screen.getByText("jest")).toBeInTheDocument();
+    expect(screen.getByText("View details →")).toBeInTheDocument();
   });
 
-  it("should match snapshot with featured event", () => {
+  it("renders a featured event card", () => {
     const featuredEvent: Event = {
       ...mockEvent,
       isFeatured: true,
+      organizer: "ACM San Antonio",
     };
-    const { container } = render(<EventCard event={featuredEvent} />);
-    expect(container).toMatchSnapshot();
+    render(<EventCard event={featuredEvent} />);
+
+    expect(screen.getByText("Featured")).toBeInTheDocument();
+    expect(
+      screen.getByText("Organized by ACM San Antonio"),
+    ).toBeInTheDocument();
   });
 
-  it("should match snapshot with virtual event", () => {
+  it("renders a virtual live event card", () => {
     const virtualEvent: Event = {
       ...mockEvent,
       location: {
         isVirtual: true,
       },
     };
-    const { container } = render(<EventCard event={virtualEvent} />);
-    expect(container).toMatchSnapshot();
+    render(
+      <EventCard
+        event={virtualEvent}
+        statusLabel="Live Now"
+        statusTone="live"
+        accentVariant="red"
+      />,
+    );
+
+    expect(screen.getByText("Virtual Event")).toBeInTheDocument();
+    expect(screen.getByText("Live Now")).toBeInTheDocument();
   });
 });

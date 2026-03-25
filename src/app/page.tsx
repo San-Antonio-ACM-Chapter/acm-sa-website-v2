@@ -3,9 +3,12 @@ import ContactSection from "@/components/ContactSection/ContactSection";
 import EventsSection from "@/components/EventsSection/EventsSection";
 import Hero from "@/components/Hero/Hero";
 import Navigator from "@/components/Navigator/Navigator";
+import { getDevsaAcmEvents } from "@/lib/devsaEvents";
 import styles from "./home.module.css";
 
-const Home = () => {
+const Home = async () => {
+  const events = await getDevsaAcmEvents();
+
   return (
     <div>
       <Navigator />
@@ -13,7 +16,7 @@ const Home = () => {
         <Hero />
       </section>
       <AboutSection />
-      <EventsSection />
+      <EventsSection events={events} />
       <ContactSection />
     </div>
   );

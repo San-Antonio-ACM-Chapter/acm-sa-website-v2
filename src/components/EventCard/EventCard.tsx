@@ -1,14 +1,22 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import type { Event } from "@/components/EventsSection/EventsSection";
+import type { Event } from "@/lib/events";
 import styles from "./EventCard.module.css";
 
 interface EventCardProps {
   event: Event;
+  statusLabel?: string;
+  statusTone?: "neutral" | "accent" | "live";
+  accentVariant?: "blue" | "red";
 }
 
-const EventCard = ({ event }: EventCardProps) => {
+const EventCard = ({
+  event,
+  statusLabel,
+  statusTone = "neutral",
+  accentVariant = "blue",
+}: EventCardProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -79,13 +87,23 @@ const EventCard = ({ event }: EventCardProps) => {
   };
 
   const { mainDescription, agenda } = parseDescription(event.description);
+  const accentClass =
+    styles[
+      `eventCard${accentVariant[0].toUpperCase()}${accentVariant.slice(1)}`
+    ];
+  const statusToneClass =
+    styles[`statusChip${statusTone[0].toUpperCase()}${statusTone.slice(1)}`];
+  const statusAccentClass =
+    styles[
+      `statusChip${accentVariant[0].toUpperCase()}${accentVariant.slice(1)}`
+    ];
 
   return (
     <a
       href={event.meetupLink}
       target="_blank"
       rel="noopener noreferrer"
-      className={`${styles.eventCard} ${event.isFeatured ? styles.featured : ""}`}
+      className={`${styles.eventCard} ${accentClass} ${event.isFeatured ? styles.featured : ""}`}
     >
       {event.isFeatured && <div className={styles.featuredBadge}>Featured</div>}
 
@@ -112,68 +130,84 @@ const EventCard = ({ event }: EventCardProps) => {
         </div>
       )}
 
-      <div className={styles.eventHeader}>
-        <h3 className={styles.eventTitle}>{event.title}</h3>
-        <p className={styles.eventDate}>
-          {mounted
-            ? formatDateRange(event.date, event.endDate)
-            : "Loading date..."}
-        </p>
+      <div className={styles.eventMain}>
+        <div className={styles.eventHeader}>
+          {statusLabel && (
+            <div
+              className={`${styles.statusChip} ${statusToneClass} ${statusAccentClass}`}
+            >
+              {statusTone === "live" && (
+                <span className={styles.liveDot} aria-hidden="true" />
+              )}
+              <span>{statusLabel}</span>
+            </div>
+          )}
+          <h3 className={styles.eventTitle}>{event.title}</h3>
+          <p className={styles.eventDate}>
+            {mounted
+              ? formatDateRange(event.date, event.endDate)
+              : "Loading date..."}
+          </p>
+        </div>
+
+        <div className={styles.eventMeta}>
+          <div className={styles.eventDetails}>
+            <div className={styles.eventLocation}>
+              <span className={styles.locationIcon}>📍</span>
+              {event.location.isVirtual ? (
+                <span>Virtual Event</span>
+              ) : event.location.mapsLink ? (
+                <span className={styles.locationLink}>
+                  {event.location.venue}
+                  {event.location.address && `, ${event.location.address}`}
+                </span>
+              ) : (
+                <span>
+                  {event.location.venue}
+                  {event.location.address && `, ${event.location.address}`}
+                </span>
+              )}
+            </div>
+
+            {event.capacity && (
+              <div className={styles.eventCapacity}>
+                <span className={styles.capacityIcon}>👥</span>
+                <span>Capacity: {event.capacity}</span>
+              </div>
+            )}
+          </div>
+
+          {event.tags.length > 0 && (
+            <div className={styles.eventTags}>
+              {event.tags.map((tag) => (
+                <span key={tag} className={styles.tag}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <p className={styles.organizer}>Organized by {event.organizer}</p>
+        </div>
       </div>
 
-      <p className={styles.eventDescription}>{mainDescription}</p>
+      <div className={styles.eventAside}>
+        <p className={styles.eventDescription}>{mainDescription}</p>
 
-      {agenda && (
-        <div className={styles.agendaSection}>
-          <h4 className={styles.agendaTitle}>Agenda</h4>
-          <div className={styles.agendaContent}>
-            {agenda.split("\n").map((line) => (
-              <p key={`${event.id}-${line}`} className={styles.agendaItem}>
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className={styles.eventDetails}>
-        <div className={styles.eventLocation}>
-          <span className={styles.locationIcon}>📍</span>
-          {event.location.isVirtual ? (
-            <span>Virtual Event</span>
-          ) : event.location.mapsLink ? (
-            <span className={styles.locationLink}>
-              {event.location.venue}
-              {event.location.address && `, ${event.location.address}`}
-            </span>
-          ) : (
-            <span>
-              {event.location.venue}
-              {event.location.address && `, ${event.location.address}`}
-            </span>
-          )}
-        </div>
-
-        {event.capacity && (
-          <div className={styles.eventCapacity}>
-            <span className={styles.capacityIcon}>👥</span>
-            <span>Capacity: {event.capacity}</span>
+        {agenda && (
+          <div className={styles.agendaSection}>
+            <h4 className={styles.agendaTitle}>Agenda</h4>
+            <div className={styles.agendaContent}>
+              {agenda.split("\n").map((line) => (
+                <p key={`${event.id}-${line}`} className={styles.agendaItem}>
+                  {line}
+                </p>
+              ))}
+            </div>
           </div>
         )}
-      </div>
 
-      {event.tags.length > 0 && (
-        <div className={styles.eventTags}>
-          {event.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      )}
-
-      <div className={styles.eventFooter}>
-        <p className={styles.organizer}>Organized by {event.organizer}</p>
+        <span className={styles.eventLinkHint}>View details →</span>
       </div>
     </a>
   );
