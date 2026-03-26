@@ -1,7 +1,7 @@
 .contactSection {
   background-color: var(--section-bg-tertiary);
   padding: 2rem 10rem;
-  height: 100vh;
+  min-height: 100vh;
   transition: background-color 0.3s ease;
   user-select: none;
   -webkit-user-select: none;
