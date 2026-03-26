@@ -309,7 +309,7 @@
 }
 
 .tag:hover {
-  background-color: var(--event-accent);
+  background-color: color-mix(in srgb, var(--event-accent) 90%, var(--nav-bg));
   color: var(--foreground-light);
   border-color: var(--event-accent);
 }
@@ -336,28 +336,9 @@
   align-self: flex-end;
 }
 
-.eventCard:hover .eventTitle,
-.eventCard:hover .eventDate,
-.eventCard:hover .eventDescription,
-.eventCard:hover .eventLocation,
-.eventCard:hover .eventCapacity,
-.eventCard:hover .organizer,
-.eventCard:hover .eventLinkHint,
-.eventCard:hover .locationLink,
-.eventCard:hover .agendaTitle,
-.eventCard:hover .agendaItem {
-  color: var(--foreground-light);
-}
-
 .eventCard:hover .eventDetails,
 .eventCard:hover .agendaSection {
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-.eventCard:hover .tag {
-  color: var(--foreground-light);
-  background-color: rgba(255, 255, 255, 0.16);
-  border-color: var(--foreground-light);
+  background-color: color-mix(in srgb, var(--event-accent) 8%, var(--nav-bg));
 }
 
 .eventCard:hover .eventLinkHint {
