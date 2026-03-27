@@ -1,0 +1,794 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`EventCard matches snapshot for event card with agenda 1`] = `
+<a
+  class="eventCard eventCardBlue "
+  href="https://www.meetup.com/acm-sa/events/test-event-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    class="eventMain"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+    <div
+      class="eventMeta"
+    >
+      <div
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
+      >
+        <span
+          class="tag"
+        >
+          testing
+        </span>
+        <span
+          class="tag"
+        >
+          jest
+        </span>
+      </div>
+      <p
+        class="organizer"
+      >
+        Organized by 
+        ACM SA
+      </p>
+    </div>
+  </div>
+  <div
+    class="eventAside"
+  >
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <div
+      class="agendaSection"
+    >
+      <h4
+        class="agendaTitle"
+      >
+        Agenda
+      </h4>
+      <div
+        class="agendaContent"
+      >
+        <p
+          class="agendaItem"
+        >
+          6:00 PM - Welcome
+        </p>
+        <p
+          class="agendaItem"
+        >
+          6:30 PM - Main Talk
+        </p>
+        <p
+          class="agendaItem"
+        >
+          7:30 PM - Q&A
+        </p>
+      </div>
+    </div>
+    <span
+      class="eventLinkHint"
+    >
+      View details →
+    </span>
+  </div>
+</a>
+`;
+
+exports[`EventCard matches snapshot for event card with capacity 1`] = `
+<a
+  class="eventCard eventCardBlue "
+  href="https://www.meetup.com/acm-sa/events/test-event-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    class="eventMain"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+    <div
+      class="eventMeta"
+    >
+      <div
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+        <div
+          class="eventCapacity"
+        >
+          <span
+            class="capacityIcon"
+          >
+            👥
+          </span>
+          <span>
+            Capacity: 
+            50
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
+      >
+        <span
+          class="tag"
+        >
+          testing
+        </span>
+        <span
+          class="tag"
+        >
+          jest
+        </span>
+      </div>
+      <p
+        class="organizer"
+      >
+        Organized by 
+        ACM SA
+      </p>
+    </div>
+  </div>
+  <div
+    class="eventAside"
+  >
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <span
+      class="eventLinkHint"
+    >
+      View details →
+    </span>
+  </div>
+</a>
+`;
+
+exports[`EventCard matches snapshot for event with headshot and image 1`] = `
+<a
+  class="eventCard eventCardBlue featured"
+  href="https://www.meetup.com/acm-sa/events/test-event-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    class="featuredBadge"
+  >
+    Featured
+  </div>
+  <div
+    class="eventImageContainer"
+  >
+    <img
+      alt="Test Event promotional image"
+      class="eventImage"
+      data-nimg="1"
+      decoding="async"
+      height="300"
+      loading="lazy"
+      src="/_next/image?url=%2Fevent-image.jpg&w=1200&q=75"
+      srcset="/_next/image?url=%2Fevent-image.jpg&w=640&q=75 1x, /_next/image?url=%2Fevent-image.jpg&w=1200&q=75 2x"
+      style="color: transparent;"
+      width="600"
+    />
+    <div
+      class="headshotOverlay"
+    >
+      <img
+        alt="Guest Speaker headshot"
+        class="headshotImage"
+        data-nimg="1"
+        decoding="async"
+        height="80"
+        loading="lazy"
+        src="/_next/image?url=%2Fspeaker-headshot.jpg&w=256&q=75"
+        srcset="/_next/image?url=%2Fspeaker-headshot.jpg&w=96&q=75 1x, /_next/image?url=%2Fspeaker-headshot.jpg&w=256&q=75 2x"
+        style="color: transparent;"
+        width="80"
+      />
+    </div>
+  </div>
+  <div
+    class="eventMain"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+    <div
+      class="eventMeta"
+    >
+      <div
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
+      >
+        <span
+          class="tag"
+        >
+          testing
+        </span>
+        <span
+          class="tag"
+        >
+          jest
+        </span>
+      </div>
+      <p
+        class="organizer"
+      >
+        Organized by 
+        Guest Speaker
+      </p>
+    </div>
+  </div>
+  <div
+    class="eventAside"
+  >
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <span
+      class="eventLinkHint"
+    >
+      View details →
+    </span>
+  </div>
+</a>
+`;
+
+exports[`EventCard matches snapshot for featured event card with blue accent 1`] = `
+<a
+  class="eventCard eventCardBlue featured"
+  href="https://www.meetup.com/acm-sa/events/test-event-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    class="featuredBadge"
+  >
+    Featured
+  </div>
+  <div
+    class="eventImageContainer"
+  >
+    <img
+      alt="Test Event promotional image"
+      class="eventImage"
+      data-nimg="1"
+      decoding="async"
+      height="300"
+      loading="lazy"
+      src="/_next/image?url=%2Ftest-image.jpg&w=1200&q=75"
+      srcset="/_next/image?url=%2Ftest-image.jpg&w=640&q=75 1x, /_next/image?url=%2Ftest-image.jpg&w=1200&q=75 2x"
+      style="color: transparent;"
+      width="600"
+    />
+  </div>
+  <div
+    class="eventMain"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+    <div
+      class="eventMeta"
+    >
+      <div
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
+      >
+        <span
+          class="tag"
+        >
+          testing
+        </span>
+        <span
+          class="tag"
+        >
+          jest
+        </span>
+      </div>
+      <p
+        class="organizer"
+      >
+        Organized by 
+        ACM San Antonio
+      </p>
+    </div>
+  </div>
+  <div
+    class="eventAside"
+  >
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <span
+      class="eventLinkHint"
+    >
+      View details →
+    </span>
+  </div>
+</a>
+`;
+
+exports[`EventCard matches snapshot for featured event card with red accent 1`] = `
+<a
+  class="eventCard eventCardRed featured"
+  href="https://www.meetup.com/acm-sa/events/test-event-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    class="featuredBadge"
+  >
+    Featured
+  </div>
+  <div
+    class="eventImageContainer"
+  >
+    <img
+      alt="Test Event promotional image"
+      class="eventImage"
+      data-nimg="1"
+      decoding="async"
+      height="300"
+      loading="lazy"
+      src="/_next/image?url=%2Ftest-image.jpg&w=1200&q=75"
+      srcset="/_next/image?url=%2Ftest-image.jpg&w=640&q=75 1x, /_next/image?url=%2Ftest-image.jpg&w=1200&q=75 2x"
+      style="color: transparent;"
+      width="600"
+    />
+  </div>
+  <div
+    class="eventMain"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+    <div
+      class="eventMeta"
+    >
+      <div
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
+      >
+        <span
+          class="tag"
+        >
+          testing
+        </span>
+        <span
+          class="tag"
+        >
+          jest
+        </span>
+      </div>
+      <p
+        class="organizer"
+      >
+        Organized by 
+        ACM San Antonio
+      </p>
+    </div>
+  </div>
+  <div
+    class="eventAside"
+  >
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <span
+      class="eventLinkHint"
+    >
+      View details →
+    </span>
+  </div>
+</a>
+`;
+
+exports[`EventCard matches snapshot for live event card 1`] = `
+<a
+  class="eventCard eventCardRed "
+  href="https://www.meetup.com/acm-sa/events/test-event-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    class="eventMain"
+  >
+    <div
+      class="eventHeader"
+    >
+      <div
+        class="statusChip statusChipLive statusChipRed"
+      >
+        <span
+          aria-hidden="true"
+          class="liveDot"
+        />
+        <span>
+          Live Now
+        </span>
+      </div>
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+    <div
+      class="eventMeta"
+    >
+      <div
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
+      >
+        <span
+          class="tag"
+        >
+          testing
+        </span>
+        <span
+          class="tag"
+        >
+          jest
+        </span>
+      </div>
+      <p
+        class="organizer"
+      >
+        Organized by 
+        DevSA
+      </p>
+    </div>
+  </div>
+  <div
+    class="eventAside"
+  >
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <span
+      class="eventLinkHint"
+    >
+      View details →
+    </span>
+  </div>
+</a>
+`;
+
+exports[`EventCard matches snapshot for regular event card 1`] = `
+<a
+  class="eventCard eventCardBlue "
+  href="https://www.meetup.com/acm-sa/events/test-event-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    class="eventMain"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+    <div
+      class="eventMeta"
+    >
+      <div
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Test Venue
+            , 123 Test St
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
+      >
+        <span
+          class="tag"
+        >
+          testing
+        </span>
+        <span
+          class="tag"
+        >
+          jest
+        </span>
+      </div>
+      <p
+        class="organizer"
+      >
+        Organized by 
+      </p>
+    </div>
+  </div>
+  <div
+    class="eventAside"
+  >
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <span
+      class="eventLinkHint"
+    >
+      View details →
+    </span>
+  </div>
+</a>
+`;
+
+exports[`EventCard matches snapshot for virtual event card 1`] = `
+<a
+  class="eventCard eventCardBlue "
+  href="https://www.meetup.com/acm-sa/events/test-event-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    class="eventMain"
+  >
+    <div
+      class="eventHeader"
+    >
+      <h3
+        class="eventTitle"
+      >
+        Test Event
+      </h3>
+      <p
+        class="eventDate"
+      >
+        Wed, Apr 15, 2026, 6:00 PM
+      </p>
+    </div>
+    <div
+      class="eventMeta"
+    >
+      <div
+        class="eventDetails"
+      >
+        <div
+          class="eventLocation"
+        >
+          <span
+            class="locationIcon"
+          >
+            📍
+          </span>
+          <span>
+            Virtual Event
+          </span>
+        </div>
+      </div>
+      <div
+        class="eventTags"
+      >
+        <span
+          class="tag"
+        >
+          testing
+        </span>
+        <span
+          class="tag"
+        >
+          jest
+        </span>
+      </div>
+      <p
+        class="organizer"
+      >
+        Organized by 
+        Tech Community
+      </p>
+    </div>
+  </div>
+  <div
+    class="eventAside"
+  >
+    <p
+      class="eventDescription"
+    >
+      This is a test event description
+    </p>
+    <span
+      class="eventLinkHint"
+    >
+      View details →
+    </span>
+  </div>
+</a>
+`;

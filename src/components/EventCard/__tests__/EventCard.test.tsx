@@ -27,7 +27,6 @@ const mockToLocaleTimeString = jest.fn(() => "6:00 PM");
 beforeAll(() => {
   // @ts-expect-error - Mock the Date prototype methods
   Date.prototype.toLocaleDateString = mockToLocaleDateString;
-  // @ts-expect-error - Mock the Date prototype methods
   Date.prototype.toLocaleTimeString = mockToLocaleTimeString;
 });
 
@@ -93,5 +92,97 @@ describe("EventCard", () => {
 
     expect(screen.getByText("Virtual Event")).toBeInTheDocument();
     expect(screen.getByText("Live Now")).toBeInTheDocument();
+  });
+
+  it("matches snapshot for regular event card", () => {
+    const { container } = render(<EventCard event={mockEvent} />);
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it("matches snapshot for featured event card with blue accent", () => {
+    const featuredEvent: Event = {
+      ...mockEvent,
+      isFeatured: true,
+      organizer: "ACM San Antonio",
+      imageUrl: "/test-image.jpg",
+    };
+    const { container } = render(
+      <EventCard event={featuredEvent} accentVariant="blue" />,
+    );
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it("matches snapshot for featured event card with red accent", () => {
+    const featuredEvent: Event = {
+      ...mockEvent,
+      isFeatured: true,
+      organizer: "ACM San Antonio",
+      imageUrl: "/test-image.jpg",
+    };
+    const { container } = render(
+      <EventCard event={featuredEvent} accentVariant="red" />,
+    );
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it("matches snapshot for live event card", () => {
+    const liveEvent: Event = {
+      ...mockEvent,
+      organizer: "DevSA",
+    };
+    const { container } = render(
+      <EventCard
+        event={liveEvent}
+        statusLabel="Live Now"
+        statusTone="live"
+        accentVariant="red"
+      />,
+    );
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it("matches snapshot for event card with agenda", () => {
+    const eventWithAgenda: Event = {
+      ...mockEvent,
+      description:
+        "This is a test event description\n\nAGENDA:\n6:00 PM - Welcome\n6:30 PM - Main Talk\n7:30 PM - Q&A",
+      organizer: "ACM SA",
+    };
+    const { container } = render(<EventCard event={eventWithAgenda} />);
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it("matches snapshot for virtual event card", () => {
+    const virtualEvent: Event = {
+      ...mockEvent,
+      location: {
+        isVirtual: true,
+      },
+      organizer: "Tech Community",
+    };
+    const { container } = render(<EventCard event={virtualEvent} />);
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it("matches snapshot for event card with capacity", () => {
+    const eventWithCapacity: Event = {
+      ...mockEvent,
+      capacity: 50,
+      organizer: "ACM SA",
+    };
+    const { container } = render(<EventCard event={eventWithCapacity} />);
+    expect(container.firstChild).toMatchSnapshot();
+  });
+
+  it("matches snapshot for event with headshot and image", () => {
+    const eventWithImages: Event = {
+      ...mockEvent,
+      imageUrl: "/event-image.jpg",
+      headshotUrl: "/speaker-headshot.jpg",
+      organizer: "Guest Speaker",
+      isFeatured: true,
+    };
+    const { container } = render(<EventCard event={eventWithImages} />);
+    expect(container.firstChild).toMatchSnapshot();
   });
 });
