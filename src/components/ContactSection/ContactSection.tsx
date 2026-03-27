@@ -18,13 +18,13 @@ const ContactSection = () => {
               <SocialLink
                 name={"ACM SA Discord"}
                 alt={"discord logo"}
-                url={"https://discord.gg/hx9Aewv4"}
+                url={"https://discord.gg/t94zZC3Ktm"}
                 icon={"/discord.svg"}
               />
               <SocialLink
                 name={"DEVSA Discord"}
                 alt={"devsa logo"}
-                url={"https://discord.gg/WqHxcmCX"}
+                url={"https://discord.gg/cvHHzThrEw"}
                 icon={"/devsa-logo.svg"}
               />
               <SocialLink
