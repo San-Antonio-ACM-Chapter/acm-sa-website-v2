@@ -1,9 +1,24 @@
-/* Hero container - centered layout with flexbox */
+/*
+ * Hero container - centered layout with flexbox
+ *
+ * IMPORTANT: Browser-specific offset values
+ * Different browsers render the Jockey One font with different kerning/letter-spacing.
+ * Firefox and Safari both render wider character spacing than Chrome/Edge, which affects
+ * where the h1 title text ends. Since the city span is positioned absolutely relative to
+ * the container (not the text), we need different offset values per browser to align it
+ * properly with the end of the title text.
+ *
+ * Current offset values:
+ * - Chrome/Edge: 214px (default)
+ * - Firefox: 243px (29px wider due to font rendering)
+ * - Safari: 252px (38px wider due to font rendering)
+ */
 .heroContainer {
   --logo-size: 100px;
-  --city-offset-x: 178px;
+  --city-offset-x: 214px; /* Chrome/Edge default */
   --city-offset-y: 30px;
 
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -14,6 +29,20 @@
   user-select: none;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
+}
+
+/* Firefox-specific offset adjustment for font rendering differences */
+@supports (-moz-appearance: none) {
+  .heroContainer {
+    --city-offset-x: 243px;
+  }
+}
+
+/* Safari-specific offset adjustment for font rendering differences */
+@supports (-webkit-hyphens: none) {
+  .heroContainer {
+    --city-offset-x: 252px;
+  }
 }
 
 .heroContainer img {
@@ -27,14 +56,21 @@
   line-height: 1.1;
   color: var(--foreground);
   transition: color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
 }
 
 .heroContainer span {
   display: flex;
   flex-direction: row;
   position: absolute;
+  top: calc(50% + var(--city-offset-y));
+  left: calc(50% + var(--city-offset-x));
   font-size: 1.5rem;
-  transform: translate(var(--city-offset-x), var(--city-offset-y));
+  transform: translate(-50%, -50%);
 }
 
 .heroContainer h2 {
