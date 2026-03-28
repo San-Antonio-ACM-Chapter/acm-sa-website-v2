@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Footer should match snapshot 1`] = `
+<div>
+  <footer
+    aria-label="Site footer"
+    class="footer"
+  >
+    <div
+      class="contentWrapper"
+    >
+      <div
+        class="footerContent"
+      >
+        <div
+          class="footerSection"
+        >
+          <p
+            class="copyright"
+          >
+            © 
+            2026
+             ACM San Antonio Professional Chapter
+          </p>
+          <p
+            class="nonprofit"
+          >
+            A 501(c)(3) Non-Profit Organization
+          </p>
+        </div>
+        <div
+          class="footerSection"
+        >
+          <a
+            aria-label="Visit official ACM website (opens in new tab)"
+            class="acmLink"
+            href="https://www.acm.org/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Official ACM Website
+          </a>
+          <a
+            aria-label="Send email to ACM San Antonio"
+            class="emailLink"
+            href="mailto:team@acmsa.org"
+          >
+            team@acmsa.org
+          </a>
+        </div>
+        <div
+          class="footerSection"
+        >
+          <p
+            aria-label="Website version"
+            class="version"
+          >
+            Version: 
+            dev
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+`;

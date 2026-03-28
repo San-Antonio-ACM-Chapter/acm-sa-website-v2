@@ -1,4 +1,14 @@
 import type { NextConfig } from "next";
+import { execSync } from "child_process";
+
+// Get git commit hash during build
+const getGitHash = () => {
+  try {
+    return execSync("git rev-parse --short HEAD").toString().trim();
+  } catch (error) {
+    return "dev";
+  }
+};
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -7,6 +17,9 @@ const nextConfig: NextConfig = {
   // Empty turbopack config to use Next.js 16 defaults
   turbopack: {},
   output: "export",
+  env: {
+    NEXT_PUBLIC_GIT_HASH: getGitHash(),
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
