@@ -35,14 +35,18 @@
   font-family: var(--font-jetbrains-mono);
   color: var(--foreground);
   opacity: 0.75;
-  transition: color 0.3s ease, opacity 0.3s ease;
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
 }
 
 .acmLink,
 .emailLink {
   color: var(--foreground);
   font-family: var(--font-jetbrains-mono);
-  transition: color 0.3s ease, opacity 0.3s ease;
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
   font-size: 0.75rem;
   opacity: 0.75;
   text-decoration: none;
@@ -71,4 +75,3 @@
     text-align: left;
   }
 }
-

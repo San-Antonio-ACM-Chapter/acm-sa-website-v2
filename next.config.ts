@@ -1,11 +1,11 @@
+import { execSync } from "node:child_process";
 import type { NextConfig } from "next";
-import { execSync } from "child_process";
 
 // Get git commit hash during build
 const getGitHash = () => {
   try {
     return execSync("git rev-parse --short HEAD").toString().trim();
-  } catch (error) {
+  } catch (_error) {
     return "dev";
   }
 };

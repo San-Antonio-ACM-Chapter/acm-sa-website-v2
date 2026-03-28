@@ -17,7 +17,9 @@ describe("Footer", () => {
 
   it("should display 501(c)(3) status", () => {
     const { getByText } = render(<Footer />);
-    expect(getByText("A 501(c)(3) Non-Profit Organization")).toBeInTheDocument();
+    expect(
+      getByText("A 501(c)(3) Non-Profit Organization"),
+    ).toBeInTheDocument();
   });
 
   it("should have a link to the official ACM website", () => {
@@ -44,16 +46,14 @@ describe("Footer", () => {
   it("should have proper accessibility attributes", () => {
     const { getByRole, getByLabelText } = render(<Footer />);
 
-    // Check footer has aria-label
+    // Check footer element exists with contentinfo role (implicit)
     const footer = getByRole("contentinfo");
-    expect(footer).toHaveAttribute("aria-label", "Site footer");
+    expect(footer).toBeInTheDocument();
 
     // Check links have aria-labels
-    expect(getByLabelText("Visit official ACM website (opens in new tab)")).toBeInTheDocument();
+    expect(
+      getByLabelText("Visit official ACM website (opens in new tab)"),
+    ).toBeInTheDocument();
     expect(getByLabelText("Send email to ACM San Antonio")).toBeInTheDocument();
-
-    // Check version has aria-label
-    expect(getByLabelText("Website version")).toBeInTheDocument();
   });
 });
-

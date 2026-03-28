@@ -3,7 +3,6 @@
 exports[`Footer should match snapshot 1`] = `
 <div>
   <footer
-    aria-label="Site footer"
     class="footer"
   >
     <div
@@ -52,7 +51,6 @@ exports[`Footer should match snapshot 1`] = `
           class="footerSection"
         >
           <p
-            aria-label="Website version"
             class="version"
           >
             Version: 

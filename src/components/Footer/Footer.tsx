@@ -4,7 +4,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={styles.footer} aria-label="Site footer">
+    <footer className={styles.footer}>
       <div className={styles.contentWrapper}>
         <div className={styles.footerContent}>
           <div className={styles.footerSection}>
@@ -36,7 +36,7 @@ const Footer = () => {
           </div>
 
           <div className={styles.footerSection}>
-            <p className={styles.version} aria-label="Website version">
+            <p className={styles.version}>
               Version: {process.env.NEXT_PUBLIC_GIT_HASH || "dev"}
             </p>
           </div>
@@ -47,4 +47,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
