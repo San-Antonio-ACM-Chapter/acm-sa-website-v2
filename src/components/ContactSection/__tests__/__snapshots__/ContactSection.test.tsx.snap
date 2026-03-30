@@ -23,7 +23,7 @@ exports[`ContactSection should match snapshot 1`] = `
             Social Media
           </h3>
           <p>
-            contact us on social media by using the following links! extra text
+            contact us on social media by using the following links!
           </p>
           <ul
             class="linkList"
