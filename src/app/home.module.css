@@ -2,6 +2,9 @@
   background-image: url("../../public/san-antonio-map.png");
   background-color: var(--background);
   background-blend-mode: normal;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   transition: background-color 0.3s ease;
   user-select: none;
   -webkit-user-select: none;
