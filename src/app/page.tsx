@@ -1,6 +1,7 @@
 import AboutSection from "@/components/AboutSection/AboutSection";
 import ContactSection from "@/components/ContactSection/ContactSection";
 import EventsSection from "@/components/EventsSection/EventsSection";
+import Footer from "@/components/Footer/Footer";
 import Hero from "@/components/Hero/Hero";
 import Navigator from "@/components/Navigator/Navigator";
 import { getDevsaAcmEvents } from "@/lib/devsaEvents";
@@ -18,6 +19,7 @@ const Home = async () => {
       <AboutSection />
       <EventsSection events={events} />
       <ContactSection />
+      <Footer />
     </div>
   );
 };
