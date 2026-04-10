@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 1rem;
+  text-align: center;
+}
+
+.wipHeading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+}
+
+.wipHeading h1 {
+  font-family: var(--font-jockey-one);
+  font-size: 3rem;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.hazardStripe {
+  width: 80px;
+  height: 3rem;
+  background: repeating-linear-gradient(
+    -45deg,
+    #f5c400,
+    #f5c400 10px,
+    #1a1a1a 10px,
+    #1a1a1a 20px
+  );
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.container p {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 1rem;
+  color: var(--foreground);
+}
+
+.backLink {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.9rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+

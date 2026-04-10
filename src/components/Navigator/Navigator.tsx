@@ -4,6 +4,19 @@ import { useState } from "react";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import styles from "./Navigator.module.css";
 
+const navOptions: navOptionType[] = [
+  { name: "Home", url: "#home" },
+  { name: "About", url: "#about" },
+  { name: "Events", url: "#events" },
+  { name: "Contact", url: "#contact" },
+  { name: "Account", url: "/account"}, // TODO: next zone
+]
+
+type navOptionType = {
+  name: string;
+  url: string;
+};
+
 const Navigator = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -35,26 +48,9 @@ const Navigator = () => {
           <span></span>
         </button>
         <ul className={isMenuOpen ? styles.menuOpen : ""}>
-          <li>
-            <a href="#home" onClick={closeMenu}>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#about" onClick={closeMenu}>
-              About
-            </a>
-          </li>
-          <li>
-            <a href="#events" onClick={closeMenu}>
-              Events
-            </a>
-          </li>
-          <li>
-            <a href="#contact" onClick={closeMenu}>
-              Contact
-            </a>
-          </li>
+          {navOptions.map((option) => (
+            <NavOption key={option.name} {...option} />
+          ))}
         </ul>
       </div>
     </nav>
@@ -62,3 +58,21 @@ const Navigator = () => {
 };
 
 export default Navigator;
+
+/**
+ * NavOption component
+ * @param name - the name of the nav option
+ * @param url - the url of the nav option
+ *
+ * @example
+ * ```tsx
+ * <NavOption name="Home" url="#home" />
+ * ```
+ */
+const NavOption = ({ name, url }: navOptionType) => {
+  return (
+    <li>
+      <a href={url}>{name}</a>
+    </li>
+  );
+};
