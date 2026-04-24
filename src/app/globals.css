@@ -25,6 +25,7 @@
   /* Navigator */
   --nav-bg: rgba(255, 255, 255, 0.85);
   --nav-border: var(--primary);
+  color-scheme: light;
 }
 
 [data-theme="dark"] {
@@ -54,6 +55,37 @@
   /* Navigator */
   --nav-bg: rgba(10, 10, 10, 0.85);
   --nav-border: var(--primary);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --primary: #30bced;
+    --secondary: #e84855;
+    --background: #0a0a0a;
+    --foreground: #e5e5e5;
+    --foreground-light: #ffffff;
+    --accent: #30bced;
+    --accent-hover: #e84855;
+    --border: #2a2a2a;
+    --shadow: rgba(48, 188, 237, 0.25);
+    --shadow-red: rgba(232, 72, 85, 0.25);
+    --event-card-bg: #171717;
+    --event-card-border: #2a2a2a;
+    --event-card-text: #e5e5e5;
+    --event-card-text-lighter: #cccccc;
+    --section-bg-primary: #121212;
+    --section-bg-secondary: #1a1a1a;
+    --section-bg-tertiary: #212121;
+    --nav-bg: rgba(10, 10, 10, 0.85);
+    --nav-border: var(--primary);
+    color-scheme: dark;
+  }
+}
+
+html[data-theme-loading="true"],
+html[data-theme-loading="true"] * {
+  transition: none !important;
 }
 
 /* this is to tell everything to have no margin and no border so we can have more control*/
@@ -74,17 +106,11 @@ html {
   scroll-padding-top: 64px; /* Adjust to your navigator height */
   background-color: var(--background);
   color: var(--foreground);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
 }
 
 /* Responsive Design */

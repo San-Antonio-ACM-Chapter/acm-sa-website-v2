@@ -25,6 +25,33 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitScript = `
+  (() => {
+    const storageKey = "theme";
+    const root = document.documentElement;
+    root.setAttribute("data-theme-loading", "true");
+    const storedTheme = localStorage.getItem(storageKey);
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+    const theme = storedTheme === "dark" || storedTheme === "light"
+      ? storedTheme
+      : systemTheme;
+
+    root.setAttribute("data-theme", theme);
+    root.style.colorScheme = theme;
+    root.style.backgroundColor = theme === "dark" ? "#0a0a0a" : "#ffffff";
+    root.style.color = theme === "dark" ? "#e5e5e5" : "#171717";
+    localStorage.setItem(storageKey, theme);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        root.removeAttribute("data-theme-loading");
+      });
+    });
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -34,7 +61,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${jockeyOne.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
