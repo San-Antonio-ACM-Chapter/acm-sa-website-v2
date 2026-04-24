@@ -33,12 +33,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="discord logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/discord.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -54,12 +50,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="devsa logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/devsa-logo.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -75,12 +67,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="linkedin logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/linkedin.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -110,12 +98,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="gaming society logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/ggs-logo.png"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -131,12 +115,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="devsa logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/devsa-logo.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -152,12 +132,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="geekdom logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/geekdom.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -173,12 +149,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="techblock logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/tech-bloc.png"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -194,12 +166,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="geeks and logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/geeksand.png"
-                style="color: transparent;"
                 width="24"
               />
               <a
