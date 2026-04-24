@@ -1,5 +1,5 @@
 # ACM SA Website V2 - Multi-stage Dockerfile
-# This Dockerfile builds and serves the Next.js static export
+# This Dockerfile builds and serves the Next.js standalone server
 
 # Stage 1: Dependencies
 FROM node:20-alpine AS deps
@@ -24,25 +24,22 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Stage 3: Runner (Static file server)
+# Stage 3: Runner
 FROM node:20-alpine AS runner
 WORKDIR /app
 
 # Set environment to production
 ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 
-# Install serve for static file hosting
-RUN npm install -g serve
-
-# Copy the static export output
-COPY --from=builder /app/out ./out
-
-# Copy public assets
+# Copy the standalone server output
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
 # Expose port 3000
 EXPOSE 3000
 
-# Serve the static files
-CMD ["serve", "-s", "out", "-l", "3000"]
-
+# Start the Next.js server
+CMD ["node", "server.js"]
