@@ -88,7 +88,28 @@ exports[`ContactSection should match snapshot 1`] = `
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Linkedin
+                LinkedIn
+              </a>
+            </li>
+            <li
+              class="socialLink"
+            >
+              <img
+                alt="youtube logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/youtube.svg"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://www.youtube.com/@ACMSanAntonio"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                YouTube
               </a>
             </li>
           </ul>

@@ -28,10 +28,16 @@ const ContactSection = () => {
                 icon={"/devsa-logo.svg"}
               />
               <SocialLink
-                name={"Linkedin"}
+                name={"LinkedIn"}
                 alt={"linkedin logo"}
                 url={"https://www.linkedin.com/company/acm-san-antonio"}
                 icon={"/linkedin.svg"}
+              />
+              <SocialLink
+                name={"YouTube"}
+                alt={"youtube logo"}
+                url={"https://www.youtube.com/@ACMSanAntonio"}
+                icon={"/youtube.svg"}
               />
             </ul>
           </div>
