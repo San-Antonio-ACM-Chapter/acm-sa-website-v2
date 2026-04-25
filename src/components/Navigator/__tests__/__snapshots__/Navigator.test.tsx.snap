@@ -10,12 +10,8 @@ exports[`Navigator should match snapshot 1`] = `
     >
       <img
         alt="ACM Logo"
-        data-nimg="1"
-        decoding="async"
         height="40"
-        loading="lazy"
         src="/acm-logo.svg"
-        style="color: transparent;"
         width="40"
       />
       <h1>

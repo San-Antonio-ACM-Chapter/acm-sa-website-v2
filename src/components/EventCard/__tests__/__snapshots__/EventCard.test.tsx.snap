@@ -225,12 +225,8 @@ exports[`EventCard matches snapshot for event with headshot and image 1`] = `
     <img
       alt="Test Event promotional image"
       class="eventImage"
-      data-nimg="1"
-      decoding="async"
       height="300"
-      loading="lazy"
       src="/event-image.jpg"
-      style="color: transparent;"
       width="600"
     />
     <div
@@ -239,12 +235,8 @@ exports[`EventCard matches snapshot for event with headshot and image 1`] = `
       <img
         alt="Guest Speaker headshot"
         class="headshotImage"
-        data-nimg="1"
-        decoding="async"
         height="80"
-        loading="lazy"
         src="/speaker-headshot.jpg"
-        style="color: transparent;"
         width="80"
       />
     </div>
@@ -343,12 +335,8 @@ exports[`EventCard matches snapshot for featured event card with blue accent 1`]
     <img
       alt="Test Event promotional image"
       class="eventImage"
-      data-nimg="1"
-      decoding="async"
       height="300"
-      loading="lazy"
       src="/test-image.jpg"
-      style="color: transparent;"
       width="600"
     />
   </div>
@@ -446,12 +434,8 @@ exports[`EventCard matches snapshot for featured event card with red accent 1`] 
     <img
       alt="Test Event promotional image"
       class="eventImage"
-      data-nimg="1"
-      decoding="async"
       height="300"
-      loading="lazy"
       src="/test-image.jpg"
-      style="color: transparent;"
       width="600"
     />
   </div>
