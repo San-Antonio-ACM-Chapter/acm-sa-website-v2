@@ -83,11 +83,6 @@
   }
 }
 
-html[data-theme-loading="true"],
-html[data-theme-loading="true"] * {
-  transition: none !important;
-}
-
 /* this is to tell everything to have no margin and no border so we can have more control*/
 * {
   box-sizing: border-box;
@@ -111,6 +106,14 @@ html {
 body {
   background-color: var(--background);
   color: var(--foreground);
+}
+
+html[data-theme-loading="true"],
+html[data-theme-loading="true"] body,
+html[data-theme-loading="true"] body *,
+html[data-theme-loading="true"] body *::before,
+html[data-theme-loading="true"] body *::after {
+  transition: none;
 }
 
 /* Responsive Design */
