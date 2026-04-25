@@ -30,9 +30,9 @@ describe("isAcmSaHostedEvent", () => {
 });
 
 describe("parseDevsaFeed", () => {
-  it("returns only ACM SA hosted items and maps them into the site event shape", () => {
+  it("maps ACM SA items from the filtered DEVSA feed into the site event shape", () => {
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:devsa="https://devsa.community/ns/event-feed/1.0">
   <channel>
     <item>
       <title>People, Not Widgets || AI-April</title>
@@ -41,14 +41,23 @@ describe("parseDevsaFeed", () => {
       <description>Tuesday, April 14, 2026 at 6:00 PM CT · Geekdom 3rd Floor · Format: Hybrid · Hosted by Geeks &amp;&amp; {...}, ACM SA · People, Not Widgets - Lessons learned from applying systems thinking and analytics to social services delivery</description>
       <pubDate>Thu, 05 Mar 2026 05:23:53 GMT</pubDate>
       <category>Hybrid</category>
-    </item>
-    <item>
-      <title>Taco Tuesday Open Source Builder Nights</title>
-      <link>https://devsa.community/events/taco-tuesday-open-source-builder-nights-mn2437wh</link>
-      <guid isPermaLink="true">https://devsa.community/events/taco-tuesday-open-source-builder-nights-mn2437wh</guid>
-      <description>Tuesday, March 31, 2026 at 6:00 PM CT · Zelifcam · Format: In-Person · Hosted by Alamo Tech Collective · Join us for an open source building night.</description>
-      <pubDate>Sun, 22 Mar 2026 18:50:04 GMT</pubDate>
-      <category>In-Person</category>
+      <category>Geeks &amp;&amp; {...}</category>
+      <category>ACM SA</category>
+      <devsa:eventStart>2026-04-14T18:00:00-05:00</devsa:eventStart>
+      <devsa:eventEnd>2026-04-14T20:00:00-05:00</devsa:eventEnd>
+      <devsa:eventTimezone>America/Chicago</devsa:eventTimezone>
+      <devsa:eventType>hybrid</devsa:eventType>
+      <devsa:description>People, Not Widgets - Lessons learned from applying systems thinking and analytics to social services delivery</devsa:description>
+      <devsa:venue>Geekdom 3rd Floor</devsa:venue>
+      <devsa:address>110 E Houston St, San Antonio, TX</devsa:address>
+      <devsa:locationLabel>Geekdom 3rd Floor, 110 E Houston St, San Antonio, TX</devsa:locationLabel>
+      <devsa:host id="geeks-and-drinks">Geeks &amp;&amp; {...}</devsa:host>
+      <devsa:host id="acm-sa">ACM SA</devsa:host>
+      <devsa:detailsUrl>https://devsa.community/events/people-not-widgets-ai-april-mmd0sz0d</devsa:detailsUrl>
+      <devsa:rsvpUrl>https://www.meetup.com/acm-sa/events/313183678/</devsa:rsvpUrl>
+      <devsa:rsvpMode>external</devsa:rsvpMode>
+      <devsa:link rel="details">https://devsa.community/events/people-not-widgets-ai-april-mmd0sz0d</devsa:link>
+      <devsa:link rel="rsvp">https://www.meetup.com/acm-sa/events/313183678/</devsa:link>
     </item>
   </channel>
 </rss>`;
@@ -59,9 +68,11 @@ describe("parseDevsaFeed", () => {
         title: "People, Not Widgets || AI-April",
         description:
           "People, Not Widgets - Lessons learned from applying systems thinking and analytics to social services delivery",
-        date: "2026-04-14T23:00:00.000Z",
+        date: "2026-04-14T18:00:00-05:00",
+        endDate: "2026-04-14T20:00:00-05:00",
         location: {
           venue: "Geekdom 3rd Floor",
+          address: "110 E Houston St, San Antonio, TX",
           isVirtual: false,
         },
         meetupLink:
@@ -75,10 +86,10 @@ describe("parseDevsaFeed", () => {
           guid: "https://devsa.community/events/people-not-widgets-ai-april-mmd0sz0d",
           publishedAt: "2026-03-05T05:23:53.000Z",
           category: "Hybrid",
-          format: "Hybrid",
+          format: "hybrid",
           hostedBy: "Geeks && {...}, ACM San Antonio",
           rawDescription:
-            "Tuesday, April 14, 2026 at 6:00 PM CT · Geekdom 3rd Floor · Format: Hybrid · Hosted by Geeks && {...}, ACM SA · People, Not Widgets - Lessons learned from applying systems thinking and analytics to social services delivery",
+            "People, Not Widgets - Lessons learned from applying systems thinking and analytics to social services delivery",
         },
       },
     ]);

@@ -9,7 +9,7 @@ const outputPath = resolve(process.cwd(), "public/data/devsa-acm-events.json");
 const run = async () => {
   const events = await getDevsaAcmEvents();
   const payload = {
-    source: "https://devsa.community/api/events/feed",
+    source: "https://devsa.community/api/events/feed?communityId=acm-sa",
     fetchedAt: new Date().toISOString(),
     events,
   };
