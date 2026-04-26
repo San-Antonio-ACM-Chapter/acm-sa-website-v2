@@ -1,6 +1,11 @@
 /**
- * Next.js Proxy for route protection
- * Runs before requests to protected routes
+ * Example Next.js Proxy for route protection.
+ *
+ * This file is intentionally not named `proxy.ts` because the auth/session
+ * logic for protected routes is not implemented yet.
+ *
+ * When route protection is ready, rename this file to `src/proxy.ts` and
+ * replace the placeholder logic with real session validation.
  */
 
 import type { NextRequest } from "next/server";
