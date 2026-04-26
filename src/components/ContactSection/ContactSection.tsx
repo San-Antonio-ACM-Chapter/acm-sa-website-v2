@@ -39,6 +39,12 @@ const ContactSection = () => {
                 url={"https://www.youtube.com/@ACMSanAntonio"}
                 icon={"/youtube.svg"}
               />
+              <SocialLink
+                name={"Instagram"}
+                alt={"instagram logo"}
+                url={"https://www.instagram.com/acmsanantonio/"}
+                icon={"/instagram.svg"}
+              />
             </ul>
           </div>
           <div className={styles.column}>

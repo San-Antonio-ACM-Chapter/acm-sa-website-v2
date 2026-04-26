@@ -112,6 +112,27 @@ exports[`ContactSection should match snapshot 1`] = `
                 YouTube
               </a>
             </li>
+            <li
+              class="socialLink"
+            >
+              <img
+                alt="instagram logo"
+                data-nimg="1"
+                decoding="async"
+                height="24"
+                loading="lazy"
+                src="/instagram.svg"
+                style="color: transparent;"
+                width="24"
+              />
+              <a
+                href="https://www.instagram.com/acmsanantonio/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Instagram
+              </a>
+            </li>
           </ul>
         </div>
         <div
@@ -135,7 +156,8 @@ exports[`ContactSection should match snapshot 1`] = `
                 decoding="async"
                 height="24"
                 loading="lazy"
-                src="/ggs-logo.png"
+                src="/_next/image?url=%2Fggs-logo.png&w=48&q=75"
+                srcset="/_next/image?url=%2Fggs-logo.png&w=32&q=75 1x, /_next/image?url=%2Fggs-logo.png&w=48&q=75 2x"
                 style="color: transparent;"
                 width="24"
               />
@@ -198,7 +220,8 @@ exports[`ContactSection should match snapshot 1`] = `
                 decoding="async"
                 height="24"
                 loading="lazy"
-                src="/tech-bloc.png"
+                src="/_next/image?url=%2Ftech-bloc.png&w=48&q=75"
+                srcset="/_next/image?url=%2Ftech-bloc.png&w=32&q=75 1x, /_next/image?url=%2Ftech-bloc.png&w=48&q=75 2x"
                 style="color: transparent;"
                 width="24"
               />
@@ -219,7 +242,8 @@ exports[`ContactSection should match snapshot 1`] = `
                 decoding="async"
                 height="24"
                 loading="lazy"
-                src="/geeksand.png"
+                src="/_next/image?url=%2Fgeeksand.png&w=48&q=75"
+                srcset="/_next/image?url=%2Fgeeksand.png&w=32&q=75 1x, /_next/image?url=%2Fgeeksand.png&w=48&q=75 2x"
                 style="color: transparent;"
                 width="24"
               />
