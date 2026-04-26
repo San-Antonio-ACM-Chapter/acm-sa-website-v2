@@ -84,12 +84,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="youtube logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/youtube.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -105,12 +101,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="instagram logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/instagram.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
