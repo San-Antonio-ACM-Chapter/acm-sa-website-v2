@@ -23,7 +23,7 @@ exports[`ContactSection should match snapshot 1`] = `
             Social Media
           </h3>
           <p>
-            contact us on social media by using the following links! extra text
+            contact us on social media by using the following links!
           </p>
           <ul
             class="linkList"
@@ -33,12 +33,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="discord logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/discord.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -54,12 +50,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="devsa logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/devsa-logo.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -75,12 +67,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="linkedin logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/linkedin.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -152,13 +140,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="gaming society logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
-                src="/_next/image?url=%2Fggs-logo.png&w=48&q=75"
-                srcset="/_next/image?url=%2Fggs-logo.png&w=32&q=75 1x, /_next/image?url=%2Fggs-logo.png&w=48&q=75 2x"
-                style="color: transparent;"
+                src="/ggs-logo.png"
                 width="24"
               />
               <a
@@ -174,12 +157,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="devsa logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/devsa-logo.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -195,12 +174,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="geekdom logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
                 src="/geekdom.svg"
-                style="color: transparent;"
                 width="24"
               />
               <a
@@ -216,13 +191,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="techblock logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
-                src="/_next/image?url=%2Ftech-bloc.png&w=48&q=75"
-                srcset="/_next/image?url=%2Ftech-bloc.png&w=32&q=75 1x, /_next/image?url=%2Ftech-bloc.png&w=48&q=75 2x"
-                style="color: transparent;"
+                src="/tech-bloc.png"
                 width="24"
               />
               <a
@@ -238,13 +208,8 @@ exports[`ContactSection should match snapshot 1`] = `
             >
               <img
                 alt="geeks and logo"
-                data-nimg="1"
-                decoding="async"
                 height="24"
-                loading="lazy"
-                src="/_next/image?url=%2Fgeeksand.png&w=48&q=75"
-                srcset="/_next/image?url=%2Fgeeksand.png&w=32&q=75 1x, /_next/image?url=%2Fgeeksand.png&w=48&q=75 2x"
-                style="color: transparent;"
+                src="/geeksand.png"
                 width="24"
               />
               <a

@@ -7,12 +7,8 @@ exports[`SocialLink should match snapshot with custom icon 1`] = `
   >
     <img
       alt="Custom social icon"
-      data-nimg="1"
-      decoding="async"
       height="24"
-      loading="lazy"
       src="/custom-icon.svg"
-      style="color: transparent;"
       width="24"
     />
     <a
@@ -33,12 +29,8 @@ exports[`SocialLink should match snapshot with default props 1`] = `
   >
     <img
       alt="Test icon"
-      data-nimg="1"
-      decoding="async"
       height="24"
-      loading="lazy"
       src="/test-icon.svg"
-      style="color: transparent;"
       width="24"
     />
     <a

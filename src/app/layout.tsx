@@ -8,6 +8,7 @@ const jockeyOne = Jockey_One({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-jockey-one",
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({

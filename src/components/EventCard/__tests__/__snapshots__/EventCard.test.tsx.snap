@@ -225,13 +225,8 @@ exports[`EventCard matches snapshot for event with headshot and image 1`] = `
     <img
       alt="Test Event promotional image"
       class="eventImage"
-      data-nimg="1"
-      decoding="async"
       height="300"
-      loading="lazy"
-      src="/_next/image?url=%2Fevent-image.jpg&w=1200&q=75"
-      srcset="/_next/image?url=%2Fevent-image.jpg&w=640&q=75 1x, /_next/image?url=%2Fevent-image.jpg&w=1200&q=75 2x"
-      style="color: transparent;"
+      src="/event-image.jpg"
       width="600"
     />
     <div
@@ -240,13 +235,8 @@ exports[`EventCard matches snapshot for event with headshot and image 1`] = `
       <img
         alt="Guest Speaker headshot"
         class="headshotImage"
-        data-nimg="1"
-        decoding="async"
         height="80"
-        loading="lazy"
-        src="/_next/image?url=%2Fspeaker-headshot.jpg&w=256&q=75"
-        srcset="/_next/image?url=%2Fspeaker-headshot.jpg&w=96&q=75 1x, /_next/image?url=%2Fspeaker-headshot.jpg&w=256&q=75 2x"
-        style="color: transparent;"
+        src="/speaker-headshot.jpg"
         width="80"
       />
     </div>
@@ -345,13 +335,8 @@ exports[`EventCard matches snapshot for featured event card with blue accent 1`]
     <img
       alt="Test Event promotional image"
       class="eventImage"
-      data-nimg="1"
-      decoding="async"
       height="300"
-      loading="lazy"
-      src="/_next/image?url=%2Ftest-image.jpg&w=1200&q=75"
-      srcset="/_next/image?url=%2Ftest-image.jpg&w=640&q=75 1x, /_next/image?url=%2Ftest-image.jpg&w=1200&q=75 2x"
-      style="color: transparent;"
+      src="/test-image.jpg"
       width="600"
     />
   </div>
@@ -449,13 +434,8 @@ exports[`EventCard matches snapshot for featured event card with red accent 1`] 
     <img
       alt="Test Event promotional image"
       class="eventImage"
-      data-nimg="1"
-      decoding="async"
       height="300"
-      loading="lazy"
-      src="/_next/image?url=%2Ftest-image.jpg&w=1200&q=75"
-      srcset="/_next/image?url=%2Ftest-image.jpg&w=640&q=75 1x, /_next/image?url=%2Ftest-image.jpg&w=1200&q=75 2x"
-      style="color: transparent;"
+      src="/test-image.jpg"
       width="600"
     />
   </div>

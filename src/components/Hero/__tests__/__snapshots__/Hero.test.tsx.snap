@@ -7,11 +7,8 @@ exports[`Hero should match snapshot with custom props 1`] = `
   >
     <img
       alt="Test Logo"
-      data-nimg="1"
-      decoding="async"
       height="175"
       src="/test-logo.svg"
-      style="color: transparent;"
       width="175"
     />
     <h1>
@@ -35,11 +32,8 @@ exports[`Hero should match snapshot with default props 1`] = `
   >
     <img
       alt="The Association for Computing Machinery Logo"
-      data-nimg="1"
-      decoding="async"
       height="175"
       src="/acm-logo.svg"
-      style="color: transparent;"
       width="175"
     />
     <h1>

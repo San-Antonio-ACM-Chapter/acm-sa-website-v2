@@ -10,10 +10,7 @@ const ContactSection = () => {
         <div className={styles.contentWrapper}>
           <div className={styles.column}>
             <h3>Social Media</h3>
-            <p>
-              contact us on social media by using the following links! extra
-              text
-            </p>
+            <p>contact us on social media by using the following links!</p>
             <ul className={styles.linkList}>
               <SocialLink
                 name={"ACM SA Discord"}

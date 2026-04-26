@@ -37,7 +37,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | Command | Description |
 |---------|-------------|
 | `npm run dev` | Start the Next.js development server with hot reload |
-| `npm run build` | Build the production application (static export) |
+| `npm run build` | Build the production application |
 | `npm run start` | Start the production server |
 | `npm run lint` | Run Biome linter to check code quality |
 | `npm run format` | Format code with Biome (auto-fix) |
@@ -74,15 +74,34 @@ docker run -p 3000:3000 acm-sa-website
 
 The production Dockerfile uses a multi-stage build process:
 1. **deps**: Installs dependencies
-2. **builder**: Builds the Next.js static export
-3. **runner**: Serves static files using `serve`
+2. **builder**: Builds the Next.js standalone server bundle
+3. **runner**: Runs the packaged Next.js server
 
 ### Docker Architecture
 
 - **Base Image**: Node.js 20 Alpine (lightweight)
-- **Output**: Static export (`out/` directory)
-- **Server**: `serve` package for static file hosting
+- **Output**: Next.js standalone server (`.next/standalone`)
+- **Server**: Node.js running `server.js`
 - **Port**: 3000 (exposed and configurable)
+
+### Deployment Model
+
+This repository is now configured as a server-backed Next.js app for Render or any other Node-compatible host:
+
+- `next.config.ts` sets `output: "standalone"`
+- the Docker image runs the packaged Next.js server
+- Render should treat this app as a **Web Service**, not a static site
+
+That deployment model supports request-time Next.js features such as route handlers, server components, and proxy or middleware logic.
+
+The auth gate itself is not enabled yet in this repo. The example proxy file remains opt-in until session logic is implemented:
+
+1. Rename `src/proxy.example.ts` to `src/proxy.ts`
+2. Replace the placeholder logic with real session validation
+3. Add the required auth/session environment variables in Render
+4. Deploy the updated Web Service
+
+If the membership portal stays as a separate project, this site can still stay server-capable while linking to that portal or calling its API.
 
 ## Development Container
 
@@ -243,7 +262,7 @@ See `EVENTS_README.md` for complete documentation.
 - **Type Safety**: TypeScript + Zod schema validation
 - **Linting/Formatting**: [Biome](https://biomejs.dev/)
 - **Testing**: Jest + React Testing Library
-- **Build**: Static export with image optimization disabled
+- **Build**: Next.js standalone server output with image optimization disabled
 - **Fonts**: Google Fonts (Jockey One, JetBrains Mono)
 
 ## Project Structure
@@ -346,4 +365,3 @@ This is the official ACM San Antonio website. If you're interested in contributi
 ---
 
 **Built with ❤️ by ACM San Antonio**
-
