@@ -12,8 +12,15 @@ exports[`Footer should match snapshot 1`] = `
         class="footerContent"
       >
         <div
-          class="footerSection"
+          class="brandSection"
         >
+          <img
+            alt="ACM San Antonio logo"
+            class="logo"
+            height="48"
+            src="/acm-logo.svg"
+            width="48"
+          />
           <p
             class="copyright"
           >
@@ -26,30 +33,6 @@ exports[`Footer should match snapshot 1`] = `
           >
             A 501(c)(3) Non-Profit Organization
           </p>
-        </div>
-        <div
-          class="footerSection"
-        >
-          <a
-            aria-label="Visit official ACM website (opens in new tab)"
-            class="acmLink"
-            href="https://www.acm.org/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Official ACM Website
-          </a>
-          <a
-            aria-label="Send email to ACM San Antonio"
-            class="emailLink"
-            href="mailto:team@acmsa.org"
-          >
-            team@acmsa.org
-          </a>
-        </div>
-        <div
-          class="footerSection"
-        >
           <p
             class="version"
           >
@@ -57,6 +40,163 @@ exports[`Footer should match snapshot 1`] = `
             dev
           </p>
         </div>
+        <nav
+          aria-label="Footer navigation"
+          class="linkColumns"
+        >
+          <div
+            class="footerSection"
+          >
+            <h2>
+              Site
+            </h2>
+            <ul>
+              <li>
+                <a
+                  href="/#home"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#about"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#events"
+                >
+                  Events
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#contact"
+                >
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/code-of-conduct"
+                >
+                  Code of Conduct
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="footerSection"
+          >
+            <h2>
+              Connect
+            </h2>
+            <ul>
+              <li>
+                <a
+                  href="https://discord.gg/t94zZC3Ktm"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  ACM SA Discord
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://discord.gg/cvHHzThrEw"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  DEVSA Discord
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/acm-san-antonio"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a
+                  aria-label="Send email to ACM San Antonio"
+                  href="mailto:team@acmsa.org"
+                >
+                  team@acmsa.org
+                </a>
+              </li>
+              <li>
+                <a
+                  aria-label="Visit official ACM website (opens in new tab)"
+                  href="https://www.acm.org/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Official ACM Website
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="footerSection"
+          >
+            <h2>
+              Community
+            </h2>
+            <ul>
+              <li>
+                <a
+                  href="https://www.geeksanddrinks.tech/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Geeks && {...}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.devsa.community/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  DEVSA
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://geekdom.com/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Geekdom
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://satechbloc.com/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  TechBloc
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/groups/ggssa/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Greater Gaming Society
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
       </div>
     </div>
   </footer>

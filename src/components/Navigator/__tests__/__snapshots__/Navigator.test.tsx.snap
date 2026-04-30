@@ -54,28 +54,28 @@ exports[`Navigator should match snapshot 1`] = `
       >
         <li>
           <a
-            href="#home"
+            href="/#home"
           >
             Home
           </a>
         </li>
         <li>
           <a
-            href="#about"
+            href="/#about"
           >
             About
           </a>
         </li>
         <li>
           <a
-            href="#events"
+            href="/#events"
           >
             Events
           </a>
         </li>
         <li>
           <a
-            href="#contact"
+            href="/#contact"
           >
             Contact
           </a>
