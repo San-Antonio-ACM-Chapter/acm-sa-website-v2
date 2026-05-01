@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./Footer.module.css";
 
 const siteLinks = [
@@ -25,17 +24,6 @@ const connectLinks = [
     label: "Official ACM Website",
     href: "https://www.acm.org/",
     ariaLabel: "Visit official ACM website (opens in new tab)",
-  },
-];
-
-const partnerLinks = [
-  { label: "Geeks && {...}", href: "https://www.geeksanddrinks.tech/" },
-  { label: "DEVSA", href: "https://www.devsa.community/" },
-  { label: "Geekdom", href: "https://geekdom.com/" },
-  { label: "TechBloc", href: "https://satechbloc.com/" },
-  {
-    label: "Greater Gaming Society",
-    href: "https://www.facebook.com/groups/ggssa/",
   },
 ];
 
@@ -66,21 +54,13 @@ const Footer = () => {
       <div className={styles.contentWrapper}>
         <div className={styles.footerContent}>
           <div className={styles.brandSection}>
-            <Image
-              src="/acm-logo.svg"
-              alt="ACM San Antonio logo"
-              width={48}
-              height={48}
-              className={styles.logo}
-            />
-            <p className={styles.copyright}>
-              © {currentYear} ACM San Antonio Professional Chapter
+            <p className={styles.chapterName}>ACM San Antonio</p>
+            <p className={styles.chapterBlurb}>
+              A professional chapter connecting technologists, builders, and
+              learners across San Antonio.
             </p>
             <p className={styles.nonprofit}>
               A 501(c)(3) Non-Profit Organization
-            </p>
-            <p className={styles.version}>
-              Version: {process.env.NEXT_PUBLIC_GIT_HASH || "dev"}
             </p>
           </div>
 
@@ -94,12 +74,16 @@ const Footer = () => {
               <h2>Connect</h2>
               <ul>{renderLinks(connectLinks)}</ul>
             </div>
-
-            <div className={styles.footerSection}>
-              <h2>Community</h2>
-              <ul>{renderLinks(partnerLinks)}</ul>
-            </div>
           </nav>
+        </div>
+
+        <div className={styles.footerBottom}>
+          <p className={styles.copyright}>
+            © {currentYear} ACM San Antonio Professional Chapter
+          </p>
+          <p className={styles.version}>
+            Version: {process.env.NEXT_PUBLIC_GIT_HASH || "dev"}
+          </p>
         </div>
       </div>
     </footer>

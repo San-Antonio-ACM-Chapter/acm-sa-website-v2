@@ -14,30 +14,20 @@ exports[`Footer should match snapshot 1`] = `
         <div
           class="brandSection"
         >
-          <img
-            alt="ACM San Antonio logo"
-            class="logo"
-            height="48"
-            src="/acm-logo.svg"
-            width="48"
-          />
           <p
-            class="copyright"
+            class="chapterName"
           >
-            © 
-            2026
-             ACM San Antonio Professional Chapter
+            ACM San Antonio
+          </p>
+          <p
+            class="chapterBlurb"
+          >
+            A professional chapter connecting technologists, builders, and learners across San Antonio.
           </p>
           <p
             class="nonprofit"
           >
             A 501(c)(3) Non-Profit Organization
-          </p>
-          <p
-            class="version"
-          >
-            Version: 
-            dev
           </p>
         </div>
         <nav
@@ -142,61 +132,24 @@ exports[`Footer should match snapshot 1`] = `
               </li>
             </ul>
           </div>
-          <div
-            class="footerSection"
-          >
-            <h2>
-              Community
-            </h2>
-            <ul>
-              <li>
-                <a
-                  href="https://www.geeksanddrinks.tech/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Geeks && {...}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.devsa.community/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  DEVSA
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://geekdom.com/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Geekdom
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://satechbloc.com/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  TechBloc
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.facebook.com/groups/ggssa/"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Greater Gaming Society
-                </a>
-              </li>
-            </ul>
-          </div>
         </nav>
+      </div>
+      <div
+        class="footerBottom"
+      >
+        <p
+          class="copyright"
+        >
+          © 
+          2026
+           ACM San Antonio Professional Chapter
+        </p>
+        <p
+          class="version"
+        >
+          Version: 
+          dev
+        </p>
       </div>
     </div>
   </footer>
