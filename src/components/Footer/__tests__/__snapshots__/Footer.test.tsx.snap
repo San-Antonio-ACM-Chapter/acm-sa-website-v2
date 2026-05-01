@@ -76,6 +76,15 @@ exports[`Footer should match snapshot 1`] = `
                   Code of Conduct
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/1lFlJEjQDp0WzkichhVQ6q7eQr2tDQKBF/view?usp=sharing"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Chapter Bylaws
+                </a>
+              </li>
             </ul>
           </div>
           <div

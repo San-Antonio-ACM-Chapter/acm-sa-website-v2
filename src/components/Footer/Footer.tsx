@@ -6,6 +6,10 @@ const siteLinks = [
   { label: "Events", href: "/#events" },
   { label: "Contact", href: "/#contact" },
   { label: "Code of Conduct", href: "/code-of-conduct" },
+  {
+    label: "Chapter Bylaws",
+    href: "https://drive.google.com/file/d/1lFlJEjQDp0WzkichhVQ6q7eQr2tDQKBF/view?usp=sharing",
+  },
 ];
 
 const connectLinks = [
