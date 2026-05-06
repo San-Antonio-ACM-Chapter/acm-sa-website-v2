@@ -29,9 +29,18 @@ type ParsedFeedItem = {
   title: string;
   link: string;
   guid: string;
+  summary: string;
   description: string;
   pubDate?: string;
-  category?: string;
+  categories: string[];
+  eventStart?: string;
+  eventEnd?: string;
+  eventType?: string;
+  venue?: string;
+  address?: string;
+  hosts: string[];
+  detailsUrl?: string;
+  rsvpUrl?: string;
 };
 
 const decodeXmlEntities = (value: string) =>
@@ -54,6 +63,14 @@ const getItemField = (itemXml: string, tagName: string) => {
     new RegExp(`<${tagName}(?:\\s+[^>]*)?>([\\s\\S]*?)<\\/${tagName}>`, "i"),
   );
   return match ? decodeXmlEntities(match[1].trim()) : undefined;
+};
+
+const getItemFields = (itemXml: string, tagName: string) => {
+  const matches = itemXml.matchAll(
+    new RegExp(`<${tagName}(?:\\s+[^>]*)?>([\\s\\S]*?)<\\/${tagName}>`, "gi"),
+  );
+
+  return [...matches].map((match) => decodeXmlEntities(match[1].trim()));
 };
 
 const stripMarkdownLinks = (value: string) =>
@@ -202,16 +219,28 @@ const makeEventId = (guid: string) => {
 };
 
 const buildTags = (
-  descriptionParts: DevsaFeedDescriptionParts,
-  category?: string,
+  hosts: string[],
+  categories: string[],
+  eventType?: string,
+  fallbackFormat?: string,
 ) => {
   const tags = new Set<string>();
+  const normalizedHosts = new Set(hosts.map((host) => host.toLowerCase()));
 
-  if (category) {
-    tags.add(category.toLowerCase());
+  for (const category of categories) {
+    if (
+      category &&
+      !normalizedHosts.has(normalizeOrganizerName(category).toLowerCase())
+    ) {
+      tags.add(category.toLowerCase());
+    }
   }
 
-  tags.add(descriptionParts.format.toLowerCase());
+  if (eventType) {
+    tags.add(eventType.toLowerCase());
+  } else if (fallbackFormat) {
+    tags.add(fallbackFormat.toLowerCase());
+  }
 
   return [...tags];
 };
@@ -220,9 +249,10 @@ const parseFeedItem = (itemXml: string): ParsedFeedItem | null => {
   const title = getItemField(itemXml, "title");
   const link = getItemField(itemXml, "link");
   const guid = getItemField(itemXml, "guid");
-  const description = getItemField(itemXml, "description");
+  const summary = getItemField(itemXml, "description");
+  const description = getItemField(itemXml, "devsa:description") ?? summary;
 
-  if (!title || !link || !guid || !description) {
+  if (!title || !link || !guid || !summary || !description) {
     return null;
   }
 
@@ -230,9 +260,18 @@ const parseFeedItem = (itemXml: string): ParsedFeedItem | null => {
     title,
     link,
     guid,
+    summary,
     description,
     pubDate: getItemField(itemXml, "pubDate"),
-    category: getItemField(itemXml, "category"),
+    categories: getItemFields(itemXml, "category"),
+    eventStart: getItemField(itemXml, "devsa:eventStart"),
+    eventEnd: getItemField(itemXml, "devsa:eventEnd"),
+    eventType: getItemField(itemXml, "devsa:eventType"),
+    venue: getItemField(itemXml, "devsa:venue"),
+    address: getItemField(itemXml, "devsa:address"),
+    hosts: getItemFields(itemXml, "devsa:host"),
+    detailsUrl: getItemField(itemXml, "devsa:detailsUrl"),
+    rsvpUrl: getItemField(itemXml, "devsa:rsvpUrl"),
   };
 };
 
@@ -246,30 +285,51 @@ export const parseDevsaFeed = (xml: string) => {
       continue;
     }
 
-    const descriptionParts = parseDevsaDescription(parsedItem.description);
+    const descriptionParts = parseDevsaDescription(parsedItem.summary);
+    const normalizedHosts = parsedItem.hosts.map(normalizeOrganizerName);
+    const includesAcmSaHost =
+      normalizedHosts.length > 0
+        ? normalizedHosts.some((host) => isAcmSaHostedEvent(host))
+        : descriptionParts
+          ? isAcmSaHostedEvent(descriptionParts.hostedBy)
+          : false;
 
-    if (!descriptionParts || !isAcmSaHostedEvent(descriptionParts.hostedBy)) {
+    if (!descriptionParts || !includesAcmSaHost) {
       continue;
     }
+
+    const organizer = normalizedHosts.join(", ") || descriptionParts.hostedBy;
+    const venue = parsedItem.venue ?? descriptionParts.venueLabel;
+    const normalizedVenue = venue.toLowerCase();
+    const isVirtual =
+      parsedItem.eventType?.toLowerCase() === "virtual" ||
+      normalizedVenue === "online event";
+    const date =
+      parsedItem.eventStart ??
+      parseChicagoDateToIso(descriptionParts.dateLabel);
+    const endDate = parsedItem.eventEnd;
+    const meetupLink = parsedItem.detailsUrl ?? parsedItem.link;
 
     importedEvents.push({
       id: makeEventId(parsedItem.guid),
       title: parsedItem.title,
-      description: descriptionParts.body,
-      date: parseChicagoDateToIso(descriptionParts.dateLabel),
+      description: parsedItem.description,
+      date,
+      endDate,
       location: {
-        venue:
-          descriptionParts.venueLabel.toLowerCase() === "online event"
-            ? undefined
-            : descriptionParts.venueLabel,
-        isVirtual:
-          descriptionParts.format.toLowerCase() === "virtual" ||
-          descriptionParts.venueLabel.toLowerCase() === "online event",
+        venue: isVirtual ? undefined : venue,
+        address: isVirtual ? undefined : parsedItem.address,
+        isVirtual,
       },
-      meetupLink: parsedItem.link,
-      tags: buildTags(descriptionParts, parsedItem.category),
+      meetupLink,
+      tags: buildTags(
+        normalizedHosts,
+        parsedItem.categories,
+        parsedItem.eventType,
+        descriptionParts.format,
+      ),
       isFeatured: false,
-      organizer: descriptionParts.hostedBy,
+      organizer,
       registrationRequired: true,
       source: {
         feed: "devsa",
@@ -277,9 +337,9 @@ export const parseDevsaFeed = (xml: string) => {
         publishedAt: parsedItem.pubDate
           ? new Date(parsedItem.pubDate).toISOString()
           : undefined,
-        category: parsedItem.category,
-        format: descriptionParts.format,
-        hostedBy: descriptionParts.hostedBy,
+        category: parsedItem.categories[0],
+        format: parsedItem.eventType ?? descriptionParts.format,
+        hostedBy: organizer,
         rawDescription: parsedItem.description,
       },
     });
