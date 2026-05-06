@@ -76,7 +76,41 @@ exports[`ContactSection should match snapshot 1`] = `
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Linkedin
+                LinkedIn
+              </a>
+            </li>
+            <li
+              class="socialLink"
+            >
+              <img
+                alt="youtube logo"
+                height="24"
+                src="/youtube.svg"
+                width="24"
+              />
+              <a
+                href="https://www.youtube.com/@ACMSanAntonio"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                YouTube
+              </a>
+            </li>
+            <li
+              class="socialLink"
+            >
+              <img
+                alt="instagram logo"
+                height="24"
+                src="/instagram.svg"
+                width="24"
+              />
+              <a
+                href="https://www.instagram.com/acmsanantonio/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Instagram
               </a>
             </li>
           </ul>
