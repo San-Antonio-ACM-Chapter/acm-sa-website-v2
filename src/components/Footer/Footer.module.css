@@ -8,27 +8,77 @@
 }
 
 .contentWrapper {
-  max-width: 1000px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem 2rem 1.25rem;
 }
 
 .footerContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(320px, 440px);
+  gap: 3rem;
+  align-items: start;
+  justify-content: center;
 }
 
-.footerSection {
+.brandSection {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 0.6rem;
+  max-width: 300px;
+  text-align: left;
 }
 
-.copyright,
+.chapterName {
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-jockey-one);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.chapterBlurb {
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  opacity: 0.72;
+}
+
+.linkColumns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.footerSection,
+.footerSection ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.footerSection h2 {
+  margin: 0 0 0.35rem;
+  color: var(--foreground);
+  font-family: var(--font-jetbrains-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.footerSection ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
 .nonprofit,
+.copyright,
 .version {
   margin: 0;
   font-size: 0.75rem;
@@ -40,29 +90,42 @@
     opacity 0.3s ease;
 }
 
-.acmLink,
-.emailLink {
+.footerBottom {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.footerBottom .copyright,
+.footerBottom .version {
+  opacity: 0.58;
+}
+
+.footerSection a {
   color: var(--foreground);
   font-family: var(--font-jetbrains-mono);
   transition:
     color 0.3s ease,
     opacity 0.3s ease;
-  font-size: 0.75rem;
-  opacity: 0.75;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  opacity: 0.68;
   text-decoration: none;
 }
 
-.acmLink:hover,
-.acmLink:focus,
-.emailLink:hover,
-.emailLink:focus {
+.footerSection a:hover,
+.footerSection a:focus {
   color: var(--primary);
   text-decoration: underline;
   opacity: 1;
 }
 
-.acmLink:focus-visible,
-.emailLink:focus-visible {
+.footerSection a:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
   border-radius: 2px;
@@ -70,8 +133,40 @@
 
 @media (max-width: 768px) {
   .footerContent {
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .brandSection {
+    align-items: center;
+    justify-self: center;
+    text-align: center;
+  }
+
+  .linkColumns {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    justify-self: center;
+    width: min(100%, 440px);
+  }
+}
+
+@media (max-width: 480px) {
+  .contentWrapper {
+    padding: 2.5rem 1.25rem 1.25rem;
+  }
+
+  .linkColumns {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .footerSection {
+    align-items: center;
+  }
+
+  .footerBottom {
+    gap: 0.5rem;
+    margin-top: 2rem;
   }
 }

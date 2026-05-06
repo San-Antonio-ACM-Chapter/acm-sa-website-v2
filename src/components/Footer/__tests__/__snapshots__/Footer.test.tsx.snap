@@ -12,14 +12,17 @@ exports[`Footer should match snapshot 1`] = `
         class="footerContent"
       >
         <div
-          class="footerSection"
+          class="brandSection"
         >
           <p
-            class="copyright"
+            class="chapterName"
           >
-            © 
-            2026
-             ACM San Antonio Professional Chapter
+            ACM San Antonio
+          </p>
+          <p
+            class="chapterBlurb"
+          >
+            A professional chapter connecting technologists, builders, and learners across San Antonio.
           </p>
           <p
             class="nonprofit"
@@ -27,36 +30,135 @@ exports[`Footer should match snapshot 1`] = `
             A 501(c)(3) Non-Profit Organization
           </p>
         </div>
-        <div
-          class="footerSection"
+        <nav
+          aria-label="Footer navigation"
+          class="linkColumns"
         >
-          <a
-            aria-label="Visit official ACM website (opens in new tab)"
-            class="acmLink"
-            href="https://www.acm.org/"
-            rel="noopener noreferrer"
-            target="_blank"
+          <div
+            class="footerSection"
           >
-            Official ACM Website
-          </a>
-          <a
-            aria-label="Send email to ACM San Antonio"
-            class="emailLink"
-            href="mailto:team@acmsa.org"
+            <h2>
+              Site
+            </h2>
+            <ul>
+              <li>
+                <a
+                  href="/#home"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#about"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#events"
+                >
+                  Events
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/#contact"
+                >
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/code-of-conduct"
+                >
+                  Code of Conduct
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://drive.google.com/file/d/1lFlJEjQDp0WzkichhVQ6q7eQr2tDQKBF/view?usp=sharing"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Chapter Bylaws
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="footerSection"
           >
-            team@acmsa.org
-          </a>
-        </div>
-        <div
-          class="footerSection"
+            <h2>
+              Connect
+            </h2>
+            <ul>
+              <li>
+                <a
+                  href="https://discord.gg/t94zZC3Ktm"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  ACM SA Discord
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://discord.gg/cvHHzThrEw"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  DEVSA Discord
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/acm-san-antonio"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a
+                  aria-label="Send email to ACM San Antonio"
+                  href="mailto:team@acmsa.org"
+                >
+                  team@acmsa.org
+                </a>
+              </li>
+              <li>
+                <a
+                  aria-label="Visit official ACM website (opens in new tab)"
+                  href="https://www.acm.org/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Official ACM Website
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div
+        class="footerBottom"
+      >
+        <p
+          class="copyright"
         >
-          <p
-            class="version"
-          >
-            Version: 
-            dev
-          </p>
-        </div>
+          © 
+          2026
+           ACM San Antonio Professional Chapter
+        </p>
+        <p
+          class="version"
+        >
+          Version: 
+          dev
+        </p>
       </div>
     </div>
   </footer>

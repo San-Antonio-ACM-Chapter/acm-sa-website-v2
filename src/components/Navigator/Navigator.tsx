@@ -36,22 +36,22 @@ const Navigator = () => {
         </button>
         <ul className={isMenuOpen ? styles.menuOpen : ""}>
           <li>
-            <a href="#home" onClick={closeMenu}>
+            <a href="/#home" onClick={closeMenu}>
               Home
             </a>
           </li>
           <li>
-            <a href="#about" onClick={closeMenu}>
+            <a href="/#about" onClick={closeMenu}>
               About
             </a>
           </li>
           <li>
-            <a href="#events" onClick={closeMenu}>
+            <a href="/#events" onClick={closeMenu}>
               Events
             </a>
           </li>
           <li>
-            <a href="#contact" onClick={closeMenu}>
+            <a href="/#contact" onClick={closeMenu}>
               Contact
             </a>
           </li>
