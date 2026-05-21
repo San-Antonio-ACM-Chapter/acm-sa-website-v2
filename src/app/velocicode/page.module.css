@@ -3,13 +3,13 @@
   --cream: #f5e6c2;
   --sand: #ecd197;
   --sunrise: #f0a830;
-  --mustard: #f3c637;
+  --mustard: #f5c800;   /* bumped to match Main Title gold */
   --clay: #c44d24;
   --rust: #8c3914;
-  --leaf-far: #a9c460;
-  --leaf-mid: #6f9a3d;
-  --leaf-deep: #2d5a22;
-  --leaf-shadow: #163a10;
+  --leaf-far: #5ab348;  /* brighter jungle green */
+  --leaf-mid: #3d8c28;  /* richer mid green */
+  --leaf-deep: #1e6016; /* deep forest */
+  --leaf-shadow: #0d3a08;
   --bark: #5a3a18;
   --ink: #20180c;
   --paper: #f8edcc;
@@ -17,7 +17,7 @@
 
   background: var(--cream);
   color: var(--ink);
-  overflow-x: hidden;
+  overflow-x: clip; /* clip (not hidden) so position:sticky on .nav still works */
   font-family: var(--vc-dm-mono), ui-monospace, monospace;
   font-size: 16px;
   line-height: 1.55;
@@ -29,7 +29,7 @@
   display: block;
 }
 
-.page a {
+.page a:not(.btn):not(.nav-cta):not(.theme-video-btn) {
   color: inherit;
 }
 
@@ -99,7 +99,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   padding: 9px 16px;
-  background: var(--clay);
+  background: var(--rust);   /* was clay — rust gives 6.5:1 vs paper (WCAG AA) */
   color: var(--paper);
   border: var(--line);
   box-shadow: 3px 3px 0 var(--ink);
@@ -264,7 +264,7 @@
 }
 
 .btn-primary {
-  background: var(--clay);
+  background: var(--rust);   /* was clay — rust gives 6.5:1 vs paper (WCAG AA) */
   color: var(--paper);
 }
 
@@ -311,7 +311,7 @@
 
 /* ── Marquee ──────────────────────────────────────────────── */
 .marquee {
-  background: var(--clay);
+  background: var(--rust);   /* was clay — rust gives 6.5:1 vs paper (WCAG AA) */
   color: var(--paper);
   border-bottom: var(--line);
   overflow: hidden;
@@ -525,13 +525,13 @@
 }
 
 .stat:nth-child(2) {
-  background: var(--clay);
+  background: var(--rust);    /* was clay — rust gives 6.5:1 vs paper (WCAG AA) */
   color: var(--paper);
   transform: rotate(1deg);
 }
 
 .stat:nth-child(3) {
-  background: var(--leaf-mid);
+  background: var(--leaf-deep); /* was leaf-mid (2.8:1 fail) — leaf-deep gives 6.6:1 */
   color: var(--paper);
   transform: rotate(-0.6deg);
 }
@@ -638,7 +638,7 @@
 
 .stop-num {
   font-family: var(--vc-luckiest-guy), system-ui;
-  background: var(--clay);
+  background: var(--rust);   /* was clay — rust gives 6.5:1 vs paper (WCAG AA) */
   color: var(--paper);
   border: var(--line);
   width: 44px;
@@ -746,8 +746,8 @@
 .patch:nth-child(1) { background: var(--paper);    transform: rotate(-2deg); }
 .patch:nth-child(2) { background: var(--leaf-far);  transform: rotate(1deg); }
 .patch:nth-child(3) { background: var(--mustard);   transform: rotate(-1deg); }
-.patch:nth-child(4) { background: var(--clay);      color: var(--paper); transform: rotate(2deg); }
-.patch:nth-child(5) { background: var(--leaf-mid);  color: var(--paper); transform: rotate(-1deg); }
+.patch:nth-child(4) { background: var(--rust);       color: var(--paper); transform: rotate(2deg); }   /* was clay (4:1 fail) */
+.patch:nth-child(5) { background: var(--leaf-deep); color: var(--paper); transform: rotate(-1deg); } /* was leaf-mid (2.8:1 fail) */
 .patch:nth-child(6) { background: var(--paper);     transform: rotate(1.5deg); }
 
 .patch:nth-child(1):hover { transform: rotate(-2deg)  translate(2px, 2px); }
@@ -1060,4 +1060,122 @@
   .stats {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* ── FOLIAGE DECORATIONS ──────────────────────────────────── */
+
+/* Shared wrapper for edge-bleed leaf clusters */
+.foliage-left,
+.foliage-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  pointer-events: none;
+  z-index: 3;
+  overflow: visible;
+}
+.foliage-left  { left: -40px; }
+.foliage-right { right: -40px; }
+
+.foliage-left svg,
+.foliage-right svg {
+  position: absolute;
+  overflow: visible;
+}
+
+/* Section-level corner leaf accents */
+.leaf-accent {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.28;
+}
+
+@media (max-width: 720px) {
+  .foliage-left,
+  .foliage-right { display: none; }
+  .leaf-accent   { display: none; }
+}
+
+/* ── THEME REVEAL ─────────────────────────────────────────── */
+.theme-reveal {
+  background: var(--leaf-deep);
+  color: var(--paper);
+  border-bottom: var(--line);
+  position: relative;
+  overflow: hidden;
+  padding: 56px 32px;
+  text-align: center;
+}
+
+.theme-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 18px,
+    color-mix(in srgb, var(--leaf-shadow) 40%, transparent) 18px 19px
+  );
+  pointer-events: none;
+}
+
+.theme-eye {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mustard);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.theme-eye::before,
+.theme-eye::after {
+  content: "";
+  width: 40px;
+  height: 2px;
+  background: var(--mustard);
+}
+
+.theme-name {
+  font-family: var(--vc-luckiest-guy), system-ui;
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--mustard);
+  text-shadow: 4px 4px 0 var(--leaf-shadow), 6px 6px 0 var(--ink);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.theme-video-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 26px;
+  background: var(--mustard);
+  color: var(--ink);
+  border: var(--line);
+  box-shadow: 5px 5px 0 var(--ink);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
+}
+.theme-video-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+@media (max-width: 720px) {
+  .theme-reveal { padding: 40px 20px; }
+  .theme-video-btn { font-size: 0.82rem; padding: 12px 20px; }
 }

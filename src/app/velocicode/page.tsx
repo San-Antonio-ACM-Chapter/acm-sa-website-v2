@@ -54,6 +54,86 @@ export const metadata: Metadata = {
 
 const RSVP_URL = "https://www.meetup.com/acm-sa/events/312892484";
 
+const STOPS: {
+  num: string;
+  date: string;
+  title: string;
+  meta: string;
+  cta: string;
+  href: string;
+  external: boolean;
+  side: "L" | "R";
+  cardTop: string;
+  pinLeft: string;
+  pinTop: string;
+}[] = [
+  {
+    num: "01",
+    date: "Wed · Jul 01 · 6 pm",
+    title: "Kickoff + Theme Reveal",
+    meta: "Geekdom Event Centre · in person + livestream. Doors at 6, theme drops at 7.",
+    cta: "RSVP →",
+    href: RSVP_URL,
+    external: true,
+    side: "L",
+    cardTop: "1%",
+    pinLeft: "75%",
+    pinTop: "6%",
+  },
+  {
+    num: "02",
+    date: "Thu · Jul 09 · 7 pm",
+    title: "Mid-Jam Office Hours",
+    meta: "Online · drop in to a Discord voice channel. Mentors on shaders, art, audio, scope.",
+    cta: "Link soon →",
+    href: "#schedule",
+    external: false,
+    side: "R",
+    cardTop: "22%",
+    pinLeft: "25%",
+    pinTop: "38%",
+  },
+  {
+    num: "03",
+    date: "Fri · Jul 17 · 6 pm",
+    title: "Playtest Day",
+    meta: "Geekdom Event Centre · pizza, controllers, real feedback. Bring whatever you've got.",
+    cta: "Link soon →",
+    href: "#schedule",
+    external: false,
+    side: "L",
+    cardTop: "42%",
+    pinLeft: "75%",
+    pinTop: "56%",
+  },
+  {
+    num: "04",
+    date: "Thu · Jul 30 · 11:59 pm",
+    title: "Submission Due",
+    meta: "itch.io · don't be late. Late builds can demo at the showcase but aren't eligible for prizes.",
+    cta: "Submit on itch.io",
+    href: "#schedule",
+    external: false,
+    side: "R",
+    cardTop: "62%",
+    pinLeft: "25%",
+    pinTop: "73%",
+  },
+  {
+    num: "05",
+    date: "Sat · Aug 08 · 5 pm",
+    title: "Showcase — Science-Fair Style",
+    meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
+    cta: "Date placeholder",
+    href: "#schedule",
+    external: false,
+    side: "L",
+    cardTop: "82%",
+    pinLeft: "75%",
+    pinTop: "86%",
+  },
+];
+
 export default function VelociCodePage() {
   const fontVars = [
     luckiestGuy.variable,
@@ -316,6 +396,21 @@ export default function VelociCodePage() {
             <circle cx="16" cy="36" r="3" fill="#20180c" />
             <circle cx="48" cy="36" r="3" fill="#20180c" />
           </symbol>
+
+          {/* Monstera leaf — game-icons/delapouite (CC BY 3.0) */}
+          <symbol id="vc-monstera" viewBox="0 0 512 512">
+            <path fill="currentColor" d="M332.9 17.37c-11.7-.1-24.2 1.23-37.5 4.13-33.1 7.21-48.6 28.49-56.2 54.09 11.2 22.86 20.1 46.01 25 71.91-9.6-6.9-19.7-1.7-22.6 5-4.3-22.4-10-42.9-17.8-62.93-48.8-34.88-83-20.9-89.6-18.76C49.64 98.12 25.54 165.7 39.84 239.1c19.32-43.4 86.56-68.7 113.56-68.6 6.9.1 47 9.5 13.6 20-54.8 17.3-98.29 48.7-116.81 86 8.78 24.5 21.34 49.1 36.89 72.4 14.42-42 40.22-89 96.72-125.1 14.5-9.3 23.8.7 12.2 13.2-53.5 57.4-75.1 104.2-81 148.6 17.4 20.3 37.2 38.9 58.5 54.7 1.6-54.4 20.3-117.7 56.3-164.6 3.7-6.6 22-2.7 15.6 9-27.9 50.9-43.2 119.9-44.5 174 25.6 15.2 52.9 26.3 80.9 31.9-15.1-35.2-18.5-80.5-6.9-120.8 5.1-17.8 20.8-8.1 17.6 4.2-10 38.8 8.6 87.5 28.1 120.6 20.7.1 41.6-3.1 62.3-10.2 11.8-4 22.7-12.3 32.7-23.8-11.3-22.8-27-44.1-46.6-57.2-7.4-5-3.2-23.6 10.2-14.8 19.1 12.6 37.6 29.7 52.8 48.7 9.8-16.8 18.2-37 25-59.4-29.7-34.7-83.3-82-128.8-101.7-9.6-4.1-8.7-21.5 7.6-16.4 47.8 14.8 98 46.2 131.1 78 3.9-19.9 6.7-40.8 8.1-61.9-39-27.6-95.5-67.2-147.1-74.8-9.5-1.4-13.6-18.6 3-17.8 58.3 2.7 109.8 23.5 145.1 50.5-.5-28.6-3.6-56.7-9.7-82.9-41.7-13.6-113.5-18.5-141.5-6.1-11.1 4.9-29.9-4.8-6.8-16.6 37.6-22.1 94.5-22.8 138.3-11-21.3-57.97-60.7-99.32-123.4-99.83z" />
+          </symbol>
+
+          {/* Palm tree — game-icons/delapouite (CC BY 3.0) */}
+          <symbol id="vc-bigleaf" viewBox="0 0 512 512">
+            <path fill="currentColor" d="M179.125 20.625c-28.052.12-54.046 5.813-66.72 9.78 0 0 114.968 19.51 124.532 98.876C149.573 3.32 54.28 155.657 54.28 155.657c19.868-5.212 76.76-20.682 114.75-14.156 25.992 4.465 51.33 28.03 50.236 27.733-61.943 15.24-160.35 290.92-143.64 313.308 14.9 17.12 29.816 11.28 44.718 2.595 7.376-58.425 64.938-314.765 135.375-294.072.01.003.02-.003.03 0 5.93 2.03 11.54 5.59 11.844 11.03.58 10.363-6.11 27.3-4.53 39.063 3.662 27.296 9.007 36.79 16.78 46.313 18.564-10.435 36.326-48.057 40-67.564 16.634 7.284 43.373 24.155 65.187 86.813 11.404-58.716-5.042-105.03-59.03-125.595 23.38-10.105 125.142 41.03 137.563 69.53C475.648 199.264 390.167 136.378 319 139.72c13.644-3.56 28.638.6 42.906-9.907 19.146-14.098 41.474-26.24 62.28-39.282-69.972-30.435-134.545-15.407-139.092 16.095-3.573-69.916-57.83-86.204-105.97-86z" />
+          </symbol>
+
+          {/* Fern — game-icons/delapouite (CC BY 3.0) */}
+          <symbol id="vc-frond" viewBox="0 0 512 512">
+            <path fill="currentColor" d="M127.3 21.33c-8.7 3.74-15.7 8.57-21.9 14.01 2.5 4.7 5.1 9.41 7.7 14.15 7-9.07 12.3-19.08 14.2-28.16zM48.18 35.86c-5.47.1-11.12.85-17.01 2.59 10 10.35 26.54 17.43 42.18 19.64-2.11-6.66-4.07-13.27-5.87-19.82-6.24-1.52-12.63-2.5-19.3-2.41zm37.84 1.07C108.6 116.3 155.9 207.1 214 288.5c62.5 87.4 137.5 164 205.5 205.5h72c-164.8-99-318-289.6-405.48-457.07zm65.58.6c-13.3 5.97-23.5 14.12-32.2 23.3 3.4 5.95 6.8 11.92 10.3 17.9 10.7-12.79 19.2-27.8 21.9-41.2zm36.6 10.95c-22.2 10.69-37.1 26.96-49.9 44.61 4.1 6.72 8.2 13.41 12.5 20.21 17.8-18 33.2-43.11 37.4-64.82zM47.86 68.68c-7.31 0-14.87.83-22.77 2.76C39.3 83.57 63.75 91.51 85.6 92.93c-2.62-6.81-5.09-13.58-7.42-20.31-9.76-2.33-19.78-3.97-30.32-3.94zm174.64 9.48c-27.8 10.8-45.5 30.34-61.8 50.54 3.5 5.4 7.1 10.8 10.7 16.2 22.4-15.8 44.3-42.9 51.1-66.74zm28.1 25.94c-31.5 13.4-50.6 35-67.8 57.6 4.3 6.2 8.7 12.4 13.1 18.5 25.3-18.7 49-49.8 54.7-76.1zm-188.95 1.7c-13.6.1-27.46 2.2-41.65 7.7 20.75 13 53.96 18.8 81 16.3-3.28-7.3-6.4-14.5-9.38-21.7-9-1.3-18.07-2.2-27.25-2.3zm217.95 33.5c-32.7 13.9-52 36.7-69.7 60.2 4.3 5.8 8.7 11.6 13.1 17.3 26.1-18.4 50.7-50.5 56.6-77.5zm-185.3 3.3c-21.73.1-43.47 2.5-64.55 14.4 23.57 10.2 59.64 10.3 85.15 2.3-2.7-5.5-5.4-11.1-8-16.6-2.7-.1-5.5-.1-8.25-.1zm219.1 23.7c-35.5 15.8-57.7 40.9-77.3 67.3 6 7.7 12.2 15.4 18.5 23 27.7-23.8 52.5-59.6 58.8-90.3zm-194.5 16.2c-26.84-.1-54.08 2.3-82.42 17.9 26.28 12.8 69.92 12.3 101.12 1.6-3.7-6.5-7.2-12.9-10.7-19.4-2.7-.1-5.3-.1-8-.1zm236.3 17.3c-39.6 17.7-62.6 46.7-84 76.5 5.8 6.7 11.6 13.4 17.5 20 30.7-23.4 59.6-63 66.5-96.5zm-220.3 19.4c-26.8 0-54.11 2.3-82.43 17.9 27.65 13.4 74.43 12.3 105.73-.1-3.6-5.8-7.1-11.7-10.6-17.6-4.2-.1-8.4-.2-12.7-.2zm261.6 8.4c-43.5 19.8-68.7 52.4-92.2 85.9 6.7 7.1 13.4 14.2 20.2 21.2 33.4-26.1 64.5-69.9 72-107.1zm45.2 27.5c-49.1 23.2-75.2 59.8-100.4 96.5 6.7 6.6 13.5 13.2 20.3 19.6 37.7-27.1 73.5-76 80.1-116.1zm-270.9 1.8c-36.9 1.5-74.06 4.6-110.83 28.2 34.33 13.8 88.63 9.8 125.63-5.8-5-7.4-10-14.9-14.8-22.4zM486.3 280c-51 26.5-77.5 68.7-103.4 110.6 7.4 6.6 14.9 13.1 22.5 19.4 38.1-30.4 74.2-85 80.9-130zm-283.6 23.5c-40.4 3.3-81.2 6.4-120.44 34.1 37.84 13.2 98.04 4.6 133.74-15.9-4.5-6-8.9-12.1-13.3-18.2zM494 342.6c-32.9 25.6-48.1 51.6-68.4 83.8 8.8 6.9 17.6 13.6 26.5 20 17.5-14.4 28.2-33.1 41.9-53.3zm-257.2 5.7c-42.1 9.6-84.4 19.9-121 54.6 41.5 7.9 101.6-8.3 138.2-33.7-5.8-6.8-11.6-13.8-17.2-20.9zm35.5 41.9c-41.7 14.1-83.6 29.4-118.8 69.8 42.1 4.8 101.9-18.4 138-49.1-6.5-6.7-12.9-13.7-19.2-20.7zm45.4 46.9c-43.1 10.9-86.1 23.1-123.5 56.9h70.6c28.5-7.5 56.2-20 76.9-35-8-7-16-14.3-24-21.9zm46.4 40.4c-15.6 4.9-31.3 10-46.6 16.5h68.8c-7.4-5.2-14.8-10.7-22.2-16.5z" />
+          </symbol>
         </defs>
       </svg>
 
@@ -328,10 +423,10 @@ export default function VelociCodePage() {
           </div>
           <div className={styles["nav-spacer"]} />
           <div className={styles["nav-links"]}>
-            <a href="#about">About</a>
-            <a href="#schedule">Schedule</a>
-            <a href="#involved">Get involved</a>
-            <a href="#faq">FAQ</a>
+            <a href="/#home">Home</a>
+            <a href="/#about">About</a>
+            <a href="/#events">Events</a>
+            <a href="/#contact">Contact</a>
           </div>
           <a
             className={styles["nav-cta"]}
@@ -438,210 +533,26 @@ export default function VelociCodePage() {
             />
 
             {/* Far palm trees */}
-            <g opacity="0.85">
-              <g transform="translate(160 660)">
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="-80"
-                  stroke="#5a3a18"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                />
-                <g fill="#2d5a22">
-                  <ellipse
-                    cx="-22"
-                    cy="-82"
-                    rx="28"
-                    ry="8"
-                    transform="rotate(-25 -22 -82)"
-                  />
-                  <ellipse
-                    cx="22"
-                    cy="-82"
-                    rx="28"
-                    ry="8"
-                    transform="rotate(25 22 -82)"
-                  />
-                  <ellipse cx="0" cy="-96" rx="30" ry="8" />
-                  <ellipse
-                    cx="-26"
-                    cy="-72"
-                    rx="26"
-                    ry="7"
-                    transform="rotate(-50 -26 -72)"
-                  />
-                  <ellipse
-                    cx="26"
-                    cy="-72"
-                    rx="26"
-                    ry="7"
-                    transform="rotate(50 26 -72)"
-                  />
-                </g>
+            <g opacity="0.75" color="#2d5a22">
+              <g transform="translate(155 665)">
+                <use href="#vc-bigleaf" x="-90" y="-190" width="190" height="190" />
               </g>
-              <g transform="translate(1430 640)">
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="-90"
-                  stroke="#5a3a18"
-                  strokeWidth="6"
-                  strokeLinecap="round"
-                />
-                <g fill="#2d5a22">
-                  <ellipse
-                    cx="-22"
-                    cy="-92"
-                    rx="28"
-                    ry="8"
-                    transform="rotate(-25 -22 -92)"
-                  />
-                  <ellipse
-                    cx="22"
-                    cy="-92"
-                    rx="28"
-                    ry="8"
-                    transform="rotate(25 22 -92)"
-                  />
-                  <ellipse cx="0" cy="-108" rx="30" ry="8" />
-                  <ellipse
-                    cx="-26"
-                    cy="-82"
-                    rx="26"
-                    ry="7"
-                    transform="rotate(-50 -26 -82)"
-                  />
-                  <ellipse
-                    cx="26"
-                    cy="-82"
-                    rx="26"
-                    ry="7"
-                    transform="rotate(50 26 -82)"
-                  />
+              <g transform="translate(1435 645)">
+                <g transform="scale(-1,1)">
+                  <use href="#vc-bigleaf" x="-90" y="-190" width="190" height="190" />
                 </g>
               </g>
             </g>
 
             {/* Big foreground palm LEFT */}
-            <g transform="translate(80 950)">
-              <line
-                x1="0"
-                y1="0"
-                x2="20"
-                y2="-280"
-                stroke="#5a3a18"
-                strokeWidth="14"
-                strokeLinecap="round"
-              />
-              <g fill="#2d5a22">
-                <ellipse
-                  cx="-30"
-                  cy="-280"
-                  rx="80"
-                  ry="22"
-                  transform="rotate(-25 -30 -280)"
-                />
-                <ellipse
-                  cx="60"
-                  cy="-285"
-                  rx="80"
-                  ry="22"
-                  transform="rotate(25 60 -285)"
-                />
-                <ellipse cx="20" cy="-310" rx="84" ry="22" />
-                <ellipse
-                  cx="-50"
-                  cy="-260"
-                  rx="74"
-                  ry="20"
-                  transform="rotate(-55 -50 -260)"
-                />
-                <ellipse
-                  cx="80"
-                  cy="-260"
-                  rx="74"
-                  ry="20"
-                  transform="rotate(55 80 -260)"
-                />
-              </g>
-              <g fill="#163a10" opacity="0.55">
-                <ellipse
-                  cx="-20"
-                  cy="-282"
-                  rx="60"
-                  ry="9"
-                  transform="rotate(-25 -20 -282)"
-                />
-                <ellipse
-                  cx="55"
-                  cy="-287"
-                  rx="60"
-                  ry="9"
-                  transform="rotate(25 55 -287)"
-                />
-              </g>
+            <g transform="translate(60 955)" color="#163a10">
+              <use href="#vc-bigleaf" x="-160" y="-420" width="420" height="420" />
             </g>
 
             {/* Big foreground palm RIGHT */}
-            <g transform="translate(1530 950)">
-              <line
-                x1="0"
-                y1="0"
-                x2="-30"
-                y2="-300"
-                stroke="#5a3a18"
-                strokeWidth="14"
-                strokeLinecap="round"
-              />
-              <g fill="#2d5a22">
-                <ellipse
-                  cx="-80"
-                  cy="-302"
-                  rx="86"
-                  ry="22"
-                  transform="rotate(-25 -80 -302)"
-                />
-                <ellipse
-                  cx="20"
-                  cy="-302"
-                  rx="86"
-                  ry="22"
-                  transform="rotate(25 20 -302)"
-                />
-                <ellipse cx="-30" cy="-330" rx="90" ry="22" />
-                <ellipse
-                  cx="-110"
-                  cy="-280"
-                  rx="78"
-                  ry="20"
-                  transform="rotate(-55 -110 -280)"
-                />
-                <ellipse
-                  cx="50"
-                  cy="-280"
-                  rx="78"
-                  ry="20"
-                  transform="rotate(55 50 -280)"
-                />
-              </g>
-              <g fill="#163a10" opacity="0.55">
-                <ellipse
-                  cx="-70"
-                  cy="-304"
-                  rx="60"
-                  ry="9"
-                  transform="rotate(-25 -70 -304)"
-                />
-                <ellipse
-                  cx="15"
-                  cy="-304"
-                  rx="60"
-                  ry="9"
-                  transform="rotate(25 15 -304)"
-                />
+            <g transform="translate(1545 955)" color="#163a10">
+              <g transform="scale(-1,1)">
+                <use href="#vc-bigleaf" x="-160" y="-420" width="420" height="420" />
               </g>
             </g>
 
@@ -671,123 +582,14 @@ export default function VelociCodePage() {
 
             {/* Origami Dino */}
             <g transform="translate(1020 800)">
-              <ellipse
-                cx="0"
-                cy="60"
-                rx="110"
-                ry="11"
-                fill="#000"
-                opacity="0.25"
+              <ellipse cx="0" cy="14" rx="95" ry="10" fill="#000" opacity="0.22" />
+              <image
+                href="/velocicode-logo.png"
+                x="-145"
+                y="-255"
+                width="290"
+                height="290"
               />
-              <g transform="translate(-160 -150) scale(0.78)">
-                {/* tail */}
-                <polygon
-                  points="295,205 365,180 360,210 320,225"
-                  fill="#6f9a3d"
-                />
-                <polygon
-                  points="320,225 360,210 355,232 330,238"
-                  fill="#4f7a2a"
-                />
-                {/* body */}
-                <polygon
-                  points="180,160 295,205 230,250 175,220"
-                  fill="#4f7a2a"
-                />
-                <polygon
-                  points="180,160 230,250 145,260 130,210"
-                  fill="#8aae4f"
-                />
-                <polygon
-                  points="145,260 230,250 200,285 165,285"
-                  fill="#a3c265"
-                />
-                {/* legs */}
-                <polygon
-                  points="225,245 270,240 260,300 235,290"
-                  fill="#4f7a2a"
-                />
-                <polygon
-                  points="245,288 268,285 260,335 248,332"
-                  fill="#3d6021"
-                />
-                <polygon
-                  points="248,332 270,332 280,344 246,344"
-                  fill="#2f4a18"
-                />
-                <polygon
-                  points="170,260 215,255 205,310 178,302"
-                  fill="#6f9a3d"
-                />
-                <polygon
-                  points="188,300 213,298 205,338 192,335"
-                  fill="#4f7a2a"
-                />
-                <polygon
-                  points="192,335 215,335 226,346 188,346"
-                  fill="#3d6021"
-                />
-                {/* neck/head */}
-                <polygon
-                  points="180,160 130,210 110,170 155,135"
-                  fill="#6f9a3d"
-                />
-                <polygon
-                  points="155,135 180,160 145,165 130,148"
-                  fill="#8aae4f"
-                />
-                <polygon
-                  points="155,135 110,170 70,140 105,108"
-                  fill="#4f7a2a"
-                />
-                <polygon
-                  points="105,108 155,135 130,90"
-                  fill="#6f9a3d"
-                />
-                <polygon
-                  points="70,140 110,170 35,165 25,142"
-                  fill="#8aae4f"
-                />
-                <polygon
-                  points="25,142 35,165 5,158 12,138"
-                  fill="#6f9a3d"
-                />
-                <polygon
-                  points="35,165 90,160 80,170 35,170"
-                  fill="#3d6021"
-                />
-                <polygon points="58,168 64,168 62,176" fill="#f4ead0" />
-                <polygon points="48,168 53,168 51,175" fill="#f4ead0" />
-                <circle cx="80" cy="135" r="5" fill="#20180c" />
-                <circle cx="82" cy="133" r="1.5" fill="#f4ead0" />
-                {/* arm */}
-                <polygon
-                  points="160,210 195,220 188,255 168,250"
-                  fill="#4f7a2a"
-                />
-                <polygon
-                  points="170,250 192,252 178,272 168,265"
-                  fill="#3d6021"
-                />
-                <polygon points="178,270 184,272 175,280" fill="#f4ead0" />
-                {/* crease lines */}
-                <g
-                  stroke="#f4ead0"
-                  strokeWidth="1.2"
-                  opacity="0.7"
-                  fill="none"
-                  strokeLinecap="round"
-                >
-                  <line x1="180" y1="160" x2="230" y2="250" />
-                  <line x1="155" y1="135" x2="180" y2="160" />
-                  <line x1="180" y1="160" x2="130" y2="210" />
-                  <line x1="225" y1="245" x2="270" y2="240" />
-                  <line x1="170" y1="260" x2="215" y2="255" />
-                  <line x1="295" y1="205" x2="365" y2="180" />
-                  <line x1="105" y1="108" x2="155" y2="135" />
-                  <line x1="35" y1="165" x2="70" y2="140" />
-                </g>
-              </g>
             </g>
           </svg>
 
@@ -828,6 +630,31 @@ export default function VelociCodePage() {
               </a>
             </div>
           </div>
+        </div>
+
+        {/* ─── FOLIAGE FRAMING ──────────────────────────────────────── */}
+        <div className={styles["foliage-left"]} aria-hidden="true">
+          <svg
+            style={{ top: "72%", left: "-10px", width: "200px", height: "200px" }}
+            viewBox="0 0 512 512"
+            overflow="visible"
+            color="var(--leaf-far)"
+          >
+            <g transform="translate(512,0) scale(-1,1)">
+              <use href="#vc-frond" />
+            </g>
+          </svg>
+        </div>
+
+        <div className={styles["foliage-right"]} aria-hidden="true">
+          <svg
+            style={{ top: "71%", left: "-5px", width: "200px", height: "200px" }}
+            viewBox="0 0 512 512"
+            overflow="visible"
+            color="var(--leaf-far)"
+          >
+            <use href="#vc-frond" />
+          </svg>
         </div>
       </header>
 
@@ -875,6 +702,24 @@ export default function VelociCodePage() {
           </span>
         </div>
       </div>
+
+      {/* ─── THEME REVEAL (env-gated) ────────────────────────────────── */}
+      {process.env.VELOCICODE_THEME && (
+        <section className={styles["theme-reveal"]}>
+          <div className={styles["theme-eye"]}>The Theme Is Revealed</div>
+          <div className={styles["theme-name"]}>{process.env.VELOCICODE_THEME}</div>
+          {process.env.VELOCICODE_KICKOFF_VIDEO && (
+            <a
+              className={styles["theme-video-btn"]}
+              href={process.env.VELOCICODE_KICKOFF_VIDEO}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ▶ Watch the Kickoff
+            </a>
+          )}
+        </section>
+      )}
 
       {/* ─── ABOUT ──────────────────────────────────────────────────── */}
       <section
@@ -1009,7 +854,7 @@ export default function VelociCodePage() {
           </p>
 
           <div className={styles["route-wrap"]}>
-            {/* Winding route SVG */}
+            {/* Winding route SVG — path endpoints match pin positions (preserveAspectRatio none) */}
             <svg
               className={styles["route-svg"]}
               viewBox="0 0 1000 1280"
@@ -1017,11 +862,11 @@ export default function VelociCodePage() {
               aria-hidden="true"
             >
               <path
-                d="M 750 80
-                   Q 920 220 750 360
-                   Q 580 500 250 480
-                   Q -50 460 250 700
-                   Q 580 920 750 1100"
+                d="M 750 77
+                   Q 960 220 250 486
+                   Q 60 620 750 717
+                   Q 940 820 250 934
+                   Q 60 1030 750 1101"
                 stroke="#5a3a18"
                 strokeWidth="6"
                 strokeDasharray="6 14"
@@ -1032,148 +877,44 @@ export default function VelociCodePage() {
             {/* Plane at start */}
             <svg
               className={styles["route-plane"]}
-              style={{ left: "75%", top: "6%" }}
+              style={{ left: STOPS[0].pinLeft, top: STOPS[0].pinTop }}
               viewBox="0 0 60 60"
             >
               <use href="#vc-plane" />
             </svg>
 
             {/* Route pins */}
-            <span
-              className={styles["route-pin"]}
-              style={{ left: "75%", top: "6%" }}
-            />
-            <span
-              className={styles["route-pin"]}
-              style={{ left: "25%", top: "38%" }}
-            />
-            <span
-              className={styles["route-pin"]}
-              style={{ left: "75%", top: "56%" }}
-            />
-            <span
-              className={styles["route-pin"]}
-              style={{ left: "25%", top: "73%" }}
-            />
-            <span
-              className={styles["route-pin"]}
-              style={{ left: "75%", top: "86%" }}
-            />
+            {STOPS.map((s) => (
+              <span
+                key={s.num}
+                className={styles["route-pin"]}
+                style={{ left: s.pinLeft, top: s.pinTop }}
+              />
+            ))}
 
-            {/* Stop 1 */}
-            <a
-              className={styles["route-stop"]}
-              data-side="L"
-              style={{ top: "1%" }}
-              href={RSVP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className={styles["stop-head"]}>
-                <div className={styles["stop-num"]}>01</div>
-                <div>
-                  <div className={styles["stop-date"]}>Wed · Jul 01 · 6 pm</div>
-                  <div className={styles["stop-title"]}>
-                    Kickoff + Theme Reveal
+            {/* Stop cards */}
+            {STOPS.map((s) => (
+              <a
+                key={s.num}
+                className={styles["route-stop"]}
+                data-side={s.side}
+                style={{ top: s.cardTop }}
+                href={s.href}
+                {...(s.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                <div className={styles["stop-head"]}>
+                  <div className={styles["stop-num"]}>{s.num}</div>
+                  <div>
+                    <div className={styles["stop-date"]}>{s.date}</div>
+                    <div className={styles["stop-title"]}>{s.title}</div>
                   </div>
                 </div>
-              </div>
-              <div className={styles["stop-meta"]}>
-                Geekdom Event Centre · in person + livestream. Doors at 6,
-                theme drops at 7.
-              </div>
-              <div className={styles["stop-arrow"]}>RSVP →</div>
-            </a>
-
-            {/* Stop 2 */}
-            <a
-              className={styles["route-stop"]}
-              data-side="R"
-              style={{ top: "22%" }}
-              href="#schedule"
-            >
-              <div className={styles["stop-head"]}>
-                <div className={styles["stop-num"]}>02</div>
-                <div>
-                  <div className={styles["stop-date"]}>Thu · Jul 09 · 7 pm</div>
-                  <div className={styles["stop-title"]}>
-                    Mid-Jam Office Hours
-                  </div>
-                </div>
-              </div>
-              <div className={styles["stop-meta"]}>
-                Online · drop in to a Discord voice channel. Mentors on
-                shaders, art, audio, scope.
-              </div>
-              <div className={styles["stop-arrow"]}>Link soon →</div>
-            </a>
-
-            {/* Stop 3 */}
-            <a
-              className={styles["route-stop"]}
-              data-side="L"
-              style={{ top: "42%" }}
-              href="#schedule"
-            >
-              <div className={styles["stop-head"]}>
-                <div className={styles["stop-num"]}>03</div>
-                <div>
-                  <div className={styles["stop-date"]}>Fri · Jul 17 · 6 pm</div>
-                  <div className={styles["stop-title"]}>Playtest Day</div>
-                </div>
-              </div>
-              <div className={styles["stop-meta"]}>
-                Geekdom Event Centre · pizza, controllers, real feedback. Bring
-                whatever you&apos;ve got.
-              </div>
-              <div className={styles["stop-arrow"]}>Link soon →</div>
-            </a>
-
-            {/* Stop 4 */}
-            <a
-              className={styles["route-stop"]}
-              data-side="R"
-              style={{ top: "62%" }}
-              href="#schedule"
-            >
-              <div className={styles["stop-head"]}>
-                <div className={styles["stop-num"]}>04</div>
-                <div>
-                  <div className={styles["stop-date"]}>
-                    Thu · Jul 30 · 11:59 pm
-                  </div>
-                  <div className={styles["stop-title"]}>Submission Due</div>
-                </div>
-              </div>
-              <div className={styles["stop-meta"]}>
-                itch.io · don&apos;t be late. Late builds can demo at the
-                showcase but aren&apos;t eligible for prizes.
-              </div>
-              <div className={styles["stop-arrow"]}>Submit on itch.io</div>
-            </a>
-
-            {/* Stop 5 */}
-            <a
-              className={styles["route-stop"]}
-              data-side="L"
-              style={{ top: "82%" }}
-              href="#schedule"
-            >
-              <div className={styles["stop-head"]}>
-                <div className={styles["stop-num"]}>05</div>
-                <div>
-                  <div className={styles["stop-date"]}>Sat · Aug 08 · 5 pm</div>
-                  <div className={styles["stop-title"]}>
-                    Showcase — Science-Fair Style
-                  </div>
-                </div>
-              </div>
-              <div className={styles["stop-meta"]}>
-                Venue TBA · family-friendly. Tables, laptops, controllers,
-                awards.
-              </div>
-              <div className={styles["stop-arrow"]}>Date placeholder</div>
-            </a>
+                <div className={styles["stop-meta"]}>{s.meta}</div>
+                <div className={styles["stop-arrow"]}>{s.cta}</div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
