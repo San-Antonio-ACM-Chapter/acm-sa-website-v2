@@ -77,7 +77,7 @@ const STOPS: {
     external: true,
     side: "R",
     cardTop: "5%",
-    pinLeft: "75%",
+    pinLeft: "52%",
     pinTop: "6%",
   },
   {
@@ -90,7 +90,7 @@ const STOPS: {
     external: false,
     side: "L",
     cardTop: "22%",
-    pinLeft: "25%",
+    pinLeft: "48%",
     pinTop: "38%",
   },
   {
@@ -103,7 +103,7 @@ const STOPS: {
     external: false,
     side: "R",
     cardTop: "42%",
-    pinLeft: "75%",
+    pinLeft: "52%",
     pinTop: "56%",
   },
   {
@@ -116,7 +116,7 @@ const STOPS: {
     external: false,
     side: "L",
     cardTop: "62%",
-    pinLeft: "25%",
+    pinLeft: "48%",
     pinTop: "73%",
   },
   {
@@ -129,7 +129,7 @@ const STOPS: {
     external: false,
     side: "R",
     cardTop: "82%",
-    pinLeft: "75%",
+    pinLeft: "52%",
     pinTop: "86%",
   },
 ];
@@ -862,11 +862,11 @@ export default function VelociCodePage() {
               aria-hidden="true"
             >
               <path
-                d="M 750 77
-                   Q 960 220 250 486
-                   Q 60 620 750 717
-                   Q 940 820 250 934
-                   Q 60 1030 750 1101"
+                d="M 520 77
+                   Q 820 260 480 486
+                   Q 180 620 520 717
+                   Q 820 820 480 934
+                   Q 180 1030 520 1101"
                 stroke="#5a3a18"
                 strokeWidth="6"
                 strokeDasharray="6 14"
