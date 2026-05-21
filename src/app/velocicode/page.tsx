@@ -8,6 +8,7 @@ import {
   DM_Mono,
 } from "next/font/google";
 import styles from "./page.module.css";
+import { RouteSection } from "./RouteSection";
 
 const luckiestGuy = Luckiest_Guy({
   subsets: ["latin"],
@@ -497,18 +498,22 @@ export default function VelociCodePage() {
               <path d="M280 280 q 10 -12 20 0 q 10 -12 20 0" />
             </g>
 
-            {/* Dotted plane route */}
+            {/* Dotted plane route — id used by animateMotion below; endpoints extend well off-screen so loop reset is invisible */}
             <path
-              d="M -50 450 Q 250 380 500 460 T 980 380 T 1450 250"
+              id="hero-route"
+              d="M -300 480 Q 250 380 500 460 T 980 380 T 1750 190"
               fill="none"
               stroke="#20180c"
               strokeWidth="3"
               strokeDasharray="4 12"
               opacity="0.55"
             />
-            {/* Plane along route */}
-            <g transform="translate(1180 290) rotate(-25)">
-              <use href="#vc-plane" width="64" height="64" x="-32" y="-32" />
+            {/* Plane animated along route — rotate(90) pre-aligns nose to +X so rotate="auto" faces direction of travel */}
+            <g className={styles["hero-route-plane"]}>
+              <animateMotion dur="18s" repeatCount="indefinite" rotate="auto" calcMode="linear">
+                <mpath href="#hero-route" />
+              </animateMotion>
+              <use href="#vc-plane" width="64" height="64" x="-32" y="-32" transform="rotate(90)" />
             </g>
 
             {/* Far hills */}
@@ -853,69 +858,7 @@ export default function VelociCodePage() {
             itch.io, so you&apos;re never out of bounds.
           </p>
 
-          <div className={styles["route-wrap"]}>
-            {/* Winding route SVG — path endpoints match pin positions (preserveAspectRatio none) */}
-            <svg
-              className={styles["route-svg"]}
-              viewBox="0 0 1000 1280"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M 520 77
-                   Q 820 260 480 486
-                   Q 180 620 520 717
-                   Q 820 820 480 934
-                   Q 180 1030 520 1101"
-                stroke="#5a3a18"
-                strokeWidth="6"
-                strokeDasharray="6 14"
-                opacity="0.85"
-              />
-            </svg>
-
-            {/* Plane at start — floats above the first card */}
-            <svg
-              className={styles["route-plane"]}
-              style={{ left: STOPS[0].pinLeft, top: "1%" }}
-              viewBox="0 0 60 60"
-            >
-              <use href="#vc-plane" />
-            </svg>
-
-            {/* Route pins */}
-            {STOPS.map((s) => (
-              <span
-                key={s.num}
-                className={styles["route-pin"]}
-                style={{ left: s.pinLeft, top: s.pinTop }}
-              />
-            ))}
-
-            {/* Stop cards */}
-            {STOPS.map((s) => (
-              <a
-                key={s.num}
-                className={styles["route-stop"]}
-                data-side={s.side}
-                style={{ top: s.cardTop }}
-                href={s.href}
-                {...(s.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-              >
-                <div className={styles["stop-head"]}>
-                  <div className={styles["stop-num"]}>{s.num}</div>
-                  <div>
-                    <div className={styles["stop-date"]}>{s.date}</div>
-                    <div className={styles["stop-title"]}>{s.title}</div>
-                  </div>
-                </div>
-                <div className={styles["stop-meta"]}>{s.meta}</div>
-                <div className={styles["stop-arrow"]}>{s.cta}</div>
-              </a>
-            ))}
-          </div>
+          <RouteSection stops={STOPS} />
         </div>
       </section>
 
