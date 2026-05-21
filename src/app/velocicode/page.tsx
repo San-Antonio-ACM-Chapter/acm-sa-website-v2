@@ -9,6 +9,8 @@ import {
 } from "next/font/google";
 import styles from "./page.module.css";
 import { RouteSection } from "./RouteSection";
+import { SectionReveal } from "./SectionReveal";
+import { StatCounter } from "./StatCounter";
 import { buildRouteLayout, type InputStop } from "./routeLayout";
 
 const luckiestGuy = Luckiest_Guy({
@@ -443,6 +445,7 @@ export default function VelociCodePage() {
             {/* SUN with rays */}
             <g transform="translate(1240 220)">
               <g
+                className={styles["sun-rays"]}
                 stroke="#f0a830"
                 strokeWidth="3"
                 strokeLinecap="round"
@@ -713,7 +716,7 @@ export default function VelociCodePage() {
       )}
 
       {/* ─── ABOUT ──────────────────────────────────────────────────── */}
-      <section
+      <SectionReveal
         className={`${styles.block} ${styles.about}`}
         id="about"
       >
@@ -809,24 +812,24 @@ export default function VelociCodePage() {
 
           <div className={styles.stats}>
             <div className={styles.stat}>
-              <div className={styles.n}>62</div>
+              <StatCounter value="62" className={styles.n} />
               <div className={styles.l}>Jammers · Year 1</div>
             </div>
             <div className={styles.stat}>
-              <div className={styles.n}>17</div>
+              <StatCounter value="17" className={styles.n} />
               <div className={styles.l}>Games shipped</div>
             </div>
             <div className={styles.stat}>
-              <div className={styles.n}>04</div>
+              <StatCounter value="04" className={styles.n} />
               <div className={styles.l}>Partner orgs</div>
             </div>
             <div className={styles.stat}>
-              <div className={styles.n}>01</div>
+              <StatCounter value="01" className={styles.n} />
               <div className={styles.l}>Loud cardboard dino</div>
             </div>
           </div>
         </div>
-      </section>
+      </SectionReveal>
 
       {/* ─── SCHEDULE ───────────────────────────────────────────────── */}
       <section
@@ -849,7 +852,7 @@ export default function VelociCodePage() {
       </section>
 
       {/* ─── INVOLVED ───────────────────────────────────────────────── */}
-      <section
+      <SectionReveal
         className={`${styles.block} ${styles.involved}`}
         id="involved"
       >
@@ -980,10 +983,10 @@ export default function VelociCodePage() {
             </a>
           </div>
         </div>
-      </section>
+      </SectionReveal>
 
       {/* ─── FAQ ────────────────────────────────────────────────────── */}
-      <section className={`${styles.block} ${styles.faq}`} id="faq">
+      <SectionReveal className={`${styles.block} ${styles.faq}`} id="faq">
         <svg
           className={styles["palm-bg"]}
           viewBox="0 0 200 320"
@@ -1046,7 +1049,7 @@ export default function VelociCodePage() {
             </details>
           </div>
         </div>
-      </section>
+      </SectionReveal>
 
       {/* ─── FOOTER ─────────────────────────────────────────────────── */}
       <footer className={styles.foot}>
