@@ -1053,7 +1053,7 @@
     min-height: auto;
   }
   .route-svg {
-    display: none;
+    display: none !important;
   }
   .route-stop {
     position: static;
@@ -1070,7 +1070,7 @@
     display: none;
   }
   .route-plane {
-    display: none;
+    display: none !important;
   }
   .patches {
     grid-template-columns: 1fr;
