@@ -330,6 +330,10 @@
   animation: mq 38s linear infinite;
 }
 
+.marquee:hover .mq-track {
+  animation-play-state: paused;
+}
+
 .mq-track > span {
   display: inline-flex;
   align-items: center;
@@ -729,11 +733,11 @@
 }
 
 .patch {
-  aspect-ratio: 1 / 1;
+  min-height: 260px;
   background: var(--paper);
   border: 4px solid var(--ink);
   border-radius: 22px;
-  padding: 22px;
+  padding: 24px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -771,8 +775,8 @@
 }
 
 .patch-icon {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
 }
 
 .patch h3 {
@@ -1297,4 +1301,38 @@
 @keyframes card-reveal {
   from { opacity: 0; translate: 0 22px; }
   to   { opacity: 1; translate: 0 0; }
+}
+
+/* Hero entrance — one-shot staggered drop-in */
+@keyframes hero-drop {
+  from { opacity: 0; translate: 0 -16px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+/* Letter-by-letter fall: drops from above, slams past, bounces to rest */
+@keyframes letter-fall {
+  0%   { opacity: 0; translate: 0 -80px; }
+  35%  { opacity: 1; }
+  68%  { translate: 0 10px; }
+  84%  { translate: 0 -4px; }
+  100% { translate: 0 0; }
+}
+
+.eyebrow {
+  animation: hero-drop 0.35s cubic-bezier(0.22, 1, 0.36, 1) 0ms   both;
+}
+/* Wordmark: per-letter via .wm-letter — delay set inline */
+.wm-letter {
+  display: inline-block;
+  animation: letter-fall 0.5s ease-in both;
+}
+.tagline {
+  animation: hero-drop 0.35s cubic-bezier(0.22, 1, 0.36, 1) 500ms both;
+}
+.hero-cta {
+  animation: hero-drop 0.35s cubic-bezier(0.22, 1, 0.36, 1) 620ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow, .wm-letter, .tagline, .hero-cta { animation: none; }
 }

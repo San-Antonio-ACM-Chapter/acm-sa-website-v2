@@ -597,9 +597,19 @@ export default function VelociCodePage() {
               ★ ACM SA × Greater Gaming Society ★ Expedition 02
             </span>
             <h1 className={styles.wordmark}>
-              <span className={styles["wm-veloci"]}>VELOCI</span>
-              <span className={styles["wm-code"]}>CODE</span>
-              <span className={styles["wm-bang"]}>!</span>
+              <span className={styles["wm-veloci"]}>
+                {"VELOCI".split("").map((ch, i) => (
+                  <span key={i} className={styles["wm-letter"]} style={{ animationDelay: `${80 + i * 30}ms` }}>{ch}</span>
+                ))}
+              </span>
+              <span className={styles["wm-code"]}>
+                {"CODE".split("").map((ch, i) => (
+                  <span key={i} className={styles["wm-letter"]} style={{ animationDelay: `${80 + (6 + i) * 30}ms` }}>{ch}</span>
+                ))}
+              </span>
+              <span className={styles["wm-bang"]}>
+                <span className={styles["wm-letter"]} style={{ animationDelay: `${80 + 10 * 30}ms` }}>!</span>
+              </span>
             </h1>
             <div className={styles.tagline}>
               <span className={styles.strike}>a hackathon</span>a month-long
