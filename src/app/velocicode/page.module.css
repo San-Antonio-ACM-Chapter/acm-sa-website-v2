@@ -1029,7 +1029,25 @@
 
 @media (max-width: 720px) {
   .hero-overlay {
-    padding-top: 56px;
+    padding-top: 48px;
+  }
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    padding: 5px 10px;
+  }
+  .btn {
+    padding: 12px 18px;
+    font-size: 0.82rem;
+  }
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 320px;
+  }
+  .hero-cta .btn {
+    justify-content: center;
   }
   .route-wrap {
     min-height: auto;
@@ -1056,6 +1074,30 @@
   }
   .patches {
     grid-template-columns: 1fr;
+  }
+  .patch {
+    aspect-ratio: auto;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px;
+  }
+  .patch::before {
+    inset: 8px;
+  }
+  .patch-icon {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+  }
+  .talk {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .talk a {
+    align-self: stretch;
+    justify-content: center;
   }
   .stats {
     grid-template-columns: 1fr 1fr;

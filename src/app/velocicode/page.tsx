@@ -75,8 +75,8 @@ const STOPS: {
     cta: "RSVP →",
     href: RSVP_URL,
     external: true,
-    side: "L",
-    cardTop: "1%",
+    side: "R",
+    cardTop: "5%",
     pinLeft: "75%",
     pinTop: "6%",
   },
@@ -88,7 +88,7 @@ const STOPS: {
     cta: "Link soon →",
     href: "#schedule",
     external: false,
-    side: "R",
+    side: "L",
     cardTop: "22%",
     pinLeft: "25%",
     pinTop: "38%",
@@ -101,7 +101,7 @@ const STOPS: {
     cta: "Link soon →",
     href: "#schedule",
     external: false,
-    side: "L",
+    side: "R",
     cardTop: "42%",
     pinLeft: "75%",
     pinTop: "56%",
@@ -114,7 +114,7 @@ const STOPS: {
     cta: "Submit on itch.io",
     href: "#schedule",
     external: false,
-    side: "R",
+    side: "L",
     cardTop: "62%",
     pinLeft: "25%",
     pinTop: "73%",
@@ -127,7 +127,7 @@ const STOPS: {
     cta: "Date placeholder",
     href: "#schedule",
     external: false,
-    side: "L",
+    side: "R",
     cardTop: "82%",
     pinLeft: "75%",
     pinTop: "86%",
@@ -874,10 +874,10 @@ export default function VelociCodePage() {
               />
             </svg>
 
-            {/* Plane at start */}
+            {/* Plane at start — floats above the first card */}
             <svg
               className={styles["route-plane"]}
-              style={{ left: STOPS[0].pinLeft, top: STOPS[0].pinTop }}
+              style={{ left: STOPS[0].pinLeft, top: "1%" }}
               viewBox="0 0 60 60"
             >
               <use href="#vc-plane" />
