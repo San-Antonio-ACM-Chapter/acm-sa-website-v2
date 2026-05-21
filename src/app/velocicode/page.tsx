@@ -9,6 +9,7 @@ import {
 } from "next/font/google";
 import styles from "./page.module.css";
 import { RouteSection } from "./RouteSection";
+import { buildRouteLayout, type InputStop } from "./routeLayout";
 
 const luckiestGuy = Luckiest_Guy({
   subsets: ["latin"],
@@ -55,87 +56,76 @@ export const metadata: Metadata = {
 
 const RSVP_URL = "https://www.meetup.com/acm-sa/events/312892484";
 
-const STOPS: {
-  num: string;
-  date: string;
-  title: string;
-  meta: string;
-  cta: string;
-  href: string;
-  external: boolean;
-  side: "L" | "R";
-  cardTop: string;
-  pinLeft: string;
-  pinTop: string;
-}[] = [
+const STOPS: InputStop[] = [
   {
-    num: "01",
-    date: "Wed · Jul 01 · 6 pm",
+    date: "2026-07-01T18:00",
     title: "Kickoff + Theme Reveal",
     meta: "Geekdom Event Centre · in person + livestream. Doors at 6, theme drops at 7.",
-    cta: "RSVP →",
+    cta: "RSVP",
     href: RSVP_URL,
     external: true,
-    side: "R",
-    cardTop: "5%",
-    pinLeft: "52%",
-    pinTop: "6%",
   },
   {
-    num: "02",
-    date: "Thu · Jul 09 · 7 pm",
+    date: "2026-07-09T19:00",
     title: "Mid-Jam Office Hours",
     meta: "Online · drop in to a Discord voice channel. Mentors on shaders, art, audio, scope.",
-    cta: "Link soon →",
+    cta: "Link soon",
     href: "#schedule",
     external: false,
-    side: "L",
-    cardTop: "22%",
-    pinLeft: "48%",
-    pinTop: "38%",
   },
   {
-    num: "03",
-    date: "Fri · Jul 17 · 6 pm",
+    date: "2026-07-17T18:00",
     title: "Playtest Day",
     meta: "Geekdom Event Centre · pizza, controllers, real feedback. Bring whatever you've got.",
-    cta: "Link soon →",
+    cta: "Link soon",
     href: "#schedule",
     external: false,
-    side: "R",
-    cardTop: "42%",
-    pinLeft: "52%",
-    pinTop: "56%",
   },
   {
-    num: "04",
-    date: "Thu · Jul 30 · 11:59 pm",
+    date: "2026-07-30T23:59",
     title: "Submission Due",
     meta: "itch.io · don't be late. Late builds can demo at the showcase but aren't eligible for prizes.",
     cta: "Submit on itch.io",
     href: "#schedule",
     external: false,
-    side: "L",
-    cardTop: "62%",
-    pinLeft: "48%",
-    pinTop: "73%",
   },
   {
-    num: "05",
-    date: "Sat · Aug 08 · 5 pm",
+    date: "2026-08-08T17:00",
     title: "Showcase — Science-Fair Style",
     meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
     cta: "Date placeholder",
     href: "#schedule",
     external: false,
-    side: "R",
-    cardTop: "82%",
-    pinLeft: "52%",
-    pinTop: "86%",
+  },
+  {
+    date: "2026-08-08T17:00",
+    title: "Showcase — Science-Fair Style",
+    meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
+    cta: "Date placeholder",
+    href: "#schedule",
+    external: false,
+  },
+  {
+    date: "2026-08-08T17:00",
+    title: "Showcase — Science-Fair Style",
+    meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
+    cta: "Date placeholder",
+    href: "#schedule",
+    external: false,
+  },
+  {
+    date: "2026-08-08T17:00",
+    title: "Showcase — Science-Fair Style",
+    meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
+    cta: "Date placeholder",
+    href: "#schedule",
+    external: false,
   },
 ];
 
 export default function VelociCodePage() {
+  const { stops: computedStops, pathD, segments, wrapMinHeight, pathTopFrac, pathBottomFrac } = buildRouteLayout(STOPS);
+
   const fontVars = [
     luckiestGuy.variable,
     rubikDirt.variable,
@@ -676,10 +666,6 @@ export default function VelociCodePage() {
         <div className={styles.item}>
           <span className={styles.lbl}>Cost</span> Free · all levels
         </div>
-        <div className={styles.sep}>✦</div>
-        <div className={styles.item}>
-          <span className={styles.lbl}>Made for</span> the SA community
-        </div>
       </div>
 
       {/* ─── MARQUEE ─────────────────────────────────────────────────── */}
@@ -858,7 +844,7 @@ export default function VelociCodePage() {
             itch.io, so you&apos;re never out of bounds.
           </p>
 
-          <RouteSection stops={STOPS} />
+          <RouteSection stops={computedStops} pathD={pathD} segments={segments} wrapMinHeight={wrapMinHeight} pathTopFrac={pathTopFrac} pathBottomFrac={pathBottomFrac} />
         </div>
       </section>
 
