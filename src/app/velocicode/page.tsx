@@ -443,7 +443,7 @@ export default function VelociCodePage() {
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
           >
             {/* SUN with rays */}
-            <g transform="translate(1240 220)">
+            <g className={styles["hero-sun"]} transform="translate(1240 220)">
               <g
                 className={styles["sun-rays"]}
                 stroke="#f0a830"
@@ -493,6 +493,7 @@ export default function VelociCodePage() {
 
             {/* Dotted plane route — id used by animateMotion below; endpoints extend well off-screen so loop reset is invisible */}
             <path
+              className={styles["hero-route-path"]}
               id="hero-route"
               d="M -300 480 Q 250 380 500 460 T 980 380 T 1750 190"
               fill="none"
@@ -579,7 +580,7 @@ export default function VelociCodePage() {
             </g>
 
             {/* Origami Dino */}
-            <g transform="translate(1020 800)">
+            <g className={styles["hero-dino"]} transform="translate(1020 800)">
               <ellipse cx="0" cy="14" rx="95" ry="10" fill="#000" opacity="0.22" />
               <image
                 href="/velocicode-logo.png"
