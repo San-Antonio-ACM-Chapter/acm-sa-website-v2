@@ -115,8 +115,9 @@ const STOPS: InputStop[] = [
 ];
 
 const POLAROID_PHOTOS: PolaroidPhoto[] = [
-  { src: "event-photo-01.jpeg", caption: "Year 1 · Presentation Day" },
-  { src: "event-photo-02.jpeg", caption: "Year 1 · Presentation Day" },
+  { src: "event-photo-25-01.jpeg", description: "Presentation Day", year: 1 },
+  { src: "social-25-01.jpeg", description: "GGS Social", year: 1 },
+  { src: "event-photo-25-02.jpeg", description: "Presentation Day", year: 1 },
 ];
 
 const FAQ_ITEMS: FaqItem[] = [

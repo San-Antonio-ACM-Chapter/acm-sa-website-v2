@@ -511,6 +511,14 @@
   font-size: 1.2rem;
   color: var(--rust);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.polaroid-cap span:last-child {
+  font-size: 0.95rem;
+  opacity: 0.7;
 }
 
 .polaroid-fade {

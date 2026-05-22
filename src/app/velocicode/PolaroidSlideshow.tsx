@@ -4,8 +4,9 @@ import Image from "next/image";
 import styles from "./page.module.css";
 
 export type PolaroidPhoto = {
-  src: string;    // path relative to /public, e.g. "/velocicode/event-photo-01.jpeg"
-  caption: string;
+  src: string;
+  description: string;
+  year: number;
 };
 
 const FADE_MS = 600;
@@ -38,7 +39,7 @@ export function PolaroidSlideshow({ photos }: { photos: PolaroidPhoto[] }) {
         >
           <Image
             src={`/velocicode/${photo.src}`}
-            alt={photo.caption}
+            alt={photo.description}
             fill
             style={{ objectFit: "cover" }}
             sizes="(max-width: 960px) 100vw, 380px"
@@ -49,7 +50,8 @@ export function PolaroidSlideshow({ photos }: { photos: PolaroidPhoto[] }) {
         className={styles["polaroid-cap"]}
         style={{ opacity: visible ? 1 : 0, transition: "opacity 0.6s ease" }}
       >
-        {photo.caption}
+        <span>{photo.description}</span>
+        <span>Year {photo.year}</span>
       </div>
     </div>
   );
