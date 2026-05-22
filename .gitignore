@@ -55,3 +55,12 @@ src/.env.local
 
 # Biome
 .biome-cache/
+
+# Claude Code project data
+.claude/
+
+# Playwright MCP session data (screenshots, snapshots)
+.playwright-mcp/
+
+# SWC compiler cache
+.swc/
