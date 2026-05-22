@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import {
   Luckiest_Guy,
   Rubik_Dirt,
@@ -57,6 +58,12 @@ export const metadata: Metadata = {
 };
 
 const RSVP_URL = "https://www.meetup.com/acm-sa/events/312892484";
+
+const META_ITEMS = [
+  { label: "Window", value: "Jul 1 → Aug 1" },
+  { label: "Kickoff", value: "Wed Jul 1 · 6 pm" },
+  { label: "Cost",   value: "Free · all levels" },
+];
 
 const STOPS: InputStop[] = [
   {
@@ -502,10 +509,28 @@ export default function VelociCodePage() {
               strokeDasharray="4 12"
               opacity="0.55"
             />
+            {/* Mobile route: short path that stays within the visible crop area (SVG x ≈ 500–1100) */}
+            <path
+              className={styles["hero-route-path-mobile"]}
+              id="hero-route-mobile"
+              d="M 510 540 Q 680 360 820 430 T 1080 280"
+              fill="none"
+              stroke="#20180c"
+              strokeWidth="3"
+              strokeDasharray="4 12"
+              opacity="0.55"
+            />
             {/* Plane animated along route — rotate(90) pre-aligns nose to +X so rotate="auto" faces direction of travel */}
             <g className={styles["hero-route-plane"]}>
               <animateMotion dur="18s" repeatCount="indefinite" rotate="auto" calcMode="linear">
                 <mpath href="#hero-route" />
+              </animateMotion>
+              <use href="#vc-plane" width="64" height="64" x="-32" y="-32" transform="rotate(90)" />
+            </g>
+            {/* Mobile plane — follows the shorter mobile route, loops every 7s */}
+            <g className={styles["hero-route-plane-mobile"]}>
+              <animateMotion dur="7s" repeatCount="indefinite" rotate="auto" calcMode="linear">
+                <mpath href="#hero-route-mobile" />
               </animateMotion>
               <use href="#vc-plane" width="64" height="64" x="-32" y="-32" transform="rotate(90)" />
             </g>
@@ -644,7 +669,7 @@ export default function VelociCodePage() {
         {/* ─── FOLIAGE FRAMING ──────────────────────────────────────── */}
         <div className={styles["foliage-left"]} aria-hidden="true">
           <svg
-            style={{ top: "72%", left: "-10px", width: "200px", height: "200px" }}
+            style={{ bottom: "0", left: "-10px", width: "200px", height: "200px" }}
             viewBox="0 0 512 512"
             overflow="visible"
             color="var(--leaf-far)"
@@ -657,7 +682,7 @@ export default function VelociCodePage() {
 
         <div className={styles["foliage-right"]} aria-hidden="true">
           <svg
-            style={{ top: "71%", left: "-5px", width: "200px", height: "200px" }}
+            style={{ bottom: "0", left: "-5px", width: "200px", height: "200px" }}
             viewBox="0 0 512 512"
             overflow="visible"
             color="var(--leaf-far)"
@@ -669,17 +694,14 @@ export default function VelociCodePage() {
 
       {/* ─── META STRIP ─────────────────────────────────────────────── */}
       <div className={styles["meta-strip"]}>
-        <div className={styles.item}>
-          <span className={styles.lbl}>Window</span> Jul 1 → Aug 1
-        </div>
-        <div className={styles.sep}>✦</div>
-        <div className={styles.item}>
-          <span className={styles.lbl}>Kickoff</span> Wed Jul 1 · 6 pm
-        </div>
-        <div className={styles.sep}>✦</div>
-        <div className={styles.item}>
-          <span className={styles.lbl}>Cost</span> Free · all levels
-        </div>
+        {META_ITEMS.map((item, i) => (
+          <Fragment key={i}>
+            {i > 0 && <div className={styles.sep} aria-hidden="true">✦</div>}
+            <div className={styles.item}>
+              <span className={styles.lbl}>{item.label}</span> {item.value}
+            </div>
+          </Fragment>
+        ))}
       </div>
 
       {/* ─── MARQUEE ─────────────────────────────────────────────────── */}

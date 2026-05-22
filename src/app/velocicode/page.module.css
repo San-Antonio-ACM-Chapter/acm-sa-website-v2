@@ -1083,11 +1083,36 @@
   .route-plane {
     display: none !important;
   }
-  /* Hide hero-only elements that are off-screen on portrait viewports */
-  .hero-route-plane,
-  .hero-sun,
-  .hero-dino,
-  .hero-route-path {
+  /* Desktop plane and path not needed on mobile — replaced by the mobile-specific short route */
+  .hero-route-path,
+  .hero-route-plane {
+    display: none;
+  }
+  /* Mobile plane is globally hidden; un-hide it here */
+  .hero-route-plane-mobile {
+    display: block;
+  }
+
+  /* Sun and dino: reposition into the visible crop area.
+     CSS px on SVG elements = SVG user units.
+     At mobile, SVG scale = 620/950 ≈ 0.652 (constant due to min-height: 620px).
+     Formula: SVG_unit = (desired_css_x + horiz_offset) / scale
+     At 390px: horiz_offset = (1600*0.652 - 390) / 2 ≈ 326.
+     Sun  → CSS (320,  60) = SVG (990,  92).
+     Dino → CSS (195, 580) = SVG (799, 890). */
+  .hero-sun {
+    transform: translate(990px, 92px);
+  }
+  .hero-dino {
+    transform: translate(799px, 890px);
+  }
+  .meta-strip {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+  }
+  .meta-strip .sep {
     display: none;
   }
   .patches {
@@ -1239,9 +1264,14 @@
 
 /* ── ANIMATIONS ───────────────────────────────────────────── */
 
+/* Mobile hero plane/path — hidden globally, shown on mobile via media query */
+.hero-route-plane-mobile { display: none; }
+.hero-route-path-mobile  { visibility: hidden; }
+
 /* Hero plane: hide for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .hero-route-plane { display: none; }
+  .hero-route-plane        { display: none; }
+  .hero-route-plane-mobile { display: none; }
 }
 
 /* Sun rays: slow rotation around center of the translate group */
@@ -1276,14 +1306,14 @@
   100% { transform: scale(2.6);  opacity: 0; }
 }
 
-/* Section entrance: data-reveal set by SectionReveal.tsx, data-visible set on intersection */
-.block[data-reveal] {
+/* Section entrance: only animate the .content div — section background stays visible */
+.block[data-reveal] .content {
   opacity: 0;
   translate: 0 36px;
   transition: opacity 0.55s ease, translate 0.55s ease;
 }
 
-.block[data-reveal][data-visible="true"] {
+.block[data-reveal][data-visible="true"] .content {
   opacity: 1;
   translate: 0 0;
 }
@@ -1291,7 +1321,7 @@
 @media (prefers-reduced-motion: reduce) {
   .sun-rays    { animation: none; }
   .plane-pulse { display: none; }
-  .block[data-reveal] { opacity: 1; translate: 0 0; transition: none; }
+  .block[data-reveal] .content { opacity: 1; translate: 0 0; transition: none; }
 }
 
 /* Route card reveals — data-animated set by RouteSection.tsx on mount,
