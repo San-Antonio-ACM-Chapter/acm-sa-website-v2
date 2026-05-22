@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Fragment } from "react";
 import {
-  Luckiest_Guy,
-  Rubik_Dirt,
   Bowlby_One_SC,
   Caveat_Brush,
-  Special_Elite,
   DM_Mono,
+  Luckiest_Guy,
+  Rubik_Dirt,
+  Special_Elite,
 } from "next/font/google";
+import { Fragment } from "react";
+import { AccordionFAQ, type FaqItem } from "./AccordionFAQ";
+import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
 import styles from "./page.module.css";
 import { RouteSection } from "./RouteSection";
+import { buildRouteLayout, type InputStop } from "./routeLayout";
 import { SectionReveal } from "./SectionReveal";
 import { StatCounter } from "./StatCounter";
-import { PolaroidSlideshow, type PolaroidPhoto } from "./PolaroidSlideshow";
-import { AccordionFAQ, type FaqItem } from "./AccordionFAQ";
-import { buildRouteLayout, type InputStop } from "./routeLayout";
 
 const luckiestGuy = Luckiest_Guy({
   subsets: ["latin"],
@@ -64,7 +64,7 @@ const RSVP_URL = "https://www.meetup.com/acm-sa/events/312892484";
 const META_ITEMS = [
   { label: "Window", value: "Jul 1 → Aug 1" },
   { label: "Kickoff", value: "Wed Jul 1 · 7 pm" },
-  { label: "Cost",   value: "Free · all levels" },
+  { label: "Cost", value: "Free · all levels" },
 ];
 
 const STOPS: InputStop[] = [
@@ -122,18 +122,42 @@ const POLAROID_PHOTOS: PolaroidPhoto[] = [
 
 const STATS = [
   { value: "39", label: "Jammers · Year 1" },
-  { value: "5",  label: "Games shipped" },
+  { value: "5", label: "Games shipped" },
   { value: "04", label: "Partner orgs" },
   { value: "01", label: "Charming origami dino" },
 ];
 
 const PATCHES = [
-  { icon: "vc-megaphone", title: "Spread the word",      body: "Repost on socials. Hand a flyer to that one student who keeps talking about Godot." },
-  { icon: "vc-mic",       title: "Run a workshop",        body: "60-minute talk on shaders, pixel art, audio, design? We'll help promote the event." },
-  { icon: "vc-compass",   title: "Judge",                 body: "In-person at our showcase event on August 1st!" },
-  { icon: "vc-tent",      title: "Host space",            body: "Build-night spots, science-fair-friendly showcase floor, or other social events." },
-  { icon: "vc-medal",     title: "Sponsor prizes / food", body: "Cash, hardware, software, swag, snacks for build night, pizza for playtest." },
-  { icon: "vc-binoc",     title: "Share resources",       body: "Asset packs, license codes, internship leads, conference passes." },
+  {
+    icon: "vc-megaphone",
+    title: "Spread the word",
+    body: "Repost on socials. Hand a flyer to that one student who keeps talking about Godot.",
+  },
+  {
+    icon: "vc-mic",
+    title: "Run a workshop",
+    body: "60-minute talk on shaders, pixel art, audio, design? We'll help promote the event.",
+  },
+  {
+    icon: "vc-compass",
+    title: "Judge",
+    body: "In-person at our showcase event on August 1st!",
+  },
+  {
+    icon: "vc-tent",
+    title: "Host space",
+    body: "Build-night spots, science-fair-friendly showcase floor, or other social events.",
+  },
+  {
+    icon: "vc-medal",
+    title: "Sponsor prizes / food",
+    body: "Cash, hardware, software, swag, snacks for build night, pizza for playtest.",
+  },
+  {
+    icon: "vc-binoc",
+    title: "Share resources",
+    body: "Asset packs, license codes, internship leads, conference passes.",
+  },
 ];
 
 const MARQUEE_ITEMS = [
@@ -171,7 +195,14 @@ const FAQ_ITEMS: FaqItem[] = [
 ];
 
 export default function VelociCodePage() {
-  const { stops: computedStops, pathD, segments, wrapMinHeight, pathTopFrac, pathBottomFrac } = buildRouteLayout(STOPS);
+  const {
+    stops: computedStops,
+    pathD,
+    segments,
+    wrapMinHeight,
+    pathTopFrac,
+    pathBottomFrac,
+  } = buildRouteLayout(STOPS);
 
   const fontVars = [
     luckiestGuy.variable,
@@ -437,12 +468,18 @@ export default function VelociCodePage() {
 
           {/* Palm tree — game-icons/delapouite (CC BY 3.0) */}
           <symbol id="vc-bigleaf" viewBox="0 0 512 512">
-            <path fill="currentColor" d="M179.125 20.625c-28.052.12-54.046 5.813-66.72 9.78 0 0 114.968 19.51 124.532 98.876C149.573 3.32 54.28 155.657 54.28 155.657c19.868-5.212 76.76-20.682 114.75-14.156 25.992 4.465 51.33 28.03 50.236 27.733-61.943 15.24-160.35 290.92-143.64 313.308 14.9 17.12 29.816 11.28 44.718 2.595 7.376-58.425 64.938-314.765 135.375-294.072.01.003.02-.003.03 0 5.93 2.03 11.54 5.59 11.844 11.03.58 10.363-6.11 27.3-4.53 39.063 3.662 27.296 9.007 36.79 16.78 46.313 18.564-10.435 36.326-48.057 40-67.564 16.634 7.284 43.373 24.155 65.187 86.813 11.404-58.716-5.042-105.03-59.03-125.595 23.38-10.105 125.142 41.03 137.563 69.53C475.648 199.264 390.167 136.378 319 139.72c13.644-3.56 28.638.6 42.906-9.907 19.146-14.098 41.474-26.24 62.28-39.282-69.972-30.435-134.545-15.407-139.092 16.095-3.573-69.916-57.83-86.204-105.97-86z" />
+            <path
+              fill="currentColor"
+              d="M179.125 20.625c-28.052.12-54.046 5.813-66.72 9.78 0 0 114.968 19.51 124.532 98.876C149.573 3.32 54.28 155.657 54.28 155.657c19.868-5.212 76.76-20.682 114.75-14.156 25.992 4.465 51.33 28.03 50.236 27.733-61.943 15.24-160.35 290.92-143.64 313.308 14.9 17.12 29.816 11.28 44.718 2.595 7.376-58.425 64.938-314.765 135.375-294.072.01.003.02-.003.03 0 5.93 2.03 11.54 5.59 11.844 11.03.58 10.363-6.11 27.3-4.53 39.063 3.662 27.296 9.007 36.79 16.78 46.313 18.564-10.435 36.326-48.057 40-67.564 16.634 7.284 43.373 24.155 65.187 86.813 11.404-58.716-5.042-105.03-59.03-125.595 23.38-10.105 125.142 41.03 137.563 69.53C475.648 199.264 390.167 136.378 319 139.72c13.644-3.56 28.638.6 42.906-9.907 19.146-14.098 41.474-26.24 62.28-39.282-69.972-30.435-134.545-15.407-139.092 16.095-3.573-69.916-57.83-86.204-105.97-86z"
+            />
           </symbol>
 
           {/* Fern — game-icons/delapouite (CC BY 3.0) */}
           <symbol id="vc-frond" viewBox="0 0 512 512">
-            <path fill="currentColor" d="M127.3 21.33c-8.7 3.74-15.7 8.57-21.9 14.01 2.5 4.7 5.1 9.41 7.7 14.15 7-9.07 12.3-19.08 14.2-28.16zM48.18 35.86c-5.47.1-11.12.85-17.01 2.59 10 10.35 26.54 17.43 42.18 19.64-2.11-6.66-4.07-13.27-5.87-19.82-6.24-1.52-12.63-2.5-19.3-2.41zm37.84 1.07C108.6 116.3 155.9 207.1 214 288.5c62.5 87.4 137.5 164 205.5 205.5h72c-164.8-99-318-289.6-405.48-457.07zm65.58.6c-13.3 5.97-23.5 14.12-32.2 23.3 3.4 5.95 6.8 11.92 10.3 17.9 10.7-12.79 19.2-27.8 21.9-41.2zm36.6 10.95c-22.2 10.69-37.1 26.96-49.9 44.61 4.1 6.72 8.2 13.41 12.5 20.21 17.8-18 33.2-43.11 37.4-64.82zM47.86 68.68c-7.31 0-14.87.83-22.77 2.76C39.3 83.57 63.75 91.51 85.6 92.93c-2.62-6.81-5.09-13.58-7.42-20.31-9.76-2.33-19.78-3.97-30.32-3.94zm174.64 9.48c-27.8 10.8-45.5 30.34-61.8 50.54 3.5 5.4 7.1 10.8 10.7 16.2 22.4-15.8 44.3-42.9 51.1-66.74zm28.1 25.94c-31.5 13.4-50.6 35-67.8 57.6 4.3 6.2 8.7 12.4 13.1 18.5 25.3-18.7 49-49.8 54.7-76.1zm-188.95 1.7c-13.6.1-27.46 2.2-41.65 7.7 20.75 13 53.96 18.8 81 16.3-3.28-7.3-6.4-14.5-9.38-21.7-9-1.3-18.07-2.2-27.25-2.3zm217.95 33.5c-32.7 13.9-52 36.7-69.7 60.2 4.3 5.8 8.7 11.6 13.1 17.3 26.1-18.4 50.7-50.5 56.6-77.5zm-185.3 3.3c-21.73.1-43.47 2.5-64.55 14.4 23.57 10.2 59.64 10.3 85.15 2.3-2.7-5.5-5.4-11.1-8-16.6-2.7-.1-5.5-.1-8.25-.1zm219.1 23.7c-35.5 15.8-57.7 40.9-77.3 67.3 6 7.7 12.2 15.4 18.5 23 27.7-23.8 52.5-59.6 58.8-90.3zm-194.5 16.2c-26.84-.1-54.08 2.3-82.42 17.9 26.28 12.8 69.92 12.3 101.12 1.6-3.7-6.5-7.2-12.9-10.7-19.4-2.7-.1-5.3-.1-8-.1zm236.3 17.3c-39.6 17.7-62.6 46.7-84 76.5 5.8 6.7 11.6 13.4 17.5 20 30.7-23.4 59.6-63 66.5-96.5zm-220.3 19.4c-26.8 0-54.11 2.3-82.43 17.9 27.65 13.4 74.43 12.3 105.73-.1-3.6-5.8-7.1-11.7-10.6-17.6-4.2-.1-8.4-.2-12.7-.2zm261.6 8.4c-43.5 19.8-68.7 52.4-92.2 85.9 6.7 7.1 13.4 14.2 20.2 21.2 33.4-26.1 64.5-69.9 72-107.1zm45.2 27.5c-49.1 23.2-75.2 59.8-100.4 96.5 6.7 6.6 13.5 13.2 20.3 19.6 37.7-27.1 73.5-76 80.1-116.1zm-270.9 1.8c-36.9 1.5-74.06 4.6-110.83 28.2 34.33 13.8 88.63 9.8 125.63-5.8-5-7.4-10-14.9-14.8-22.4zM486.3 280c-51 26.5-77.5 68.7-103.4 110.6 7.4 6.6 14.9 13.1 22.5 19.4 38.1-30.4 74.2-85 80.9-130zm-283.6 23.5c-40.4 3.3-81.2 6.4-120.44 34.1 37.84 13.2 98.04 4.6 133.74-15.9-4.5-6-8.9-12.1-13.3-18.2zM494 342.6c-32.9 25.6-48.1 51.6-68.4 83.8 8.8 6.9 17.6 13.6 26.5 20 17.5-14.4 28.2-33.1 41.9-53.3zm-257.2 5.7c-42.1 9.6-84.4 19.9-121 54.6 41.5 7.9 101.6-8.3 138.2-33.7-5.8-6.8-11.6-13.8-17.2-20.9zm35.5 41.9c-41.7 14.1-83.6 29.4-118.8 69.8 42.1 4.8 101.9-18.4 138-49.1-6.5-6.7-12.9-13.7-19.2-20.7zm45.4 46.9c-43.1 10.9-86.1 23.1-123.5 56.9h70.6c28.5-7.5 56.2-20 76.9-35-8-7-16-14.3-24-21.9zm46.4 40.4c-15.6 4.9-31.3 10-46.6 16.5h68.8c-7.4-5.2-14.8-10.7-22.2-16.5z" />
+            <path
+              fill="currentColor"
+              d="M127.3 21.33c-8.7 3.74-15.7 8.57-21.9 14.01 2.5 4.7 5.1 9.41 7.7 14.15 7-9.07 12.3-19.08 14.2-28.16zM48.18 35.86c-5.47.1-11.12.85-17.01 2.59 10 10.35 26.54 17.43 42.18 19.64-2.11-6.66-4.07-13.27-5.87-19.82-6.24-1.52-12.63-2.5-19.3-2.41zm37.84 1.07C108.6 116.3 155.9 207.1 214 288.5c62.5 87.4 137.5 164 205.5 205.5h72c-164.8-99-318-289.6-405.48-457.07zm65.58.6c-13.3 5.97-23.5 14.12-32.2 23.3 3.4 5.95 6.8 11.92 10.3 17.9 10.7-12.79 19.2-27.8 21.9-41.2zm36.6 10.95c-22.2 10.69-37.1 26.96-49.9 44.61 4.1 6.72 8.2 13.41 12.5 20.21 17.8-18 33.2-43.11 37.4-64.82zM47.86 68.68c-7.31 0-14.87.83-22.77 2.76C39.3 83.57 63.75 91.51 85.6 92.93c-2.62-6.81-5.09-13.58-7.42-20.31-9.76-2.33-19.78-3.97-30.32-3.94zm174.64 9.48c-27.8 10.8-45.5 30.34-61.8 50.54 3.5 5.4 7.1 10.8 10.7 16.2 22.4-15.8 44.3-42.9 51.1-66.74zm28.1 25.94c-31.5 13.4-50.6 35-67.8 57.6 4.3 6.2 8.7 12.4 13.1 18.5 25.3-18.7 49-49.8 54.7-76.1zm-188.95 1.7c-13.6.1-27.46 2.2-41.65 7.7 20.75 13 53.96 18.8 81 16.3-3.28-7.3-6.4-14.5-9.38-21.7-9-1.3-18.07-2.2-27.25-2.3zm217.95 33.5c-32.7 13.9-52 36.7-69.7 60.2 4.3 5.8 8.7 11.6 13.1 17.3 26.1-18.4 50.7-50.5 56.6-77.5zm-185.3 3.3c-21.73.1-43.47 2.5-64.55 14.4 23.57 10.2 59.64 10.3 85.15 2.3-2.7-5.5-5.4-11.1-8-16.6-2.7-.1-5.5-.1-8.25-.1zm219.1 23.7c-35.5 15.8-57.7 40.9-77.3 67.3 6 7.7 12.2 15.4 18.5 23 27.7-23.8 52.5-59.6 58.8-90.3zm-194.5 16.2c-26.84-.1-54.08 2.3-82.42 17.9 26.28 12.8 69.92 12.3 101.12 1.6-3.7-6.5-7.2-12.9-10.7-19.4-2.7-.1-5.3-.1-8-.1zm236.3 17.3c-39.6 17.7-62.6 46.7-84 76.5 5.8 6.7 11.6 13.4 17.5 20 30.7-23.4 59.6-63 66.5-96.5zm-220.3 19.4c-26.8 0-54.11 2.3-82.43 17.9 27.65 13.4 74.43 12.3 105.73-.1-3.6-5.8-7.1-11.7-10.6-17.6-4.2-.1-8.4-.2-12.7-.2zm261.6 8.4c-43.5 19.8-68.7 52.4-92.2 85.9 6.7 7.1 13.4 14.2 20.2 21.2 33.4-26.1 64.5-69.9 72-107.1zm45.2 27.5c-49.1 23.2-75.2 59.8-100.4 96.5 6.7 6.6 13.5 13.2 20.3 19.6 37.7-27.1 73.5-76 80.1-116.1zm-270.9 1.8c-36.9 1.5-74.06 4.6-110.83 28.2 34.33 13.8 88.63 9.8 125.63-5.8-5-7.4-10-14.9-14.8-22.4zM486.3 280c-51 26.5-77.5 68.7-103.4 110.6 7.4 6.6 14.9 13.1 22.5 19.4 38.1-30.4 74.2-85 80.9-130zm-283.6 23.5c-40.4 3.3-81.2 6.4-120.44 34.1 37.84 13.2 98.04 4.6 133.74-15.9-4.5-6-8.9-12.1-13.3-18.2zM494 342.6c-32.9 25.6-48.1 51.6-68.4 83.8 8.8 6.9 17.6 13.6 26.5 20 17.5-14.4 28.2-33.1 41.9-53.3zm-257.2 5.7c-42.1 9.6-84.4 19.9-121 54.6 41.5 7.9 101.6-8.3 138.2-33.7-5.8-6.8-11.6-13.8-17.2-20.9zm35.5 41.9c-41.7 14.1-83.6 29.4-118.8 69.8 42.1 4.8 101.9-18.4 138-49.1-6.5-6.7-12.9-13.7-19.2-20.7zm45.4 46.9c-43.1 10.9-86.1 23.1-123.5 56.9h70.6c28.5-7.5 56.2-20 76.9-35-8-7-16-14.3-24-21.9zm46.4 40.4c-15.6 4.9-31.3 10-46.6 16.5h68.8c-7.4-5.2-14.8-10.7-22.2-16.5z"
+            />
           </symbol>
         </defs>
       </svg>
@@ -480,7 +517,12 @@ export default function VelociCodePage() {
             viewBox="0 0 1600 950"
             preserveAspectRatio="xMidYMid slice"
             aria-hidden="true"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+            }}
           >
             {/* SUN with rays */}
             <g className={styles["hero-sun"]} transform="translate(1240 220)">
@@ -555,17 +597,41 @@ export default function VelociCodePage() {
             />
             {/* Plane animated along route — rotate(90) pre-aligns nose to +X so rotate="auto" faces direction of travel */}
             <g className={styles["hero-route-plane"]}>
-              <animateMotion dur="18s" repeatCount="indefinite" rotate="auto" calcMode="linear">
+              <animateMotion
+                dur="18s"
+                repeatCount="indefinite"
+                rotate="auto"
+                calcMode="linear"
+              >
                 <mpath href="#hero-route" />
               </animateMotion>
-              <use href="#vc-plane" width="64" height="64" x="-32" y="-32" transform="rotate(90)" />
+              <use
+                href="#vc-plane"
+                width="64"
+                height="64"
+                x="-32"
+                y="-32"
+                transform="rotate(90)"
+              />
             </g>
             {/* Mobile plane — follows the shorter mobile route, loops every 7s */}
             <g className={styles["hero-route-plane-mobile"]}>
-              <animateMotion dur="7s" repeatCount="indefinite" rotate="auto" calcMode="linear">
+              <animateMotion
+                dur="7s"
+                repeatCount="indefinite"
+                rotate="auto"
+                calcMode="linear"
+              >
                 <mpath href="#hero-route-mobile" />
               </animateMotion>
-              <use href="#vc-plane" width="64" height="64" x="-32" y="-32" transform="rotate(90)" />
+              <use
+                href="#vc-plane"
+                width="64"
+                height="64"
+                x="-32"
+                y="-32"
+                transform="rotate(90)"
+              />
             </g>
 
             {/* Far hills */}
@@ -592,54 +658,73 @@ export default function VelociCodePage() {
             {/* Far palm trees */}
             <g opacity="0.75" color="#2d5a22">
               <g transform="translate(155 665)">
-                <use href="#vc-bigleaf" x="-90" y="-190" width="190" height="190" />
+                <use
+                  href="#vc-bigleaf"
+                  x="-90"
+                  y="-190"
+                  width="190"
+                  height="190"
+                />
               </g>
               <g transform="translate(1435 645)">
                 <g transform="scale(-1,1)">
-                  <use href="#vc-bigleaf" x="-90" y="-190" width="190" height="190" />
+                  <use
+                    href="#vc-bigleaf"
+                    x="-90"
+                    y="-190"
+                    width="190"
+                    height="190"
+                  />
                 </g>
               </g>
             </g>
 
             {/* Big foreground palm LEFT */}
             <g transform="translate(60 955)" color="#163a10">
-              <use href="#vc-bigleaf" x="-160" y="-420" width="420" height="420" />
+              <use
+                href="#vc-bigleaf"
+                x="-160"
+                y="-420"
+                width="420"
+                height="420"
+              />
             </g>
 
             {/* Big foreground palm RIGHT */}
             <g transform="translate(1545 955)" color="#163a10">
               <g transform="scale(-1,1)">
-                <use href="#vc-bigleaf" x="-160" y="-420" width="420" height="420" />
+                <use
+                  href="#vc-bigleaf"
+                  x="-160"
+                  y="-420"
+                  width="420"
+                  height="420"
+                />
               </g>
             </g>
 
             {/* Ferns along the bottom */}
             <g transform="translate(330 920)" fill="#163a10">
               <ellipse cx="0" cy="0" rx="22" ry="7" transform="rotate(-30)" />
-              <ellipse
-                cx="20"
-                cy="-2"
-                rx="22"
-                ry="7"
-                transform="rotate(30)"
-              />
+              <ellipse cx="20" cy="-2" rx="22" ry="7" transform="rotate(30)" />
               <ellipse cx="40" cy="0" rx="22" ry="7" transform="rotate(-25)" />
             </g>
             <g transform="translate(1180 920)" fill="#163a10">
               <ellipse cx="0" cy="0" rx="22" ry="7" transform="rotate(-30)" />
-              <ellipse
-                cx="20"
-                cy="-2"
-                rx="22"
-                ry="7"
-                transform="rotate(30)"
-              />
+              <ellipse cx="20" cy="-2" rx="22" ry="7" transform="rotate(30)" />
               <ellipse cx="40" cy="0" rx="22" ry="7" transform="rotate(-25)" />
             </g>
 
             {/* Origami Dino */}
             <g className={styles["hero-dino"]} transform="translate(1020 800)">
-              <ellipse cx="0" cy="14" rx="95" ry="10" fill="#000" opacity="0.22" />
+              <ellipse
+                cx="0"
+                cy="14"
+                rx="95"
+                ry="10"
+                fill="#000"
+                opacity="0.22"
+              />
               <image
                 href="/velocicode-logo.png"
                 x="-145"
@@ -658,16 +743,33 @@ export default function VelociCodePage() {
             <h1 className={styles.wordmark}>
               <span className={styles["wm-veloci"]}>
                 {"VELOCI".split("").map((ch, i) => (
-                  <span key={i} className={styles["wm-letter"]} style={{ animationDelay: `${80 + i * 30}ms` }}>{ch}</span>
+                  <span
+                    key={ch}
+                    className={styles["wm-letter"]}
+                    style={{ animationDelay: `${80 + i * 30}ms` }}
+                  >
+                    {ch}
+                  </span>
                 ))}
               </span>
               <span className={styles["wm-code"]}>
                 {"CODE".split("").map((ch, i) => (
-                  <span key={i} className={styles["wm-letter"]} style={{ animationDelay: `${80 + (6 + i) * 30}ms` }}>{ch}</span>
+                  <span
+                    key={ch}
+                    className={styles["wm-letter"]}
+                    style={{ animationDelay: `${80 + (6 + i) * 30}ms` }}
+                  >
+                    {ch}
+                  </span>
                 ))}
               </span>
               <span className={styles["wm-bang"]}>
-                <span className={styles["wm-letter"]} style={{ animationDelay: `${80 + 10 * 30}ms` }}>!</span>
+                <span
+                  className={styles["wm-letter"]}
+                  style={{ animationDelay: `${80 + 10 * 30}ms` }}
+                >
+                  !
+                </span>
               </span>
             </h1>
             <div className={styles.tagline}>
@@ -702,10 +804,16 @@ export default function VelociCodePage() {
         {/* ─── FOLIAGE FRAMING ──────────────────────────────────────── */}
         <div className={styles["foliage-left"]} aria-hidden="true">
           <svg
-            style={{ bottom: "0", left: "-10px", width: "200px", height: "200px" }}
+            style={{
+              bottom: "0",
+              left: "-10px",
+              width: "200px",
+              height: "200px",
+            }}
             viewBox="0 0 512 512"
             overflow="visible"
             color="var(--leaf-far)"
+            aria-hidden="true"
           >
             <g transform="translate(512,0) scale(-1,1)">
               <use href="#vc-frond" />
@@ -715,10 +823,16 @@ export default function VelociCodePage() {
 
         <div className={styles["foliage-right"]} aria-hidden="true">
           <svg
-            style={{ bottom: "0", left: "-5px", width: "200px", height: "200px" }}
+            style={{
+              bottom: "0",
+              left: "-5px",
+              width: "200px",
+              height: "200px",
+            }}
             viewBox="0 0 512 512"
             overflow="visible"
             color="var(--leaf-far)"
+            aria-hidden="true"
           >
             <use href="#vc-frond" />
           </svg>
@@ -728,8 +842,12 @@ export default function VelociCodePage() {
       {/* ─── META STRIP ─────────────────────────────────────────────── */}
       <div className={styles["meta-strip"]}>
         {META_ITEMS.map((item, i) => (
-          <Fragment key={i}>
-            {i > 0 && <div className={styles.sep} aria-hidden="true">✦</div>}
+          <Fragment key={item.label}>
+            {i > 0 && (
+              <div className={styles.sep} aria-hidden="true">
+                ✦
+              </div>
+            )}
             <div className={styles.item}>
               <span className={styles.lbl}>{item.label}</span> {item.value}
             </div>
@@ -742,8 +860,8 @@ export default function VelociCodePage() {
         <div className={styles["mq-track"]}>
           {[0, 1].map((set) => (
             <span key={set}>
-              {MARQUEE_ITEMS.map((item, i) => (
-                <Fragment key={i}>
+              {MARQUEE_ITEMS.map((item) => (
+                <Fragment key={item}>
                   <span>{item}</span>
                   <span className={styles["mq-dot"]} />
                 </Fragment>
@@ -757,7 +875,9 @@ export default function VelociCodePage() {
       {process.env.VELOCICODE_THEME && (
         <section className={styles["theme-reveal"]}>
           <div className={styles["theme-eye"]}>The Theme Is Revealed</div>
-          <div className={styles["theme-name"]}>{process.env.VELOCICODE_THEME}</div>
+          <div className={styles["theme-name"]}>
+            {process.env.VELOCICODE_THEME}
+          </div>
           {process.env.VELOCICODE_KICKOFF_VIDEO && (
             <a
               className={styles["theme-video-btn"]}
@@ -772,15 +892,11 @@ export default function VelociCodePage() {
       )}
 
       {/* ─── ABOUT ──────────────────────────────────────────────────── */}
-      <SectionReveal
-        className={`${styles.block} ${styles.about}`}
-        id="about"
-      >
+      <SectionReveal className={`${styles.block} ${styles.about}`} id="about">
         <div className={styles.content}>
           <div className={styles["section-eye"]}>Field Journal · Entry 01</div>
           <h2 className={styles["section-title"]}>
-            One month,{" "}
-            <span className={styles.accent}>one game.</span>
+            One month, <span className={styles.accent}>one game.</span>
             <span className={styles.scribble}>— scrappy on purpose</span>
           </h2>
 
@@ -790,17 +906,34 @@ export default function VelociCodePage() {
                 <span className={styles.hand}>Hello, friend —</span>
                 <strong>VelociCode</strong> is San Antonio&apos;s month-long
                 game jam. Year one was small and scrappy and full of
-                first-timers — so good we couldn&apos;t{" "}
-                <em>not</em> do it again. Year two doubles down: a full month
-                to build, a community kickoff, mid-jam playtest, and a
-                science-fair-style showcase.
+                first-timers — so good we couldn&apos;t <em>not</em> do it
+                again. Year two doubles down: a full month to build, a community
+                kickoff, mid-jam playtest, and a science-fair-style showcase.
               </p>
               <p>
                 Hosted by <strong>ACM San Antonio</strong> and the{" "}
-                <strong><a href="https://www.meetup.com/greater-gaming-society-of-san-antonio/" target="_blank" rel="noopener noreferrer">Greater Gaming Society</a></strong>, the jam is built for
-                the <strong><a href="https://www.devsa.community/" target="_blank" rel="noopener noreferrer">San Antonio community</a></strong> — students,
-                hobbyists, designers, artists, devs, first-timers. Show up
-                solo, find a team, ship something you can hand a controller to.
+                <strong>
+                  <a
+                    href="https://www.meetup.com/greater-gaming-society-of-san-antonio/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Greater Gaming Society
+                  </a>
+                </strong>
+                , the jam is built for the{" "}
+                <strong>
+                  <a
+                    href="https://www.devsa.community/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    San Antonio community
+                  </a>
+                </strong>{" "}
+                — students, hobbyists, designers, artists, devs, first-timers.
+                Show up solo, find a team, ship something you can hand a
+                controller to.
               </p>
               <p>
                 It&apos;s not a hackathon — there&apos;s no all-nighter, no
@@ -815,8 +948,8 @@ export default function VelociCodePage() {
           </div>
 
           <div className={styles.stats}>
-            {STATS.map((s, i) => (
-              <div key={i} className={styles.stat}>
+            {STATS.map((s) => (
+              <div key={s.label} className={styles.stat}>
                 <StatCounter value={s.value} className={styles.n} />
                 <div className={styles.l}>{s.label}</div>
               </div>
@@ -826,10 +959,7 @@ export default function VelociCodePage() {
       </SectionReveal>
 
       {/* ─── SCHEDULE ───────────────────────────────────────────────── */}
-      <section
-        className={`${styles.block} ${styles.schedule}`}
-        id="schedule"
-      >
+      <section className={`${styles.block} ${styles.schedule}`} id="schedule">
         <div className={styles.content}>
           <div className={styles["section-eye"]}>Expedition Itinerary</div>
           <h2 className={styles["section-title"]}>
@@ -837,10 +967,18 @@ export default function VelociCodePage() {
             <span className={styles.scribble}>five waypoints, one month</span>
           </h2>
           <p style={{ maxWidth: "60ch", marginTop: "8px" }}>
-            Hit them all or just the ones you can — the whole jam runs through the month, so you&apos;re never out of bounds.
+            Hit them all or just the ones you can — the whole jam runs through
+            the month, so you&apos;re never out of bounds.
           </p>
 
-          <RouteSection stops={computedStops} pathD={pathD} segments={segments} wrapMinHeight={wrapMinHeight} pathTopFrac={pathTopFrac} pathBottomFrac={pathBottomFrac} />
+          <RouteSection
+            stops={computedStops}
+            pathD={pathD}
+            segments={segments}
+            wrapMinHeight={wrapMinHeight}
+            pathTopFrac={pathTopFrac}
+            pathBottomFrac={pathBottomFrac}
+          />
         </div>
       </section>
 
@@ -871,9 +1009,13 @@ export default function VelociCodePage() {
           </p>
 
           <div className={styles.patches}>
-            {PATCHES.map((p, i) => (
-              <div key={i} className={styles.patch}>
-                <svg className={styles["patch-icon"]} viewBox="0 0 64 64">
+            {PATCHES.map((p) => (
+              <div key={p.icon} className={styles.patch}>
+                <svg
+                  className={styles["patch-icon"]}
+                  viewBox="0 0 64 64"
+                  aria-hidden="true"
+                >
                   <use href={`#${p.icon}`} />
                 </svg>
                 <div>
@@ -928,21 +1070,20 @@ export default function VelociCodePage() {
               <span className={styles.b}>CODE</span>
             </div>
             <p>
-              A month-long game jam from ACM San Antonio and the Greater Gaming Society. Built for the San Antonio community — show up, build a game, hand someone a controller.
+              A month-long game jam from ACM San Antonio and the Greater Gaming
+              Society. Built for the San Antonio community — show up, build a
+              game, hand someone a controller.
             </p>
             <p style={{ marginTop: "12px", opacity: 0.55 }}>
-              A 501(c)(3) Non-Profit Organization · ACM San Antonio Professional Chapter
+              A 501(c)(3) Non-Profit Organization · ACM San Antonio Professional
+              Chapter
             </p>
           </div>
           <div>
             <h4>The jam</h4>
             <ul>
               <li>
-                <a
-                  href={RSVP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={RSVP_URL} target="_blank" rel="noopener noreferrer">
                   Meetup ↗
                 </a>
               </li>
@@ -988,7 +1129,10 @@ export default function VelociCodePage() {
           </div>
         </div>
         <div className={styles["foot-bottom"]}>
-          <span>© ${new Date().getFullYear()} ACM San Antonio · Co-hosted with Greater Gaming Society</span>
+          <span>
+            © ${new Date().getFullYear()} ACM San Antonio · Co-hosted with
+            Greater Gaming Society
+          </span>
           <span>Made in San Antonio · v2</span>
         </div>
       </footer>

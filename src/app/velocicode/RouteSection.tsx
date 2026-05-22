@@ -3,11 +3,11 @@
 import { useEffect, useRef } from "react";
 import styles from "./page.module.css";
 import {
-  evalQuadBezier,
-  tangentAngleDeg,
-  svgToPercent,
   type ComputedStop,
+  evalQuadBezier,
   type RouteSegment,
+  svgToPercent,
+  tangentAngleDeg,
 } from "./routeLayout";
 
 type Props = {
@@ -19,7 +19,14 @@ type Props = {
   pathBottomFrac: number;
 };
 
-export function RouteSection({ stops, pathD, segments, wrapMinHeight, pathTopFrac, pathBottomFrac }: Props) {
+export function RouteSection({
+  stops,
+  pathD,
+  segments,
+  wrapMinHeight,
+  pathTopFrac,
+  pathBottomFrac,
+}: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const planeRef = useRef<SVGSVGElement>(null);
   const rotGroupRef = useRef<SVGGElement>(null);
@@ -30,14 +37,16 @@ export function RouteSection({ stops, pathD, segments, wrapMinHeight, pathTopFra
     const plane = planeRef.current;
     if (!wrap) return;
 
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     // Mark the wrap so CSS can target cards with opacity: 0 safely
     wrap.dataset.animated = "true";
 
     // Card reveals via IntersectionObserver
     const cards = Array.from(
-      wrap.querySelectorAll<HTMLElement>(`.${styles["route-stop"]}`)
+      wrap.querySelectorAll<HTMLElement>(`.${styles["route-stop"]}`),
     );
     let io: IntersectionObserver | null = null;
 
@@ -47,15 +56,17 @@ export function RouteSection({ stops, pathD, segments, wrapMinHeight, pathTopFra
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               (entry.target as HTMLElement).dataset.visible = "true";
-              io!.unobserve(entry.target);
+              io?.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.12 }
+        { threshold: 0.12 },
       );
-      cards.forEach((card) => io!.observe(card));
+      for (const card of cards) io?.observe(card);
     } else {
-      cards.forEach((card) => { card.dataset.visible = "true"; });
+      cards.forEach((card) => {
+        card.dataset.visible = "true";
+      });
     }
 
     // Plane follows the bezier path as user scrolls through the route section
@@ -70,13 +81,16 @@ export function RouteSection({ stops, pathD, segments, wrapMinHeight, pathTopFra
         const viewH = window.innerHeight;
         // progress 0 = first pin at viewport center; 1 = last pin at viewport center
         const startRectTop = viewH / 2 - pathTopFrac * wrapH;
-        const endRectTop   = viewH / 2 - pathBottomFrac * wrapH;
-        const progress = Math.max(0, Math.min(1, (startRectTop - rect.top) / (startRectTop - endRectTop)));
+        const endRectTop = viewH / 2 - pathBottomFrac * wrapH;
+        const progress = Math.max(
+          0,
+          Math.min(1, (startRectTop - rect.top) / (startRectTop - endRectTop)),
+        );
 
         // Path draws ahead of the plane (1.4× faster so it's always visible)
         clipRectRef.current?.setAttribute(
           "height",
-          String(Math.min(1, progress * 1.4) * 1280)
+          String(Math.min(1, progress * 1.4) * 1280),
         );
 
         // Map progress → which bezier segment + local t within that segment
@@ -105,10 +119,14 @@ export function RouteSection({ stops, pathD, segments, wrapMinHeight, pathTopFra
     }
 
     return () => io?.disconnect();
-  }, [stops, segments]);
+  }, [segments, pathBottomFrac, pathTopFrac]);
 
   return (
-    <div className={styles["route-wrap"]} ref={wrapRef} style={{ minHeight: wrapMinHeight }}>
+    <div
+      className={styles["route-wrap"]}
+      ref={wrapRef}
+      style={{ minHeight: wrapMinHeight }}
+    >
       {/* Winding route SVG path */}
       <svg
         className={styles["route-svg"]}
@@ -138,9 +156,15 @@ export function RouteSection({ stops, pathD, segments, wrapMinHeight, pathTopFra
         style={{ left: stops[0].pinLeft, top: stops[0].pinTop }}
         viewBox="0 0 60 60"
         overflow="visible"
+        aria-hidden="true"
       >
         <circle cx="30" cy="30" r="26" className={styles["plane-pulse"]} />
-        <circle cx="30" cy="30" r="26" className={`${styles["plane-pulse"]} ${styles["plane-pulse-delay"]}`} />
+        <circle
+          cx="30"
+          cy="30"
+          r="26"
+          className={`${styles["plane-pulse"]} ${styles["plane-pulse-delay"]}`}
+        />
         <g ref={rotGroupRef} transform="rotate(45 30 30)">
           <use href="#vc-plane" />
         </g>
@@ -178,7 +202,9 @@ export function RouteSection({ stops, pathD, segments, wrapMinHeight, pathTopFra
             <div className={styles["stop-location"]}>📍 {s.location}</div>
           )}
           <div className={styles["stop-meta"]}>{s.meta}</div>
-          <div className={styles["stop-arrow"]}>{s.cta} {s.external ? "↗" : "→"}</div>
+          <div className={styles["stop-arrow"]}>
+            {s.cta} {s.external ? "↗" : "→"}
+          </div>
         </a>
       ))}
     </div>

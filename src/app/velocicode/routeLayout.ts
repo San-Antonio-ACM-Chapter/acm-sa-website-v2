@@ -20,11 +20,11 @@ export type RouteSegment = [number, number, number, number, number, number]; // 
 
 /** What a caller writes — no layout, no formatting, no arrows */
 export type InputStop = {
-  date: string;        // ISO local datetime: "2026-07-01T18:00"
+  date: string; // ISO local datetime: "2026-07-01T18:00"
   title: string;
-  location?: string;   // venue / platform — rendered separately from description
-  meta: string;        // description / details
-  cta: string;         // label only — arrow is auto-appended from external flag
+  location?: string; // venue / platform — rendered separately from description
+  meta: string; // description / details
+  cta: string; // label only — arrow is auto-appended from external flag
   href: string;
   external: boolean;
 };
@@ -49,7 +49,20 @@ export type ComputedStop = {
 // ─── Date formatter ───────────────────────────────────────────
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 
 export function formatStopDate(iso: string): string {
   const [datePart, timePart = "00:00"] = iso.split("T");
@@ -69,7 +82,10 @@ export function formatStopDate(iso: string): string {
 
 // ─── Bezier math (also used by scroll animation) ──────────────
 
-export function evalQuadBezier(t: number, [x0, y0, cx, cy, x1, y1]: RouteSegment): [number, number] {
+export function evalQuadBezier(
+  t: number,
+  [x0, y0, cx, cy, x1, y1]: RouteSegment,
+): [number, number] {
   const mt = 1 - t;
   return [
     mt * mt * x0 + 2 * mt * t * cx + t * t * x1,
@@ -78,7 +94,10 @@ export function evalQuadBezier(t: number, [x0, y0, cx, cy, x1, y1]: RouteSegment
 }
 
 /** Tangent angle in degrees; +90 because plane nose is at -Y by default */
-export function tangentAngleDeg(t: number, [x0, y0, cx, cy, x1, y1]: RouteSegment): number {
+export function tangentAngleDeg(
+  t: number,
+  [x0, y0, cx, cy, x1, y1]: RouteSegment,
+): number {
   const dx = 2 * (1 - t) * (cx - x0) + 2 * t * (x1 - cx);
   const dy = 2 * (1 - t) * (cy - y0) + 2 * t * (y1 - cy);
   return Math.atan2(dy, dx) * (180 / Math.PI) + 90;
@@ -108,7 +127,7 @@ export function buildRouteLayout(inputs: InputStop[]): {
   const pinYs = inputs.map((_, i) =>
     n === 1
       ? (PATH_TOP + PATH_BOTTOM) / 2
-      : PATH_TOP + (i * (PATH_BOTTOM - PATH_TOP)) / (n - 1)
+      : PATH_TOP + (i * (PATH_BOTTOM - PATH_TOP)) / (n - 1),
   );
   const pinXs = inputs.map((_, i) => (i % 2 === 0 ? PIN_R : PIN_L));
 
@@ -119,7 +138,14 @@ export function buildRouteLayout(inputs: InputStop[]): {
   for (let i = 0; i < n - 1; i++) {
     const ctrlX = pinXs[i] === PIN_R ? CTRL_R : CTRL_L;
     const midY = (pinYs[i] + pinYs[i + 1]) / 2;
-    segments.push([pinXs[i], pinYs[i], ctrlX, midY, pinXs[i + 1], pinYs[i + 1]]);
+    segments.push([
+      pinXs[i],
+      pinYs[i],
+      ctrlX,
+      midY,
+      pinXs[i + 1],
+      pinYs[i + 1],
+    ]);
     pathD += ` Q ${ctrlX} ${Math.round(midY)} ${pinXs[i + 1]} ${Math.round(pinYs[i + 1])}`;
   }
 

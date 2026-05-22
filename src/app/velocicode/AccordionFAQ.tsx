@@ -5,25 +5,28 @@ import styles from "./page.module.css";
 export type FaqItem = { q: string; a: string };
 
 export function AccordionFAQ({ items }: { items: FaqItem[] }) {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<string | null>(null);
 
   return (
     <div className={styles["faq-list"]}>
-      {items.map((item, i) => (
+      {items.map((item) => (
         <div
-          key={i}
+          key={item.q}
           className={styles["faq-row"]}
-          data-open={open === i ? "true" : undefined}
+          data-open={open === item.q ? "true" : undefined}
         >
           <button
+            type="button"
             className={styles["faq-summary"]}
-            onClick={() => setOpen(open === i ? null : i)}
-            aria-expanded={open === i}
+            onClick={() => setOpen(open === item.q ? null : item.q)}
+            aria-expanded={open === item.q}
           >
             {item.q}
-            <span className={styles["faq-icon"]} aria-hidden="true">＋</span>
+            <span className={styles["faq-icon"]} aria-hidden="true">
+              ＋
+            </span>
           </button>
-          <div className={styles["faq-body"]} aria-hidden={open !== i}>
+          <div className={styles["faq-body"]} aria-hidden={open !== item.q}>
             <div>
               <p className={styles["faq-answer"]}>{item.a}</p>
             </div>

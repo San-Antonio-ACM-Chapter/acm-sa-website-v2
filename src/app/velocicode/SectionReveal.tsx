@@ -20,7 +20,7 @@ export function SectionReveal({ children, ...props }: Props) {
           io.disconnect();
         }
       },
-      { threshold: 0.07 }
+      { threshold: 0.07 },
     );
     io.observe(el);
     return () => io.disconnect();

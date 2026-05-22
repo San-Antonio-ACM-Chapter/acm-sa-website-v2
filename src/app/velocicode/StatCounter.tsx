@@ -1,7 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-export function StatCounter({ value, className }: { value: string; className?: string }) {
+export function StatCounter({
+  value,
+  className,
+}: {
+  value: string;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [display, setDisplay] = useState(value);
 
@@ -9,7 +15,7 @@ export function StatCounter({ value, className }: { value: string; className?: s
     const el = ref.current;
     if (!el) return;
     const target = parseInt(value, 10);
-    if (isNaN(target)) return;
+    if (Number.isNaN(target)) return;
     const width = value.length;
     const duration = 900;
 
@@ -26,12 +32,16 @@ export function StatCounter({ value, className }: { value: string; className?: s
         };
         requestAnimationFrame(tick);
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, [value]);
 
-  return <div ref={ref} className={className}>{display}</div>;
+  return (
+    <div ref={ref} className={className}>
+      {display}
+    </div>
+  );
 }
