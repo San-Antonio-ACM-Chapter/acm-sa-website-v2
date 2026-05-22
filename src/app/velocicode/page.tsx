@@ -120,6 +120,29 @@ const POLAROID_PHOTOS: PolaroidPhoto[] = [
   { src: "event-photo-25-02.jpeg", description: "Presentation Day", year: 1 },
 ];
 
+const STATS = [
+  { value: "39", label: "Jammers · Year 1" },
+  { value: "5",  label: "Games shipped" },
+  { value: "04", label: "Partner orgs" },
+  { value: "01", label: "Charming origami dino" },
+];
+
+const PATCHES = [
+  { icon: "vc-megaphone", title: "Spread the word",      body: "Repost on socials. Hand a flyer to that one student who keeps talking about Godot." },
+  { icon: "vc-mic",       title: "Run a workshop",        body: "60-minute talk on shaders, pixel art, audio, design? We'll help promote the event." },
+  { icon: "vc-compass",   title: "Judge",                 body: "In-person at our showcase event on August 1st!" },
+  { icon: "vc-tent",      title: "Host space",            body: "Build-night spots, science-fair-friendly showcase floor, or other social events." },
+  { icon: "vc-medal",     title: "Sponsor prizes / food", body: "Cash, hardware, software, swag, snacks for build night, pizza for playtest." },
+  { icon: "vc-binoc",     title: "Share resources",       body: "Asset packs, license codes, internship leads, conference passes." },
+];
+
+const MARQUEE_ITEMS = [
+  "VelociCode 02",
+  "1 month · 1 game · 0 excuses",
+  "Made in San Antonio",
+  "First-timers welcome",
+];
+
 const FAQ_ITEMS: FaqItem[] = [
   {
     q: "Do I need to know how to code?",
@@ -412,11 +435,6 @@ export default function VelociCodePage() {
             <circle cx="48" cy="36" r="3" fill="#20180c" />
           </symbol>
 
-          {/* Monstera leaf — game-icons/delapouite (CC BY 3.0) */}
-          <symbol id="vc-monstera" viewBox="0 0 512 512">
-            <path fill="currentColor" d="M332.9 17.37c-11.7-.1-24.2 1.23-37.5 4.13-33.1 7.21-48.6 28.49-56.2 54.09 11.2 22.86 20.1 46.01 25 71.91-9.6-6.9-19.7-1.7-22.6 5-4.3-22.4-10-42.9-17.8-62.93-48.8-34.88-83-20.9-89.6-18.76C49.64 98.12 25.54 165.7 39.84 239.1c19.32-43.4 86.56-68.7 113.56-68.6 6.9.1 47 9.5 13.6 20-54.8 17.3-98.29 48.7-116.81 86 8.78 24.5 21.34 49.1 36.89 72.4 14.42-42 40.22-89 96.72-125.1 14.5-9.3 23.8.7 12.2 13.2-53.5 57.4-75.1 104.2-81 148.6 17.4 20.3 37.2 38.9 58.5 54.7 1.6-54.4 20.3-117.7 56.3-164.6 3.7-6.6 22-2.7 15.6 9-27.9 50.9-43.2 119.9-44.5 174 25.6 15.2 52.9 26.3 80.9 31.9-15.1-35.2-18.5-80.5-6.9-120.8 5.1-17.8 20.8-8.1 17.6 4.2-10 38.8 8.6 87.5 28.1 120.6 20.7.1 41.6-3.1 62.3-10.2 11.8-4 22.7-12.3 32.7-23.8-11.3-22.8-27-44.1-46.6-57.2-7.4-5-3.2-23.6 10.2-14.8 19.1 12.6 37.6 29.7 52.8 48.7 9.8-16.8 18.2-37 25-59.4-29.7-34.7-83.3-82-128.8-101.7-9.6-4.1-8.7-21.5 7.6-16.4 47.8 14.8 98 46.2 131.1 78 3.9-19.9 6.7-40.8 8.1-61.9-39-27.6-95.5-67.2-147.1-74.8-9.5-1.4-13.6-18.6 3-17.8 58.3 2.7 109.8 23.5 145.1 50.5-.5-28.6-3.6-56.7-9.7-82.9-41.7-13.6-113.5-18.5-141.5-6.1-11.1 4.9-29.9-4.8-6.8-16.6 37.6-22.1 94.5-22.8 138.3-11-21.3-57.97-60.7-99.32-123.4-99.83z" />
-          </symbol>
-
           {/* Palm tree — game-icons/delapouite (CC BY 3.0) */}
           <symbol id="vc-bigleaf" viewBox="0 0 512 512">
             <path fill="currentColor" d="M179.125 20.625c-28.052.12-54.046 5.813-66.72 9.78 0 0 114.968 19.51 124.532 98.876C149.573 3.32 54.28 155.657 54.28 155.657c19.868-5.212 76.76-20.682 114.75-14.156 25.992 4.465 51.33 28.03 50.236 27.733-61.943 15.24-160.35 290.92-143.64 313.308 14.9 17.12 29.816 11.28 44.718 2.595 7.376-58.425 64.938-314.765 135.375-294.072.01.003.02-.003.03 0 5.93 2.03 11.54 5.59 11.844 11.03.58 10.363-6.11 27.3-4.53 39.063 3.662 27.296 9.007 36.79 16.78 46.313 18.564-10.435 36.326-48.057 40-67.564 16.634 7.284 43.373 24.155 65.187 86.813 11.404-58.716-5.042-105.03-59.03-125.595 23.38-10.105 125.142 41.03 137.563 69.53C475.648 199.264 390.167 136.378 319 139.72c13.644-3.56 28.638.6 42.906-9.907 19.146-14.098 41.474-26.24 62.28-39.282-69.972-30.435-134.545-15.407-139.092 16.095-3.573-69.916-57.83-86.204-105.97-86z" />
@@ -663,7 +681,7 @@ export default function VelociCodePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Register on Itcch.io ↗
+                Register on Itch.io ↗
               </a>
               <a
                 className={`${styles.btn} ${styles["btn-yellow"]}`}
@@ -722,26 +740,16 @@ export default function VelociCodePage() {
       {/* ─── MARQUEE ─────────────────────────────────────────────────── */}
       <div className={styles.marquee} aria-hidden="true">
         <div className={styles["mq-track"]}>
-          <span>
-            <span>VelociCode 02</span>
-            <span className={styles["mq-dot"]} />
-            <span>1 month · 1 game · 0 excuses</span>
-            <span className={styles["mq-dot"]} />
-            <span>Made in San Antonio</span>
-            <span className={styles["mq-dot"]} />
-            <span>First-timers welcome</span>
-            <span className={styles["mq-dot"]} />
-          </span>
-          <span>
-            <span>VelociCode 02</span>
-            <span className={styles["mq-dot"]} />
-            <span>1 month · 1 game · 0 excuses</span>
-            <span className={styles["mq-dot"]} />
-            <span>Made in San Antonio</span>
-            <span className={styles["mq-dot"]} />
-            <span>First-timers welcome</span>
-            <span className={styles["mq-dot"]} />
-          </span>
+          {[0, 1].map((set) => (
+            <span key={set}>
+              {MARQUEE_ITEMS.map((item, i) => (
+                <Fragment key={i}>
+                  <span>{item}</span>
+                  <span className={styles["mq-dot"]} />
+                </Fragment>
+              ))}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -807,22 +815,12 @@ export default function VelociCodePage() {
           </div>
 
           <div className={styles.stats}>
-            <div className={styles.stat}>
-              <StatCounter value="39" className={styles.n} />
-              <div className={styles.l}>Jammers · Year 1</div>
-            </div>
-            <div className={styles.stat}>
-              <StatCounter value="5" className={styles.n} />
-              <div className={styles.l}>Games shipped</div>
-            </div>
-            <div className={styles.stat}>
-              <StatCounter value="04" className={styles.n} />
-              <div className={styles.l}>Partner orgs</div>
-            </div>
-            <div className={styles.stat}>
-              <StatCounter value="01" className={styles.n} />
-              <div className={styles.l}>Charming origami dino</div>
-            </div>
+            {STATS.map((s, i) => (
+              <div key={i} className={styles.stat}>
+                <StatCounter value={s.value} className={styles.n} />
+                <div className={styles.l}>{s.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </SectionReveal>
@@ -873,91 +871,17 @@ export default function VelociCodePage() {
           </p>
 
           <div className={styles.patches}>
-            <div className={styles.patch}>
-              <svg
-                className={styles["patch-icon"]}
-                viewBox="0 0 64 64"
-              >
-                <use href="#vc-megaphone" />
-              </svg>
-              <div>
-                <h3>Spread the word</h3>
-                <p>
-                  Repost on socials. Hand a flyer to that one student who keeps
-                  talking about Godot.
-                </p>
+            {PATCHES.map((p, i) => (
+              <div key={i} className={styles.patch}>
+                <svg className={styles["patch-icon"]} viewBox="0 0 64 64">
+                  <use href={`#${p.icon}`} />
+                </svg>
+                <div>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </div>
               </div>
-            </div>
-            <div className={styles.patch}>
-              <svg
-                className={styles["patch-icon"]}
-                viewBox="0 0 64 64"
-              >
-                <use href="#vc-mic" />
-              </svg>
-              <div>
-                <h3>Run a workshop</h3>
-                <p>
-                  60-minute talk on shaders, pixel art, audio, design? We&apos;ll help promote the event.
-                </p>
-              </div>
-            </div>
-            <div className={styles.patch}>
-              <svg
-                className={styles["patch-icon"]}
-                viewBox="0 0 64 64"
-              >
-                <use href="#vc-compass" />
-              </svg>
-              <div>
-                <h3>Judge</h3>
-                <p>
-                  In-person at our showcase event on August 1st!
-                </p>
-              </div>
-            </div>
-            <div className={styles.patch}>
-              <svg
-                className={styles["patch-icon"]}
-                viewBox="0 0 64 64"
-              >
-                <use href="#vc-tent" />
-              </svg>
-              <div>
-                <h3>Host space</h3>
-                <p>
-                  Build-night spots, science-fair-friendly showcase floor, or other social events.
-                </p>
-              </div>
-            </div>
-            <div className={styles.patch}>
-              <svg
-                className={styles["patch-icon"]}
-                viewBox="0 0 64 64"
-              >
-                <use href="#vc-medal" />
-              </svg>
-              <div>
-                <h3>Sponsor prizes / food</h3>
-                <p>
-                  Cash, hardware, software, swag, snacks for build night, pizza for playtest.
-                </p>
-              </div>
-            </div>
-            <div className={styles.patch}>
-              <svg
-                className={styles["patch-icon"]}
-                viewBox="0 0 64 64"
-              >
-                <use href="#vc-binoc" />
-              </svg>
-              <div>
-                <h3>Share resources</h3>
-                <p>
-                  Asset packs, license codes, internship leads, conference passes.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className={styles.talk}>
