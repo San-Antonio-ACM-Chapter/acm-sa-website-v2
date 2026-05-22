@@ -174,6 +174,9 @@ export function RouteSection({ stops, pathD, segments, wrapMinHeight, pathTopFra
               <div className={styles["stop-title"]}>{s.title}</div>
             </div>
           </div>
+          {s.location && (
+            <div className={styles["stop-location"]}>📍 {s.location}</div>
+          )}
           <div className={styles["stop-meta"]}>{s.meta}</div>
           <div className={styles["stop-arrow"]}>{s.cta} {s.external ? "↗" : "→"}</div>
         </a>

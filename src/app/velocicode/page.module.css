@@ -85,6 +85,7 @@
 .nav-links a {
   text-decoration: none;
   opacity: 0.75;
+  padding: 10px 4px;
 }
 
 .nav-links a:hover {
@@ -512,6 +513,12 @@
   text-align: center;
 }
 
+.polaroid-fade {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.6s ease;
+}
+
 .stats {
   margin-top: 56px;
   display: grid;
@@ -672,6 +679,14 @@
   margin-bottom: 6px;
 }
 
+.stop-location {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--clay);
+  margin-bottom: 4px;
+}
+
 .stop-meta {
   font-family: var(--vc-dm-mono), monospace;
   font-size: 0.88rem;
@@ -715,6 +730,7 @@
   z-index: 5;
   transform: translate(-50%, -50%);
   overflow: visible;
+  pointer-events: none;
 }
 
 /* ── INVOLVED — patches grid ──────────────────────────────── */
@@ -874,36 +890,51 @@
   padding: 22px 4px;
 }
 
-.faq-row summary {
+.faq-summary {
   cursor: pointer;
-  list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 18px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
   font-family: var(--vc-bowlby), system-ui;
   font-size: 1.1rem;
   color: var(--cream);
 }
 
-.faq-row summary::-webkit-details-marker {
-  display: none;
-}
-
-.faq-row summary::after {
-  content: "＋";
+.faq-icon {
   font-family: var(--vc-luckiest-guy), system-ui;
   color: var(--mustard);
   font-size: 1.5rem;
-  transition: transform 0.15s ease;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
 }
 
-.faq-row[open] summary::after {
+.faq-row[data-open="true"] .faq-icon {
   transform: rotate(45deg);
 }
 
-.faq-row p {
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.faq-body > div {
+  overflow: hidden;
+}
+
+.faq-row[data-open="true"] .faq-body {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer {
   margin-top: 12px;
+  padding-bottom: 4px;
   font-family: var(--vc-dm-mono), monospace;
   font-size: 0.95rem;
   line-height: 1.65;

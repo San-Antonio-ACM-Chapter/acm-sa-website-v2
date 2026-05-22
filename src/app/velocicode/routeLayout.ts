@@ -20,10 +20,11 @@ export type RouteSegment = [number, number, number, number, number, number]; // 
 
 /** What a caller writes — no layout, no formatting, no arrows */
 export type InputStop = {
-  date: string;      // ISO local datetime: "2026-07-01T18:00"
+  date: string;        // ISO local datetime: "2026-07-01T18:00"
   title: string;
-  meta: string;
-  cta: string;       // label only — arrow is auto-appended from external flag
+  location?: string;   // venue / platform — rendered separately from description
+  meta: string;        // description / details
+  cta: string;         // label only — arrow is auto-appended from external flag
   href: string;
   external: boolean;
 };
@@ -34,6 +35,7 @@ export type ComputedStop = {
   dateFormatted: string;
   dateIso: string;
   title: string;
+  location?: string;
   meta: string;
   cta: string;
   href: string;
@@ -133,6 +135,7 @@ export function buildRouteLayout(inputs: InputStop[]): {
       dateFormatted: formatStopDate(input.date),
       dateIso: input.date,
       title: input.title,
+      location: input.location,
       meta: input.meta,
       cta: input.cta,
       href: input.href,

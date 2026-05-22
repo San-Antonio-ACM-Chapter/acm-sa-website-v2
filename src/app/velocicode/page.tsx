@@ -12,6 +12,8 @@ import styles from "./page.module.css";
 import { RouteSection } from "./RouteSection";
 import { SectionReveal } from "./SectionReveal";
 import { StatCounter } from "./StatCounter";
+import { PolaroidSlideshow, type PolaroidPhoto } from "./PolaroidSlideshow";
+import { AccordionFAQ, type FaqItem } from "./AccordionFAQ";
 import { buildRouteLayout, type InputStop } from "./routeLayout";
 
 const luckiestGuy = Luckiest_Guy({
@@ -61,23 +63,24 @@ const RSVP_URL = "https://www.meetup.com/acm-sa/events/312892484";
 
 const META_ITEMS = [
   { label: "Window", value: "Jul 1 → Aug 1" },
-  { label: "Kickoff", value: "Wed Jul 1 · 6 pm" },
+  { label: "Kickoff", value: "Wed Jul 1 · 7 pm" },
   { label: "Cost",   value: "Free · all levels" },
 ];
 
 const STOPS: InputStop[] = [
   {
-    date: "2026-07-01T18:00",
+    date: "2026-07-01T17:00",
     title: "Kickoff + Theme Reveal",
-    meta: "Geekdom Event Centre · in person + livestream. Doors at 6, theme drops at 7.",
+    location: "Geekdom Event Centre",
+    meta: "In-person + livestream. Doors at 6:30, theme drops at ~7.",
     cta: "RSVP",
     href: RSVP_URL,
     external: true,
   },
   {
-    date: "2026-07-09T19:00",
-    title: "Mid-Jam Office Hours",
-    meta: "Online · drop in to a Discord voice channel. Mentors on shaders, art, audio, scope.",
+    date: "2026-07-08T18:00",
+    title: "TBA Event",
+    meta: "Details coming soon! Stay tuned to our Meetup and Discord for updates.",
     cta: "Link soon",
     href: "#schedule",
     external: false,
@@ -85,7 +88,8 @@ const STOPS: InputStop[] = [
   {
     date: "2026-07-17T18:00",
     title: "Playtest Day",
-    meta: "Geekdom Event Centre · pizza, controllers, real feedback. Bring whatever you've got.",
+    location: "TBD",
+    meta: "Bring your game, bring your pals, get some live feedback.",
     cta: "Link soon",
     href: "#schedule",
     external: false,
@@ -93,42 +97,52 @@ const STOPS: InputStop[] = [
   {
     date: "2026-07-30T23:59",
     title: "Submission Due",
-    meta: "itch.io · don't be late. Late builds can demo at the showcase but aren't eligible for prizes.",
+    location: "itch.io",
+    meta: "Don't be late — late builds aren't eligible for prizes or presentations. RSVP with the organizers to confirm your spot.",
     cta: "Submit on itch.io",
-    href: "#schedule",
+    href: "https://itch.io/jam/velocicode-2",
     external: false,
   },
   {
-    date: "2026-08-08T17:00",
+    date: "2026-08-01T11:00",
     title: "Showcase — Science-Fair Style",
-    meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
-    cta: "Date placeholder",
-    href: "#schedule",
+    location: "Venue TBA",
+    meta: "Family-friendly. Tables, laptops, controllers, awards.",
+    cta: "RSVP",
+    href: "https://www.meetup.com/acm-sa/events/312892527",
     external: false,
   },
+];
+
+const POLAROID_PHOTOS: PolaroidPhoto[] = [
+  { src: "event-photo-01.jpeg", caption: "Year 1 · Presentation Day" },
+  { src: "event-photo-02.jpeg", caption: "Year 1 · Presentation Day" },
+];
+
+const FAQ_ITEMS: FaqItem[] = [
   {
-    date: "2026-08-08T17:00",
-    title: "Showcase — Science-Fair Style",
-    meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
-    cta: "Date placeholder",
-    href: "#schedule",
-    external: false,
+    q: "Do I need to know how to code?",
+    a: "Nope. Artists, designers, writers, audio folks — there's a role for everyone. Show up at kickoff, find a team, contribute what you bring.",
   },
   {
-    date: "2026-08-08T17:00",
-    title: "Showcase — Science-Fair Style",
-    meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
-    cta: "Date placeholder",
-    href: "#schedule",
-    external: false,
+    q: "What engine should I use?",
+    a: "Whatever you want. Unity, Unreal, Godot, GameMaker, web (Phaser, p5.js), pen and paper. The only requirement is that the final build runs on something a stranger can play.",
   },
   {
-    date: "2026-08-08T17:00",
-    title: "Showcase — Science-Fair Style",
-    meta: "Venue TBA · family-friendly. Tables, laptops, controllers, awards.",
-    cta: "Date placeholder",
-    href: "#schedule",
-    external: false,
+    q: "Is it really free?",
+    a: "Yes. RSVP on Meetup, register on itch.io. No fee. Food is provided at the in-person events.",
+  },
+  {
+    q: "I'm not in San Antonio. Can I still join?",
+    a: "Yes — itch.io is online and Discord is online. You'll miss kickoff and the showcase in person, but mentorship and the jam itself are remote-friendly.",
+  },
+  {
+    q: "Can I work in a team?",
+    a: "Solo or teams up to 4. We'll run team-formation at kickoff if you show up alone.",
+  },
+  {
+    q: "What's with the dino?",
+    a: "VelociCode → velociraptor. Last year it was a cardboard cutout. This year it's origami. Next year? Who knows.",
   },
 ];
 
@@ -426,11 +440,11 @@ export default function VelociCodePage() {
             <a href="/#home">Home</a>
             <a href="/#about">About</a>
             <a href="/#events">Events</a>
-            <a href="/#contact">Contact</a>
+            <a href="/#contact">Connect</a>
           </div>
           <a
             className={styles["nav-cta"]}
-            href={RSVP_URL}
+            href="https://itch.io/jam/velocicode-2"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -644,11 +658,11 @@ export default function VelociCodePage() {
             <div className={styles["hero-cta"]}>
               <a
                 className={`${styles.btn} ${styles["btn-primary"]}`}
-                href={RSVP_URL}
+                href="https://itch.io/jam/velocicode-2"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                RSVP on Meetup ↗
+                Register on Itcch.io ↗
               </a>
               <a
                 className={`${styles.btn} ${styles["btn-yellow"]}`}
@@ -774,8 +788,8 @@ export default function VelociCodePage() {
               </p>
               <p>
                 Hosted by <strong>ACM San Antonio</strong> and the{" "}
-                <strong>Greater Gaming Society</strong>, the jam is built for
-                the <strong>San Antonio community</strong> — students,
+                <strong><a href="https://www.meetup.com/greater-gaming-society-of-san-antonio/" target="_blank" rel="noopener noreferrer">Greater Gaming Society</a></strong>, the jam is built for
+                the <strong><a href="https://www.devsa.community/" target="_blank" rel="noopener noreferrer">San Antonio community</a></strong> — students,
                 hobbyists, designers, artists, devs, first-timers. Show up
                 solo, find a team, ship something you can hand a controller to.
               </p>
@@ -787,69 +801,17 @@ export default function VelociCodePage() {
             </div>
 
             <div>
-              <div className={styles.polaroid}>
-                <div className={styles["polaroid-img"]}>
-                  <svg
-                    viewBox="0 0 200 150"
-                    preserveAspectRatio="xMidYMid slice"
-                  >
-                    <rect width="200" height="150" fill="#6f9a3d" />
-                    <circle cx="160" cy="35" r="20" fill="#f3c637" />
-                    <path
-                      d="M0 100 Q 50 80 100 95 T 200 90 L 200 150 L 0 150 Z"
-                      fill="#2d5a22"
-                    />
-                    <path
-                      d="M0 120 Q 60 105 120 118 T 200 115 L 200 150 L 0 150 Z"
-                      fill="#163a10"
-                    />
-                    <line
-                      x1="40"
-                      y1="120"
-                      x2="40"
-                      y2="80"
-                      stroke="#5a3a18"
-                      strokeWidth="3"
-                    />
-                    <ellipse
-                      cx="30"
-                      cy="78"
-                      rx="14"
-                      ry="4"
-                      transform="rotate(-25 30 78)"
-                      fill="#163a10"
-                    />
-                    <ellipse
-                      cx="50"
-                      cy="78"
-                      rx="14"
-                      ry="4"
-                      transform="rotate(25 50 78)"
-                      fill="#163a10"
-                    />
-                    <ellipse cx="40" cy="72" rx="15" ry="4" fill="#163a10" />
-                    <path
-                      d="M120 30 l 12 -3 l 8 3 l -8 3 z"
-                      fill="#c44d24"
-                      stroke="#20180c"
-                      strokeWidth="1"
-                    />
-                  </svg>
-                </div>
-                <div className={styles["polaroid-cap"]}>
-                  Year 1 · best in show :)
-                </div>
-              </div>
+              <PolaroidSlideshow photos={POLAROID_PHOTOS} />
             </div>
           </div>
 
           <div className={styles.stats}>
             <div className={styles.stat}>
-              <StatCounter value="62" className={styles.n} />
+              <StatCounter value="39" className={styles.n} />
               <div className={styles.l}>Jammers · Year 1</div>
             </div>
             <div className={styles.stat}>
-              <StatCounter value="17" className={styles.n} />
+              <StatCounter value="5" className={styles.n} />
               <div className={styles.l}>Games shipped</div>
             </div>
             <div className={styles.stat}>
@@ -858,7 +820,7 @@ export default function VelociCodePage() {
             </div>
             <div className={styles.stat}>
               <StatCounter value="01" className={styles.n} />
-              <div className={styles.l}>Loud cardboard dino</div>
+              <div className={styles.l}>Charming origami dino</div>
             </div>
           </div>
         </div>
@@ -876,8 +838,7 @@ export default function VelociCodePage() {
             <span className={styles.scribble}>five waypoints, one month</span>
           </h2>
           <p style={{ maxWidth: "60ch", marginTop: "8px" }}>
-            Hit them all or just the ones you can — the whole jam runs on
-            itch.io, so you&apos;re never out of bounds.
+            Hit them all or just the ones you can — the whole jam runs through the month, so you&apos;re never out of bounds.
           </p>
 
           <RouteSection stops={computedStops} pathD={pathD} segments={segments} wrapMinHeight={wrapMinHeight} pathTopFrac={pathTopFrac} pathBottomFrac={pathBottomFrac} />
@@ -936,8 +897,7 @@ export default function VelociCodePage() {
               <div>
                 <h3>Run a workshop</h3>
                 <p>
-                  60-minute talk on shaders, pixel art, audio, design? We&apos;ll
-                  book the room.
+                  60-minute talk on shaders, pixel art, audio, design? We&apos;ll help promote the event.
                 </p>
               </div>
             </div>
@@ -949,10 +909,9 @@ export default function VelociCodePage() {
                 <use href="#vc-compass" />
               </svg>
               <div>
-                <h3>Mentor or judge</h3>
+                <h3>Judge</h3>
                 <p>
-                  Two-hour office-hours shifts, async Discord, or
-                  showcase-night judging.
+                  In-person at our showcase event on August 1st!
                 </p>
               </div>
             </div>
@@ -966,8 +925,7 @@ export default function VelociCodePage() {
               <div>
                 <h3>Host space</h3>
                 <p>
-                  Kickoff venue, build-night spots, science-fair-friendly
-                  showcase floor.
+                  Build-night spots, science-fair-friendly showcase floor, or other social events.
                 </p>
               </div>
             </div>
@@ -981,8 +939,7 @@ export default function VelociCodePage() {
               <div>
                 <h3>Sponsor prizes / food</h3>
                 <p>
-                  Cash, hardware, software, swag, snacks for build night, pizza
-                  for playtest.
+                  Cash, hardware, software, swag, snacks for build night, pizza for playtest.
                 </p>
               </div>
             </div>
@@ -996,8 +953,7 @@ export default function VelociCodePage() {
               <div>
                 <h3>Share resources</h3>
                 <p>
-                  Asset packs, license codes, internship leads, conference
-                  passes.
+                  Asset packs, license codes, internship leads, conference passes.
                 </p>
               </div>
             </div>
@@ -1006,7 +962,7 @@ export default function VelociCodePage() {
           <div className={styles.talk}>
             <div>
               <strong>Talk to us.</strong>
-              <span>team@acmsa.org · or DM in the ACM SA / DEVSA Discord</span>
+              <span>team@acmsa.org · or DM in the ACM SA</span>
             </div>
             <a
               className={`${styles.btn} ${styles["btn-yellow"]}`}
@@ -1034,53 +990,7 @@ export default function VelociCodePage() {
             Stuff people <span className={styles.accent}>ask.</span>
           </h2>
 
-          <div className={styles["faq-list"]}>
-            <details className={styles["faq-row"]} open>
-              <summary>Do I need to know how to code?</summary>
-              <p>
-                Nope. Artists, designers, writers, audio folks — there&apos;s a
-                role for everyone. Show up at kickoff, find a team, contribute
-                what you bring.
-              </p>
-            </details>
-            <details className={styles["faq-row"]}>
-              <summary>What engine should I use?</summary>
-              <p>
-                Whatever you want. Unity, Unreal, Godot, GameMaker, web
-                (Phaser, p5.js), pen and paper. The only requirement is that
-                the final build runs on something a stranger can play.
-              </p>
-            </details>
-            <details className={styles["faq-row"]}>
-              <summary>Is it really free?</summary>
-              <p>
-                Yes. RSVP on Meetup, register on itch.io. No fee. Food is
-                provided at the in-person events.
-              </p>
-            </details>
-            <details className={styles["faq-row"]}>
-              <summary>I&apos;m not in San Antonio. Can I still join?</summary>
-              <p>
-                Yes — itch.io is online and Discord is online. You&apos;ll miss
-                kickoff and the showcase in person, but mentorship and the jam
-                itself are remote-friendly.
-              </p>
-            </details>
-            <details className={styles["faq-row"]}>
-              <summary>Can I work in a team?</summary>
-              <p>
-                Solo or teams up to 4. We&apos;ll run team-formation at kickoff
-                if you show up alone.
-              </p>
-            </details>
-            <details className={styles["faq-row"]}>
-              <summary>What&apos;s with the dino?</summary>
-              <p>
-                VelociCode → velociraptor. Last year it was a cardboard cutout.
-                This year it&apos;s origami. Next year? Who knows.
-              </p>
-            </details>
-          </div>
+          <AccordionFAQ items={FAQ_ITEMS} />
         </div>
       </SectionReveal>
 
@@ -1093,13 +1003,10 @@ export default function VelociCodePage() {
               <span className={styles.b}>CODE</span>
             </div>
             <p>
-              A month-long game jam from ACM San Antonio and the Greater Gaming
-              Society. Built for the San Antonio community — show up, build a
-              game, hand someone a controller.
+              A month-long game jam from ACM San Antonio and the Greater Gaming Society. Built for the San Antonio community — show up, build a game, hand someone a controller.
             </p>
             <p style={{ marginTop: "12px", opacity: 0.55 }}>
-              A 501(c)(3) Non-Profit Organization · ACM San Antonio Professional
-              Chapter
+              A 501(c)(3) Non-Profit Organization · ACM San Antonio Professional Chapter
             </p>
           </div>
           <div>
@@ -1156,7 +1063,7 @@ export default function VelociCodePage() {
           </div>
         </div>
         <div className={styles["foot-bottom"]}>
-          <span>© 2026 ACM San Antonio · Co-hosted with Greater Gaming Society</span>
+          <span>© ${new Date().getFullYear()} ACM San Antonio · Co-hosted with Greater Gaming Society</span>
           <span>Made in San Antonio · v2</span>
         </div>
       </footer>
