@@ -86,9 +86,17 @@ const STOPS: InputStop[] = [
     external: false,
   },
   {
+    date: "2026-07-16T18:00",
+    title: "TBA Event",
+    meta: "Details coming soon! Stay tuned to our Meetup and Discord for updates.",
+    cta: "Link soon",
+    href: "#schedule",
+    external: false,
+  },
+  {
     date: "2026-07-17T18:00",
     title: "Playtest Day",
-    location: "TBD",
+    location: "Zelifcam",
     meta: "Bring your game, bring your pals, get some live feedback.",
     cta: "Link soon",
     href: "#schedule",
