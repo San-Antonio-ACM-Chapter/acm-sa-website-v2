@@ -7,6 +7,7 @@ import {
   Rubik_Dirt,
   Special_Elite,
 } from "next/font/google";
+import Image from "next/image";
 import { Fragment } from "react";
 import { AccordionFAQ, type FaqItem } from "./AccordionFAQ";
 import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
@@ -166,6 +167,41 @@ const PATCHES = [
     title: "Share resources",
     body: "Asset packs, license codes, internship leads, conference passes.",
   },
+];
+
+const CHALLENGES = [
+  {
+    pos: "left" as const,
+    icon: "vc-compass",
+    badge: null,
+    rank: "the prompt, nailed",
+    title: "Best Theme",
+    desc: "The cleverest, weirdest, most heartfelt take on this year's theme reveal — the game that makes the prompt sing. Surprise us.",
+  },
+  {
+    pos: "center" as const,
+    icon: "vc-medal",
+    badge: "★ the headline award ★",
+    rank: "the big one",
+    title: "Best Overall",
+    desc: "Fun to play, polished, and it sticks with you. The judges' pick for the game that nails it top to bottom — story, feel, and finish.",
+  },
+  {
+    pos: "right" as const,
+    icon: "vc-megaphone",
+    badge: null,
+    rank: "voted by the room",
+    title: "Crowd Favorite",
+    desc: "Decided by the community. Everyone at the showcase gets a ticket to vote — the people's champ takes it home, no judges required.",
+  },
+];
+
+const COMMUNITY_PARTNERS: { name: string; src: string }[] = [
+  { name: "Greater Gaming Society", src: "/ggs-logo.png" },
+  { name: "DEVSA", src: "/devsa-logo.svg" },
+  { name: "Geekdom", src: "/geekdom.svg" },
+  { name: "Alamo Tech Collective", src: "" },
+  { name: "Unreal Engine San Antonio", src: "" },
 ];
 
 const MARQUEE_ITEMS = [
@@ -990,6 +1026,69 @@ export default function VelociCodePage() {
         </div>
       </section>
 
+      {/* ─── CHALLENGE ──────────────────────────────────────────────── */}
+      <SectionReveal
+        className={`${styles.block} ${styles.challenge}`}
+        id="challenge"
+      >
+        <div className={styles.content}>
+          <div className={styles["section-eye"]}>The expedition · Glory</div>
+          <h2 className={styles["section-title"]}>
+            Top of the <span className={styles.accent}>heap.</span>
+            <span className={styles.scribble}>mind the podium</span>
+          </h2>
+          <p className={styles["sec-lead"]}>
+            Three prizes, one month of building. Chase all three or just the one
+            that&apos;s yours — every game you actually finish is in the
+            running. No brackets, no gatekeeping, just the showcase and a room
+            full of people who get it.
+          </p>
+
+          <div className={styles.podium}>
+            {CHALLENGES.map((c) => (
+              <div
+                key={c.title}
+                className={`${styles.pcard} ${styles[`pcard-${c.pos}`]}`}
+              >
+                {c.badge && (
+                  <div className={styles["pcard-badge"]}>{c.badge}</div>
+                )}
+                <div
+                  className={`${styles["pcard-icon"]}${c.pos === "center" ? ` ${styles["pcard-icon-clay"]}` : ""}`}
+                >
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <use href={`#${c.icon}`} />
+                  </svg>
+                </div>
+                <span className={styles["pcard-rank"]}>{c.rank}</span>
+                <h3>{c.title}</h3>
+                <p className={styles["pcard-desc"]}>{c.desc}</p>
+                <div className={styles["pcard-prize"]}>Prize · TBA</div>
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.loot}>
+            <div className={styles["loot-badge"]}>★ The loot ★</div>
+            <h3>What you&apos;re playing for.</h3>
+            <p>
+              Here&apos;s the part that gets loud once our sponsors lock in —
+              cash, hardware, swag, and a year of bragging rights, split across
+              the three awards. Drop the real numbers in when they&apos;re set.
+            </p>
+            <div className={styles["loot-slots"]}>
+              {CHALLENGES.map((c) => (
+                <div key={c.title} className={styles["loot-slot"]}>
+                  <span className={styles["ls-l"]}>{c.title}</span>
+                  <span className={styles["ls-v"]}>$ TBA</span>
+                  <span className={styles["ls-n"]}>prize to be announced</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </SectionReveal>
+
       {/* ─── INVOLVED ───────────────────────────────────────────────── */}
       <SectionReveal
         className={`${styles.block} ${styles.involved}`}
@@ -1044,6 +1143,103 @@ export default function VelociCodePage() {
               href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
             >
               Email the org →
+            </a>
+          </div>
+        </div>
+      </SectionReveal>
+
+      {/* ─── PARTNERS ───────────────────────────────────────────────── */}
+      <SectionReveal
+        className={`${styles.block} ${styles.partners}`}
+        id="partners"
+      >
+        <div className={styles.content}>
+          <div className={styles["section-eye"]}>Field journal · Allies</div>
+          <h2 className={styles["section-title"]}>
+            Earn your <span className={styles.accent}>stripes.</span>
+            <span className={styles.scribble}>stitched on tight</span>
+          </h2>
+          <p className={styles["sec-lead"]}>
+            Last year a handful of local crews turned a friendly gathering into
+            a real event. These are the folks lending space, prizes, and time —
+            pinned up like patches, because that&apos;s exactly what they are.
+          </p>
+
+          {/* Sponsors */}
+          <div className={styles["wall-label"]}>
+            Sponsors{" "}
+            <span className={styles["wall-label-note"]}>
+              — the crews chipping in prizes &amp; support
+            </span>
+          </div>
+          <div className={styles.wall}>
+            {[0, 1, 2].map((i) => (
+              <div key={i} className={styles.ally}>
+                <div className={styles["logo-box"]}>
+                  <span className={styles["logo-ph"]}>Your logo here</span>
+                </div>
+                <span className={styles["ally-name"]}>Your logo here</span>
+              </div>
+            ))}
+            <a
+              className={`${styles.ally} ${styles["ally-add"]}`}
+              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+            >
+              <span className={styles["ally-add-plus"]}>＋</span>
+              <span className={styles["ally-name"]}>Sponsor the jam</span>
+            </a>
+          </div>
+
+          {/* Community Partners */}
+          <div className={styles["wall-label"]}>
+            Community partners{" "}
+            <span className={styles["wall-label-note"]}>
+              — the groups making it a San Antonio thing
+            </span>
+          </div>
+          <div className={styles.wall}>
+            {COMMUNITY_PARTNERS.map((p) => (
+              <div key={p.name} className={styles.ally}>
+                <div className={styles["logo-box"]}>
+                  {p.src ? (
+                    <Image
+                      src={p.src}
+                      alt={p.name}
+                      fill
+                      style={{ objectFit: "contain", padding: "8px" }}
+                    />
+                  ) : (
+                    <span className={styles["logo-ph"]}>{p.name}</span>
+                  )}
+                </div>
+                <span className={styles["ally-name"]}>{p.name}</span>
+              </div>
+            ))}
+            <a
+              className={`${styles.ally} ${styles["ally-add"]}`}
+              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+            >
+              <span className={styles["ally-add-plus"]}>＋</span>
+              <span className={styles["ally-name"]}>Join the wall</span>
+            </a>
+          </div>
+
+          <div className={styles.thanks}>
+            <div>
+              <strong className={styles["thanks-strong"]}>
+                Thank you, friends.
+              </strong>
+              <span className={styles["thanks-body"]}>
+                VelociCode runs on people who show up for it — venues, prizes,
+                mentors, snacks. Want your logo up here next year? We&apos;ve
+                always got room on the wall.
+              </span>
+            </div>
+            <a
+              className={`${styles.btn} ${styles["btn-yellow"]}`}
+              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+            >
+              Become a partner →
             </a>
           </div>
         </div>
