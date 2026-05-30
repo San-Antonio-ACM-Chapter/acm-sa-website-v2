@@ -624,67 +624,6 @@ export default function VelociCodePage() {
         </div>
       </SectionReveal>
 
-      {/* ─── INVOLVED — set VELOCICODE_SHOW_INVOLVED=false to hide ──── */}
-      {process.env.VELOCICODE_SHOW_INVOLVED !== "false" && (
-        <SectionReveal
-          className={`${styles.block} ${styles.involved}`}
-          id="involved"
-        >
-          <div className={styles.content}>
-            <div
-              className={styles["section-eye"]}
-              style={{ color: "var(--ink)" }}
-            >
-              For partners + orgs
-            </div>
-            <h2 className={styles["section-title"]}>
-              Earn a <span className={styles.accent}>patch.</span>
-              <span
-                className={styles.scribble}
-                style={{ color: "var(--leaf-deep)" }}
-              >
-                no commitment too small
-              </span>
-            </h2>
-            <p style={{ maxWidth: "60ch", marginTop: "8px" }}>
-              Last year a handful of local groups turned the jam from a friendly
-              gathering into a real community event. Pick a lane — or three.
-            </p>
-
-            <div className={styles.patches}>
-              {PATCHES.map((p) => (
-                <div key={p.icon} className={styles.patch}>
-                  <svg
-                    className={styles["patch-icon"]}
-                    viewBox="0 0 64 64"
-                    aria-hidden="true"
-                  >
-                    <use href={`#${p.icon}`} />
-                  </svg>
-                  <div>
-                    <h3>{p.title}</h3>
-                    <p>{p.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.talk}>
-              <div>
-                <strong>Talk to us.</strong>
-                <span>team@acmsa.org · or DM in the ACM SA</span>
-              </div>
-              <a
-                className={`${styles.btn} ${styles["btn-yellow"]}`}
-                href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
-              >
-                Email the org →
-              </a>
-            </div>
-          </div>
-        </SectionReveal>
-      )}
-
       {/* ─── PARTNERS ───────────────────────────────────────────────── */}
       <SectionReveal
         className={`${styles.block} ${styles.partners}`}
@@ -820,6 +759,67 @@ export default function VelociCodePage() {
           </div>
         </div>
       </SectionReveal>
+
+      {/* ─── INVOLVED — set VELOCICODE_SHOW_INVOLVED=false to hide ──── */}
+      {process.env.VELOCICODE_SHOW_INVOLVED !== "false" && (
+        <SectionReveal
+          className={`${styles.block} ${styles.involved}`}
+          id="involved"
+        >
+          <div className={styles.content}>
+            <div
+              className={styles["section-eye"]}
+              style={{ color: "var(--ink)" }}
+            >
+              For partners + orgs
+            </div>
+            <h2 className={styles["section-title"]}>
+              Earn a <span className={styles.accent}>patch.</span>
+              <span
+                className={styles.scribble}
+                style={{ color: "var(--leaf-deep)" }}
+              >
+                no commitment too small
+              </span>
+            </h2>
+            <p style={{ maxWidth: "60ch", marginTop: "8px" }}>
+              Last year a handful of local groups turned the jam from a friendly
+              gathering into a real community event. Pick a lane — or three.
+            </p>
+
+            <div className={styles.patches}>
+              {PATCHES.map((p) => (
+                <div key={p.icon} className={styles.patch}>
+                  <svg
+                    className={styles["patch-icon"]}
+                    viewBox="0 0 64 64"
+                    aria-hidden="true"
+                  >
+                    <use href={`#${p.icon}`} />
+                  </svg>
+                  <div>
+                    <h3>{p.title}</h3>
+                    <p>{p.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.talk}>
+              <div>
+                <strong>Talk to us.</strong>
+                <span>team@acmsa.org · or DM in the ACM SA</span>
+              </div>
+              <a
+                className={`${styles.btn} ${styles["btn-yellow"]}`}
+                href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+              >
+                Email the org →
+              </a>
+            </div>
+          </div>
+        </SectionReveal>
+      )}
 
       {/* ─── FAQ ────────────────────────────────────────────────────── */}
       <SectionReveal className={`${styles.block} ${styles.faq}`} id="faq">
