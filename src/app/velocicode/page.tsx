@@ -196,12 +196,14 @@ const CHALLENGES = [
   },
 ];
 
+const SPONSORS: { name: string; src: string }[] = [];
+
 const COMMUNITY_PARTNERS: { name: string; src: string }[] = [
   { name: "Greater Gaming Society", src: "/ggs-logo.png" },
   { name: "DEVSA", src: "/devsa-logo.svg" },
   { name: "Geekdom", src: "/geekdom.svg" },
-  { name: "Alamo Tech Collective", src: "" },
-  { name: "Unreal Engine San Antonio", src: "" },
+  { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" },
+  { name: "Unreal Engine San Antonio", src: "/unreal-engine-sa-logo.png" },
 ];
 
 const MARQUEE_ITEMS = [
@@ -1068,6 +1070,7 @@ export default function VelociCodePage() {
             ))}
           </div>
 
+          {/* loot callout — hidden until prizes are finalized
           <div className={styles.loot}>
             <div className={styles["loot-badge"]}>★ The loot ★</div>
             <h3>What you&apos;re playing for.</h3>
@@ -1086,67 +1089,70 @@ export default function VelociCodePage() {
               ))}
             </div>
           </div>
+          */}
         </div>
       </SectionReveal>
 
-      {/* ─── INVOLVED ───────────────────────────────────────────────── */}
-      <SectionReveal
-        className={`${styles.block} ${styles.involved}`}
-        id="involved"
-      >
-        <div className={styles.content}>
-          <div
-            className={styles["section-eye"]}
-            style={{ color: "var(--ink)" }}
-          >
-            For partners + orgs
-          </div>
-          <h2 className={styles["section-title"]}>
-            Earn a <span className={styles.accent}>patch.</span>
-            <span
-              className={styles.scribble}
-              style={{ color: "var(--leaf-deep)" }}
+      {/* ─── INVOLVED — set VELOCICODE_SHOW_INVOLVED=false to hide ──── */}
+      {process.env.VELOCICODE_SHOW_INVOLVED !== "false" && (
+        <SectionReveal
+          className={`${styles.block} ${styles.involved}`}
+          id="involved"
+        >
+          <div className={styles.content}>
+            <div
+              className={styles["section-eye"]}
+              style={{ color: "var(--ink)" }}
             >
-              no commitment too small
-            </span>
-          </h2>
-          <p style={{ maxWidth: "60ch", marginTop: "8px" }}>
-            Last year a handful of local groups turned the jam from a friendly
-            gathering into a real community event. Pick a lane — or three.
-          </p>
-
-          <div className={styles.patches}>
-            {PATCHES.map((p) => (
-              <div key={p.icon} className={styles.patch}>
-                <svg
-                  className={styles["patch-icon"]}
-                  viewBox="0 0 64 64"
-                  aria-hidden="true"
-                >
-                  <use href={`#${p.icon}`} />
-                </svg>
-                <div>
-                  <h3>{p.title}</h3>
-                  <p>{p.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className={styles.talk}>
-            <div>
-              <strong>Talk to us.</strong>
-              <span>team@acmsa.org · or DM in the ACM SA</span>
+              For partners + orgs
             </div>
-            <a
-              className={`${styles.btn} ${styles["btn-yellow"]}`}
-              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
-            >
-              Email the org →
-            </a>
+            <h2 className={styles["section-title"]}>
+              Earn a <span className={styles.accent}>patch.</span>
+              <span
+                className={styles.scribble}
+                style={{ color: "var(--leaf-deep)" }}
+              >
+                no commitment too small
+              </span>
+            </h2>
+            <p style={{ maxWidth: "60ch", marginTop: "8px" }}>
+              Last year a handful of local groups turned the jam from a friendly
+              gathering into a real community event. Pick a lane — or three.
+            </p>
+
+            <div className={styles.patches}>
+              {PATCHES.map((p) => (
+                <div key={p.icon} className={styles.patch}>
+                  <svg
+                    className={styles["patch-icon"]}
+                    viewBox="0 0 64 64"
+                    aria-hidden="true"
+                  >
+                    <use href={`#${p.icon}`} />
+                  </svg>
+                  <div>
+                    <h3>{p.title}</h3>
+                    <p>{p.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.talk}>
+              <div>
+                <strong>Talk to us.</strong>
+                <span>team@acmsa.org · or DM in the ACM SA</span>
+              </div>
+              <a
+                className={`${styles.btn} ${styles["btn-yellow"]}`}
+                href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+              >
+                Email the org →
+              </a>
+            </div>
           </div>
-        </div>
-      </SectionReveal>
+        </SectionReveal>
+      )}
 
       {/* ─── PARTNERS ───────────────────────────────────────────────── */}
       <SectionReveal
@@ -1165,30 +1171,43 @@ export default function VelociCodePage() {
             pinned up like patches, because that&apos;s exactly what they are.
           </p>
 
-          {/* Sponsors */}
-          <div className={styles["wall-label"]}>
-            Sponsors{" "}
-            <span className={styles["wall-label-note"]}>
-              — the crews chipping in prizes &amp; support
-            </span>
-          </div>
-          <div className={styles.wall}>
-            {[0, 1, 2].map((i) => (
-              <div key={i} className={styles.ally}>
-                <div className={styles["logo-box"]}>
-                  <span className={styles["logo-ph"]}>Your logo here</span>
-                </div>
-                <span className={styles["ally-name"]}>Your logo here</span>
+          {/* Sponsors — only rendered when SPONSORS array is populated */}
+          {SPONSORS.length > 0 && (
+            <>
+              <div className={styles["wall-label"]}>
+                Sponsors{" "}
+                <span className={styles["wall-label-note"]}>
+                  — the crews chipping in prizes &amp; support
+                </span>
               </div>
-            ))}
-            <a
-              className={`${styles.ally} ${styles["ally-add"]}`}
-              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
-            >
-              <span className={styles["ally-add-plus"]}>＋</span>
-              <span className={styles["ally-name"]}>Sponsor the jam</span>
-            </a>
-          </div>
+              <div className={styles.wall}>
+                {SPONSORS.map((s) => (
+                  <div key={s.name} className={styles.ally}>
+                    <div className={styles["logo-box"]}>
+                      {s.src ? (
+                        <Image
+                          src={s.src}
+                          alt={s.name}
+                          fill
+                          style={{ objectFit: "contain", padding: "8px" }}
+                        />
+                      ) : (
+                        <span className={styles["logo-ph"]}>{s.name}</span>
+                      )}
+                    </div>
+                    <span className={styles["ally-name"]}>{s.name}</span>
+                  </div>
+                ))}
+                <a
+                  className={`${styles.ally} ${styles["ally-add"]}`}
+                  href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+                >
+                  <span className={styles["ally-add-plus"]}>＋</span>
+                  <span className={styles["ally-name"]}>Sponsor the jam</span>
+                </a>
+              </div>
+            </>
+          )}
 
           {/* Community Partners */}
           <div className={styles["wall-label"]}>
