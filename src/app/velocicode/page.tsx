@@ -203,7 +203,7 @@ const COMMUNITY_PARTNERS: { name: string; src: string }[] = [
   { name: "DEVSA", src: "/devsa-logo.svg" },
   { name: "Geekdom", src: "/geekdom.svg" },
   { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" },
-  { name: "Unreal Engine San Antonio", src: "/unreal-engine-sa-logo.png" },
+  { name: "Unreal Engine San Antonio", src: "/unreal-engine-sa-logo-color.png" },
 ];
 
 const MARQUEE_ITEMS = [
