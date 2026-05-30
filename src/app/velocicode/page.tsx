@@ -196,14 +196,28 @@ const CHALLENGES = [
   },
 ];
 
-const SPONSORS: { name: string; src: string }[] = [];
+const SPONSORS: { name: string; src: string; href?: string }[] = [];
 
-const COMMUNITY_PARTNERS: { name: string; src: string }[] = [
-  { name: "Greater Gaming Society", src: "/ggs-logo.png" },
-  { name: "DEVSA", src: "/devsa-logo.svg" },
-  { name: "Geekdom", src: "/geekdom.svg" },
-  { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" },
-  { name: "Unreal Engine San Antonio", src: "/unreal-engine-sa-logo-color.png" },
+const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
+  {
+    name: "Greater Gaming Society",
+    src: "/ggs-logo.png",
+    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/",
+  },
+  {
+    name: "DEVSA",
+    src: "/devsa-logo.svg",
+    href: "https://www.devsa.community/",
+  },
+  { name: "Geekdom", src: "/geekdom.svg", href: "https://geekdom.com/" },
+  { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png",
+    href: "https://www.meetup.com/alamotechcollective/"
+   },
+  {
+    name: "Unreal Engine San Antonio",
+    src: "/unreal-engine-sa-logo-color.png",
+    href: "https://communities.unrealengine.com/san-antonio/"
+  },
 ];
 
 const MARQUEE_ITEMS = [
@@ -1181,23 +1195,36 @@ export default function VelociCodePage() {
                 </span>
               </div>
               <div className={styles.wall}>
-                {SPONSORS.map((s) => (
-                  <div key={s.name} className={styles.ally}>
-                    <div className={styles["logo-box"]}>
-                      {s.src ? (
-                        <Image
-                          src={s.src}
-                          alt={s.name}
-                          fill
-                          style={{ objectFit: "contain", padding: "8px" }}
-                        />
-                      ) : (
-                        <span className={styles["logo-ph"]}>{s.name}</span>
-                      )}
-                    </div>
-                    <span className={styles["ally-name"]}>{s.name}</span>
-                  </div>
-                ))}
+                {SPONSORS.map((s) => {
+                  const Tag = s.href ? "a" : "div";
+                  return (
+                    <Tag
+                      key={s.name}
+                      className={styles.ally}
+                      {...(s.href
+                        ? {
+                            href: s.href,
+                            target: "_blank",
+                            rel: "noopener noreferrer",
+                          }
+                        : {})}
+                    >
+                      <div className={styles["logo-box"]}>
+                        {s.src ? (
+                          <Image
+                            src={s.src}
+                            alt={s.name}
+                            fill
+                            style={{ objectFit: "contain", padding: "8px" }}
+                          />
+                        ) : (
+                          <span className={styles["logo-ph"]}>{s.name}</span>
+                        )}
+                      </div>
+                      <span className={styles["ally-name"]}>{s.name}</span>
+                    </Tag>
+                  );
+                })}
                 <a
                   className={`${styles.ally} ${styles["ally-add"]}`}
                   href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
@@ -1217,23 +1244,36 @@ export default function VelociCodePage() {
             </span>
           </div>
           <div className={styles.wall}>
-            {COMMUNITY_PARTNERS.map((p) => (
-              <div key={p.name} className={styles.ally}>
-                <div className={styles["logo-box"]}>
-                  {p.src ? (
-                    <Image
-                      src={p.src}
-                      alt={p.name}
-                      fill
-                      style={{ objectFit: "contain", padding: "8px" }}
-                    />
-                  ) : (
-                    <span className={styles["logo-ph"]}>{p.name}</span>
-                  )}
-                </div>
-                <span className={styles["ally-name"]}>{p.name}</span>
-              </div>
-            ))}
+            {COMMUNITY_PARTNERS.map((p) => {
+              const Tag = p.href ? "a" : "div";
+              return (
+                <Tag
+                  key={p.name}
+                  className={styles.ally}
+                  {...(p.href
+                    ? {
+                        href: p.href,
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                      }
+                    : {})}
+                >
+                  <div className={styles["logo-box"]}>
+                    {p.src ? (
+                      <Image
+                        src={p.src}
+                        alt={p.name}
+                        fill
+                        style={{ objectFit: "contain", padding: "8px" }}
+                      />
+                    ) : (
+                      <span className={styles["logo-ph"]}>{p.name}</span>
+                    )}
+                  </div>
+                  <span className={styles["ally-name"]}>{p.name}</span>
+                </Tag>
+              );
+            })}
             <a
               className={`${styles.ally} ${styles["ally-add"]}`}
               href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"

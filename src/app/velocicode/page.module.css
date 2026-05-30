@@ -1710,6 +1710,7 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  text-decoration: none;
   transition:
     transform 0.12s ease,
     box-shadow 0.12s ease;
