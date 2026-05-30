@@ -1139,23 +1139,30 @@
   .block {
     padding: 70px 28px;
   }
-  .podium {
-    grid-template-columns: 1fr;
-    gap: 34px;
+  /* Route — hide decorative elements and reflow stops to a plain list.
+     svg qualifier needed to match specificity of .page svg { display:block } */
+  .route-wrap {
+    min-height: auto;
   }
-  .pcard-center {
-    transform: rotate(-0.5deg);
-    order: -1;
+  svg.route-svg {
+    display: none;
   }
-  .pcard-center:hover {
-    transform: rotate(-0.5deg) translate(2px, 2px);
+  .route-stop {
+    position: static;
+    width: 100%;
+    margin-bottom: 16px;
   }
-  .loot-slots {
-    grid-template-columns: 1fr;
+  .route-stop[data-side="L"],
+  .route-stop[data-side="R"] {
+    left: auto;
+    right: auto;
+    transform: none;
   }
-  .thanks {
-    flex-direction: column;
-    align-items: flex-start;
+  .route-pin {
+    display: none;
+  }
+  svg.route-plane {
+    display: none;
   }
 }
 
@@ -1181,37 +1188,12 @@
   .hero-cta .btn {
     justify-content: center;
   }
-  .route-wrap {
-    min-height: auto;
-  }
-  .route-svg {
-    display: none;
-  }
-  .route-stop {
-    position: static;
-    width: 100%;
-    margin-bottom: 16px;
-  }
-  .route-stop[data-side="L"],
-  .route-stop[data-side="R"] {
-    left: auto;
-    right: auto;
-    transform: none;
-  }
-  .route-pin {
-    display: none;
-  }
-  .route-plane {
-    display: none;
-  }
-  /* Desktop plane and path not needed on mobile — replaced by the mobile-specific short route */
+  /* Hide all hero plane/route elements on mobile */
   .hero-route-path,
-  .hero-route-plane {
-    display: none;
-  }
-  /* Mobile plane is globally hidden; un-hide it here */
+  .hero-route-plane,
+  .hero-route-path-mobile,
   .hero-route-plane-mobile {
-    display: block;
+    display: none;
   }
 
   /* Sun and dino: reposition into the visible crop area.
@@ -1406,7 +1388,6 @@
   color: var(--paper);
   border-bottom: var(--line);
   position: relative;
-  overflow: hidden;
 }
 
 .challenge::before {
@@ -1763,8 +1744,9 @@
   position: relative;
   width: 100%;
   height: 96px;
-  background: color-mix(in srgb, var(--cream) 45%, #fff);
+  /* background: color-mix(in srgb, var(--cream) 45%, #fff); */
   border: 2px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1853,6 +1835,38 @@
   line-height: 1.5;
   display: block;
   max-width: 54ch;
+}
+
+/* ── CHALLENGE + PARTNERS responsive — must come after base styles ── */
+@media (max-width: 960px) {
+  .podium {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    align-items: start;
+  }
+  .pcard-left,
+  .pcard-right {
+    transform: none;
+  }
+  .pcard-left:hover,
+  .pcard-right:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .pcard-center {
+    transform: rotate(-0.5deg);
+    order: -1;
+  }
+  .pcard-center:hover {
+    transform: rotate(-0.5deg) translate(2px, 2px);
+  }
+  .loot-slots {
+    grid-template-columns: 1fr;
+  }
+  .thanks {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* ── ANIMATIONS ───────────────────────────────────────────── */
