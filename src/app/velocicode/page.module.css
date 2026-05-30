@@ -1744,8 +1744,9 @@
   position: relative;
   width: 100%;
   height: 96px;
-  background: color-mix(in srgb, var(--cream) 45%, #fff);
+  /* background: color-mix(in srgb, var(--cream) 45%, #fff); */
   border: 2px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
