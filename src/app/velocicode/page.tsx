@@ -744,9 +744,17 @@ export default function VelociCodePage() {
             </div>
             <a
               className={`${styles.btn} ${styles["btn-yellow"]}`}
-              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+              href="https://drive.google.com/file/d/1bLDEXnV37sQfqD_TVpSdgk27WYBwk7og/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              Become a partner →
+              Become a partner ↗
+            </a>
+            <a
+              className={`${styles.btn} ${styles["btn-primary"]}`}
+              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"              
+            >
+              Email the org →
             </a>
           </div>
         </div>
