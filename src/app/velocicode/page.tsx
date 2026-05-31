@@ -752,7 +752,7 @@ export default function VelociCodePage() {
             </a>
             <a
               className={`${styles.btn} ${styles["btn-primary"]}`}
-              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"              
+              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
             >
               Email the org →
             </a>
