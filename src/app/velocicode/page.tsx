@@ -81,21 +81,29 @@ const STOPS: InputStop[] = [
     external: true,
   },
   {
+    date: "2026-07-14T18:00",
+    title: "GGS Social Hour",
+    meta: "The monthly GGS Social Hour is every 2nd Tuesday of the month!",
+    cta: "RSVP",
+    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/events/fltbwtyjckbsb",
+    external: true,
+  },
+  {
     date: "2026-07-16T18:00",
-    title: "TBA Event",
+    title: "Dynamic and Procedural Audio in Godot",
     meta: "Details coming soon! Stay tuned to our Meetup and Discord for updates.",
-    cta: "Link soon",
-    href: "#schedule",
-    external: false,
+    cta: "RSVP",
+    href: "https://www.meetup.com/acm-sa/events/315081675",
+    external: true,
   },
   {
     date: "2026-07-17T18:00",
     title: "Playtest Day",
     location: "Zelifcam",
     meta: "Bring your game, bring your pals, get some live feedback.",
-    cta: "Link soon",
-    href: "#schedule",
-    external: false,
+    cta: "RSVP",
+    href: "https://www.meetup.com/acm-sa/events/315064971",
+    external: true,
   },
   {
     date: "2026-07-30T23:59",
@@ -113,7 +121,7 @@ const STOPS: InputStop[] = [
     meta: "Family-friendly. Tables, laptops, controllers, awards.",
     cta: "RSVP",
     href: "https://www.meetup.com/acm-sa/events/312892527",
-    external: false,
+    external: true,
   },
 ];
 
@@ -748,7 +756,7 @@ export default function VelociCodePage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Become a partner ↗
+              Sponsor Packet ↗
             </a>
             <a
               className={`${styles.btn} ${styles["btn-primary"]}`}
