@@ -231,7 +231,7 @@ const SPONSORS: { name: string; src: string; href?: string }[] = [
     name: "Texas Roadhouse - Alamo Ranch",
     src: "/texas-roadhouse-logo.png",
     href: "https://www.facebook.com/txrhSanAntonioTX6616WLoop1604North",
-  }
+  },
 ];
 
 const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
@@ -292,6 +292,58 @@ const FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
+function VelociCodeJsonLd() {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: "VelociCode",
+          description:
+            "San Antonio's month-long game jam. One month. One game. No excuses. Hosted by ACM SA and the Greater Gaming Society.",
+          startDate: "2026-07-01T19:00:00-05:00",
+          endDate: "2026-08-01T11:00:00-05:00",
+          eventStatus: "https://schema.org/EventScheduled",
+          eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+          location: {
+            "@type": "Place",
+            name: "Geekdom Event Centre",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "San Antonio",
+              addressRegion: "TX",
+              addressCountry: "US",
+            },
+          },
+          image: "https://acmsa.org/velocicode-logo.png",
+          url: "https://acmsa.org/velocicode",
+          isAccessibleForFree: true,
+          organizer: [
+            {
+              "@type": "Organization",
+              name: "ACM San Antonio",
+              url: "https://acmsa.org",
+            },
+            {
+              "@type": "Organization",
+              name: "Greater Gaming Society",
+            },
+          ],
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+            url: RSVP_URL,
+            availability: "https://schema.org/InStock",
+          },
+        }),
+      }}
+    />
+  );
+}
+
 export default function VelociCodePage() {
   const {
     stops: computedStops,
@@ -313,54 +365,7 @@ export default function VelociCodePage() {
 
   return (
     <div className={`${styles.page} ${fontVars}`}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Event",
-            name: "VelociCode",
-            description:
-              "San Antonio's month-long game jam. One month. One game. No excuses. Hosted by ACM SA and the Greater Gaming Society.",
-            startDate: "2026-07-01T19:00:00-05:00",
-            endDate: "2026-08-01T11:00:00-05:00",
-            eventStatus: "https://schema.org/EventScheduled",
-            eventAttendanceMode:
-              "https://schema.org/MixedEventAttendanceMode",
-            location: {
-              "@type": "Place",
-              name: "Geekdom Event Centre",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "San Antonio",
-                addressRegion: "TX",
-                addressCountry: "US",
-              },
-            },
-            image: "https://acmsa.org/velocicode-logo.png",
-            url: "https://acmsa.org/velocicode",
-            isAccessibleForFree: true,
-            organizer: [
-              {
-                "@type": "Organization",
-                name: "ACM San Antonio",
-                url: "https://acmsa.org",
-              },
-              {
-                "@type": "Organization",
-                name: "Greater Gaming Society",
-              },
-            ],
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-              url: RSVP_URL,
-              availability: "https://schema.org/InStock",
-            },
-          }),
-        }}
-      />
+      <VelociCodeJsonLd />
 
       {/* ─── SVG SYMBOLS ──────────────────────────────────────────── */}
       <VCSymbols />
@@ -707,7 +712,10 @@ export default function VelociCodePage() {
       </SectionReveal>
 
       {/* ─── PARTNERS ───────────────────────────────────────────────── */}
-      <SectionReveal className={`${styles.block} ${styles.partners}`} id="partners" >
+      <SectionReveal
+        className={`${styles.block} ${styles.partners}`}
+        id="partners"
+      >
         <div className={styles.content}>
           <div className={styles["section-eye"]}>Field journal · Allies</div>
           <h2 className={styles["section-title"]}>
@@ -852,7 +860,10 @@ export default function VelociCodePage() {
 
       {/* ─── INVOLVED — set VELOCICODE_SHOW_INVOLVED=false to hide ──── */}
       {process.env.VELOCICODE_OUTREACH !== "false" && (
-        <SectionReveal className={`${styles.block} ${styles.involved}`} id="involved">
+        <SectionReveal
+          className={`${styles.block} ${styles.involved}`}
+          id="involved"
+        >
           <div className={styles.content}>
             <div
               className={styles["section-eye"]}
