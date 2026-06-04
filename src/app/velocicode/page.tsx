@@ -81,7 +81,7 @@ const STOPS: InputStop[] = [
     external: true,
   },
   {
-    date: "2026-07-14T18:00",
+    date: "2026-07-14T19:00",
     title: "GGS Social Hour",
     meta: "The monthly GGS Social Hour is every 2nd Tuesday of the month!",
     cta: "RSVP",
@@ -198,7 +198,13 @@ const CHALLENGES = [
   },
 ];
 
-const SPONSORS: { name: string; src: string; href?: string }[] = [];
+const SPONSORS: { name: string; src: string; href?: string }[] = [
+  {
+    name: "Texas Roadhouse - Alamo Ranch",
+    src: "/texas-roadhouse-logo.png",
+    href: "https://www.facebook.com/txrhSanAntonioTX6616WLoop1604North",
+  }
+];
 
 const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
   {
@@ -370,9 +376,9 @@ export default function VelociCodePage() {
               </a>
               <a
                 className={`${styles.btn} ${styles["btn-jungle"]}`}
-                href="#involved"
+                href="#partners"
               >
-                Sponsor / mentor
+                Partner with us
               </a>
             </div>
           </div>
@@ -601,8 +607,8 @@ export default function VelociCodePage() {
             ))}
           </div>
 
-          {/* loot callout — hidden until prizes are finalized
-          <div className={styles.loot}>
+          {/* loot callout — hidden until prizes are finalized */}
+          {/* <div className={styles.loot}>
             <div className={styles["loot-badge"]}>★ The loot ★</div>
             <h3>What you&apos;re playing for.</h3>
             <p>
@@ -619,16 +625,12 @@ export default function VelociCodePage() {
                 </div>
               ))}
             </div>
-          </div>
-          */}
+          </div> */}
         </div>
       </SectionReveal>
 
       {/* ─── PARTNERS ───────────────────────────────────────────────── */}
-      <SectionReveal
-        className={`${styles.block} ${styles.partners}`}
-        id="partners"
-      >
+      <SectionReveal className={`${styles.block} ${styles.partners}`} id="partners" >
         <div className={styles.content}>
           <div className={styles["section-eye"]}>Field journal · Allies</div>
           <h2 className={styles["section-title"]}>
@@ -641,7 +643,6 @@ export default function VelociCodePage() {
             pinned up like patches, because that&apos;s exactly what they are.
           </p>
 
-          {/* Sponsors — only rendered when SPONSORS array is populated */}
           {SPONSORS.length > 0 && (
             <>
               <div className={styles["wall-label"]}>
@@ -668,7 +669,7 @@ export default function VelociCodePage() {
                       <div className={styles["logo-box"]}>
                         {s.src ? (
                           <Image
-                            src={s.src}
+                            src={`/velocicode/${s.src}`}
                             alt={s.name}
                             fill
                             style={{ objectFit: "contain", padding: "8px" }}
@@ -681,13 +682,15 @@ export default function VelociCodePage() {
                     </Tag>
                   );
                 })}
-                <a
-                  className={`${styles.ally} ${styles["ally-add"]}`}
-                  href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
-                >
-                  <span className={styles["ally-add-plus"]}>＋</span>
-                  <span className={styles["ally-name"]}>Sponsor the jam</span>
-                </a>
+                {process.env.VELOCICODE_OUTREACH !== "false" && (
+                  <a
+                    className={`${styles.ally} ${styles["ally-add"]}`}
+                    href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+                  >
+                    <span className={styles["ally-add-plus"]}>＋</span>
+                    <span className={styles["ally-name"]}>Sponsor the jam</span>
+                  </a>
+                )}
               </div>
             </>
           )}
@@ -730,13 +733,15 @@ export default function VelociCodePage() {
                 </Tag>
               );
             })}
-            <a
-              className={`${styles.ally} ${styles["ally-add"]}`}
-              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
-            >
-              <span className={styles["ally-add-plus"]}>＋</span>
-              <span className={styles["ally-name"]}>Join the wall</span>
-            </a>
+            {process.env.VELOCICODE_OUTREACH !== "false" && (
+              <a
+                className={`${styles.ally} ${styles["ally-add"]}`}
+                href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+              >
+                <span className={styles["ally-add-plus"]}>＋</span>
+                <span className={styles["ally-name"]}>Join the wall</span>
+              </a>
+            )}
           </div>
 
           <div className={styles.thanks}>
@@ -769,11 +774,8 @@ export default function VelociCodePage() {
       </SectionReveal>
 
       {/* ─── INVOLVED — set VELOCICODE_SHOW_INVOLVED=false to hide ──── */}
-      {process.env.VELOCICODE_SHOW_INVOLVED !== "false" && (
-        <SectionReveal
-          className={`${styles.block} ${styles.involved}`}
-          id="involved"
-        >
+      {process.env.VELOCICODE_OUTREACH !== "false" && (
+        <SectionReveal className={`${styles.block} ${styles.involved}`} id="involved">
           <div className={styles.content}>
             <div
               className={styles["section-eye"]}
