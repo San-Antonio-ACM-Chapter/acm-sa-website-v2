@@ -60,6 +60,34 @@ export const metadata: Metadata = {
   title: "VelociCode — ACM San Antonio",
   description:
     "San Antonio's month-long game jam. One month. One game. No excuses. Hosted by ACM SA and the Greater Gaming Society.",
+  alternates: {
+    canonical: "https://acmsa.org/velocicode",
+  },
+  themeColor: "#3D8C28",
+  openGraph: {
+    title: "VelociCode — ACM San Antonio",
+    description:
+      "San Antonio's month-long game jam. One month. One game. No excuses. Hosted by ACM SA and the Greater Gaming Society.",
+    url: "https://acmsa.org/velocicode",
+    siteName: "ACM San Antonio",
+    images: [
+      {
+        url: "/velocicode-logo.png",
+        width: 500,
+        height: 500,
+        alt: "VelociCode dino logo",
+        type: "image/png",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "VelociCode — ACM San Antonio",
+    description:
+      "San Antonio's month-long game jam. One month. One game. No excuses. Hosted by ACM SA and the Greater Gaming Society.",
+    images: ["/velocicode-logo.png"],
+  },
 };
 
 const RSVP_URL = "https://www.meetup.com/acm-sa/events/312892484";
@@ -81,7 +109,7 @@ const STOPS: InputStop[] = [
     external: true,
   },
   {
-    date: "2026-07-14T18:00",
+    date: "2026-07-14T19:00",
     title: "GGS Social Hour",
     meta: "The monthly GGS Social Hour is every 2nd Tuesday of the month!",
     cta: "RSVP",
@@ -198,7 +226,13 @@ const CHALLENGES = [
   },
 ];
 
-const SPONSORS: { name: string; src: string; href?: string }[] = [];
+const SPONSORS: { name: string; src: string; href?: string }[] = [
+  {
+    name: "Texas Roadhouse - Alamo Ranch",
+    src: "/texas-roadhouse-logo.png",
+    href: "https://www.facebook.com/txrhSanAntonioTX6616WLoop1604North",
+  },
+];
 
 const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
   {
@@ -258,6 +292,58 @@ const FAQ_ITEMS: FaqItem[] = [
   },
 ];
 
+function VelociCodeJsonLd() {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: "VelociCode",
+          description:
+            "San Antonio's month-long game jam. One month. One game. No excuses. Hosted by ACM SA and the Greater Gaming Society.",
+          startDate: "2026-07-01T19:00:00-05:00",
+          endDate: "2026-08-01T11:00:00-05:00",
+          eventStatus: "https://schema.org/EventScheduled",
+          eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+          location: {
+            "@type": "Place",
+            name: "Geekdom Event Centre",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "San Antonio",
+              addressRegion: "TX",
+              addressCountry: "US",
+            },
+          },
+          image: "https://acmsa.org/velocicode-logo.png",
+          url: "https://acmsa.org/velocicode",
+          isAccessibleForFree: true,
+          organizer: [
+            {
+              "@type": "Organization",
+              name: "ACM San Antonio",
+              url: "https://acmsa.org",
+            },
+            {
+              "@type": "Organization",
+              name: "Greater Gaming Society",
+            },
+          ],
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+            url: RSVP_URL,
+            availability: "https://schema.org/InStock",
+          },
+        }),
+      }}
+    />
+  );
+}
+
 export default function VelociCodePage() {
   const {
     stops: computedStops,
@@ -279,6 +365,8 @@ export default function VelociCodePage() {
 
   return (
     <div className={`${styles.page} ${fontVars}`}>
+      <VelociCodeJsonLd />
+
       {/* ─── SVG SYMBOLS ──────────────────────────────────────────── */}
       <VCSymbols />
 
@@ -370,9 +458,9 @@ export default function VelociCodePage() {
               </a>
               <a
                 className={`${styles.btn} ${styles["btn-jungle"]}`}
-                href="#involved"
+                href="#partners"
               >
-                Sponsor / mentor
+                Partner with us
               </a>
             </div>
           </div>
@@ -601,8 +689,8 @@ export default function VelociCodePage() {
             ))}
           </div>
 
-          {/* loot callout — hidden until prizes are finalized
-          <div className={styles.loot}>
+          {/* loot callout — hidden until prizes are finalized */}
+          {/* <div className={styles.loot}>
             <div className={styles["loot-badge"]}>★ The loot ★</div>
             <h3>What you&apos;re playing for.</h3>
             <p>
@@ -619,8 +707,7 @@ export default function VelociCodePage() {
                 </div>
               ))}
             </div>
-          </div>
-          */}
+          </div> */}
         </div>
       </SectionReveal>
 
@@ -641,7 +728,6 @@ export default function VelociCodePage() {
             pinned up like patches, because that&apos;s exactly what they are.
           </p>
 
-          {/* Sponsors — only rendered when SPONSORS array is populated */}
           {SPONSORS.length > 0 && (
             <>
               <div className={styles["wall-label"]}>
@@ -668,7 +754,7 @@ export default function VelociCodePage() {
                       <div className={styles["logo-box"]}>
                         {s.src ? (
                           <Image
-                            src={s.src}
+                            src={`/velocicode/${s.src}`}
                             alt={s.name}
                             fill
                             style={{ objectFit: "contain", padding: "8px" }}
@@ -681,13 +767,15 @@ export default function VelociCodePage() {
                     </Tag>
                   );
                 })}
-                <a
-                  className={`${styles.ally} ${styles["ally-add"]}`}
-                  href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
-                >
-                  <span className={styles["ally-add-plus"]}>＋</span>
-                  <span className={styles["ally-name"]}>Sponsor the jam</span>
-                </a>
+                {process.env.VELOCICODE_OUTREACH !== "false" && (
+                  <a
+                    className={`${styles.ally} ${styles["ally-add"]}`}
+                    href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+                  >
+                    <span className={styles["ally-add-plus"]}>＋</span>
+                    <span className={styles["ally-name"]}>Sponsor the jam</span>
+                  </a>
+                )}
               </div>
             </>
           )}
@@ -730,13 +818,15 @@ export default function VelociCodePage() {
                 </Tag>
               );
             })}
-            <a
-              className={`${styles.ally} ${styles["ally-add"]}`}
-              href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
-            >
-              <span className={styles["ally-add-plus"]}>＋</span>
-              <span className={styles["ally-name"]}>Join the wall</span>
-            </a>
+            {process.env.VELOCICODE_OUTREACH !== "false" && (
+              <a
+                className={`${styles.ally} ${styles["ally-add"]}`}
+                href="mailto:team@acmsa.org?subject=VelociCode%202%20%E2%80%94%20interested"
+              >
+                <span className={styles["ally-add-plus"]}>＋</span>
+                <span className={styles["ally-name"]}>Join the wall</span>
+              </a>
+            )}
           </div>
 
           <div className={styles.thanks}>
@@ -769,7 +859,7 @@ export default function VelociCodePage() {
       </SectionReveal>
 
       {/* ─── INVOLVED — set VELOCICODE_SHOW_INVOLVED=false to hide ──── */}
-      {process.env.VELOCICODE_SHOW_INVOLVED !== "false" && (
+      {process.env.VELOCICODE_OUTREACH !== "false" && (
         <SectionReveal
           className={`${styles.block} ${styles.involved}`}
           id="involved"
