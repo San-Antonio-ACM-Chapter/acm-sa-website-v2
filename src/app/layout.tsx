@@ -18,6 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://acmsa.org"),
   title: "ACM San Antonio",
   description: "Association for Computing Machinery - San Antonio Chapter",
   icons: {
