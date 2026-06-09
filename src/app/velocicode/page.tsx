@@ -285,7 +285,7 @@ const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
   {
     name: "Alamo Tech Collective",
     src: "/alamo-tech-collective-logo.png",
-    href: "https://www.meetup.com/alamotechcollective/",
+    href: "https://alamotechcollective.com/",
   },
   {
     name: "Unreal Engine San Antonio",
