@@ -942,7 +942,7 @@ export default function VelociCodePage() {
             <div className={styles.talk}>
               <div>
                 <strong>Talk to us.</strong>
-                <span>team@acmsa.org · or DM in the ACM SA</span>
+                <span>team@acmsa.org or DM in the ACM SA Discord</span>
               </div>
               <a
                 className={`${styles.btn} ${styles["btn-yellow"]}`}
