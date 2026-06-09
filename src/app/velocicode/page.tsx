@@ -145,6 +145,14 @@ const STOPS: InputStop[] = [
     external: true,
   },
   {
+    date: "2026-07-22T18:00",
+    title: "TBA Event",
+    meta: "Event details coming soon!",
+    cta: "RSVP",
+    href: "#schedule",
+    external: false,
+  },
+  {
     date: "2026-07-26T12:00",
     title: "How to Submit",
     location: "YouTube",
@@ -152,6 +160,14 @@ const STOPS: InputStop[] = [
     cta: "Learn how to submit",
     href: "https://www.youtube.com/@ACMSanAntonio/streams",
     external: true,
+  },
+  {
+    date: "2026-07-29T18:00",
+    title: "TBA Event",
+    meta: "Event details coming soon!",
+    cta: "RSVP",
+    href: "#schedule",
+    external: false,
   },
   {
     date: "2026-07-30T23:59",
@@ -164,9 +180,9 @@ const STOPS: InputStop[] = [
   },
   {
     date: "2026-08-01T11:00",
-    title: "Showcase — Science-Fair Style",
+    title: "Showcase",
     location: "Venue TBA",
-    meta: "Family-friendly. Tables, laptops, controllers, awards.",
+    meta: "Family-friendly. Tables, laptops, controllers, awards. Come celebrate the fruits of a month of coding as teams present in a science-fair-style showcase. Everyone who RSVPs gets a ticket to vote for the Crowd Favorite award, and the judges will be on hand to pick Best Overall and Best Theme.",
     cta: "RSVP",
     href: "https://www.meetup.com/acm-sa/events/312892527",
     external: true,
