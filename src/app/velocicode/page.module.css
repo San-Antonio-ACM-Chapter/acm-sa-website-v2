@@ -674,9 +674,14 @@
 
 .stop-head {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 12px;
   margin-bottom: 8px;
+}
+
+.stop-headtext {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .stop-num {
@@ -730,6 +735,88 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--clay);
+}
+
+.stop-mode {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border: var(--line);
+  white-space: nowrap;
+  transform: rotate(2.5deg);
+}
+
+.stop-mode::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  flex: 0 0 7px;
+}
+
+.stop-mode[data-mode="in-person"] {
+  background: var(--leaf-far);
+  color: var(--ink);
+}
+
+.stop-mode[data-mode="in-person"]::before {
+  background: var(--leaf-deep);
+}
+
+.stop-mode[data-mode="hybrid"] {
+  background: var(--mustard);
+  color: var(--ink);
+}
+
+.stop-mode[data-mode="hybrid"]::before {
+  background: linear-gradient(90deg, var(--leaf-deep) 50%, var(--clay) 50%);
+}
+
+.stop-mode[data-mode="virtual"] {
+  background: var(--clay);
+  color: var(--paper);
+}
+
+.stop-mode[data-mode="virtual"]::before {
+  background: var(--mustard);
+  border-color: var(--paper);
+}
+
+.stop-partners {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 2px dashed var(--rust);
+}
+
+.stop-partners-lbl {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 65%, transparent);
+}
+
+.stop-partner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 8px;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--bark);
 }
 
 .route-pin {
@@ -1163,6 +1250,38 @@
   }
   svg.route-plane {
     display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .route-stop {
+    position: relative;
+  }
+  .stop-headtext {
+    padding-right: 0;
+  }
+  .stop-date {
+    padding-right: 84px;
+  }
+  .stop-title {
+    font-size: 0.94rem;
+  }
+  .stop-mode {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    margin: 0;
+    align-self: auto;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    gap: 4px;
+    padding: 3px 6px;
+    transform: rotate(2.5deg);
+    z-index: 1;
+  }
+  .stop-mode::before {
+    width: 6px;
+    height: 6px;
   }
 }
 
