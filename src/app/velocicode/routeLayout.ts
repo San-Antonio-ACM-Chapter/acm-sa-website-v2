@@ -18,6 +18,8 @@ const PATH_BOTTOM = 1101;
 
 export type RouteSegment = [number, number, number, number, number, number]; // x0 y0 cx cy x1 y1
 
+export type StopPartner = { name: string; src: string };
+
 /** What a caller writes — no layout, no formatting, no arrows */
 export type InputStop = {
   date: string; // ISO local datetime: "2026-07-01T18:00"
@@ -27,6 +29,8 @@ export type InputStop = {
   cta: string; // label only — arrow is auto-appended from external flag
   href: string;
   external: boolean;
+  medium?: "in-person" | "hybrid" | "virtual";
+  partners?: StopPartner[];
 };
 
 /** Fully computed stop passed to RouteSection */
@@ -40,6 +44,8 @@ export type ComputedStop = {
   cta: string;
   href: string;
   external: boolean;
+  medium?: "in-person" | "hybrid" | "virtual";
+  partners?: StopPartner[];
   side: "R" | "L";
   cardTop: string;
   pinLeft: string;
@@ -166,6 +172,8 @@ export function buildRouteLayout(inputs: InputStop[]): {
       cta: input.cta,
       href: input.href,
       external: input.external,
+      medium: input.medium,
+      partners: input.partners,
       side: (i % 2 === 0 ? "R" : "L") as "R" | "L",
       pinLeft: `${pinLeftPct.toFixed(1)}%`,
       pinTop: `${pinTopPct.toFixed(1)}%`,

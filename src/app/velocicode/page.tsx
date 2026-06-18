@@ -107,15 +107,34 @@ const STOPS: InputStop[] = [
     cta: "RSVP",
     href: RSVP_URL,
     external: true,
+    medium: "hybrid",
+    partners: [
+      { name: "Geekdom", src: "/geekdom.svg" },
+      { name: "DevSA", src: "/devsa-logo.svg" },
+    ],
   },
   {
-    date: "2026-07-12T18:00",
+    date: "2026-07-8T18:00",
+    title: "TBA Event",
+    meta: "Event details coming soon!",
+    cta: "RSVP",
+    href: "#schedule",
+    external: false,
+    medium: "virtual",
+    partners: [
+      { name: "Unreal Engine SA", src: "/unreal-engine-sa-logo-color.png" },
+    ],
+  },
+  {
+    date: "2026-07-12T12:00",
     title: "San Antonio Tournament",
     location: "Venue TBA",
     meta: "Keep an eye out for updates for a bracket-style tournament at a local venue. Details TBA!",
     cta: "TBA",
     href: "#schedule",
     external: false,
+    medium: "in-person",
+    partners: [{ name: "Greater Gaming Society", src: "/ggs-logo-black.png" }],
   },
   {
     date: "2026-07-14T19:00",
@@ -123,8 +142,10 @@ const STOPS: InputStop[] = [
     location: "Shenanigans Gaming LLC",
     meta: "The monthly GGS Social Hour is every 2nd Tuesday of the month!",
     cta: "RSVP",
-    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/events/fltbwtyjckbsb",
+    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/events/mbwsxtyjckbsb",
     external: true,
+    medium: "in-person",
+    partners: [{ name: "Greater Gaming Society", src: "/ggs-logo-black.png" }],
   },
   {
     date: "2026-07-16T18:00",
@@ -134,6 +155,7 @@ const STOPS: InputStop[] = [
     cta: "RSVP",
     href: "https://www.meetup.com/acm-sa/events/315081675",
     external: true,
+    medium: "hybrid",
   },
   {
     date: "2026-07-17T18:00",
@@ -143,6 +165,10 @@ const STOPS: InputStop[] = [
     cta: "RSVP",
     href: "https://www.meetup.com/acm-sa/events/315064971",
     external: true,
+    medium: "in-person",
+    partners: [
+      { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" },
+    ],
   },
   {
     date: "2026-07-22T18:00",
@@ -151,6 +177,7 @@ const STOPS: InputStop[] = [
     cta: "RSVP",
     href: "#schedule",
     external: false,
+    medium: "hybrid",
   },
   {
     date: "2026-07-26T12:00",
@@ -160,14 +187,7 @@ const STOPS: InputStop[] = [
     cta: "Learn how to submit",
     href: "https://www.youtube.com/@ACMSanAntonio/streams",
     external: true,
-  },
-  {
-    date: "2026-07-29T18:00",
-    title: "TBA Event",
-    meta: "Event details coming soon!",
-    cta: "RSVP",
-    href: "#schedule",
-    external: false,
+    medium: "virtual",
   },
   {
     date: "2026-07-30T23:59",
@@ -177,6 +197,7 @@ const STOPS: InputStop[] = [
     cta: "Submit on itch.io",
     href: "https://itch.io/jam/velocicode-2",
     external: false,
+    medium: "virtual",
   },
   {
     date: "2026-08-01T11:00",
@@ -186,6 +207,7 @@ const STOPS: InputStop[] = [
     cta: "RSVP",
     href: "https://www.meetup.com/acm-sa/events/312892527",
     external: true,
+    medium: "in-person",
   },
 ];
 
@@ -268,6 +290,11 @@ const SPONSORS: { name: string; src: string; href?: string }[] = [
     src: "/texas-roadhouse-logo.png",
     href: "https://www.facebook.com/txrhSanAntonioTX6616WLoop1604North",
   },
+  {
+    name: "The DoSeum",
+    src: "/the-doseum-logo.png",
+    href: "https://www.thedoseum.org/",
+  },
 ];
 
 const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
@@ -285,7 +312,7 @@ const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
   {
     name: "Alamo Tech Collective",
     src: "/alamo-tech-collective-logo.png",
-    href: "https://www.meetup.com/alamotechcollective/",
+    href: "https://alamotechcollective.com/",
   },
   {
     name: "Unreal Engine San Antonio",
@@ -942,7 +969,7 @@ export default function VelociCodePage() {
             <div className={styles.talk}>
               <div>
                 <strong>Talk to us.</strong>
-                <span>team@acmsa.org · or DM in the ACM SA</span>
+                <span>team@acmsa.org or DM in the ACM SA Discord</span>
               </div>
               <a
                 className={`${styles.btn} ${styles["btn-yellow"]}`}

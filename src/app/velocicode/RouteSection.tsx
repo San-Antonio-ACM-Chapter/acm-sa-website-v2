@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import styles from "./page.module.css";
 import {
@@ -193,15 +194,40 @@ export function RouteSection({
         >
           <div className={styles["stop-head"]}>
             <div className={styles["stop-num"]}>{s.num}</div>
-            <div>
+            <div className={styles["stop-headtext"]}>
               <div className={styles["stop-date"]}>{s.dateFormatted}</div>
               <div className={styles["stop-title"]}>{s.title}</div>
             </div>
+            {s.medium && (
+              <div className={styles["stop-mode"]} data-mode={s.medium}>
+                {s.medium === "in-person"
+                  ? "In Person"
+                  : s.medium === "hybrid"
+                    ? "Hybrid"
+                    : "Virtual"}
+              </div>
+            )}
           </div>
           {s.location && (
             <div className={styles["stop-location"]}>📍 {s.location}</div>
           )}
           <div className={styles["stop-meta"]}>{s.meta}</div>
+          {s.partners && s.partners.length > 0 && (
+            <div className={styles["stop-partners"]}>
+              <span className={styles["stop-partners-lbl"]}>With</span>
+              {s.partners.map((p) => (
+                <span key={p.name} className={styles["stop-partner"]}>
+                  <Image
+                    src={p.src}
+                    alt={p.name}
+                    height={16}
+                    width={64}
+                    style={{ objectFit: "contain", height: 16, width: "auto" }}
+                  />
+                </span>
+              ))}
+            </div>
+          )}
           <div className={styles["stop-arrow"]}>
             {s.cta} {s.external ? "↗" : "→"}
           </div>
