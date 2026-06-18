@@ -110,7 +110,7 @@ const STOPS: InputStop[] = [
     medium: "hybrid",
     partners: [
       { name: "Geekdom", src: "/geekdom.svg" },
-      { name: "DevSA", src: "/devsa-logo.svg" }
+      { name: "DevSA", src: "/devsa-logo.svg" },
     ],
   },
   {
@@ -121,7 +121,9 @@ const STOPS: InputStop[] = [
     href: "#schedule",
     external: false,
     medium: "virtual",
-    partners: [{ name: "Unreal Engine SA", src: "/unreal-engine-sa-logo-color.png" }],
+    partners: [
+      { name: "Unreal Engine SA", src: "/unreal-engine-sa-logo-color.png" },
+    ],
   },
   {
     date: "2026-07-12T12:00",
@@ -164,7 +166,9 @@ const STOPS: InputStop[] = [
     href: "https://www.meetup.com/acm-sa/events/315064971",
     external: true,
     medium: "in-person",
-    partners: [{ name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" }],
+    partners: [
+      { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" },
+    ],
   },
   {
     date: "2026-07-22T18:00",

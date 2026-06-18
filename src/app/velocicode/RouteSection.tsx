@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import styles from "./page.module.css";
 import {
   type ComputedStop,
@@ -199,10 +199,7 @@ export function RouteSection({
               <div className={styles["stop-title"]}>{s.title}</div>
             </div>
             {s.medium && (
-              <div
-                className={styles["stop-mode"]}
-                data-mode={s.medium}
-              >
+              <div className={styles["stop-mode"]} data-mode={s.medium}>
                 {s.medium === "in-person"
                   ? "In Person"
                   : s.medium === "hybrid"
@@ -220,7 +217,13 @@ export function RouteSection({
               <span className={styles["stop-partners-lbl"]}>With</span>
               {s.partners.map((p) => (
                 <span key={p.name} className={styles["stop-partner"]}>
-                  <Image src={p.src} alt={p.name} height={16} width={64} style={{ objectFit: "contain", height: 16, width: "auto" }} />
+                  <Image
+                    src={p.src}
+                    alt={p.name}
+                    height={16}
+                    width={64}
+                    style={{ objectFit: "contain", height: 16, width: "auto" }}
+                  />
                 </span>
               ))}
             </div>
