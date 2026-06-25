@@ -295,6 +295,11 @@ const SPONSORS: { name: string; src: string; href?: string }[] = [
     src: "/the-doseum-logo.png",
     href: "https://www.thedoseum.org/",
   },
+  {
+    name: "Boot.dev",
+    src: "/bootdev-logo.png",
+    href: "https://www.boot.dev/",
+  },
 ];
 
 const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
