@@ -1,0 +1,373 @@
+/* ── CSS Variables ─────────────────────────────────────────── */
+.page {
+  --cream: #f5e6c2;
+  --sand: #ecd197;
+  --sunrise: #f0a830;
+  --mustard: #f5c800;
+  --clay: #c44d24;
+  --rust: #8c3914;
+  --leaf-far: #5ab348;
+  --leaf-mid: #3d8c28;
+  --leaf-deep: #1e6016;
+  --leaf-shadow: #0d3a08;
+  --bark: #5a3a18;
+  --ink: #20180c;
+  --paper: #f8edcc;
+  --line: 2.5px solid var(--ink);
+
+  min-height: 100dvh;
+  background: var(--cream);
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0 31px,
+    color-mix(in srgb, var(--bark) 8%, transparent) 31px 32px
+  );
+  color: var(--ink);
+  font-family: var(--vc-dm-mono), ui-monospace, monospace;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAV ───────────────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--cream) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--line);
+}
+
+.nav-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.nav-brand .dot {
+  width: 10px;
+  height: 10px;
+  background: var(--clay);
+  border-radius: 50%;
+}
+
+.nav-spacer {
+  flex: 1;
+}
+
+.nav-back {
+  text-decoration: none;
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rust);
+  padding: 10px 4px;
+  opacity: 0.8;
+  transition: opacity 0.12s ease;
+}
+
+.nav-back:hover {
+  opacity: 1;
+}
+
+/* ── ORACLE WRAP ────────────────────────────────────────────── */
+.oracle-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 32px 72px;
+}
+
+/* ── ORACLE CARD ────────────────────────────────────────────── */
+.oracle-card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--ink);
+  color: var(--paper);
+  border: var(--line);
+  border-color: var(--bark);
+  padding: 48px 44px 40px;
+  box-shadow: 10px 10px 0 var(--bark);
+  position: relative;
+}
+
+.oracle-card::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 2px dashed color-mix(in srgb, var(--mustard) 35%, transparent);
+  pointer-events: none;
+}
+
+/* ── ORACLE HEADER ──────────────────────────────────────────── */
+.oracle-eye {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mustard);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.oracle-eye::before,
+.oracle-eye::after {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--mustard);
+  flex-shrink: 0;
+}
+
+.oracle-title {
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.oracle-title-a {
+  font-family: var(--vc-luckiest-guy), system-ui;
+  color: var(--paper);
+}
+
+.oracle-title-b {
+  font-family: var(--vc-rubik-dirt), system-ui;
+  color: var(--mustard);
+  text-shadow: 4px 4px 0 var(--leaf-shadow);
+}
+
+.oracle-sub {
+  font-family: var(--vc-dm-mono), monospace;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--paper) 80%, transparent);
+  max-width: 46ch;
+  margin-bottom: 28px;
+}
+
+.oracle-sub em {
+  font-style: italic;
+  color: var(--mustard);
+}
+
+/* ── PROMPT FORM ────────────────────────────────────────────── */
+.prompt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-row {
+  display: flex;
+  gap: 0;
+}
+
+.input {
+  flex: 1;
+  font-family: var(--vc-dm-mono), monospace;
+  font-size: 0.95rem;
+  padding: 13px 16px;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--line);
+  border-color: color-mix(in srgb, var(--bark) 80%, transparent);
+  border-right: none;
+  outline: none;
+  min-width: 0;
+  letter-spacing: 0.04em;
+}
+
+.input::placeholder {
+  color: color-mix(in srgb, var(--ink) 38%, transparent);
+  font-style: italic;
+}
+
+.input:focus {
+  background: #fff;
+  border-color: var(--mustard);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--mustard) 35%, transparent);
+}
+
+.consult-btn {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 13px 20px;
+  background: var(--rust);
+  color: var(--paper);
+  border: var(--line);
+  border-color: color-mix(in srgb, var(--bark) 80%, transparent);
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 5px 5px 0 var(--bark);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+  flex-shrink: 0;
+}
+
+.consult-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--bark);
+}
+
+.consult-btn:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--bark);
+}
+
+/* ── RESPONSE AREA ──────────────────────────────────────────── */
+.response-area {
+  margin-top: 28px;
+  min-height: 120px;
+  position: relative;
+}
+
+.response-note {
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--line);
+  padding: 22px 24px 18px;
+  box-shadow: 7px 7px 0 var(--bark);
+  position: relative;
+  transform: rotate(-1.2deg);
+  animation: oracle-stamp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.response-note::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(3deg);
+  width: 90px;
+  height: 22px;
+  background: color-mix(in srgb, var(--mustard) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+}
+
+.response-stamp {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--rust);
+  border: 1.5px solid var(--clay);
+  padding: 3px 6px;
+  transform: rotate(4deg);
+  opacity: 0.75;
+}
+
+.response-text {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 1.1rem;
+  line-height: 1.45;
+  color: var(--ink);
+  padding-right: 60px;
+}
+
+.response-hint {
+  margin-top: 10px;
+  font-family: var(--vc-dm-mono), monospace;
+  font-size: 0.74rem;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  line-height: 1.5;
+}
+
+.response-hint a {
+  color: var(--rust);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.response-hint a:hover {
+  color: var(--clay);
+}
+
+/* ── ANIMATION ──────────────────────────────────────────────── */
+@keyframes oracle-stamp {
+  0% {
+    opacity: 0;
+    transform: rotate(-1.2deg) scale(0.78) translateY(12px);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(-1.2deg) scale(1.03) translateY(-3px);
+  }
+  80% {
+    transform: rotate(-1.2deg) scale(0.98) translateY(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-1.2deg) scale(1) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .response-note {
+    animation: none;
+  }
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .oracle-wrap {
+    padding: 40px 20px 56px;
+  }
+
+  .oracle-card {
+    padding: 36px 28px 32px;
+  }
+
+  .oracle-card::before {
+    inset: 10px;
+  }
+
+  .input-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .input {
+    border-right: var(--line);
+    border-right-color: color-mix(in srgb, var(--bark) 80%, transparent);
+    border-bottom: none;
+  }
+
+  .consult-btn {
+    width: 100%;
+    box-shadow: 5px 5px 0 var(--bark);
+  }
+
+  .response-text {
+    padding-right: 0;
+  }
+}
