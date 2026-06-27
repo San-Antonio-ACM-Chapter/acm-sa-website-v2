@@ -8,7 +8,7 @@ import {
 } from "next/font/google";
 import Link from "next/link";
 import { VCSymbols } from "../graphics/VCSymbols";
-import { GuessOracle } from "./GuessOracle";
+import { GuessOracle } from "./GuessCompass";
 import styles from "./guess.module.css";
 
 const luckiestGuy = Luckiest_Guy({
