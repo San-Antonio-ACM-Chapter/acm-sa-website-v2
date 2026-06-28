@@ -604,25 +604,49 @@ export default function VelociCodePage() {
         </div>
       </div>
 
-      {/* ─── THEME REVEAL (env-gated) ────────────────────────────────── */}
-      {process.env.VELOCICODE_THEME && (
-        <section className={styles["theme-reveal"]}>
-          <div className={styles["theme-eye"]}>The Theme Is Revealed</div>
-          <div className={styles["theme-name"]}>
-            {process.env.VELOCICODE_THEME}
-          </div>
-          {process.env.VELOCICODE_KICKOFF_VIDEO && (
-            <a
-              className={styles["theme-video-btn"]}
-              href={process.env.VELOCICODE_KICKOFF_VIDEO}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              ▶ Watch the Kickoff
-            </a>
-          )}
-        </section>
-      )}
+      {/* ─── THEME REVEAL / PRE-REVEAL ──────────────────────────────── */}
+      <section className={styles["theme-reveal"]}>
+        {process.env.VELOCICODE_THEME ? (
+          <>
+            <div className={styles["theme-eye"]}>The Theme Is Revealed</div>
+            <div className={styles["theme-name"]}>
+              {process.env.VELOCICODE_THEME}
+            </div>
+            {process.env.VELOCICODE_KICKOFF_VIDEO && (
+              <a
+                className={styles["theme-video-btn"]}
+                href={process.env.VELOCICODE_KICKOFF_VIDEO}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ▶ Watch the Kickoff
+              </a>
+            )}
+          </>
+        ) : (
+          <>
+            <div className={styles["theme-eye"]}>Theme Not Yet Revealed</div>
+            <div className={styles["pre-reveal-ctas"]}>
+              <a
+                className={`${styles.btn} ${styles["btn-primary"]}`}
+                href="/velocicode/guess"
+              >
+                ⊕ Consult The Compass
+              </a>
+              {process.env.VELOCICODE_KICKOFF_VIDEO && (
+                <a
+                  className={styles["theme-video-btn"]}
+                  href={process.env.VELOCICODE_KICKOFF_VIDEO}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ▶ Subscribe to the Kickoff ↗
+                </a>
+              )}
+            </div>
+          </>
+        )}
+      </section>
 
       {/* ─── ABOUT ──────────────────────────────────────────────────── */}
       <SectionReveal className={`${styles.block} ${styles.about}`} id="about">
