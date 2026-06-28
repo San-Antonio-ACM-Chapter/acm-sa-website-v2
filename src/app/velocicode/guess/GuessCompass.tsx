@@ -140,11 +140,11 @@ export function GuessOracle() {
                 <div className={styles["response-hint"]}>
                   — try a different guess, or{" "}
                   <a
-                    href="https://itch.io/jam/velocicode-2"
+                    href="https://www.devsa.community/events/kickoff-velocicode-2-mos6r72t"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    just register and find out ↗
+                    join us on July 1st ↗
                   </a>
                 </div>
               )}
