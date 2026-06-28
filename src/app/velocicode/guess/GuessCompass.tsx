@@ -101,7 +101,9 @@ export function GuessOracle() {
   return (
     <div className={styles["oracle-wrap"]}>
       <div className={styles["oracle-card"]}>
-        <div className={styles["oracle-eye"]}>Field Compass · Expedition 02</div>
+        <div className={styles["oracle-eye"]}>
+          Field Compass · Expedition 02
+        </div>
 
         <h1 className={styles["oracle-title"]}>
           <span className={styles["oracle-title-a"]}>THE</span>{" "}
