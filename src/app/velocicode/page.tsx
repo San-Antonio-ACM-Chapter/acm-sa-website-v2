@@ -18,6 +18,7 @@ import { RouteSection } from "./RouteSection";
 import { buildRouteLayout, type InputStop } from "./routeLayout";
 import { SectionReveal } from "./SectionReveal";
 import { StatCounter } from "./StatCounter";
+import { SPONSORS, COMMUNITY_PARTNERS } from "./allies";
 
 const luckiestGuy = Luckiest_Guy({
   subsets: ["latin"],
@@ -284,47 +285,6 @@ const CHALLENGES = [
   },
 ];
 
-const SPONSORS: { name: string; src: string; href?: string }[] = [
-  {
-    name: "Texas Roadhouse - Alamo Ranch",
-    src: "/texas-roadhouse-logo.png",
-    href: "https://www.facebook.com/txrhSanAntonioTX6616WLoop1604North",
-  },
-  {
-    name: "The DoSeum",
-    src: "/the-doseum-logo.png",
-    href: "https://www.thedoseum.org/",
-  },
-  {
-    name: "Boot.dev",
-    src: "/bootdev-logo.png",
-    href: "https://www.boot.dev/",
-  },
-];
-
-const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
-  {
-    name: "Greater Gaming Society",
-    src: "/ggs-logo.png",
-    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/",
-  },
-  {
-    name: "DEVSA",
-    src: "/devsa-logo.svg",
-    href: "https://www.devsa.community/",
-  },
-  { name: "Geekdom", src: "/geekdom.svg", href: "https://geekdom.com/" },
-  {
-    name: "Alamo Tech Collective",
-    src: "/alamo-tech-collective-logo.png",
-    href: "https://alamotechcollective.com/",
-  },
-  {
-    name: "Unreal Engine San Antonio",
-    src: "/unreal-engine-sa-logo-color.png",
-    href: "https://communities.unrealengine.com/san-antonio/",
-  },
-];
 
 const MARQUEE_ITEMS = [
   "VelociCode 02",
@@ -846,7 +806,7 @@ export default function VelociCodePage() {
                       <div className={styles["logo-box"]}>
                         {s.src ? (
                           <Image
-                            src={`/velocicode/${s.src}`}
+                            src={s.src}
                             alt={s.name}
                             fill
                             style={{ objectFit: "contain", padding: "8px" }}
