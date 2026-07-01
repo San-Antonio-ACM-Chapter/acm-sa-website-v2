@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import kf from "../kickoff.module.css";
-import { Eyebrow } from "../slide-utils";
 import type { SlideProps } from "../slide-utils";
+import { Eyebrow } from "../slide-utils";
 
 export function Rules({ cls }: SlideProps) {
   const items: { n: string; text: ReactNode }[] = [

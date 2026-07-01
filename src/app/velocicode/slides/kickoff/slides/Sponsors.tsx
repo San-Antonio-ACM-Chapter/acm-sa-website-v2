@@ -1,8 +1,8 @@
+import { SPONSORS } from "../../../allies";
 import slides from "../../slides.module.css";
 import kf from "../kickoff.module.css";
-import { SPONSORS } from "../../../allies";
-import { Eyebrow } from "../slide-utils";
 import type { SlideProps } from "../slide-utils";
+import { Eyebrow } from "../slide-utils";
 
 export function Sponsors({ cls }: SlideProps) {
   return (

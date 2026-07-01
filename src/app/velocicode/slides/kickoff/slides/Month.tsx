@@ -1,7 +1,7 @@
 import slides from "../../slides.module.css";
 import kf from "../kickoff.module.css";
-import { Eyebrow, QRImg } from "../slide-utils";
 import type { QRSlideProps } from "../slide-utils";
+import { Eyebrow, QRImg } from "../slide-utils";
 
 export function Month({ cls, qrs }: QRSlideProps) {
   return (

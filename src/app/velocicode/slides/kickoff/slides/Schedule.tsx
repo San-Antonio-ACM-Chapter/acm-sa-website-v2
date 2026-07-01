@@ -1,6 +1,6 @@
 import slides from "../../slides.module.css";
+import type { SlideEvent, SlideProps } from "../slide-utils";
 import { Eyebrow } from "../slide-utils";
-import type { SlideProps, SlideEvent } from "../slide-utils";
 
 type ScheduleProps = SlideProps & {
   events: SlideEvent[];

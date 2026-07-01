@@ -1,6 +1,6 @@
 import kf from "../kickoff.module.css";
-import { Eyebrow } from "../slide-utils";
 import type { SlideProps } from "../slide-utils";
+import { Eyebrow } from "../slide-utils";
 
 export function Welcome({ cls }: SlideProps) {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { Special_Elite, DM_Mono, Luckiest_Guy } from "next/font/google";
+import { DM_Mono, Luckiest_Guy, Special_Elite } from "next/font/google";
 import { useCallback, useState } from "react";
 import styles from "./configure.module.css";
 

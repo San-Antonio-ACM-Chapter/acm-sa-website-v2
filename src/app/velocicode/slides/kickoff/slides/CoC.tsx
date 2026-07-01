@@ -1,6 +1,6 @@
 import kf from "../kickoff.module.css";
-import { Eyebrow, QRImg } from "../slide-utils";
 import type { QRSlideProps } from "../slide-utils";
+import { Eyebrow, QRImg } from "../slide-utils";
 
 export function CoC({ cls, qrs }: QRSlideProps) {
   return (

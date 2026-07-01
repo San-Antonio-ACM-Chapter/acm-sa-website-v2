@@ -1,6 +1,6 @@
 "use client";
 
-import { Luckiest_Guy, Special_Elite, DM_Mono } from "next/font/google";
+import { DM_Mono, Luckiest_Guy, Special_Elite } from "next/font/google";
 
 const luckiestGuy = Luckiest_Guy({
   subsets: ["latin"],
