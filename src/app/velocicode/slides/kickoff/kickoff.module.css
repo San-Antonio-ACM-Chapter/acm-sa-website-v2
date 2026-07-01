@@ -25,14 +25,28 @@
 }
 
 /* ── Stagger entrance ───────────────────────────────────────── */
-.kfStagger > * { opacity: 1; }
+.kfStagger > * {
+  opacity: 1;
+}
 
-.kfIsIn .kfStagger > * { animation: kfRise 0.5s cubic-bezier(0.2, 0.65, 0.3, 1) both; }
-.kfIsIn .kfStagger > *:nth-child(2) { animation-delay: 0.07s; }
-.kfIsIn .kfStagger > *:nth-child(3) { animation-delay: 0.14s; }
-.kfIsIn .kfStagger > *:nth-child(4) { animation-delay: 0.21s; }
-.kfIsIn .kfStagger > *:nth-child(5) { animation-delay: 0.28s; }
-.kfIsIn .kfStagger > *:nth-child(6) { animation-delay: 0.35s; }
+.kfIsIn .kfStagger > * {
+  animation: kfRise 0.5s cubic-bezier(0.2, 0.65, 0.3, 1) both;
+}
+.kfIsIn .kfStagger > *:nth-child(2) {
+  animation-delay: 0.07s;
+}
+.kfIsIn .kfStagger > *:nth-child(3) {
+  animation-delay: 0.14s;
+}
+.kfIsIn .kfStagger > *:nth-child(4) {
+  animation-delay: 0.21s;
+}
+.kfIsIn .kfStagger > *:nth-child(5) {
+  animation-delay: 0.28s;
+}
+.kfIsIn .kfStagger > *:nth-child(6) {
+  animation-delay: 0.35s;
+}
 
 /* ── Slide counter ──────────────────────────────────────────── */
 .kfCount {
@@ -71,7 +85,9 @@
   flex-direction: column;
   align-items: center;
   gap: 22px;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
 }
 
 .trMid {
@@ -115,8 +131,12 @@
   right: 9%;
   border-top: 3px dashed rgba(245, 200, 0, 0.16);
 }
-.trMound::before { top: 40%; }
-.trMound::after  { top: 66%; }
+.trMound::before {
+  top: 40%;
+}
+.trMound::after {
+  top: 66%;
+}
 
 .trQmark {
   font-family: var(--vc-font-display-1);
@@ -137,8 +157,12 @@
   filter: drop-shadow(3px 4px 5px rgba(0, 0, 0, 0.45));
 }
 
-.trStep1 .trBrush { animation: kfBrush1 0.84s cubic-bezier(0.25, 0, 0.6, 1) forwards; }
-.trStep2 .trBrush { animation: kfBrush2 0.84s cubic-bezier(0.25, 0, 0.6, 1) forwards; }
+.trStep1 .trBrush {
+  animation: kfBrush1 0.84s cubic-bezier(0.25, 0, 0.6, 1) forwards;
+}
+.trStep2 .trBrush {
+  animation: kfBrush2 0.84s cubic-bezier(0.25, 0, 0.6, 1) forwards;
+}
 
 /* dust */
 .trDust {
@@ -269,91 +293,227 @@
 /* ── Step-dependent states ──────────────────────────────────── */
 .trStep1 .trIntro,
 .trStep2 .trIntro,
-.trStep3 .trIntro { display: none; }
+.trStep3 .trIntro {
+  display: none;
+}
 
-.trStep1 .trDig { animation: kfShake 0.55s ease; }
-.trStep1 .trDust { animation: kfPuff 0.85s ease-out; }
-.trStep1 .trMeter i:nth-child(1) { background: var(--vc-mustard); }
+.trStep1 .trDig {
+  animation: kfShake 0.55s ease;
+}
+.trStep1 .trDust {
+  animation: kfPuff 0.85s ease-out;
+}
+.trStep1 .trMeter i:nth-child(1) {
+  background: var(--vc-mustard);
+}
 
-.trStep2 .trDig { animation: kfShake2 0.55s ease; }
-.trStep2 .trDust { animation: kfPuff2 0.85s ease-out; }
+.trStep2 .trDig {
+  animation: kfShake2 0.55s ease;
+}
+.trStep2 .trDust {
+  animation: kfPuff2 0.85s ease-out;
+}
 .trStep2 .trMeter i:nth-child(1),
-.trStep2 .trMeter i:nth-child(2) { background: var(--vc-mustard); }
+.trStep2 .trMeter i:nth-child(2) {
+  background: var(--vc-mustard);
+}
 
-.trStep3 .trDig { display: none; }
-.trStep3 .trReveal { display: flex; }
-.trStep3 .trReveal .trSlab { animation: kfSlab 0.5s cubic-bezier(0.2, 1.2, 0.4, 1) both; }
-.trStep3 .trReveal .trWord { animation: kfSlam 0.55s cubic-bezier(0.2, 1.25, 0.4, 1) both, kfThemePulse 3s 0.6s ease-in-out infinite; }
-.trStep3 .trBurst { display: block; animation: kfBurstSpin 80s linear infinite; }
-.trStep3 .trFinal { display: block; }
-.trStep3 .trMeter i { background: var(--vc-mustard); }
+.trStep3 .trDig {
+  display: none;
+}
+.trStep3 .trReveal {
+  display: flex;
+}
+.trStep3 .trReveal .trSlab {
+  animation: kfSlab 0.5s cubic-bezier(0.2, 1.2, 0.4, 1) both;
+}
+.trStep3 .trReveal .trWord {
+  animation:
+    kfSlam 0.55s cubic-bezier(0.2, 1.25, 0.4, 1) both,
+    kfThemePulse 3s 0.6s ease-in-out infinite;
+}
+.trStep3 .trBurst {
+  display: block;
+  animation: kfBurstSpin 80s linear infinite;
+}
+.trStep3 .trFinal {
+  display: block;
+}
+.trStep3 .trMeter i {
+  background: var(--vc-mustard);
+}
 
 /* ── @keyframes ─────────────────────────────────────────────── */
-@keyframes kfIn { from { opacity: 0.25; } to { opacity: 1; } }
-@keyframes kfOut { from { opacity: 1; } to { opacity: 0; } }
-@keyframes kfRise { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes kfIn {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes kfOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes kfRise {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @keyframes kfShake {
-  0%,  100% { transform: translateX(0) rotate(-1deg); }
-  18%        { transform: translateX(-9px) rotate(-2.4deg); }
-  38%        { transform: translateX(8px) rotate(0.2deg); }
-  60%        { transform: translateX(-6px) rotate(-1.6deg); }
-  82%        { transform: translateX(4px) rotate(-0.6deg); }
+  0%,
+  100% {
+    transform: translateX(0) rotate(-1deg);
+  }
+  18% {
+    transform: translateX(-9px) rotate(-2.4deg);
+  }
+  38% {
+    transform: translateX(8px) rotate(0.2deg);
+  }
+  60% {
+    transform: translateX(-6px) rotate(-1.6deg);
+  }
+  82% {
+    transform: translateX(4px) rotate(-0.6deg);
+  }
 }
 
 @keyframes kfShake2 {
-  0%,  100% { transform: translateX(0) rotate(-1deg); }
-  16%        { transform: translateX(11px) rotate(0.4deg); }
-  40%        { transform: translateX(-10px) rotate(-2.6deg); }
-  64%        { transform: translateX(7px) rotate(-0.2deg); }
-  84%        { transform: translateX(-4px) rotate(-1.4deg); }
+  0%,
+  100% {
+    transform: translateX(0) rotate(-1deg);
+  }
+  16% {
+    transform: translateX(11px) rotate(0.4deg);
+  }
+  40% {
+    transform: translateX(-10px) rotate(-2.6deg);
+  }
+  64% {
+    transform: translateX(7px) rotate(-0.2deg);
+  }
+  84% {
+    transform: translateX(-4px) rotate(-1.4deg);
+  }
 }
 
 @keyframes kfPuff {
-  0%   { opacity: 0; }
-  25%  { opacity: 0.85; }
-  100% { opacity: 0; transform: translateY(-90px) scale(1.7); }
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-90px) scale(1.7);
+  }
 }
 
 @keyframes kfPuff2 {
-  0%   { opacity: 0; }
-  25%  { opacity: 0.8; }
-  100% { opacity: 0; transform: translateY(-120px) scale(1.9); }
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(1.9);
+  }
 }
 
 @keyframes kfSlab {
-  from { transform: scale(0.5) rotate(-13deg); }
-  to   { transform: scale(1) rotate(-3deg); }
+  from {
+    transform: scale(0.5) rotate(-13deg);
+  }
+  to {
+    transform: scale(1) rotate(-3deg);
+  }
 }
 
 @keyframes kfSlam {
-  from { transform: scale(1.5) rotate(5deg); }
-  to   { transform: scale(1) rotate(-2deg); }
+  from {
+    transform: scale(1.5) rotate(5deg);
+  }
+  to {
+    transform: scale(1) rotate(-2deg);
+  }
 }
 
 @keyframes kfThemePulse {
-  0%,  100% { text-shadow: 6px 6px 0 #20180c; }
-  50%        { text-shadow: 6px 6px 0 #20180c, 0 0 55px rgba(245, 200, 0, 0.6); }
+  0%,
+  100% {
+    text-shadow: 6px 6px 0 #20180c;
+  }
+  50% {
+    text-shadow:
+      6px 6px 0 #20180c,
+      0 0 55px rgba(245, 200, 0, 0.6);
+  }
 }
 
-@keyframes kfBurstSpin { to { transform: rotate(360deg); } }
+@keyframes kfBurstSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 @keyframes kfBrush1 {
-  0%   { opacity: 0; transform: translateX(-310px) rotate(-22deg); }
-  16%  { opacity: 1; }
-  74%  { opacity: 1; transform: translateX(40px) rotate(-4deg); }
-  100% { opacity: 0; transform: translateX(320px) rotate(16deg); }
+  0% {
+    opacity: 0;
+    transform: translateX(-310px) rotate(-22deg);
+  }
+  16% {
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+    transform: translateX(40px) rotate(-4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(320px) rotate(16deg);
+  }
 }
 @keyframes kfBrush2 {
-  0%   { opacity: 0; transform: translateX(310px) rotate(22deg); }
-  16%  { opacity: 1; }
-  74%  { opacity: 1; transform: translateX(-40px) rotate(4deg); }
-  100% { opacity: 0; transform: translateX(-320px) rotate(-16deg); }
+  0% {
+    opacity: 0;
+    transform: translateX(310px) rotate(22deg);
+  }
+  16% {
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+    transform: translateX(-40px) rotate(4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-320px) rotate(-16deg);
+  }
 }
 
 @keyframes kfPromptNudge {
-  0%,  100% { transform: translateY(0); }
-  50%        { transform: translateY(-7px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
 }
 
 /* ── prefers-reduced-motion ─────────────────────────────────── */
@@ -366,8 +526,15 @@
   .trStep3 .trReveal .trWord,
   .trStep3 .trReveal .trSlab,
   .trStep3 .trBurst,
-  .trPrompt { animation: none !important; }
+  .trPrompt {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override specificity */
+    animation: none !important;
+  }
 
-  .kfIsOut { opacity: 0; }
-  .kfIsIn .kfStagger > * { opacity: 1; }
+  .kfIsOut {
+    opacity: 0;
+  }
+  .kfIsIn .kfStagger > * {
+    opacity: 1;
+  }
 }

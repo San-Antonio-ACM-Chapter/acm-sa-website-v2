@@ -25,25 +25,25 @@
   transform-origin: center center;
 
   /* ── Design tokens ──────────────────────────────────────────── */
-  --vc-cream:       #f5e6c2;
-  --vc-sand:        #ecd197;
-  --vc-paper:       #f8edcc;
-  --vc-sunrise:     #f0a830;
-  --vc-mustard:     #f5c800;
-  --vc-clay:        #c44d24;
-  --vc-rust:        #8c3914;
-  --vc-leaf-far:    #5ab348;
-  --vc-leaf-mid:    #3d8c28;
-  --vc-leaf-deep:   #1e6016;
+  --vc-cream: #f5e6c2;
+  --vc-sand: #ecd197;
+  --vc-paper: #f8edcc;
+  --vc-sunrise: #f0a830;
+  --vc-mustard: #f5c800;
+  --vc-clay: #c44d24;
+  --vc-rust: #8c3914;
+  --vc-leaf-far: #5ab348;
+  --vc-leaf-mid: #3d8c28;
+  --vc-leaf-deep: #1e6016;
   --vc-leaf-shadow: #0d3a08;
-  --vc-bark:        #5a3a18;
-  --vc-ink:         #20180c;
+  --vc-bark: #5a3a18;
+  --vc-ink: #20180c;
   --vc-font-display-1: "Luckiest Guy", "Impact", system-ui, sans-serif;
   --vc-font-display-2: "Rubik Dirt", "Impact", system-ui, sans-serif;
   --vc-font-display-3: "Bowlby One SC", "Impact", system-ui, sans-serif;
-  --vc-font-hand:      "Caveat Brush", "Comic Sans MS", cursive;
-  --vc-font-stamp:     "Special Elite", ui-monospace, monospace;
-  --vc-font-mono:      "DM Mono", ui-monospace, monospace;
+  --vc-font-hand: "Caveat Brush", "Comic Sans MS", cursive;
+  --vc-font-stamp: "Special Elite", ui-monospace, monospace;
+  --vc-font-mono: "DM Mono", ui-monospace, monospace;
 }
 
 /* ── Ambient contour drift ────────────────────────────────────── */
@@ -108,20 +108,30 @@
 
 /* ── Staggered content entrance ───────────────────────────────── */
 /* Base: elements visible at rest so frozen kiosk never hides content */
-.stagger > * { opacity: 1; }
+.stagger > * {
+  opacity: 1;
+}
 
 .card.isInA .stagger > *,
 .card.isInC .stagger > * {
   animation: vcRise 0.5s cubic-bezier(0.2, 0.65, 0.3, 1) both;
 }
 .card.isInA .stagger > *:nth-child(2),
-.card.isInC .stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.card.isInC .stagger > *:nth-child(2) {
+  animation-delay: 0.08s;
+}
 .card.isInA .stagger > *:nth-child(3),
-.card.isInC .stagger > *:nth-child(3) { animation-delay: 0.16s; }
+.card.isInC .stagger > *:nth-child(3) {
+  animation-delay: 0.16s;
+}
 .card.isInA .stagger > *:nth-child(4),
-.card.isInC .stagger > *:nth-child(4) { animation-delay: 0.24s; }
+.card.isInC .stagger > *:nth-child(4) {
+  animation-delay: 0.24s;
+}
 .card.isInA .stagger > *:nth-child(5),
-.card.isInC .stagger > *:nth-child(5) { animation-delay: 0.32s; }
+.card.isInC .stagger > *:nth-child(5) {
+  animation-delay: 0.32s;
+}
 
 /* ── Persistent chrome ────────────────────────────────────────── */
 .progressTrack {
@@ -198,8 +208,12 @@
   background: transparent;
   cursor: pointer;
 }
-.zoneLeft  { left: 0; }
-.zoneRight { right: 0; }
+.zoneLeft {
+  left: 0;
+}
+.zoneRight {
+  right: 0;
+}
 
 /* ── Pause / play button ──────────────────────────────────────── */
 .pause {
@@ -221,7 +235,9 @@
   font-family: var(--vc-font-stamp);
   font-size: 26px;
   letter-spacing: 0.04em;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
   user-select: none;
 }
 .pause:hover {
@@ -274,7 +290,9 @@
   animation: vcNeedle 7s ease-in-out infinite;
 }
 
-.float { animation: vcFloat 6s ease-in-out infinite; }
+.float {
+  animation: vcFloat 6s ease-in-out infinite;
+}
 
 .scan {
   animation: vcScan 2.4s ease-in-out infinite;
@@ -282,51 +300,114 @@
 
 /* ── @keyframes ───────────────────────────────────────────────── */
 @keyframes vcTurnA {
-  0%   { transform: rotateY(0deg); filter: brightness(1); opacity: 1; }
-  50%  { filter: brightness(0.7); opacity: 1; }
-  100% { transform: rotateY(-120deg) translateX(-3%); filter: brightness(0.4); opacity: 0; }
+  0% {
+    transform: rotateY(0deg);
+    filter: brightness(1);
+    opacity: 1;
+  }
+  50% {
+    filter: brightness(0.7);
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(-120deg) translateX(-3%);
+    filter: brightness(0.4);
+    opacity: 0;
+  }
 }
 @keyframes vcInA {
-  from { filter: brightness(0.82); transform: scale(1.025); }
-  to   { filter: brightness(1); transform: scale(1); }
+  from {
+    filter: brightness(0.82);
+    transform: scale(1.025);
+  }
+  to {
+    filter: brightness(1);
+    transform: scale(1);
+  }
 }
 @keyframes vcRevealC {
-  from { clip-path: polygon(0 0, 0 0, 0 0); }
-  to   { clip-path: polygon(0 0, 224% 0, 0 224%); }
+  from {
+    clip-path: polygon(0 0, 0 0, 0 0);
+  }
+  to {
+    clip-path: polygon(0 0, 224% 0, 0 224%);
+  }
 }
 @keyframes vcPlaneFly {
-  from { transform: translate(-380px, -300px) rotate(30deg); }
-  to   { transform: translate(1980px, 1180px) rotate(36deg); }
+  from {
+    transform: translate(-380px, -300px) rotate(30deg);
+  }
+  to {
+    transform: translate(1980px, 1180px) rotate(36deg);
+  }
 }
 @keyframes vcTrail {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 @keyframes vcSun {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes vcNeedle {
-  0%, 100% { transform: rotate(-7deg); }
-  50%       { transform: rotate(8deg); }
+  0%,
+  100% {
+    transform: rotate(-7deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
 }
 @keyframes vcFloat {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-15px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
 }
 @keyframes vcScan {
-  0%, 100% { box-shadow: 8px 8px 0 #20180c, 0 0 0 0 rgba(245, 200, 0, 0); }
-  50%      { box-shadow: 8px 8px 0 #20180c, 0 0 46px 7px rgba(245, 200, 0, 0.6); }
+  0%,
+  100% {
+    box-shadow:
+      8px 8px 0 #20180c,
+      0 0 0 0 rgba(245, 200, 0, 0);
+  }
+  50% {
+    box-shadow:
+      8px 8px 0 #20180c,
+      0 0 46px 7px rgba(245, 200, 0, 0.6);
+  }
 }
 @keyframes vcRise {
-  from { opacity: 0; transform: translateY(34px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes vcDrift {
-  from { background-position: 0 0; }
-  to   { background-position: 760px 760px; }
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 760px 760px;
+  }
 }
 @keyframes vcSway {
-  0%, 100% { transform: rotate(-2.5deg); }
-  50%       { transform: rotate(2.5deg); }
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
 }
 
 /* ── prefers-reduced-motion ───────────────────────────────────── */
@@ -334,18 +415,27 @@
   .card.isOutA,
   .card.isOutC,
   .card.isInA,
-  .card.isInC { animation: none !important; }
+  .card.isInC {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override specificity */
+    animation: none !important;
+  }
 
   .card.isOutA,
-  .card.isOutC { opacity: 0; }
+  .card.isOutC {
+    opacity: 0;
+  }
 
   .card.isInA .stagger > *,
   .card.isInC .stagger > * {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override specificity */
     animation: none !important;
     opacity: 1;
   }
 
-  .card.isInC { clip-path: none !important; }
+  .card.isInC {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override specificity */
+    clip-path: none !important;
+  }
 
   .brandImg,
   .sun,
@@ -355,6 +445,7 @@
   .contour,
   .plane,
   .trail path {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override specificity */
     animation: none !important;
   }
 }

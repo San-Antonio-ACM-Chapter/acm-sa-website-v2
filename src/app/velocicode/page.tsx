@@ -10,16 +10,16 @@ import {
 import Image from "next/image";
 import { Fragment } from "react";
 import { AccordionFAQ, type FaqItem } from "./AccordionFAQ";
+import { COMMUNITY_PARTNERS, SPONSORS } from "./allies";
+import { RSVP_URL, STOPS } from "./events";
 import { VCHeroScene } from "./graphics/VCHeroScene";
 import { VCSymbols } from "./graphics/VCSymbols";
 import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
 import styles from "./page.module.css";
 import { RouteSection } from "./RouteSection";
 import { buildRouteLayout } from "./routeLayout";
-import { STOPS, RSVP_URL } from "./events";
 import { SectionReveal } from "./SectionReveal";
 import { StatCounter } from "./StatCounter";
-import { SPONSORS, COMMUNITY_PARTNERS } from "./allies";
 
 const luckiestGuy = Luckiest_Guy({
   subsets: ["latin"],
@@ -98,7 +98,6 @@ const META_ITEMS = [
   { label: "Cost", value: "Free · all levels" },
 ];
 
-
 const POLAROID_PHOTOS: PolaroidPhoto[] = [
   { src: "event-photo-25-01.jpeg", description: "Presentation Day", year: 1 },
   { src: "social-25-01.jpeg", description: "GGS Social", year: 1 },
@@ -171,7 +170,6 @@ const CHALLENGES = [
     desc: "Decided by the community. Everyone at the showcase gets a ticket to vote — the people's champ takes it home, no judges required.",
   },
 ];
-
 
 const MARQUEE_ITEMS = [
   "VelociCode 02",

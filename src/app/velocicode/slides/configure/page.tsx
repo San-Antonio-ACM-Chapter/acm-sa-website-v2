@@ -4,19 +4,31 @@ import { Special_Elite, DM_Mono, Luckiest_Guy } from "next/font/google";
 import { useCallback, useState } from "react";
 import styles from "./configure.module.css";
 
-const luckiestGuy = Luckiest_Guy({ subsets: ["latin"], weight: "400", display: "swap" });
-const elite       = Special_Elite({ subsets: ["latin"], weight: "400", display: "swap" });
-const dmMono      = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], display: "swap" });
+const luckiestGuy = Luckiest_Guy({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+const elite = Special_Elite({
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
 
 const HIDEABLE_CARDS = [
-  { slug: "qr",       label: "QR Codes" },
-  { slug: "wifi",     label: "Wi-Fi" },
+  { slug: "qr", label: "QR Codes" },
+  { slug: "wifi", label: "Wi-Fi" },
   { slug: "sponsors", label: "Sponsors" },
   { slug: "partners", label: "Partners" },
-  { slug: "socials",  label: "Socials" },
-  { slug: "newhere",  label: "New Here?" },
-  { slug: "brand",    label: "Brand" },
-  { slug: "coc",      label: "Code of Conduct" },
+  { slug: "socials", label: "Socials" },
+  { slug: "newhere", label: "New Here?" },
+  { slug: "brand", label: "Brand" },
+  { slug: "coc", label: "Code of Conduct" },
 ] as const;
 
 type HideSlug = (typeof HIDEABLE_CARDS)[number]["slug"];
@@ -32,16 +44,17 @@ function buildUrl(fields: {
 }): string {
   if (!fields.title.trim()) return "";
 
-  const base = typeof window !== "undefined"
-    ? `${window.location.origin}/velocicode/slides/display`
-    : "https://acmsa.org/velocicode/slides/display";
+  const base =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/velocicode/slides/display`
+      : "https://acmsa.org/velocicode/slides/display";
 
   const p = new URLSearchParams();
   p.set("title", fields.title.trim());
-  if (fields.time.trim())     p.set("time",     fields.time.trim());
+  if (fields.time.trim()) p.set("time", fields.time.trim());
   if (fields.location.trim()) p.set("location", fields.location.trim());
   if (fields.wifiNetwork.trim() && fields.wifiPassword.trim()) {
-    p.set("wifiNetwork",  fields.wifiNetwork.trim());
+    p.set("wifiNetwork", fields.wifiNetwork.trim());
     p.set("wifiPassword", fields.wifiPassword.trim());
     if (fields.wifiSecurity && fields.wifiSecurity !== "none") {
       p.set("wifiSecurity", fields.wifiSecurity);
@@ -54,16 +67,24 @@ function buildUrl(fields: {
 }
 
 export default function ConfigurePage() {
-  const [title,        setTitle]        = useState("");
-  const [time,         setTime]         = useState("");
-  const [location,     setLocation]     = useState("");
-  const [wifiNetwork,  setWifiNetwork]  = useState("");
+  const [title, setTitle] = useState("");
+  const [time, setTime] = useState("");
+  const [location, setLocation] = useState("");
+  const [wifiNetwork, setWifiNetwork] = useState("");
   const [wifiPassword, setWifiPassword] = useState("");
   const [wifiSecurity, setWifiSecurity] = useState("none");
-  const [hidden,       setHidden]       = useState<Set<HideSlug>>(new Set());
-  const [copied,       setCopied]       = useState(false);
+  const [hidden, setHidden] = useState<Set<HideSlug>>(new Set());
+  const [copied, setCopied] = useState(false);
 
-  const url = buildUrl({ title, time, location, wifiNetwork, wifiPassword, wifiSecurity, hidden });
+  const url = buildUrl({
+    title,
+    time,
+    location,
+    wifiNetwork,
+    wifiPassword,
+    wifiSecurity,
+    hidden,
+  });
 
   const toggleHide = useCallback((slug: HideSlug) => {
     setHidden((prev) => {
@@ -85,7 +106,11 @@ export default function ConfigurePage() {
     }
   }, [url]);
 
-  const fontCls = [luckiestGuy.className, elite.className, dmMono.className].join(" ");
+  const fontCls = [
+    luckiestGuy.className,
+    elite.className,
+    dmMono.className,
+  ].join(" ");
 
   return (
     <div className={`${styles.page} ${fontCls}`}>
@@ -95,7 +120,12 @@ export default function ConfigurePage() {
           <span className={styles.dot} />
           VelociCode · Slides
         </div>
-        <a href="/velocicode/slides/display" className={styles.navLink} target="_blank" rel="noopener noreferrer">
+        <a
+          href="/velocicode/slides/display"
+          className={styles.navLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Open runtime ↗
         </a>
       </nav>
@@ -111,14 +141,14 @@ export default function ConfigurePage() {
         </p>
 
         <div className={styles.card}>
-
           {/* ── Event info ───────────────────────────────────────── */}
           <div className={styles.section}>
             <div className={styles.sectionLabel}>Event info</div>
             <div className={styles.row}>
               <div className={`${styles.field} ${styles.full}`}>
                 <label className={styles.label} htmlFor="title">
-                  Event / segment name <span className={styles.required}>*</span>
+                  Event / segment name{" "}
+                  <span className={styles.required}>*</span>
                 </label>
                 <input
                   id="title"
@@ -127,11 +157,12 @@ export default function ConfigurePage() {
                   placeholder="Kickoff"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  autoFocus
                 />
               </div>
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="time">Time</label>
+                <label className={styles.label} htmlFor="time">
+                  Time
+                </label>
                 <input
                   id="time"
                   type="text"
@@ -142,7 +173,9 @@ export default function ConfigurePage() {
                 />
               </div>
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="location">Location</label>
+                <label className={styles.label} htmlFor="location">
+                  Location
+                </label>
                 <input
                   id="location"
                   type="text"
@@ -159,13 +192,23 @@ export default function ConfigurePage() {
           <div className={styles.section}>
             <div className={styles.sectionLabel}>
               Wi-Fi{" "}
-              <span style={{ opacity: 0.55, fontWeight: 400, textTransform: "none", letterSpacing: 0 }}>
-                — adds the Wi-Fi card when both network &amp; password are filled
+              <span
+                style={{
+                  opacity: 0.55,
+                  fontWeight: 400,
+                  textTransform: "none",
+                  letterSpacing: 0,
+                }}
+              >
+                — adds the Wi-Fi card when both network &amp; password are
+                filled
               </span>
             </div>
             <div className={styles.row}>
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="wifiNetwork">Network name</label>
+                <label className={styles.label} htmlFor="wifiNetwork">
+                  Network name
+                </label>
                 <input
                   id="wifiNetwork"
                   type="text"
@@ -176,7 +219,9 @@ export default function ConfigurePage() {
                 />
               </div>
               <div className={styles.field}>
-                <label className={styles.label} htmlFor="wifiPassword">Password</label>
+                <label className={styles.label} htmlFor="wifiPassword">
+                  Password
+                </label>
                 <input
                   id="wifiPassword"
                   type="text"
@@ -189,7 +234,13 @@ export default function ConfigurePage() {
               <div className={styles.field}>
                 <label className={styles.label} htmlFor="wifiSecurity">
                   Security type{" "}
-                  <span style={{ opacity: 0.55, textTransform: "none", letterSpacing: 0 }}>
+                  <span
+                    style={{
+                      opacity: 0.55,
+                      textTransform: "none",
+                      letterSpacing: 0,
+                    }}
+                  >
                     (enables QR code)
                   </span>
                 </label>
@@ -226,23 +277,27 @@ export default function ConfigurePage() {
                       checked={checked}
                       onChange={() => toggleHide(slug)}
                     />
-                    <span className={styles.toggleMark}>{checked ? "✕" : ""}</span>
+                    <span className={styles.toggleMark}>
+                      {checked ? "✕" : ""}
+                    </span>
                     {label}
                   </label>
                 );
               })}
             </div>
           </div>
-
-        </div>{/* /card */}
+        </div>
+        {/* /card */}
 
         {/* ── Output ─────────────────────────────────────────────── */}
         <div className={styles.outputCard}>
-          <div className={styles.outputHeader}>
-            Generated link
-          </div>
+          <div className={styles.outputHeader}>Generated link</div>
           <div className={styles.outputUrl}>
-            {url || <span style={{ opacity: 0.4 }}>Enter an event name above to generate a link.</span>}
+            {url || (
+              <span style={{ opacity: 0.4 }}>
+                Enter an event name above to generate a link.
+              </span>
+            )}
           </div>
           <div className={styles.outputActions}>
             <button
@@ -251,7 +306,11 @@ export default function ConfigurePage() {
               onClick={handleCopy}
               disabled={!url}
             >
-              {copied ? <span className={styles.copyDone}>✓ Copied</span> : "Copy link"}
+              {copied ? (
+                <span className={styles.copyDone}>✓ Copied</span>
+              ) : (
+                "Copy link"
+              )}
             </button>
             {url && (
               <a
@@ -265,7 +324,6 @@ export default function ConfigurePage() {
             )}
           </div>
         </div>
-
       </div>
     </div>
   );

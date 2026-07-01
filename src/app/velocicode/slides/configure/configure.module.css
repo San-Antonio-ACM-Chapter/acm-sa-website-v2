@@ -4,17 +4,17 @@
    ────────────────────────────────────────────────────────────── */
 
 .page {
-  --cream:      #f5e6c2;
-  --sand:       #ecd197;
-  --paper:      #f8edcc;
-  --mustard:    #f5c800;
-  --clay:       #c44d24;
-  --rust:       #8c3914;
-  --leaf-far:   #5ab348;
-  --leaf-deep:  #1e6016;
-  --bark:       #5a3a18;
-  --ink:        #20180c;
-  --line:       2.5px solid var(--ink);
+  --cream: #f5e6c2;
+  --sand: #ecd197;
+  --paper: #f8edcc;
+  --mustard: #f5c800;
+  --clay: #c44d24;
+  --rust: #8c3914;
+  --leaf-far: #5ab348;
+  --leaf-deep: #1e6016;
+  --bark: #5a3a18;
+  --ink: #20180c;
+  --line: 2.5px solid var(--ink);
 
   min-height: 100dvh;
   background: var(--cream);
@@ -60,7 +60,9 @@
   text-decoration: none;
   opacity: 0.65;
 }
-.navLink:hover { opacity: 1; }
+.navLink:hover {
+  opacity: 1;
+}
 
 /* ── Layout ──────────────────────────────────────────────────── */
 .wrap {
@@ -202,7 +204,9 @@
   user-select: none;
 }
 
-.toggle input { display: none; }
+.toggle input {
+  display: none;
+}
 
 .toggle[data-checked="true"] {
   background: var(--ink);
@@ -269,7 +273,9 @@
   padding: 12px 20px;
   border: 2.5px solid var(--cream);
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -287,15 +293,19 @@
   box-shadow: 4px 4px 0 var(--cream);
 }
 
-.btnPrimary:hover { box-shadow: 2px 2px 0 var(--cream); }
+.btnPrimary:hover {
+  box-shadow: 2px 2px 0 var(--cream);
+}
 
 .btnGhost {
   background: transparent;
   color: var(--cream);
-  box-shadow: 4px 4px 0 rgba(255,255,255,0.25);
+  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.25);
 }
 
-.btnGhost:hover { box-shadow: 2px 2px 0 rgba(255,255,255,0.25); }
+.btnGhost:hover {
+  box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.25);
+}
 
 .copyDone {
   color: var(--leaf-far);
@@ -303,7 +313,13 @@
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 680px) {
-  .wrap { padding: 36px 20px 60px; }
-  .card { padding: 28px 22px; }
-  .row  { grid-template-columns: 1fr; }
+  .wrap {
+    padding: 36px 20px 60px;
+  }
+  .card {
+    padding: 28px 22px;
+  }
+  .row {
+    grid-template-columns: 1fr;
+  }
 }
