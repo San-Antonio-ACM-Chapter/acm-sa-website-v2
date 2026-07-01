@@ -7,7 +7,6 @@ import {
   Rubik_Dirt,
   Special_Elite,
 } from "next/font/google";
-import Image from "next/image";
 import { Fragment } from "react";
 import { AccordionFAQ, type FaqItem } from "./AccordionFAQ";
 import { COMMUNITY_PARTNERS, SPONSORS } from "./allies";
@@ -732,11 +731,15 @@ export default function VelociCodePage() {
                     >
                       <div className={styles["logo-box"]}>
                         {s.src ? (
-                          <Image
+                          // biome-ignore lint/performance/noImgElement: partner logo, small fixed asset
+                          <img
                             src={s.src}
                             alt={s.name}
-                            fill
-                            style={{ objectFit: "contain" }}
+                            style={{
+                              maxWidth: "100%",
+                              maxHeight: "100%",
+                              objectFit: "contain",
+                            }}
                           />
                         ) : (
                           <span className={styles["logo-ph"]}>{s.name}</span>
@@ -783,11 +786,15 @@ export default function VelociCodePage() {
                 >
                   <div className={styles["logo-box"]}>
                     {p.src ? (
-                      <Image
+                      // biome-ignore lint/performance/noImgElement: partner logo, small fixed asset
+                      <img
                         src={p.src}
                         alt={p.name}
-                        fill
-                        style={{ objectFit: "contain" }}
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "contain",
+                        }}
                       />
                     ) : (
                       <span className={styles["logo-ph"]}>{p.name}</span>

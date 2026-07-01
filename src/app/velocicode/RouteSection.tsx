@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import styles from "./page.module.css";
 import {
@@ -217,12 +216,15 @@ export function RouteSection({
               <span className={styles["stop-partners-lbl"]}>With</span>
               {s.partners.map((p) => (
                 <span key={p.name} className={styles["stop-partner"]}>
-                  <Image
+                  {/* biome-ignore lint/performance/noImgElement: small partner icon chip, no optimization needed */}
+                  <img
                     src={p.src}
                     alt={p.name}
-                    height={16}
-                    width={64}
-                    style={{ objectFit: "contain", height: 16, width: "auto" }}
+                    style={{
+                      height: "16px",
+                      width: "auto",
+                      objectFit: "contain",
+                    }}
                   />
                 </span>
               ))}

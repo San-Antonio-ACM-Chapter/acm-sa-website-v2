@@ -11,12 +11,15 @@ import {
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { STOPS } from "../../events";
+import { VCSymbols } from "../../graphics/VCSymbols";
 import slides from "../slides.module.css";
 import kf from "./kickoff.module.css";
 import { deriveSlideEvents, makeQR } from "./slide-utils";
+import { Awards } from "./slides/Awards";
 import { Build } from "./slides/Build";
 import { CoC } from "./slides/CoC";
 import { Giveaway } from "./slides/Giveaway";
+import { Judging } from "./slides/Judging";
 import { Month } from "./slides/Month";
 import { Numbers } from "./slides/Numbers";
 import { Playtest } from "./slides/Playtest";
@@ -79,10 +82,10 @@ function chunkArr<T>(arr: T[], n: number): T[][] {
 }
 
 const SCHEDULE_CHUNKS = chunkArr(deriveSlideEvents(STOPS), 6);
-const SCHEDULE_IDX = 9;
+const SCHEDULE_IDX = 12;
 const POST = SCHEDULE_IDX + SCHEDULE_CHUNKS.length;
-const TOTAL = POST + 7; // Month, Prizes, Sponsors, Giveaway, ThemeReveal, QA, Build
-const THEME_REVEAL_IDX = POST + 4;
+const TOTAL = POST + 6; // Month, Sponsors, Giveaway, ThemeReveal, QA, Build
+const THEME_REVEAL_IDX = POST + 3;
 const SLIDE_DURATION = 12;
 
 function cardCls(
@@ -241,6 +244,7 @@ function KickoffRuntime() {
 
   return (
     <div className={slides.viewport}>
+      <VCSymbols />
       <div className={slides.frame} style={{ transform: `scale(${scale})` }}>
         <div className={slides.contour} />
 
@@ -249,11 +253,14 @@ function KickoffRuntime() {
           <Welcome cls={c(1)} />
           <Numbers cls={c(2)} />
           <Rules cls={c(3)} />
-          <CoC cls={c(4)} qrs={qrs} />
-          <Route cls={c(5)} />
-          <Radio cls={c(6)} qrs={qrs} />
-          <Playtest cls={c(7)} />
-          <Showcase cls={c(8)} />
+          <Awards cls={c(4)} />
+          <Judging cls={c(5)} />
+          <Prizes cls={c(6)} />
+          <CoC cls={c(7)} qrs={qrs} />
+          <Route cls={c(8)} />
+          <Radio cls={c(9)} qrs={qrs} />
+          <Playtest cls={c(10)} />
+          <Showcase cls={c(11)} />
           {SCHEDULE_CHUNKS.map((evts, pi) => (
             <Schedule
               key={evts[0]?.title ?? `sched-${pi}`}
@@ -264,12 +271,11 @@ function KickoffRuntime() {
             />
           ))}
           <Month cls={c(POST)} qrs={qrs} />
-          <Prizes cls={c(POST + 1)} />
-          <Sponsors cls={c(POST + 2)} />
-          <Giveaway cls={c(POST + 3)} />
-          <ThemeReveal cls={c(POST + 4)} themeStep={themeStep} />
-          <QA cls={c(POST + 5)} />
-          <Build cls={c(POST + 6)} qrs={qrs} />
+          <Sponsors cls={c(POST + 1)} />
+          <Giveaway cls={c(POST + 2)} />
+          <ThemeReveal cls={c(POST + 3)} themeStep={themeStep} />
+          <QA cls={c(POST + 4)} />
+          <Build cls={c(POST + 5)} qrs={qrs} />
         </div>
 
         <div className={slides.progressTrack}>

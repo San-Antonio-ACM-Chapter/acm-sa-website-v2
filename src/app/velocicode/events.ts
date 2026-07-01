@@ -30,7 +30,7 @@ export const STOPS: InputStop[] = [
     partners: [{ name: "Unreal Engine SA", src: "/unreal-engine-sa.png" }],
   },
   {
-    date: "2026-07-12T12:00",
+    date: "2026-07-11T18:00",
     title: "San Antonio Mayham",
     location: "Venue TBA",
     meta: "Join the GGS community for a fun evening of a low-stake tournament.",
@@ -83,6 +83,15 @@ export const STOPS: InputStop[] = [
     external: false,
     medium: "hybrid",
     partners: [{ name: "Unreal Engine SA", src: "/unreal-engine-sa.png" }],
+  },
+  {
+    date: "2026-07-24T18:00",
+    title: "TBA Event",
+    meta: "Event details coming soon!",
+    cta: "RSVP",
+    href: "#schedule",
+    external: false,
+    medium: "in-person",
   },
   {
     date: "2026-07-26T12:00",
