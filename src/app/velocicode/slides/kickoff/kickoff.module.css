@@ -1,0 +1,540 @@
+/* ── Kickoff deck — card states (simple fade, not A/C) ──────── */
+
+.kfCard {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+}
+
+.kfIsActive {
+  display: block;
+  z-index: 1;
+}
+
+.kfIsIn {
+  display: block;
+  z-index: 2;
+  animation: kfIn 0.46s ease forwards;
+}
+
+.kfIsOut {
+  display: block;
+  z-index: 1;
+  animation: kfOut 0.4s ease forwards;
+}
+
+/* ── Stagger entrance ───────────────────────────────────────── */
+.kfStagger > * {
+  opacity: 1;
+}
+
+.kfIsIn .kfStagger > * {
+  animation: kfRise 0.5s cubic-bezier(0.2, 0.65, 0.3, 1) both;
+}
+.kfIsIn .kfStagger > *:nth-child(2) {
+  animation-delay: 0.07s;
+}
+.kfIsIn .kfStagger > *:nth-child(3) {
+  animation-delay: 0.14s;
+}
+.kfIsIn .kfStagger > *:nth-child(4) {
+  animation-delay: 0.21s;
+}
+.kfIsIn .kfStagger > *:nth-child(5) {
+  animation-delay: 0.28s;
+}
+.kfIsIn .kfStagger > *:nth-child(6) {
+  animation-delay: 0.35s;
+}
+
+/* ── Slide counter ──────────────────────────────────────────── */
+.kfCount {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  z-index: 7;
+  font-family: var(--vc-font-stamp);
+  font-size: 23px;
+  letter-spacing: 0.14em;
+  color: var(--vc-ink);
+  background: rgba(248, 237, 204, 0.7);
+  border: 2px solid var(--vc-ink);
+  padding: 6px 14px;
+}
+
+/* ── Theme reveal stage ─────────────────────────────────────── */
+.trStage {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 120px;
+}
+
+.trIntro {
+  position: absolute;
+  top: 120px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.trMid {
+  position: relative;
+  width: 1180px;
+  height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* dig mound */
+.trDig {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+.trMound {
+  position: relative;
+  width: 540px;
+  height: 300px;
+  background: radial-gradient(ellipse 120% 150% at 50% 0%, #6b4520, #3c260f);
+  border: 3px solid #20180c;
+  border-radius: 34px 34px 96px 96px / 24px 24px 140px 140px;
+  box-shadow: 9px 9px 0 #0d2407;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-1deg);
+}
+
+.trMound::before,
+.trMound::after {
+  content: "";
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  border-top: 3px dashed rgba(245, 200, 0, 0.16);
+}
+.trMound::before {
+  top: 40%;
+}
+.trMound::after {
+  top: 66%;
+}
+
+.trQmark {
+  font-family: var(--vc-font-display-1);
+  font-size: 190px;
+  line-height: 0.8;
+  color: #0a2e06;
+  text-shadow: 3px 3px 0 rgba(245, 200, 0, 0.1);
+}
+
+/* archaeology brush */
+.trBrush {
+  position: absolute;
+  width: 68px;
+  top: 50px;
+  left: calc(50% - 34px);
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(3px 4px 5px rgba(0, 0, 0, 0.45));
+}
+
+.trStep1 .trBrush {
+  animation: kfBrush1 0.84s cubic-bezier(0.25, 0, 0.6, 1) forwards;
+}
+.trStep2 .trBrush {
+  animation: kfBrush2 0.84s cubic-bezier(0.25, 0, 0.6, 1) forwards;
+}
+
+/* dust */
+.trDust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* fossil + word reveal */
+.trReveal {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  pointer-events: none;
+}
+
+.trSlab {
+  position: relative;
+  flex: none;
+  background: var(--vc-paper);
+  border: 3px solid #20180c;
+  box-shadow: 8px 8px 0 #0d2407;
+  padding: 12px;
+  transform: rotate(-3deg);
+}
+
+.trSlab::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 120px;
+  height: 26px;
+  background: rgba(245, 200, 0, 0.78);
+  border: 1px solid rgba(32, 24, 12, 0.3);
+}
+
+.trSlab img {
+  display: block;
+  width: 224px;
+  height: 224px;
+  object-fit: contain;
+}
+
+.trWord {
+  font-family: var(--vc-font-display-1);
+  font-size: 180px;
+  line-height: 0.78;
+  color: var(--vc-mustard);
+  text-shadow: 6px 6px 0 #20180c;
+  transform: rotate(-2deg);
+}
+
+.trBurst {
+  position: absolute;
+  width: 1180px;
+  height: 1180px;
+  display: none;
+  z-index: -1;
+  transform-origin: center;
+}
+
+.trFinal {
+  position: absolute;
+  bottom: 96px;
+  left: 0;
+  right: 0;
+  font-family: var(--vc-font-hand);
+  font-size: 60px;
+  color: var(--vc-cream);
+  transform: rotate(-1.5deg);
+  display: none;
+}
+
+/* meter */
+.trMeter {
+  position: absolute;
+  top: 128px;
+  right: 120px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--vc-font-stamp);
+  font-size: 20px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--vc-mustard);
+}
+
+.trMeter i {
+  width: 30px;
+  height: 18px;
+  border: 2px solid var(--vc-mustard);
+  background: transparent;
+  transition: background 0.4s ease;
+  font-style: normal;
+}
+
+/* prompt */
+.trPrompts {
+  position: absolute;
+  bottom: 104px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.trPrompt {
+  font-family: var(--vc-font-stamp);
+  font-size: 30px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--vc-leaf-deep);
+  background: var(--vc-mustard);
+  border: 2.5px solid #20180c;
+  box-shadow: 5px 5px 0 #20180c;
+  padding: 14px 30px;
+  animation: kfPromptNudge 1.6s ease-in-out infinite;
+}
+
+/* ── Step-dependent states ──────────────────────────────────── */
+.trStep1 .trIntro,
+.trStep2 .trIntro,
+.trStep3 .trIntro {
+  display: none;
+}
+
+.trStep1 .trDig {
+  animation: kfShake 0.55s ease;
+}
+.trStep1 .trDust {
+  animation: kfPuff 0.85s ease-out;
+}
+.trStep1 .trMeter i:nth-child(1) {
+  background: var(--vc-mustard);
+}
+
+.trStep2 .trDig {
+  animation: kfShake2 0.55s ease;
+}
+.trStep2 .trDust {
+  animation: kfPuff2 0.85s ease-out;
+}
+.trStep2 .trMeter i:nth-child(1),
+.trStep2 .trMeter i:nth-child(2) {
+  background: var(--vc-mustard);
+}
+
+.trStep3 .trDig {
+  display: none;
+}
+.trStep3 .trReveal {
+  display: flex;
+}
+.trStep3 .trReveal .trSlab {
+  animation: kfSlab 0.5s cubic-bezier(0.2, 1.2, 0.4, 1) both;
+}
+.trStep3 .trReveal .trWord {
+  animation:
+    kfSlam 0.55s cubic-bezier(0.2, 1.25, 0.4, 1) both,
+    kfThemePulse 3s 0.6s ease-in-out infinite;
+}
+.trStep3 .trBurst {
+  display: block;
+  animation: kfBurstSpin 80s linear infinite;
+}
+.trStep3 .trFinal {
+  display: block;
+}
+.trStep3 .trMeter i {
+  background: var(--vc-mustard);
+}
+
+/* ── @keyframes ─────────────────────────────────────────────── */
+@keyframes kfIn {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes kfOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes kfRise {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kfShake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(-1deg);
+  }
+  18% {
+    transform: translateX(-9px) rotate(-2.4deg);
+  }
+  38% {
+    transform: translateX(8px) rotate(0.2deg);
+  }
+  60% {
+    transform: translateX(-6px) rotate(-1.6deg);
+  }
+  82% {
+    transform: translateX(4px) rotate(-0.6deg);
+  }
+}
+
+@keyframes kfShake2 {
+  0%,
+  100% {
+    transform: translateX(0) rotate(-1deg);
+  }
+  16% {
+    transform: translateX(11px) rotate(0.4deg);
+  }
+  40% {
+    transform: translateX(-10px) rotate(-2.6deg);
+  }
+  64% {
+    transform: translateX(7px) rotate(-0.2deg);
+  }
+  84% {
+    transform: translateX(-4px) rotate(-1.4deg);
+  }
+}
+
+@keyframes kfPuff {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-90px) scale(1.7);
+  }
+}
+
+@keyframes kfPuff2 {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(1.9);
+  }
+}
+
+@keyframes kfSlab {
+  from {
+    transform: scale(0.5) rotate(-13deg);
+  }
+  to {
+    transform: scale(1) rotate(-3deg);
+  }
+}
+
+@keyframes kfSlam {
+  from {
+    transform: scale(1.5) rotate(5deg);
+  }
+  to {
+    transform: scale(1) rotate(-2deg);
+  }
+}
+
+@keyframes kfThemePulse {
+  0%,
+  100% {
+    text-shadow: 6px 6px 0 #20180c;
+  }
+  50% {
+    text-shadow:
+      6px 6px 0 #20180c,
+      0 0 55px rgba(245, 200, 0, 0.6);
+  }
+}
+
+@keyframes kfBurstSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes kfBrush1 {
+  0% {
+    opacity: 0;
+    transform: translateX(-310px) rotate(-22deg);
+  }
+  16% {
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+    transform: translateX(40px) rotate(-4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(320px) rotate(16deg);
+  }
+}
+@keyframes kfBrush2 {
+  0% {
+    opacity: 0;
+    transform: translateX(310px) rotate(22deg);
+  }
+  16% {
+    opacity: 1;
+  }
+  74% {
+    opacity: 1;
+    transform: translateX(-40px) rotate(4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-320px) rotate(-16deg);
+  }
+}
+
+@keyframes kfPromptNudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* ── prefers-reduced-motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .kfIsIn,
+  .kfIsOut,
+  .kfIsIn .kfStagger > *,
+  .trDig,
+  .trBrush,
+  .trStep3 .trReveal .trWord,
+  .trStep3 .trReveal .trSlab,
+  .trStep3 .trBurst,
+  .trPrompt {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced-motion must override specificity */
+    animation: none !important;
+  }
+
+  .kfIsOut {
+    opacity: 0;
+  }
+  .kfIsIn .kfStagger > * {
+    opacity: 1;
+  }
+}

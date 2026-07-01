@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Bowlby_One_SC,
   Caveat_Brush,
@@ -7,15 +7,16 @@ import {
   Rubik_Dirt,
   Special_Elite,
 } from "next/font/google";
-import Image from "next/image";
 import { Fragment } from "react";
 import { AccordionFAQ, type FaqItem } from "./AccordionFAQ";
+import { COMMUNITY_PARTNERS, SPONSORS } from "./allies";
+import { RSVP_URL, STOPS } from "./events";
 import { VCHeroScene } from "./graphics/VCHeroScene";
 import { VCSymbols } from "./graphics/VCSymbols";
 import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
 import styles from "./page.module.css";
 import { RouteSection } from "./RouteSection";
-import { buildRouteLayout, type InputStop } from "./routeLayout";
+import { buildRouteLayout } from "./routeLayout";
 import { SectionReveal } from "./SectionReveal";
 import { StatCounter } from "./StatCounter";
 
@@ -63,7 +64,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://acmsa.org/velocicode",
   },
-  themeColor: "#3D8C28",
   openGraph: {
     title: "VelociCode — ACM San Antonio",
     description:
@@ -90,125 +90,14 @@ export const metadata: Metadata = {
   },
 };
 
-const RSVP_URL = "https://www.meetup.com/acm-sa/events/312892484";
+export const viewport: Viewport = {
+  themeColor: "#3D8C28",
+};
 
 const META_ITEMS = [
   { label: "Window", value: "Jul 1 → Aug 1" },
   { label: "Kickoff", value: "Wed Jul 1 · 7 pm" },
   { label: "Cost", value: "Free · all levels" },
-];
-
-const STOPS: InputStop[] = [
-  {
-    date: "2026-07-01T17:00",
-    title: "Kickoff + Theme Reveal",
-    location: "Geekdom 3rd Floor",
-    meta: "In-person + livestream. Doors at 6:30, theme drops at ~7.",
-    cta: "RSVP",
-    href: RSVP_URL,
-    external: true,
-    medium: "hybrid",
-    partners: [
-      { name: "Geekdom", src: "/geekdom.svg" },
-      { name: "DevSA", src: "/devsa-logo.svg" },
-    ],
-  },
-  {
-    date: "2026-07-8T18:00",
-    title: "TBA Event",
-    meta: "Event details coming soon!",
-    cta: "RSVP",
-    href: "#schedule",
-    external: false,
-    medium: "virtual",
-    partners: [
-      { name: "Unreal Engine SA", src: "/unreal-engine-sa-logo-color.png" },
-    ],
-  },
-  {
-    date: "2026-07-12T12:00",
-    title: "San Antonio Tournament",
-    location: "Venue TBA",
-    meta: "Keep an eye out for updates for a bracket-style tournament at a local venue. Details TBA!",
-    cta: "TBA",
-    href: "#schedule",
-    external: false,
-    medium: "in-person",
-    partners: [{ name: "Greater Gaming Society", src: "/ggs-logo-black.png" }],
-  },
-  {
-    date: "2026-07-14T19:00",
-    title: "GGS Social Hour",
-    location: "Shenanigans Gaming LLC",
-    meta: "The monthly GGS Social Hour is every 2nd Tuesday of the month!",
-    cta: "RSVP",
-    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/events/mbwsxtyjckbsb",
-    external: true,
-    medium: "in-person",
-    partners: [{ name: "Greater Gaming Society", src: "/ggs-logo-black.png" }],
-  },
-  {
-    date: "2026-07-16T18:00",
-    title: "Dynamic and Procedural Audio in Godot",
-    location: "Venue TBA",
-    meta: "Details coming soon! Stay tuned to our Meetup and Discord for updates.",
-    cta: "RSVP",
-    href: "https://www.meetup.com/acm-sa/events/315081675",
-    external: true,
-    medium: "hybrid",
-  },
-  {
-    date: "2026-07-17T18:00",
-    title: "Playtest Day",
-    location: "Zelifcam",
-    meta: "Bring your game, bring your pals, get some live feedback, win a prize. Don't have a game? Join the dinosaur contest!",
-    cta: "RSVP",
-    href: "https://www.meetup.com/acm-sa/events/315064971",
-    external: true,
-    medium: "in-person",
-    partners: [
-      { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" },
-    ],
-  },
-  {
-    date: "2026-07-22T18:00",
-    title: "TBA Event",
-    meta: "Event details coming soon!",
-    cta: "RSVP",
-    href: "#schedule",
-    external: false,
-    medium: "hybrid",
-  },
-  {
-    date: "2026-07-26T12:00",
-    title: "How to Submit",
-    location: "YouTube",
-    meta: "We will show you how to submit your game on itch.io, and share tips for making your submission shine. Whether you have a game ready or just want to see how it works, this session is for you!",
-    cta: "Learn how to submit",
-    href: "https://www.youtube.com/@ACMSanAntonio/streams",
-    external: true,
-    medium: "virtual",
-  },
-  {
-    date: "2026-07-30T23:59",
-    title: "Submissions Due",
-    location: "itch.io",
-    meta: "Don't be late — late builds aren't eligible for prizes or presentations. RSVP with the organizers to confirm your spot.",
-    cta: "Submit on itch.io",
-    href: "https://itch.io/jam/velocicode-2",
-    external: false,
-    medium: "virtual",
-  },
-  {
-    date: "2026-08-01T11:00",
-    title: "Showcase",
-    location: "Venue TBA",
-    meta: "Family-friendly. Tables, laptops, controllers, awards. Come celebrate the fruits of a month of coding as teams present in a science-fair-style showcase. Everyone who RSVPs gets a ticket to vote for the Crowd Favorite award, and the judges will be on hand to pick Best Overall and Best Theme.",
-    cta: "RSVP",
-    href: "https://www.meetup.com/acm-sa/events/312892527",
-    external: true,
-    medium: "in-person",
-  },
 ];
 
 const POLAROID_PHOTOS: PolaroidPhoto[] = [
@@ -265,6 +154,7 @@ const CHALLENGES = [
     rank: "the prompt, nailed",
     title: "Best Theme",
     desc: "The cleverest, weirdest, most heartfelt take on this year's theme reveal — the game that makes the prompt sing. Surprise us.",
+    prize: "$200 Prize Pool",
   },
   {
     pos: "center" as const,
@@ -273,6 +163,7 @@ const CHALLENGES = [
     rank: "the big one",
     title: "Best Overall",
     desc: "Fun to play, polished, and it sticks with you. The judges' pick for the game that nails it top to bottom — story, feel, and finish.",
+    prize: "$100 Prize Pool",
   },
   {
     pos: "right" as const,
@@ -281,48 +172,40 @@ const CHALLENGES = [
     rank: "voted by the room",
     title: "Crowd Favorite",
     desc: "Decided by the community. Everyone at the showcase gets a ticket to vote — the people's champ takes it home, no judges required.",
+    prize: "$20 Per Team Member",
   },
 ];
 
-const SPONSORS: { name: string; src: string; href?: string }[] = [
+const PRIZES = [
   {
-    name: "Texas Roadhouse - Alamo Ranch",
-    src: "/texas-roadhouse-logo.png",
-    href: "https://www.facebook.com/txrhSanAntonioTX6616WLoop1604North",
+    sponsor: "ACM San Antonio",
+    prize: "Hardware / Software / Swag",
+    for: "Participants",
   },
   {
-    name: "The DoSeum",
-    src: "/the-doseum-logo.png",
-    href: "https://www.thedoseum.org/",
+    sponsor: "Texas Road House - Alamo Ranch",
+    prize: "$25 Gift Cards",
+    for: "Winners",
   },
   {
-    name: "Boot.dev",
-    src: "/bootdev-logo.png",
-    href: "https://www.boot.dev/",
-  },
-];
-
-const COMMUNITY_PARTNERS: { name: string; src: string; href?: string }[] = [
-  {
-    name: "Greater Gaming Society",
-    src: "/ggs-logo.png",
-    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/",
+    sponsor: "Texas Road House - Alamo Ranch",
+    prize: "Nut Basket",
+    for: "Giveaway",
   },
   {
-    name: "DEVSA",
-    src: "/devsa-logo.svg",
-    href: "https://www.devsa.community/",
-  },
-  { name: "Geekdom", src: "/geekdom.svg", href: "https://geekdom.com/" },
-  {
-    name: "Alamo Tech Collective",
-    src: "/alamo-tech-collective-logo.png",
-    href: "https://alamotechcollective.com/",
+    sponsor: "The DoSeum",
+    prize: "General Admission Tickets",
+    for: "Winners",
   },
   {
-    name: "Unreal Engine San Antonio",
-    src: "/unreal-engine-sa-logo-color.png",
-    href: "https://communities.unrealengine.com/san-antonio/",
+    sponsor: "Boot.Dev",
+    prize: "1 month subscription",
+    for: "Submitters",
+  },
+  {
+    sponsor: "Boot.Dev",
+    prize: "3 month subscription",
+    for: "Winners",
   },
 ];
 
@@ -694,7 +577,7 @@ export default function VelociCodePage() {
               </p>
               <p>
                 It&apos;s not a hackathon — there&apos;s no all-nighter, no
-                exhaustion-as-flex. It&apos;s a month. Make a tiny thing. Make
+                overworking yourself. It&apos;s a month. Make a tiny thing. Make
                 it weird. Make it yours.
               </p>
             </div>
@@ -776,13 +659,13 @@ export default function VelociCodePage() {
                 <span className={styles["pcard-rank"]}>{c.rank}</span>
                 <h3>{c.title}</h3>
                 <p className={styles["pcard-desc"]}>{c.desc}</p>
-                <div className={styles["pcard-prize"]}>Prize · TBA</div>
+                <div className={styles["pcard-prize"]}>{c.prize}</div>
               </div>
             ))}
           </div>
 
           {/* loot callout — hidden until prizes are finalized */}
-          {/* <div className={styles.loot}>
+          <div className={styles.loot}>
             <div className={styles["loot-badge"]}>★ The loot ★</div>
             <h3>What you&apos;re playing for.</h3>
             <p>
@@ -791,15 +674,18 @@ export default function VelociCodePage() {
               the three awards. Drop the real numbers in when they&apos;re set.
             </p>
             <div className={styles["loot-slots"]}>
-              {CHALLENGES.map((c) => (
-                <div key={c.title} className={styles["loot-slot"]}>
-                  <span className={styles["ls-l"]}>{c.title}</span>
-                  <span className={styles["ls-v"]}>$ TBA</span>
-                  <span className={styles["ls-n"]}>prize to be announced</span>
+              {PRIZES.map((c) => (
+                <div
+                  key={`${c.sponsor}-${c.prize}`}
+                  className={styles["loot-slot"]}
+                >
+                  <span className={styles["ls-l"]}>{c.sponsor}</span>
+                  <span className={styles["ls-v"]}>{c.prize}</span>
+                  <span className={styles["ls-n"]}>{c.for}</span>
                 </div>
               ))}
             </div>
-          </div> */}
+          </div>
         </div>
       </SectionReveal>
 
@@ -845,11 +731,15 @@ export default function VelociCodePage() {
                     >
                       <div className={styles["logo-box"]}>
                         {s.src ? (
-                          <Image
-                            src={`/velocicode/${s.src}`}
+                          // biome-ignore lint/performance/noImgElement: partner logo, small fixed asset
+                          <img
+                            src={s.src}
                             alt={s.name}
-                            fill
-                            style={{ objectFit: "contain", padding: "8px" }}
+                            style={{
+                              maxWidth: "100%",
+                              maxHeight: "100%",
+                              objectFit: "contain",
+                            }}
                           />
                         ) : (
                           <span className={styles["logo-ph"]}>{s.name}</span>
@@ -896,11 +786,15 @@ export default function VelociCodePage() {
                 >
                   <div className={styles["logo-box"]}>
                     {p.src ? (
-                      <Image
+                      // biome-ignore lint/performance/noImgElement: partner logo, small fixed asset
+                      <img
                         src={p.src}
                         alt={p.name}
-                        fill
-                        style={{ objectFit: "contain", padding: "8px" }}
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "contain",
+                        }}
                       />
                     ) : (
                       <span className={styles["logo-ph"]}>{p.name}</span>
