@@ -86,9 +86,9 @@ export const STOPS: InputStop[] = [
   },
   {
     date: "2026-07-24T18:00",
-    title: "TBA Event",
-    meta: "Event details coming soon!",
-    cta: "RSVP",
+    title: "Cowork and Coffee",
+    meta: "Join the San Antonio gaming community for a time to share ideas, get help, and chat with the team!",
+    cta: "RSVP Coming Soon!",
     href: "#schedule",
     external: false,
     medium: "in-person",
