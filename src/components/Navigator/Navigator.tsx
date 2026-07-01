@@ -18,13 +18,7 @@ const Navigator = () => {
   return (
     <nav className={styles.navigatorContainer}>
       <div className={styles.logoContainer}>
-        <Image
-          src="/acm-logo.svg"
-          alt="ACM Logo"
-          width={40}
-          height={40}
-          style={{ height: "44px", width: "auto" }}
-        />
+        <Image src="/acm-logo.svg" alt="ACM Logo" width={44} height={44} />
         <h1>ACM SA</h1>
       </div>
       <div className={styles.navRight}>

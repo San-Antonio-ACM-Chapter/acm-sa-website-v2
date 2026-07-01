@@ -736,7 +736,7 @@ export default function VelociCodePage() {
                             src={s.src}
                             alt={s.name}
                             fill
-                            style={{ objectFit: "contain", padding: "8px" }}
+                            style={{ objectFit: "contain" }}
                           />
                         ) : (
                           <span className={styles["logo-ph"]}>{s.name}</span>
@@ -787,7 +787,7 @@ export default function VelociCodePage() {
                         src={p.src}
                         alt={p.name}
                         fill
-                        style={{ objectFit: "contain", padding: "8px" }}
+                        style={{ objectFit: "contain" }}
                       />
                     ) : (
                       <span className={styles["logo-ph"]}>{p.name}</span>
