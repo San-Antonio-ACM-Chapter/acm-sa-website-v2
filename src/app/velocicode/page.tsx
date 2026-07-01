@@ -152,6 +152,7 @@ const CHALLENGES = [
     rank: "the prompt, nailed",
     title: "Best Theme",
     desc: "The cleverest, weirdest, most heartfelt take on this year's theme reveal — the game that makes the prompt sing. Surprise us.",
+    prize: "$200 Prize Pool",
   },
   {
     pos: "center" as const,
@@ -160,6 +161,7 @@ const CHALLENGES = [
     rank: "the big one",
     title: "Best Overall",
     desc: "Fun to play, polished, and it sticks with you. The judges' pick for the game that nails it top to bottom — story, feel, and finish.",
+    prize: "$100 Prize Pool",
   },
   {
     pos: "right" as const,
@@ -168,8 +170,42 @@ const CHALLENGES = [
     rank: "voted by the room",
     title: "Crowd Favorite",
     desc: "Decided by the community. Everyone at the showcase gets a ticket to vote — the people's champ takes it home, no judges required.",
+    prize: "$20 Per Team Member",
   },
 ];
+
+const PRIZES = [
+  {
+    sponsor: "ACM San Antonio",
+    prize: "Hardware / Software / Swag",
+    for: "Participants",
+  },
+  {
+    sponsor: "Texas Road House - Alamo Ranch",
+    prize: "$25 Gift Cards",
+    for: "Winners",
+  },
+  {
+    sponsor: "Texas Road House - Alamo Ranch",
+    prize: "Nut Basket",
+    for: "Giveaway",
+  },
+  {
+    sponsor: "The DoSeum",
+    prize: "General Admission Tickets",
+    for: "Winners",
+  },
+  {
+    sponsor: "Boot.Dev",
+    prize: "1 month subscription",
+    for: "Submitters",
+  },
+  {
+    sponsor: "Boot.Dev",
+    prize: "3 month subscription",
+    for: "Winners",
+  },
+]
 
 const MARQUEE_ITEMS = [
   "VelociCode 02",
@@ -621,13 +657,13 @@ export default function VelociCodePage() {
                 <span className={styles["pcard-rank"]}>{c.rank}</span>
                 <h3>{c.title}</h3>
                 <p className={styles["pcard-desc"]}>{c.desc}</p>
-                <div className={styles["pcard-prize"]}>Prize · TBA</div>
+                <div className={styles["pcard-prize"]}>{c.prize}</div>
               </div>
             ))}
           </div>
 
           {/* loot callout — hidden until prizes are finalized */}
-          {/* <div className={styles.loot}>
+          <div className={styles.loot}>
             <div className={styles["loot-badge"]}>★ The loot ★</div>
             <h3>What you&apos;re playing for.</h3>
             <p>
@@ -636,15 +672,15 @@ export default function VelociCodePage() {
               the three awards. Drop the real numbers in when they&apos;re set.
             </p>
             <div className={styles["loot-slots"]}>
-              {CHALLENGES.map((c) => (
-                <div key={c.title} className={styles["loot-slot"]}>
-                  <span className={styles["ls-l"]}>{c.title}</span>
-                  <span className={styles["ls-v"]}>$ TBA</span>
-                  <span className={styles["ls-n"]}>prize to be announced</span>
+              {PRIZES.map((c) => (
+                <div key={c.sponsor} className={styles["loot-slot"]}>
+                  <span className={styles["ls-l"]}>{c.sponsor}</span>
+                  <span className={styles["ls-v"]}>{c.prize}</span>
+                  <span className={styles["ls-n"]}>{c.for}</span>
                 </div>
               ))}
             </div>
-          </div> */}
+          </div>
         </div>
       </SectionReveal>
 

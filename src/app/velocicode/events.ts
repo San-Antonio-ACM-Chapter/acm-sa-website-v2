@@ -21,11 +21,11 @@ export const STOPS: InputStop[] = [
   },
   {
     date: "2026-07-08T18:00",
-    title: "TBA Event",
-    meta: "Event details coming soon!",
+    title: "Powering Up with UE5",
+    meta: "Join for an action-packed online session dedicated to squeezing every ounce of power out of Unreal Engine 5.",
     cta: "RSVP",
-    href: "#schedule",
-    external: false,
+    href: "https://communities.unrealengine.com/events/details/epic-games-san-antonio-presents-powering-up-with-ue5-velocicode-2026/",
+    external: true,
     medium: "virtual",
     partners: [
       { name: "Unreal Engine SA", src: "/unreal-engine-sa.png" },
@@ -33,9 +33,9 @@ export const STOPS: InputStop[] = [
   },
   {
     date: "2026-07-12T12:00",
-    title: "San Antonio Tournament",
+    title: "San Antonio Mayham",
     location: "Venue TBA",
-    meta: "Keep an eye out for updates for a bracket-style tournament at a local venue. Details TBA!",
+    meta: "Join the GGS community for a fun evening of a low-stake tournament.",
     cta: "TBA",
     href: "#schedule",
     external: false,
@@ -65,7 +65,7 @@ export const STOPS: InputStop[] = [
   },
   {
     date: "2026-07-17T18:00",
-    title: "Playtest Day",
+    title: "Playtest Night",
     location: "Zelifcam",
     meta: "Bring your game, bring your pals, get some live feedback, win a prize. Don't have a game? Join the dinosaur contest!",
     cta: "RSVP",
@@ -78,12 +78,15 @@ export const STOPS: InputStop[] = [
   },
   {
     date: "2026-07-22T18:00",
-    title: "TBA Event",
+    title: "Unreal Engine Event",
     meta: "Event details coming soon!",
     cta: "RSVP",
     href: "#schedule",
     external: false,
     medium: "hybrid",
+    partners: [
+      { name: "Unreal Engine SA", src: "/unreal-engine-sa.png" },
+    ],
   },
   {
     date: "2026-07-26T12:00",
