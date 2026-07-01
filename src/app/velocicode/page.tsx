@@ -153,7 +153,7 @@ const CHALLENGES = [
     badge: null,
     rank: "the prompt, nailed",
     title: "Best Theme",
-    desc: "The cleverest, weirdest, most heartfelt take on this year's theme reveal — the game that makes the prompt sing. Surprise us.",
+    desc: "The cleverest, boldest, most heartfelt take on this year's theme reveal — the game that makes the prompt sing. Surprise us.",
     prize: "$200 Prize Pool",
   },
   {
@@ -578,7 +578,7 @@ export default function VelociCodePage() {
               <p>
                 It&apos;s not a hackathon — there&apos;s no all-nighter, no
                 overworking yourself. It&apos;s a month. Make a tiny thing. Make
-                it weird. Make it yours.
+                it bold. Make it yours.
               </p>
             </div>
 

@@ -8,7 +8,7 @@ const AWARDS = [
     badge: null,
     rank: "the prompt, nailed",
     title: "Best Theme",
-    desc: "The cleverest, weirdest, most heartfelt take on this year's theme reveal — the game that makes the prompt sing. Surprise us.",
+    desc: "The cleverest, boldest, most heartfelt take on this year's theme reveal — the game that makes the prompt sing. Surprise us.",
     center: false,
     rotate: "-1.2deg",
     translateY: "0",
