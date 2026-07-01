@@ -27,9 +27,7 @@ export const STOPS: InputStop[] = [
     href: "https://communities.unrealengine.com/events/details/epic-games-san-antonio-presents-powering-up-with-ue5-velocicode-2026/",
     external: true,
     medium: "virtual",
-    partners: [
-      { name: "Unreal Engine SA", src: "/unreal-engine-sa.png" },
-    ],
+    partners: [{ name: "Unreal Engine SA", src: "/unreal-engine-sa.png" }],
   },
   {
     date: "2026-07-12T12:00",
@@ -84,9 +82,7 @@ export const STOPS: InputStop[] = [
     href: "#schedule",
     external: false,
     medium: "hybrid",
-    partners: [
-      { name: "Unreal Engine SA", src: "/unreal-engine-sa.png" },
-    ],
+    partners: [{ name: "Unreal Engine SA", src: "/unreal-engine-sa.png" }],
   },
   {
     date: "2026-07-26T12:00",

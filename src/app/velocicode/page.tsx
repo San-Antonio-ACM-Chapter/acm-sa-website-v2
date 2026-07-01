@@ -205,7 +205,7 @@ const PRIZES = [
     prize: "3 month subscription",
     for: "Winners",
   },
-]
+];
 
 const MARQUEE_ITEMS = [
   "VelociCode 02",
