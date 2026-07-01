@@ -15,7 +15,8 @@ import { VCSymbols } from "./graphics/VCSymbols";
 import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
 import styles from "./page.module.css";
 import { RouteSection } from "./RouteSection";
-import { buildRouteLayout, type InputStop } from "./routeLayout";
+import { buildRouteLayout } from "./routeLayout";
+import { STOPS, RSVP_URL } from "./events";
 import { SectionReveal } from "./SectionReveal";
 import { StatCounter } from "./StatCounter";
 import { SPONSORS, COMMUNITY_PARTNERS } from "./allies";
@@ -91,126 +92,12 @@ export const metadata: Metadata = {
   },
 };
 
-const RSVP_URL = "https://www.meetup.com/acm-sa/events/312892484";
-
 const META_ITEMS = [
   { label: "Window", value: "Jul 1 → Aug 1" },
   { label: "Kickoff", value: "Wed Jul 1 · 7 pm" },
   { label: "Cost", value: "Free · all levels" },
 ];
 
-const STOPS: InputStop[] = [
-  {
-    date: "2026-07-01T17:00",
-    title: "Kickoff + Theme Reveal",
-    location: "Geekdom 3rd Floor",
-    meta: "In-person + livestream. Doors at 6:30, theme drops at ~7.",
-    cta: "RSVP",
-    href: RSVP_URL,
-    external: true,
-    medium: "hybrid",
-    partners: [
-      { name: "Geekdom", src: "/geekdom.svg" },
-      { name: "DevSA", src: "/devsa-logo.svg" },
-    ],
-  },
-  {
-    date: "2026-07-8T18:00",
-    title: "TBA Event",
-    meta: "Event details coming soon!",
-    cta: "RSVP",
-    href: "#schedule",
-    external: false,
-    medium: "virtual",
-    partners: [
-      { name: "Unreal Engine SA", src: "/unreal-engine-sa-logo-color.png" },
-    ],
-  },
-  {
-    date: "2026-07-12T12:00",
-    title: "San Antonio Tournament",
-    location: "Venue TBA",
-    meta: "Keep an eye out for updates for a bracket-style tournament at a local venue. Details TBA!",
-    cta: "TBA",
-    href: "#schedule",
-    external: false,
-    medium: "in-person",
-    partners: [{ name: "Greater Gaming Society", src: "/ggs-logo-black.png" }],
-  },
-  {
-    date: "2026-07-14T19:00",
-    title: "GGS Social Hour",
-    location: "Shenanigans Gaming LLC",
-    meta: "The monthly GGS Social Hour is every 2nd Tuesday of the month!",
-    cta: "RSVP",
-    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/events/mbwsxtyjckbsb",
-    external: true,
-    medium: "in-person",
-    partners: [{ name: "Greater Gaming Society", src: "/ggs-logo-black.png" }],
-  },
-  {
-    date: "2026-07-16T18:00",
-    title: "Dynamic and Procedural Audio in Godot",
-    location: "Venue TBA",
-    meta: "Details coming soon! Stay tuned to our Meetup and Discord for updates.",
-    cta: "RSVP",
-    href: "https://www.meetup.com/acm-sa/events/315081675",
-    external: true,
-    medium: "hybrid",
-  },
-  {
-    date: "2026-07-17T18:00",
-    title: "Playtest Day",
-    location: "Zelifcam",
-    meta: "Bring your game, bring your pals, get some live feedback, win a prize. Don't have a game? Join the dinosaur contest!",
-    cta: "RSVP",
-    href: "https://www.meetup.com/acm-sa/events/315064971",
-    external: true,
-    medium: "in-person",
-    partners: [
-      { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" },
-    ],
-  },
-  {
-    date: "2026-07-22T18:00",
-    title: "TBA Event",
-    meta: "Event details coming soon!",
-    cta: "RSVP",
-    href: "#schedule",
-    external: false,
-    medium: "hybrid",
-  },
-  {
-    date: "2026-07-26T12:00",
-    title: "How to Submit",
-    location: "YouTube",
-    meta: "We will show you how to submit your game on itch.io, and share tips for making your submission shine. Whether you have a game ready or just want to see how it works, this session is for you!",
-    cta: "Learn how to submit",
-    href: "https://www.youtube.com/@ACMSanAntonio/streams",
-    external: true,
-    medium: "virtual",
-  },
-  {
-    date: "2026-07-30T23:59",
-    title: "Submissions Due",
-    location: "itch.io",
-    meta: "Don't be late — late builds aren't eligible for prizes or presentations. RSVP with the organizers to confirm your spot.",
-    cta: "Submit on itch.io",
-    href: "https://itch.io/jam/velocicode-2",
-    external: false,
-    medium: "virtual",
-  },
-  {
-    date: "2026-08-01T11:00",
-    title: "Showcase",
-    location: "Venue TBA",
-    meta: "Family-friendly. Tables, laptops, controllers, awards. Come celebrate the fruits of a month of coding as teams present in a science-fair-style showcase. Everyone who RSVPs gets a ticket to vote for the Crowd Favorite award, and the judges will be on hand to pick Best Overall and Best Theme.",
-    cta: "RSVP",
-    href: "https://www.meetup.com/acm-sa/events/312892527",
-    external: true,
-    medium: "in-person",
-  },
-];
 
 const POLAROID_PHOTOS: PolaroidPhoto[] = [
   { src: "event-photo-25-01.jpeg", description: "Presentation Day", year: 1 },

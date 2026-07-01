@@ -33,8 +33,8 @@ function buildUrl(fields: {
   if (!fields.title.trim()) return "";
 
   const base = typeof window !== "undefined"
-    ? `${window.location.origin}/velocicode/slides`
-    : "https://acmsa.org/velocicode/slides";
+    ? `${window.location.origin}/velocicode/slides/display`
+    : "https://acmsa.org/velocicode/slides/display";
 
   const p = new URLSearchParams();
   p.set("title", fields.title.trim());
@@ -95,7 +95,7 @@ export default function ConfigurePage() {
           <span className={styles.dot} />
           VelociCode · Slides
         </div>
-        <a href="/velocicode/slides" className={styles.navLink} target="_blank" rel="noopener noreferrer">
+        <a href="/velocicode/slides/display" className={styles.navLink} target="_blank" rel="noopener noreferrer">
           Open runtime ↗
         </a>
       </nav>

@@ -18,6 +18,19 @@ export const SPONSORS: Ally[] = [
   },
 ];
 
+export const CO_ORGANIZERS: Ally[] = [
+  {
+    name: "Greater Gaming Society",
+    src: "/ggs-logo.png",
+    href: "https://www.meetup.com/greater-gaming-society-of-san-antonio/",
+  },
+  {
+    name: "DEVSA",
+    src: "/devsa-logo.svg",
+    href: "https://www.devsa.community/",
+  },
+];
+
 export const COMMUNITY_PARTNERS: Ally[] = [
   {
     name: "Greater Gaming Society",
