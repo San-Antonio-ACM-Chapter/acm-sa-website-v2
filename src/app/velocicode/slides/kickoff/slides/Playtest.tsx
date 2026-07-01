@@ -35,14 +35,8 @@ export function Playtest({ cls }: SlideProps) {
             width: "130px", height: "30px", background: "rgba(245,200,0,.75)",
             border: "1px solid rgba(32,24,12,.3)",
           }} />
-          <div style={{
-            width: "430px", height: "320px", background: "var(--vc-sand)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontFamily: "var(--vc-font-stamp)", fontSize: "18px",
-            letterSpacing: ".1em", color: "rgba(32,24,12,.4)", textTransform: "uppercase",
-          }}>
-            playtest night photo
-          </div>
+          <img src="/velocicode/social-25-01.jpeg" alt="Playtest night"
+            style={{ width: "430px", height: "320px", objectFit: "cover", display: "block" }} />
           <div style={{ fontFamily: "var(--vc-font-hand)", fontSize: "30px", color: "var(--vc-ink)", textAlign: "center", marginTop: "12px" }}>
             playtest night ✶
           </div>

@@ -1,11 +1,18 @@
 import slides from "../../slides.module.css";
-import { STOPS } from "../../../events";
-import { Eyebrow, deriveSlideEvents } from "../slide-utils";
-import type { SlideProps } from "../slide-utils";
+import { Eyebrow } from "../slide-utils";
+import type { SlideProps, SlideEvent } from "../slide-utils";
 
-const SLIDE_EVENTS = deriveSlideEvents(STOPS);
+type ScheduleProps = SlideProps & {
+  events: SlideEvent[];
+  pageNum: number;
+  totalPages: number;
+};
 
-export function Schedule({ cls }: SlideProps) {
+export function Schedule({ cls, events, pageNum, totalPages }: ScheduleProps) {
+  const eyebrow = totalPages > 1
+    ? `Field itinerary · ${pageNum} of ${totalPages}`
+    : "Field itinerary · all month";
+
   return (
     <div className={cls} style={{ background: "var(--vc-sand)" }}>
       <div className={slides.contour} style={{ zIndex: 0, opacity: 0.08 }} />
@@ -13,7 +20,7 @@ export function Schedule({ cls }: SlideProps) {
         position: "relative", zIndex: 2, height: "100%",
         display: "flex", flexDirection: "column", padding: "56px 120px 94px",
       }}>
-        <Eyebrow>Field itinerary · all month</Eyebrow>
+        <Eyebrow>{eyebrow}</Eyebrow>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "40px", margin: "12px 0 16px" }}>
           <div style={{ flex: 1, minWidth: 0, fontFamily: "var(--vc-font-display-1)", fontSize: "74px", lineHeight: ".9", color: "var(--vc-ink)", whiteSpace: "nowrap" }}>
             EVERYTHING{" "}
@@ -24,7 +31,7 @@ export function Schedule({ cls }: SlideProps) {
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {SLIDE_EVENTS.map((ev) => (
+          {events.map((ev) => (
             <div key={ev.title} style={{ display: "flex", alignItems: "center", gap: "26px", padding: "11px 0", borderBottom: "2px dashed rgba(140,57,20,.32)" }}>
               <div style={{
                 flex: "none", width: "122px", textAlign: "center",

@@ -126,6 +126,20 @@
   text-shadow: 3px 3px 0 rgba(245, 200, 0, 0.1);
 }
 
+/* archaeology brush */
+.trBrush {
+  position: absolute;
+  width: 68px;
+  top: 50px;
+  left: calc(50% - 34px);
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(3px 4px 5px rgba(0, 0, 0, 0.45));
+}
+
+.trStep1 .trBrush { animation: kfBrush1 0.84s cubic-bezier(0.25, 0, 0.6, 1) forwards; }
+.trStep2 .trBrush { animation: kfBrush2 0.84s cubic-bezier(0.25, 0, 0.6, 1) forwards; }
+
 /* dust */
 .trDust {
   position: absolute;
@@ -324,6 +338,19 @@
 
 @keyframes kfBurstSpin { to { transform: rotate(360deg); } }
 
+@keyframes kfBrush1 {
+  0%   { opacity: 0; transform: translateX(-310px) rotate(-22deg); }
+  16%  { opacity: 1; }
+  74%  { opacity: 1; transform: translateX(40px) rotate(-4deg); }
+  100% { opacity: 0; transform: translateX(320px) rotate(16deg); }
+}
+@keyframes kfBrush2 {
+  0%   { opacity: 0; transform: translateX(310px) rotate(22deg); }
+  16%  { opacity: 1; }
+  74%  { opacity: 1; transform: translateX(-40px) rotate(4deg); }
+  100% { opacity: 0; transform: translateX(-320px) rotate(-16deg); }
+}
+
 @keyframes kfPromptNudge {
   0%,  100% { transform: translateY(0); }
   50%        { transform: translateY(-7px); }
@@ -335,6 +362,7 @@
   .kfIsOut,
   .kfIsIn .kfStagger > *,
   .trDig,
+  .trBrush,
   .trStep3 .trReveal .trWord,
   .trStep3 .trReveal .trSlab,
   .trStep3 .trBurst,

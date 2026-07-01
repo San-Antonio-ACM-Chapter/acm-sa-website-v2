@@ -12,7 +12,8 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import slides from "../slides.module.css";
 import kf from "./kickoff.module.css";
-import { makeQR } from "./slide-utils";
+import { deriveSlideEvents, makeQR } from "./slide-utils";
+import { STOPS } from "../../events";
 import { Build }        from "./slides/Build";
 import { CoC }          from "./slides/CoC";
 import { Giveaway }     from "./slides/Giveaway";
@@ -43,9 +44,18 @@ const FONT_TRIGGER_CLASS = [
   caveat.className, elite.className, dmMono.className,
 ].join(" ");
 
-const TOTAL = 17;
+function chunkArr<T>(arr: T[], n: number): T[][] {
+  const out: T[][] = [];
+  for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n));
+  return out;
+}
+
+const SCHEDULE_CHUNKS = chunkArr(deriveSlideEvents(STOPS), 6);
+const SCHEDULE_IDX = 9;
+const POST = SCHEDULE_IDX + SCHEDULE_CHUNKS.length;
+const TOTAL = POST + 7;          // Month, Prizes, Sponsors, Giveaway, ThemeReveal, QA, Build
+const THEME_REVEAL_IDX = POST + 4;
 const SLIDE_DURATION = 12;
-const THEME_REVEAL_IDX = 14;
 
 function cardCls(i: number, current: number, swapping: boolean, outIdx: number, inIdx: number): string {
   if (swapping) {
@@ -194,14 +204,16 @@ function KickoffRuntime() {
           <Radio        cls={c(6)}  qrs={qrs} />
           <Playtest     cls={c(7)} />
           <Showcase     cls={c(8)} />
-          <Schedule     cls={c(9)} />
-          <Month        cls={c(10)} qrs={qrs} />
-          <Prizes       cls={c(11)} />
-          <Sponsors     cls={c(12)} />
-          <Giveaway     cls={c(13)} />
-          <ThemeReveal  cls={c(14)} themeStep={themeStep} />
-          <QA           cls={c(15)} />
-          <Build        cls={c(16)} qrs={qrs} />
+          {SCHEDULE_CHUNKS.map((evts, pi) => (
+            <Schedule key={pi} cls={c(SCHEDULE_IDX + pi)} events={evts} pageNum={pi + 1} totalPages={SCHEDULE_CHUNKS.length} />
+          ))}
+          <Month        cls={c(POST)}     qrs={qrs} />
+          <Prizes       cls={c(POST + 1)} />
+          <Sponsors     cls={c(POST + 2)} />
+          <Giveaway     cls={c(POST + 3)} />
+          <ThemeReveal  cls={c(POST + 4)} themeStep={themeStep} />
+          <QA           cls={c(POST + 5)} />
+          <Build        cls={c(POST + 6)} qrs={qrs} />
         </div>
 
         <div className={slides.progressTrack}>

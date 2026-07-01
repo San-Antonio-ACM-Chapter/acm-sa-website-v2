@@ -42,14 +42,8 @@ export function Numbers({ cls }: SlideProps) {
               width: "120px", height: "30px", background: "rgba(245,200,0,.75)",
               border: "1px solid rgba(32,24,12,.3)",
             }} />
-            <div style={{
-              width: "330px", height: "248px", background: "var(--vc-sand)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontFamily: "var(--vc-font-stamp)", fontSize: "18px",
-              letterSpacing: ".1em", color: "rgba(32,24,12,.4)", textTransform: "uppercase",
-            }}>
-              year 1 photo
-            </div>
+            <img src="/velocicode/event-photo-25-01.jpeg" alt="Expedition 01 crew"
+              style={{ width: "330px", height: "248px", objectFit: "cover", display: "block" }} />
             <div style={{ fontFamily: "var(--vc-font-hand)", fontSize: "30px", color: "var(--vc-ink)", textAlign: "center", marginTop: "12px" }}>
               expedition 01 crew ✶
             </div>

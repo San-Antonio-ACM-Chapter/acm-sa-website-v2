@@ -4,6 +4,11 @@ import type { InputStop } from "../../routeLayout";
 export type SlideProps = { cls: string };
 export type QRSlideProps = { cls: string; qrs: Record<string, string | null> };
 export type ThemeRevealSlideProps = { cls: string; themeStep: number };
+export type SlideEvent = {
+  dow: string; day: string; mon: string;
+  title: string; sub: string; medium: string;
+  tagStyle: { background: string; color: string };
+};
 
 const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -28,7 +33,7 @@ const MEDIUM_TAG: Record<string, { label: string; tagStyle: { background: string
 };
 const DEADLINE_TAG = { label: "Deadline", tagStyle: { background: "#f5c800", color: "#20180c" } };
 
-export function deriveSlideEvents(stops: InputStop[]) {
+export function deriveSlideEvents(stops: InputStop[]): SlideEvent[] {
   return stops
     .filter(s =>
       !s.title.toLowerCase().includes("kickoff") &&

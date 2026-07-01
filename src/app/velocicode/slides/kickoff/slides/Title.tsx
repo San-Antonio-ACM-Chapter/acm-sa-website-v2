@@ -37,6 +37,7 @@ export function Title({ cls }: SlideProps) {
           fontFamily: "var(--vc-font-stamp)", fontSize: "27px", letterSpacing: ".3em",
           textTransform: "uppercase", color: "var(--vc-rust)", background: "#f8edccbf",
           border: "2.5px dashed var(--vc-rust)", padding: "11px 26px", transform: "rotate(-.6deg)",
+          marginBottom: "24px",
         }}>
           ★&nbsp;&nbsp;Velocicode · Expedition 02&nbsp;&nbsp;★
         </div>
