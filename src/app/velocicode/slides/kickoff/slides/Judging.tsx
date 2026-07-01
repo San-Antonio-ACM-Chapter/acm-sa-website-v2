@@ -24,7 +24,7 @@ const CRITERIA = [
   {
     n: "04",
     cat: "Theme Integration",
-    text: 'How well does the game bring "Fossil" to life? Look for the theme woven into mechanics or story, not just slapped on as a reskin.',
+    text: "How well does the game bring the theme to life? Look for it woven into mechanics or story, not just slapped on as a reskin.",
     rotate: ".9deg",
   },
 ];
