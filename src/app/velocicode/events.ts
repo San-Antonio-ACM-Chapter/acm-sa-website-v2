@@ -28,7 +28,7 @@ export const STOPS: InputStop[] = [
     external: false,
     medium: "virtual",
     partners: [
-      { name: "Unreal Engine SA", src: "/unreal-engine-sa-logo-color.png" },
+      { name: "Unreal Engine SA", src: "/unreal-engine-sa.png" },
     ],
   },
   {
@@ -73,7 +73,7 @@ export const STOPS: InputStop[] = [
     external: true,
     medium: "in-person",
     partners: [
-      { name: "Alamo Tech Collective", src: "/alamo-tech-collective-logo.png" },
+      { name: "Alamo Tech Collective", src: "/alamo-tech-collective.png" },
     ],
   },
   {

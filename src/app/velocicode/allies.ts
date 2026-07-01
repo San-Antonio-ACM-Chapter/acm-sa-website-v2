@@ -32,12 +32,12 @@ export const COMMUNITY_PARTNERS: Ally[] = [
   { name: "Geekdom", src: "/geekdom.svg", href: "https://geekdom.com/" },
   {
     name: "Alamo Tech Collective",
-    src: "/alamo-tech-collective-logo.png",
+    src: "/alamo-tech-collective.png",
     href: "https://alamotechcollective.com/",
   },
   {
     name: "Unreal Engine San Antonio",
-    src: "/unreal-engine-sa-logo-color.png",
+    src: "/unreal-engine-sa.png",
     href: "https://communities.unrealengine.com/san-antonio/",
   },
 ];

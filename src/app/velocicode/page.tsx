@@ -539,7 +539,7 @@ export default function VelociCodePage() {
               </p>
               <p>
                 It&apos;s not a hackathon — there&apos;s no all-nighter, no
-                exhaustion-as-flex. It&apos;s a month. Make a tiny thing. Make
+                overworking yourself. It&apos;s a month. Make a tiny thing. Make
                 it weird. Make it yours.
               </p>
             </div>
