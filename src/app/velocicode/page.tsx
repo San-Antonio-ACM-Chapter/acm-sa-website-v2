@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Bowlby_One_SC,
   Caveat_Brush,
@@ -65,7 +65,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://acmsa.org/velocicode",
   },
-  themeColor: "#3D8C28",
   openGraph: {
     title: "VelociCode — ACM San Antonio",
     description:
@@ -90,6 +89,10 @@ export const metadata: Metadata = {
       "San Antonio's month-long game jam. One month. One game. No excuses. Hosted by ACM SA and the Greater Gaming Society.",
     images: ["/velocicode-logo.png"],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#3D8C28",
 };
 
 const META_ITEMS = [
@@ -673,7 +676,10 @@ export default function VelociCodePage() {
             </p>
             <div className={styles["loot-slots"]}>
               {PRIZES.map((c) => (
-                <div key={c.sponsor} className={styles["loot-slot"]}>
+                <div
+                  key={`${c.sponsor}-${c.prize}`}
+                  className={styles["loot-slot"]}
+                >
                   <span className={styles["ls-l"]}>{c.sponsor}</span>
                   <span className={styles["ls-v"]}>{c.prize}</span>
                   <span className={styles["ls-n"]}>{c.for}</span>
