@@ -31,9 +31,9 @@ export function Rules({ cls }: SlideProps) {
       n: "04",
       text: (
         <>
-          AI guided is{" "}
-          <strong style={{ color: "var(--vc-rust)" }}>fine</strong>. AI
-          generated is <strong style={{ color: "var(--vc-rust)" }}>not</strong>.
+          AI guided is <strong style={{ color: "var(--vc-rust)" }}>fine</strong>
+          . AI generated is{" "}
+          <strong style={{ color: "var(--vc-rust)" }}>not</strong>.
         </>
       ),
     },
