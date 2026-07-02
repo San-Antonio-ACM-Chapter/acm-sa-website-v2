@@ -16,6 +16,11 @@ export const SPONSORS: Ally[] = [
     src: "/velocicode/bootdev-logo.png",
     href: "https://www.boot.dev/",
   },
+  {
+    name: "InterviewCake",
+    src: "/velocicode/interviewcake-logo.svg",
+    href: "https://www.interviewcake.com/",
+  },
 ];
 
 export const COMMUNITY_PARTNERS: Ally[] = [

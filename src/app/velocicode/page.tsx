@@ -207,6 +207,11 @@ const PRIZES = [
     prize: "3 month subscription",
     for: "Winners",
   },
+  {
+    sponsor: "InterviewCake",
+    prize: "7-day course access",
+    for: "Participants",
+  },
 ];
 
 const MARQUEE_ITEMS = [
