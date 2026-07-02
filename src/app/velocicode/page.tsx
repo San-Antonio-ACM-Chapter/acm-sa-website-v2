@@ -207,6 +207,11 @@ const PRIZES = [
     prize: "3 month subscription",
     for: "Winners",
   },
+  {
+    sponsor: "InterviewCake",
+    prize: "7-day course access",
+    for: "Participants",
+  },
 ];
 
 const MARQUEE_ITEMS = [
@@ -635,9 +640,7 @@ export default function VelociCodePage() {
           </h2>
           <p className={styles["sec-lead"]}>
             Three prizes, one month of building. Chase all three or just the one
-            that&apos;s yours — every game you actually finish is in the
-            running. No brackets, no gatekeeping, just the showcase and a room
-            full of people who get it.
+            that you want — the game you finish is in the running.
           </p>
 
           <div className={styles.podium}>
@@ -669,9 +672,10 @@ export default function VelociCodePage() {
             <div className={styles["loot-badge"]}>★ The loot ★</div>
             <h3>What you&apos;re playing for.</h3>
             <p>
-              Here&apos;s the part that gets loud once our sponsors lock in —
-              cash, hardware, swag, and a year of bragging rights, split across
-              the three awards. Drop the real numbers in when they&apos;re set.
+              Here&apos;s the part that gets loud once our sponsors lock in for
+              hardware, swag, and a year of bragging rights, for those
+              participating and the winners. We&apos;ll update this list as more
+              sponsors come on board, so check back
             </p>
             <div className={styles["loot-slots"]}>
               {PRIZES.map((c) => (
