@@ -14,8 +14,8 @@ import { COMMUNITY_PARTNERS, SPONSORS } from "../../allies";
 import { STOPS } from "../../events";
 import kf from "../kickoff/kickoff.module.css";
 import {
-  Eyebrow,
   deriveSlideEvents,
+  Eyebrow,
   makeQR,
   QRImg,
 } from "../kickoff/slide-utils";
@@ -515,7 +515,9 @@ function VelociCodeSlide({ cls }: { cls: string }) {
             maxWidth: "54%",
           }}
         >
-          {"San Antonio's month-long game jam. July 1–30. Make a game, compete for prizes, and connect with the local dev community."}
+          {
+            "San Antonio's month-long game jam. July 1–30. Make a game, compete for prizes, and connect with the local dev community."
+          }
         </div>
         <div
           style={{
@@ -763,7 +765,9 @@ function MayhemSlide({ cls }: { cls: string }) {
               style={{
                 display: "inline-flex",
                 alignItems: "center",
-                background: accent ? "var(--vc-leaf-deep)" : "var(--vc-mustard)",
+                background: accent
+                  ? "var(--vc-leaf-deep)"
+                  : "var(--vc-mustard)",
                 color: accent ? "var(--vc-cream)" : "var(--vc-ink)",
                 padding: "12px 22px",
                 fontFamily: "var(--vc-font-stamp)",
@@ -1268,8 +1272,7 @@ function CommunityPartnersSlide({ cls }: { cls: string }) {
                 gap: "14px",
                 minWidth: "230px",
                 height: "180px",
-                transform:
-                  i % 2 === 0 ? "rotate(-1.5deg)" : "rotate(1.2deg)",
+                transform: i % 2 === 0 ? "rotate(-1.5deg)" : "rotate(1.2deg)",
                 animationDelay: `${i * 0.4}s`,
               }}
             >
@@ -1364,8 +1367,8 @@ function ClosingSlide({
             maxWidth: "820px",
           }}
         >
-          Join our Discord to find teammates, get feedback, and stay in the
-          loop for every event this month.
+          Join our Discord to find teammates, get feedback, and stay in the loop
+          for every event this month.
         </div>
         <div
           style={{
@@ -1376,7 +1379,11 @@ function ClosingSlide({
         >
           {[
             { key: "discord", label: "Discord", sub: "find your team ↗" },
-            { key: "site", label: "acmsa.org/velocicode", sub: "full calendar ↗" },
+            {
+              key: "site",
+              label: "acmsa.org/velocicode",
+              sub: "full calendar ↗",
+            },
           ].map(({ key, label, sub }) => (
             <div
               key={key}
