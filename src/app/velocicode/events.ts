@@ -32,8 +32,8 @@ export const STOPS: InputStop[] = [
   {
     date: "2026-07-11T18:00",
     title: "San Antonio Mayham",
-    location: "Venue TBA",
-    meta: "Join the GGS community for a fun evening of a low-stake tournament.",
+    location: "WulfSpar",
+    meta: "Join the GGS community for a fun evening of low-stakes gaming. Doors at 6:00 PM, tournament starts at 6:30 PM.",
     cta: "TBA",
     href: "#schedule",
     external: false,
