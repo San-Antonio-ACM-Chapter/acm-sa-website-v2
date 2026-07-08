@@ -51,6 +51,17 @@ const LINKS = [
     accent: "#1e6016",
     border: "#20180c",
   },
+  {
+    href: "/velocicode/slides/unreal-engine-5-whats-new",
+    label: "Powering Up with UE5",
+    description:
+      "Presenter deck for the July 8 Unreal Engine SA session — speakers, agenda, events, sponsors.",
+    tag: "Event · Jul 8",
+    bg: "linear-gradient(135deg,#0b1a0e,#1c3420)",
+    fg: "#f5e6c2",
+    accent: "#f5c800",
+    border: "#0b1a0e",
+  },
 ] as const;
 
 export default function SlidesHubPage() {
