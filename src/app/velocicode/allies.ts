@@ -45,4 +45,9 @@ export const COMMUNITY_PARTNERS: Ally[] = [
     src: "/unreal-engine-sa.png",
     href: "https://communities.unrealengine.com/san-antonio/",
   },
+  {
+    name: "Google Developer Group San Antonio",
+    src: "/gdg-logo.png",
+    href: "https://gdg.community.dev/gdg-san-antonio/",
+  },
 ];
