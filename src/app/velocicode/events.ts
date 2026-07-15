@@ -54,7 +54,7 @@ export const STOPS: InputStop[] = [
   {
     date: "2026-07-16T18:00",
     title: "Dynamic and Procedural Audio in Godot",
-    location: "Venue TBA",
+    location: "Black Potion",
     meta: "Details coming soon! Stay tuned to our Meetup and Discord for updates.",
     cta: "RSVP",
     href: "https://www.meetup.com/acm-sa/events/315081675",
@@ -87,10 +87,11 @@ export const STOPS: InputStop[] = [
   {
     date: "2026-07-24T18:00",
     title: "Cowork and Coffee",
-    meta: "Join the San Antonio gaming community for a time to share ideas, get help, and chat with the team!",
-    cta: "RSVP Coming Soon!",
-    href: "#schedule",
-    external: false,
+    location: "Stella Public House",
+    meta: "Join the community to collaborate and network downtown!",
+    cta: "RSVP",
+    href: "https://www.meetup.com/acm-sa/events/315681845",
+    external: true,
     medium: "in-person",
   },
   {
