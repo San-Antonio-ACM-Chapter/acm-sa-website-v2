@@ -21,6 +21,11 @@ export const SPONSORS: Ally[] = [
     src: "/velocicode/interviewcake-logo.svg",
     href: "https://www.interviewcake.com/",
   },
+  {
+    name: "Black Potion",
+    src: "/velocicode/black-potion-logo.png",
+    href: "https://www.facebook.com/BlackPotionSATX/",
+  },
 ];
 
 export const COMMUNITY_PARTNERS: Ally[] = [
