@@ -55,7 +55,7 @@ export const STOPS: InputStop[] = [
     date: "2026-07-16T18:00",
     title: "Dynamic and Procedural Audio in Godot",
     location: "Black Potion",
-    meta: "Details coming soon! Stay tuned to our Meetup and Discord for updates.",
+    meta: "Join us as our speaker, Werner talks about how audio makes the game! Come interact as he shows his creative process of making his games his own.",
     cta: "RSVP",
     href: "https://www.meetup.com/acm-sa/events/315081675",
     external: true,
