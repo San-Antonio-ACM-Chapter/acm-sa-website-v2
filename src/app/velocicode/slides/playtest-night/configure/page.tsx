@@ -1,7 +1,7 @@
 "use client";
 
 import { DM_Mono, Luckiest_Guy, Special_Elite } from "next/font/google";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "../../configure/configure.module.css";
 
 const luckiestGuy = Luckiest_Guy({
@@ -22,12 +22,12 @@ const dmMono = DM_Mono({
 
 type SuperlativeEntry = { title: string; winner: string };
 
-function buildUrl(demos: number, superlatives: SuperlativeEntry[]): string {
-  const base =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/velocicode/slides/playtest-night`
-      : "https://acmsa.org/velocicode/slides/playtest-night";
-
+function buildUrl(
+  origin: string,
+  demos: number,
+  superlatives: SuperlativeEntry[],
+): string {
+  const base = `${origin}/velocicode/slides/playtest-night`;
   const p = new URLSearchParams();
   if (demos > 0) p.set("demos", String(demos));
   superlatives.forEach((s, i) => {
@@ -36,7 +36,6 @@ function buildUrl(demos: number, superlatives: SuperlativeEntry[]): string {
       if (s.winner.trim()) p.set(`w${i + 1}`, s.winner.trim());
     }
   });
-
   const qs = p.toString();
   return qs ? `${base}?${qs}` : base;
 }
@@ -47,8 +46,13 @@ export default function PlaytestConfigurePage() {
     { title: "", winner: "" },
   ]);
   const [copied, setCopied] = useState(false);
+  const [origin, setOrigin] = useState("");
 
-  const url = buildUrl(demos, superlatives);
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
+
+  const url = buildUrl(origin, demos, superlatives);
 
   const addSuperlative = useCallback(() => {
     setSuperlatives((prev) => [...prev, { title: "", winner: "" }]);
