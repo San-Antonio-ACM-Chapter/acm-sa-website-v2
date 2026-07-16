@@ -62,6 +62,17 @@ const LINKS = [
     accent: "#f5c800",
     border: "#0b1a0e",
   },
+  {
+    href: "/velocicode/slides/dynamic-procedural-audio-godot",
+    label: "Dynamic & Procedural Audio in Godot",
+    description:
+      "Presenter deck for the July 16 Black Potion session — Werner on how audio makes the game.",
+    tag: "Event · Jul 16",
+    bg: "linear-gradient(135deg,#0b1a0e,#1c3420)",
+    fg: "#f5e6c2",
+    accent: "#f5c800",
+    border: "#0b1a0e",
+  },
 ] as const;
 
 export default function SlidesHubPage() {
