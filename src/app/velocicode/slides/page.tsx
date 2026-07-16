@@ -18,7 +18,18 @@ const dmMono = DM_Mono({
   display: "swap",
 });
 
-const LINKS = [
+type LinkEntry = {
+  href: string;
+  label: string;
+  description: string;
+  tag: string;
+  bg: string;
+  fg: string;
+  accent: string;
+  border: string;
+};
+
+const UTILITY_LINKS: LinkEntry[] = [
   {
     href: "/velocicode/slides/configure",
     label: "Configure Display",
@@ -40,6 +51,9 @@ const LINKS = [
     accent: "#f5c800",
     border: "#0d3a08",
   },
+];
+
+const EVENT_LINKS: LinkEntry[] = [
   {
     href: "/velocicode/slides/kickoff",
     label: "Kickoff Deck",
@@ -62,7 +76,81 @@ const LINKS = [
     accent: "#f5c800",
     border: "#0b1a0e",
   },
-] as const;
+  {
+    href: "/velocicode/slides/dynamic-procedural-audio-godot",
+    label: "Dynamic & Procedural Audio in Godot",
+    description:
+      "Presenter deck for the July 16 Black Potion session — Werner on how audio makes the game.",
+    tag: "Event · Jul 16",
+    bg: "linear-gradient(135deg,#0b1a0e,#1c3420)",
+    fg: "#f5e6c2",
+    accent: "#f5c800",
+    border: "#0b1a0e",
+  },
+];
+
+function CardLink({ link }: { link: LinkEntry }) {
+  const { href, label, description, tag, bg, fg, accent, border } = link;
+  return (
+    <a
+      href={href}
+      style={{
+        display: "block",
+        background: bg,
+        color: fg,
+        border: `2.5px solid ${border}`,
+        boxShadow: `6px 6px 0 ${border}`,
+        padding: "28px 32px",
+        textDecoration: "none",
+        position: "relative",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: elite.style.fontFamily,
+          fontSize: "0.72rem",
+          letterSpacing: "0.22em",
+          textTransform: "uppercase" as const,
+          color: accent,
+          marginBottom: "8px",
+        }}
+      >
+        {tag}
+      </div>
+      <div
+        style={{
+          fontFamily: luckiestGuy.style.fontFamily,
+          fontSize: "clamp(22px, 3vw, 32px)",
+          marginBottom: "8px",
+        }}
+      >
+        {label}
+      </div>
+      <div
+        style={{
+          fontSize: "0.9rem",
+          lineHeight: 1.55,
+          opacity: 0.75,
+        }}
+      >
+        {description}
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          right: "32px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          fontFamily: luckiestGuy.style.fontFamily,
+          fontSize: "24px",
+          color: accent,
+        }}
+      >
+        →
+      </div>
+    </a>
+  );
+}
 
 export default function SlidesHubPage() {
   return (
@@ -164,69 +252,61 @@ export default function SlidesHubPage() {
           Presentations and displays for VelociCode events.
         </p>
 
+        {/* ── Utility tools: side by side ──────────────────────── */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          {UTILITY_LINKS.map((link) => (
+            <CardLink key={link.href} link={link} />
+          ))}
+        </div>
+
+        {/* ── Event decks ──────────────────────────────────────── */}
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          {LINKS.map(
-            ({ href, label, description, tag, bg, fg, accent, border }) => (
-              <a
-                key={href}
-                href={href}
-                style={{
-                  display: "block",
-                  background: bg,
-                  color: fg,
-                  border: `2.5px solid ${border}`,
-                  boxShadow: `6px 6px 0 ${border}`,
-                  padding: "28px 32px",
-                  textDecoration: "none",
-                  position: "relative",
-                }}
-              >
-                <div
-                  style={{
-                    fontFamily: elite.style.fontFamily,
-                    fontSize: "0.72rem",
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase" as const,
-                    color: accent,
-                    marginBottom: "8px",
-                  }}
-                >
-                  {tag}
-                </div>
-                <div
-                  style={{
-                    fontFamily: luckiestGuy.style.fontFamily,
-                    fontSize: "clamp(22px, 3vw, 32px)",
-                    marginBottom: "8px",
-                  }}
-                >
-                  {label}
-                </div>
-                <div
-                  style={{
-                    fontSize: "0.9rem",
-                    lineHeight: 1.55,
-                    opacity: 0.75,
-                  }}
-                >
-                  {description}
-                </div>
-                <div
-                  style={{
-                    position: "absolute",
-                    right: "32px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    fontFamily: luckiestGuy.style.fontFamily,
-                    fontSize: "24px",
-                    color: accent,
-                  }}
-                >
-                  →
-                </div>
-              </a>
-            ),
-          )}
+          {EVENT_LINKS.map((link) => (
+            <CardLink key={link.href} link={link} />
+          ))}
+
+          {/* ── Playtest Night: deck + configure side by side ──── */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "20px",
+            }}
+          >
+            <CardLink
+              link={{
+                href: "/velocicode/slides/playtest-night/configure",
+                label: "Configure",
+                description:
+                  "Set demo count and superlatives, then copy the link to launch the deck.",
+                tag: "Tool",
+                bg: "#f8edcc",
+                fg: "#20180c",
+                accent: "#c44d24",
+                border: "#20180c",
+              }}
+            />
+            <CardLink
+              link={{
+                href: "/velocicode/slides/playtest-night",
+                label: "Playtest Night",
+                description:
+                  "Milestone deck for July 17 — halfway card, demos, dino costume contest, and superlatives.",
+                tag: "Event · Jul 17",
+                bg: "#f5c800",
+                fg: "#20180c",
+                accent: "#1e6016",
+                border: "#20180c",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
