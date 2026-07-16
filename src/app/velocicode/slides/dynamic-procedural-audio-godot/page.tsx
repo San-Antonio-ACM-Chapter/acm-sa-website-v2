@@ -67,13 +67,7 @@ const SPEAKER_WERNER = {
   img: "/velocicode/werner.jpeg",
 };
 
-const AGENDA = [
-  "Why audio makes or breaks a game experience",
-  "Godot's audio engine — nodes, buses & signals",
-  "Dynamic audio: reacting to gameplay in real time",
-  "Procedural audio: generating sound from code",
-  "Werner's creative process — live demo & Q&A",
-];
+const TEASER = "What if Godot didn't just play audio...it made it?";
 
 const REMAINING = [
   ...deriveSlideEvents(STOPS).filter((ev) => {
@@ -304,47 +298,15 @@ function AboutSlide({ cls }: { cls: string }) {
         </div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
+            fontFamily: "var(--vc-font-hand)",
+            fontSize: "58px",
+            color: "var(--vc-ink)",
+            opacity: 0.75,
+            transform: "rotate(-1deg)",
             marginTop: "8px",
           }}
         >
-          {AGENDA.map((item, i) => (
-            <div
-              key={item}
-              style={{
-                display: "flex",
-                alignItems: "flex-start",
-                gap: "22px",
-                fontFamily: "var(--vc-font-mono)",
-                fontSize: "28px",
-                lineHeight: "1.4",
-                color: "var(--vc-ink)",
-              }}
-            >
-              <span
-                style={{
-                  flex: "none",
-                  width: "38px",
-                  height: "38px",
-                  background: "var(--vc-mustard)",
-                  border: "2px solid var(--vc-ink)",
-                  boxShadow: "3px 3px 0 var(--vc-ink)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontFamily: "var(--vc-font-display-1)",
-                  fontSize: "22px",
-                  color: "var(--vc-ink)",
-                  marginTop: "2px",
-                }}
-              >
-                {i + 1}
-              </span>
-              {item}
-            </div>
-          ))}
+          {TEASER}
         </div>
       </div>
     </div>
