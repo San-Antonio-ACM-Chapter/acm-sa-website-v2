@@ -737,8 +737,8 @@ function PlaytestSlide({ cls }: { cls: string }) {
             maxWidth: "62%",
           }}
         >
-          Bring your game, bring your pals, get some live feedback, win a
-          prize. Don&apos;t have a game? Join the dinosaur contest!
+          Bring your game, bring your pals, get some live feedback, win a prize.
+          Don&apos;t have a game? Join the dinosaur contest!
         </div>
         <div
           style={{
@@ -854,8 +854,8 @@ function FinalSprintSlide({ cls }: { cls: string }) {
             maxWidth: "62%",
           }}
         >
-          Get eyes on your project from seasoned developers. All games and
-          tools are welcome — come get feedback and push your build forward.
+          Get eyes on your project from seasoned developers. All games and tools
+          are welcome — come get feedback and push your build forward.
         </div>
         <div
           style={{
@@ -865,7 +865,10 @@ function FinalSprintSlide({ cls }: { cls: string }) {
             marginTop: "8px",
           }}
         >
-          {[["6:00 PM", false], ["Hybrid", true]].map(([label, accent]) => (
+          {[
+            ["6:00 PM", false],
+            ["Hybrid", true],
+          ].map(([label, accent]) => (
             <div
               key={String(label)}
               style={{
@@ -1452,8 +1455,8 @@ function ClosingSlide({
             maxWidth: "820px",
           }}
         >
-          Join our Discord to find teammates, get feedback, and stay in the
-          loop for every event this month.
+          Join our Discord to find teammates, get feedback, and stay in the loop
+          for every event this month.
         </div>
         <div
           style={{

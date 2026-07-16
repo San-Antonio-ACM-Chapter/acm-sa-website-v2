@@ -189,10 +189,7 @@ export default function PlaytestConfigurePage() {
                   </div>
                   <div className={styles.field}>
                     {i === 0 && (
-                      <label
-                        className={styles.label}
-                        htmlFor={`s-winner-${i}`}
-                      >
+                      <label className={styles.label} htmlFor={`s-winner-${i}`}>
                         Winner
                       </label>
                     )}

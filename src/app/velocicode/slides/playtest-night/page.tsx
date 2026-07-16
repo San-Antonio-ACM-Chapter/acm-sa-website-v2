@@ -12,11 +12,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { COMMUNITY_PARTNERS, SPONSORS } from "../../allies";
 import kf from "../kickoff/kickoff.module.css";
-import {
-  Eyebrow,
-  makeQR,
-  QRImg,
-} from "../kickoff/slide-utils";
+import { Eyebrow, makeQR, QRImg } from "../kickoff/slide-utils";
 import slides from "../slides.module.css";
 
 const luckiestGuy = Luckiest_Guy({
@@ -398,8 +394,7 @@ function WhatIsPlaytestSlide({ cls }: { cls: string }) {
 // ── Slide 3: Tonight's Demos ──────────────────────────────────────────
 
 function DemosSlide({ cls, demos }: { cls: string; demos: number }) {
-  const countLabel =
-    demos > 0 ? String(demos) : "?";
+  const countLabel = demos > 0 ? String(demos) : "?";
   return (
     <div className={cls} style={{ background: "var(--vc-sand)" }}>
       <div className={slides.contour} style={{ zIndex: 0, opacity: 0.08 }} />
@@ -458,8 +453,8 @@ function DemosSlide({ cls, demos }: { cls: string; demos: number }) {
             maxWidth: "900px",
           }}
         >
-          Walk the floor, play each build, and give the dev real feedback.
-          Prize giveaways happening too — stay close.
+          Walk the floor, play each build, and give the dev real feedback. Prize
+          giveaways happening too — stay close.
         </div>
       </div>
     </div>
@@ -517,8 +512,8 @@ function SuperlativesTeaserSlide({ cls }: { cls: string }) {
             maxWidth: "820px",
           }}
         >
-          We&apos;ll be awarding some well-deserved recognition tonight.
-          Play the demos — we&apos;ll share the awards when it&apos;s time.
+          We&apos;ll be awarding some well-deserved recognition tonight. Play
+          the demos — we&apos;ll share the awards when it&apos;s time.
         </div>
         <div
           style={{
@@ -694,8 +689,8 @@ function DinoInstructionsSlide({ cls }: { cls: string }) {
             maxWidth: "820px",
           }}
         >
-          The host will spotlight each contender. Cheer for your favorite 
-          and the crowd decides who takes home the win.
+          The host will spotlight each contender. Cheer for your favorite and
+          the crowd decides who takes home the win.
         </div>
         <div
           style={{
@@ -770,13 +765,7 @@ function DinoCongratulationsSlide({ cls }: { cls: string }) {
 
 // ── Slide 9: All Superlatives ─────────────────────────────────────────
 
-function AllSuperlativesSlide({
-  cls,
-  count,
-}: {
-  cls: string;
-  count: number;
-}) {
+function AllSuperlativesSlide({ cls, count }: { cls: string; count: number }) {
   return (
     <div
       className={cls}
@@ -1361,8 +1350,8 @@ function ClosingSlide({
             maxWidth: "820px",
           }}
         >
-          Join our Discord to find teammates, get feedback, and stay in the
-          loop for every event this month.
+          Join our Discord to find teammates, get feedback, and stay in the loop
+          for every event this month.
         </div>
         <div style={{ display: "flex", gap: "48px", marginTop: "10px" }}>
           {[
@@ -1621,12 +1610,12 @@ function PlaytestRuntime() {
           {/* ── Dynamic superlative pairs ────────────────────────── */}
           {superlatives.flatMap((s, i) => [
             <SuperlativeTitleSlide
-              key={`st${i}`}
+              key={`title-${s.title}`}
               cls={cc(supStart + i * 2)}
               superlative={s.title}
             />,
             <SuperlativeWinnerSlide
-              key={`sw${i}`}
+              key={`winner-${s.title}`}
               cls={cc(supStart + i * 2 + 1)}
               superlative={s.title}
               winner={s.winner}
@@ -1665,9 +1654,7 @@ function PlaytestRuntime() {
             <span className={slides.footerDot} />
             VelociCode &middot; Expedition 02
           </span>
-          <span>
-            Playtest Night &middot; 6:00 PM &middot; Zelifcam
-          </span>
+          <span>Playtest Night &middot; 6:00 PM &middot; Zelifcam</span>
         </div>
 
         {/* biome-ignore lint/a11y/useKeyWithClickEvents: presenter kiosk — keyboard handled by window listener */}
