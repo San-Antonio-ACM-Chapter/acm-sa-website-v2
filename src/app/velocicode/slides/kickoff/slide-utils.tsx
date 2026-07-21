@@ -73,12 +73,13 @@ const DEADLINE_TAG = {
   tagStyle: { background: "#f5c800", color: "#20180c" },
 };
 
-export function deriveSlideEvents(stops: InputStop[]): SlideEvent[] {
+export function deriveSlideEvents(
+  stops: InputStop[],
+  exclude = ["kickoff", "showcase"],
+): SlideEvent[] {
   return stops
     .filter(
-      (s) =>
-        !s.title.toLowerCase().includes("kickoff") &&
-        !s.title.toLowerCase().includes("showcase"),
+      (s) => !exclude.some((term) => s.title.toLowerCase().includes(term)),
     )
     .map((s) => {
       const [datePart, timePart = "00:00"] = s.date.split("T");

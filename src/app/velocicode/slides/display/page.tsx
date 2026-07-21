@@ -61,20 +61,22 @@ type CardSlug =
   | "partners"
   | "socials"
   | "newhere"
+  | "rsvp"
   | "brand"
   | "coc";
 type TransMode = "A" | "C";
 
 const DURATIONS: Record<CardSlug, number> = {
   title: 6,
-  qr: 14,
-  wifi: 12,
-  sponsors: 8,
-  partners: 8,
-  socials: 8,
-  newhere: 10,
+  qr: 28,
+  wifi: 24,
+  sponsors: 16,
+  partners: 16,
+  socials: 16,
+  newhere: 20,
+  rsvp: 20,
   brand: 6,
-  coc: 8,
+  coc: 16,
 };
 
 const CANONICAL_POOL: CardSlug[] = [
@@ -84,6 +86,7 @@ const CANONICAL_POOL: CardSlug[] = [
   "partners",
   "socials",
   "newhere",
+  "rsvp",
   "brand",
   "coc",
 ];
@@ -234,6 +237,7 @@ function SlidesRuntime() {
   const wifiPassword = params.get("wifiPassword") ?? "";
   const wifiSecurity = params.get("wifiSecurity") ?? "";
 
+  const half = params.get("half") !== null;
   const hideSlugs = hideParam.split(",").filter(Boolean);
   const hasEventInfo = Boolean(time || location);
   const seq = buildSequence(hideSlugs, wifiNetwork, wifiPassword, hasEventInfo);
@@ -253,6 +257,7 @@ function SlidesRuntime() {
   const [scale, setScale] = useState(1);
   const [qrs, setQrs] = useState<Record<string, string | null>>({});
 
+  const halfRef = useRef(half);
   const pausedRef = useRef(paused);
   const swappingRef = useRef(swapping);
   const idxRef = useRef(idx);
@@ -296,15 +301,18 @@ function SlidesRuntime() {
         : null;
 
     const gen = async () => {
-      const [discord, itch, site, member, coc, wifi] = await Promise.all([
-        makeQR("https://discord.gg/t94zZC3Ktm", 300),
-        makeQR("https://itch.io/jam/velocicode-2", 300),
-        makeQR("https://acmsa.org/velocicode", 300),
-        makeQR("https://buy.stripe.com/eVadUebiM1ejbFS000", 240),
-        makeQR("https://acmsa.org/code-of-conduct", 150),
-        wifiPayload ? makeQR(wifiPayload, 280) : Promise.resolve(null),
-      ]);
-      setQrs({ discord, itch, site, member, coc, wifi });
+      const [discord, itch, site, member, coc, wifi, rsvp1, rsvp2] =
+        await Promise.all([
+          makeQR("https://discord.gg/t94zZC3Ktm", 300),
+          makeQR("https://itch.io/jam/velocicode-2", 300),
+          makeQR("https://acmsa.org/velocicode", 300),
+          makeQR("https://buy.stripe.com/eVadUebiM1ejbFS000", 240),
+          makeQR("https://acmsa.org/code-of-conduct", 150),
+          wifiPayload ? makeQR(wifiPayload, 280) : Promise.resolve(null),
+          makeQR("https://forms.gle/6nJLf6T4ab9bYokQ9", 280),
+          makeQR("https://forms.gle/aAsqsEvXayKTW4Sa9", 280),
+        ]);
+      setQrs({ discord, itch, site, member, coc, wifi, rsvp1, rsvp2 });
     };
     gen();
   }, [wifiNetwork, wifiPassword, wifiSecurity]);
@@ -352,7 +360,7 @@ function SlidesRuntime() {
       elapsedRef.current += dt;
 
       const slug = seqRef.current[idxRef.current] ?? "title";
-      const dur = DURATIONS[slug] * 1000;
+      const dur = DURATIONS[slug] * (halfRef.current ? 500 : 1000);
       const p = Math.min(1, elapsedRef.current / dur);
 
       if (elapsedRef.current >= dur) {
@@ -1357,6 +1365,222 @@ function SlidesRuntime() {
                     }}
                   >
                     become a member ($50/yr) →
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── RSVP ──────────────────────────────────────────── */}
+          <div
+            className={cls("rsvp")}
+            style={{
+              background: "var(--vc-paper)",
+              backgroundImage:
+                "repeating-linear-gradient(180deg,transparent 0 47px,rgba(90,58,24,.06) 47px 48px)",
+            }}
+          >
+            <div
+              className={styles.stagger}
+              style={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                gap: "28px",
+                padding: "0 140px 100px",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "var(--vc-font-stamp)",
+                  fontSize: "25px",
+                  letterSpacing: ".28em",
+                  textTransform: "uppercase",
+                  color: "var(--vc-rust)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "16px",
+                }}
+              >
+                <span
+                  style={{
+                    width: "46px",
+                    height: "2px",
+                    background: "var(--vc-clay)",
+                  }}
+                />
+                Showcase · Aug 1
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--vc-font-display-1)",
+                  fontSize: "100px",
+                  lineHeight: ".88",
+                  color: "var(--vc-ink)",
+                }}
+              >
+                RSVP FOR THE{" "}
+                <span
+                  style={{
+                    fontFamily: "var(--vc-font-display-2)",
+                    color: "var(--vc-leaf-deep)",
+                  }}
+                >
+                  SHOWCASE.
+                </span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "64px",
+                  alignItems: "flex-start",
+                  marginTop: "8px",
+                }}
+              >
+                {/* Step 1 — active */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "16px",
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "#f5c800",
+                      border: "2.5px solid #20180c",
+                      padding: "7px 20px",
+                      fontFamily: "var(--vc-font-stamp)",
+                      fontSize: "18px",
+                      letterSpacing: ".14em",
+                      textTransform: "uppercase",
+                      color: "#20180c",
+                    }}
+                  >
+                    Step 1 · Intent to Present
+                  </div>
+                  <div
+                    className={styles.scan}
+                    style={{
+                      padding: "20px",
+                      background: "#fff",
+                      border: "3px solid #20180c",
+                    }}
+                  >
+                    <QRImg src={qrs.rsvp1 ?? null} size={220} />
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--vc-font-display-3)",
+                      fontSize: "28px",
+                      color: "var(--vc-ink)",
+                    }}
+                  >
+                    Due July 29
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--vc-font-mono)",
+                      fontSize: "19px",
+                      color: "var(--vc-rust)",
+                    }}
+                  >
+                    scan to register ↗
+                  </div>
+                </div>
+                {/* Step 2 — coming soon */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "16px",
+                    opacity: 0.4,
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "var(--vc-sand)",
+                      border: "2.5px solid var(--vc-bark)",
+                      padding: "7px 20px",
+                      fontFamily: "var(--vc-font-stamp)",
+                      fontSize: "18px",
+                      letterSpacing: ".14em",
+                      textTransform: "uppercase",
+                      color: "var(--vc-bark)",
+                    }}
+                  >
+                    Step 2 · Available Jul 30–31
+                  </div>
+                  <div
+                    style={{
+                      padding: "20px",
+                      background: "#fff",
+                      border: "3px solid var(--vc-bark)",
+                    }}
+                  >
+                    <QRImg src={qrs.rsvp2 ?? null} size={220} />
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--vc-font-display-3)",
+                      fontSize: "28px",
+                      color: "var(--vc-ink)",
+                    }}
+                  >
+                    Due Jul 31 · 10 AM
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--vc-font-mono)",
+                      fontSize: "19px",
+                      color: "var(--vc-rust)",
+                    }}
+                  >
+                    opens when subs close ↗
+                  </div>
+                </div>
+                {/* Copy */}
+                <div
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    gap: "18px",
+                    paddingTop: "52px",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontFamily: "var(--vc-font-mono)",
+                      fontSize: "27px",
+                      lineHeight: 1.6,
+                      color: "var(--vc-ink)",
+                    }}
+                  >
+                    Planning to demo your game at the showcase?
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--vc-font-hand)",
+                      fontSize: "46px",
+                      color: "var(--vc-clay)",
+                      transform: "rotate(-1.2deg)",
+                    }}
+                  >
+                    Let us know you&apos;re coming.
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--vc-font-mono)",
+                      fontSize: "21px",
+                      color: "var(--vc-rust)",
+                    }}
+                  >
+                    Sat, Aug 1, 2026
                   </div>
                 </div>
               </div>
