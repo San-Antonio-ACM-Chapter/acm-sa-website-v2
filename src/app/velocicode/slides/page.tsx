@@ -307,6 +307,48 @@ export default function SlidesHubPage() {
               }}
             />
           </div>
+
+          <CardLink
+            link={{
+              href: "/velocicode/slides/final-sprint-workshop",
+              label: "Final Sprint Workshop",
+              description:
+                "Presenter deck for the July 22 Unreal Engine SA session — hosts, agenda, and live troubleshooting.",
+              tag: "Event · Jul 22",
+              bg: "linear-gradient(135deg,#0b1a0e,#1c3420)",
+              fg: "#f5e6c2",
+              accent: "#f5c800",
+              border: "#0b1a0e",
+            }}
+          />
+
+          <CardLink
+            link={{
+              href: "/velocicode/slides/gdg-level-01",
+              label: "Level 01: Fossil Hunter: Chrono Dig",
+              description:
+                "Intro deck for the July 25 Google Developer Group mini-jam within VelociCode.",
+              tag: "Event · Jul 25",
+              bg: "linear-gradient(135deg,#0b1a0e,#1c3420)",
+              fg: "#f5e6c2",
+              accent: "#f5c800",
+              border: "#0b1a0e",
+            }}
+          />
+
+          <CardLink
+            link={{
+              href: "/velocicode/slides/how-to-submit",
+              label: "How to Submit",
+              description:
+                "Step-by-step itch.io submission walkthrough, judging criteria, and science fair showcase tips.",
+              tag: "Event · Jul 26",
+              bg: "linear-gradient(135deg,#1c3420,#5ab348)",
+              fg: "#f5e6c2",
+              accent: "#f5c800",
+              border: "#0b1a0e",
+            }}
+          />
         </div>
       </div>
     </div>

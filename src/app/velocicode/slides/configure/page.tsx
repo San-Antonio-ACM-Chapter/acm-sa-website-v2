@@ -27,6 +27,7 @@ const HIDEABLE_CARDS = [
   { slug: "partners", label: "Partners" },
   { slug: "socials", label: "Socials" },
   { slug: "newhere", label: "New Here?" },
+  { slug: "rsvp", label: "Showcase RSVP" },
   { slug: "brand", label: "Brand" },
   { slug: "coc", label: "Code of Conduct" },
 ] as const;
@@ -41,6 +42,7 @@ function buildUrl(fields: {
   wifiPassword: string;
   wifiSecurity: string;
   hidden: Set<HideSlug>;
+  half: boolean;
 }): string {
   if (!fields.title.trim()) return "";
 
@@ -63,6 +65,7 @@ function buildUrl(fields: {
   if (fields.hidden.size > 0) {
     p.set("hide", [...fields.hidden].join(","));
   }
+  if (fields.half) p.set("half", "1");
   return `${base}?${p.toString()}`;
 }
 
@@ -74,6 +77,7 @@ export default function ConfigurePage() {
   const [wifiPassword, setWifiPassword] = useState("");
   const [wifiSecurity, setWifiSecurity] = useState("none");
   const [hidden, setHidden] = useState<Set<HideSlug>>(new Set());
+  const [half, setHalf] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const url = buildUrl({
@@ -84,6 +88,7 @@ export default function ConfigurePage() {
     wifiPassword,
     wifiSecurity,
     hidden,
+    half,
   });
 
   const toggleHide = useCallback((slug: HideSlug) => {
@@ -284,6 +289,37 @@ export default function ConfigurePage() {
                   </label>
                 );
               })}
+            </div>
+          </div>
+
+          {/* ── Timing ───────────────────────────────────────────── */}
+          <div className={styles.section}>
+            <div className={styles.sectionLabel}>
+              Slide timing{" "}
+              <span
+                style={{
+                  opacity: 0.55,
+                  fontWeight: 400,
+                  textTransform: "none",
+                  letterSpacing: 0,
+                }}
+              >
+                — default durations are doubled for ambient use
+              </span>
+            </div>
+            <div className={styles.toggleGrid}>
+              <label
+                className={styles.toggle}
+                data-checked={half ? "true" : "false"}
+              >
+                <input
+                  type="checkbox"
+                  checked={half}
+                  onChange={() => setHalf((h) => !h)}
+                />
+                <span className={styles.toggleMark}>{half ? "✕" : ""}</span>
+                Half timing
+              </label>
             </div>
           </div>
         </div>
