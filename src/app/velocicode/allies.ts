@@ -26,6 +26,11 @@ export const SPONSORS: Ally[] = [
     src: "/velocicode/black-potion-logo.png",
     href: "https://www.facebook.com/BlackPotionSATX/",
   },
+  {
+    name: "St. Mary's University",
+    src: "/velocicode/StMU-logo-blue.png",
+    href: "https://www.stmarytx.edu/academics/school-of-science-engineering-and-technology/",
+  },
 ];
 
 export const COMMUNITY_PARTNERS: Ally[] = [
