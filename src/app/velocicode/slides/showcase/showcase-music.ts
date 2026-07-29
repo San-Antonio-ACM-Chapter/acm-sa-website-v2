@@ -6,8 +6,8 @@ export type MusicTrack = {
 
 // Add files to /public/velocicode/music/ and list them here in playback order.
 export const SHOWCASE_MUSIC: MusicTrack[] = [
-    { file: "dova_instavista_master", title: "Instavista" },
     { file: "tradecontrols", title: "Trade Controls" },
+    { file: "dova_instavista_master", title: "Instavista" },
     { file: "kulakovka-fashion-house-283179", title: "Fashion" },
     { file: "kulakovka-lounge-house-295877", title: "Kulakovka Lounge" },
     { file: "prettyjohn1-house-526226", title: "Pretty John" },
