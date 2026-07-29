@@ -1,0 +1,84 @@
+/* ── Gallery carousel ─────────────────────────────────────────── */
+.galleryTrack {
+  display: flex;
+  gap: 24px;
+  animation: scrollGallery var(--gallery-duration, 60s) linear infinite;
+  will-change: transform;
+}
+
+@keyframes scrollGallery {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Polaroid photo carousel ──────────────────────────────────── */
+.photoCarouselTrack {
+  display: flex;
+  gap: 20px;
+  animation: scrollPhotos var(--photo-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+@keyframes scrollPhotos {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Sponsor spotlight ────────────────────────────────────────── */
+.sponsorCard {
+  background: var(--vc-cream);
+  border: 3px solid var(--vc-ink);
+  box-shadow: 8px 8px 0 var(--vc-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 52px;
+  transition: transform 0.2s ease;
+  animation: vcFloat 6s ease-in-out infinite;
+}
+
+.partnerCard {
+  background: rgba(245, 230, 194, 0.1);
+  border: 2px solid rgba(245, 230, 194, 0.2);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 40px;
+  animation: vcFloat 6s ease-in-out infinite;
+}
+
+/* ── Credits scroll ────────────────────────────────────────────── */
+.creditsTrack {
+  display: flex;
+  flex-direction: column;
+  animation: scrollCredits var(--credits-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+@keyframes scrollCredits {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes vcFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}

@@ -86,7 +86,7 @@ const REMAINING = [
     day: "1",
     mon: "Aug",
     title: "Showcase",
-    sub: "Venue TBA · 11:00 AM",
+    sub: "St. Mary's University, Moody Life Sciences · 11:00 AM",
     medium: "In-Person",
     tagStyle: { background: "#1e6016", color: "#f5e6c2" },
   },

@@ -26,6 +26,11 @@ export const SPONSORS: Ally[] = [
     src: "/velocicode/black-potion-logo.png",
     href: "https://www.facebook.com/BlackPotionSATX/",
   },
+  {
+    name: "St. Mary's University",
+    src: "/velocicode/StMU-logo-blue.png",
+    href: "https://www.stmarytx.edu/academics/school-of-science-engineering-and-technology/",
+  },
 ];
 
 export const COMMUNITY_PARTNERS: Ally[] = [
@@ -54,5 +59,10 @@ export const COMMUNITY_PARTNERS: Ally[] = [
     name: "Google Developer Group San Antonio",
     src: "/gdg-logo.png",
     href: "https://gdg.community.dev/gdg-san-antonio/",
+  },
+  {
+    name: "WulfSpar Gaming Nexus",
+    src: "/velocicode/wulfspar-logo.png",
+    href: "https://wulfspar.com/",
   },
 ];

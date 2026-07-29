@@ -349,6 +349,42 @@ export default function SlidesHubPage() {
               border: "#0b1a0e",
             }}
           />
+
+          {/* ── Showcase: configure + deck side by side ──────────── */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "20px",
+            }}
+          >
+            <CardLink
+              link={{
+                href: "/velocicode/slides/showcase/configure",
+                label: "Configure",
+                description:
+                  "Add submissions, organizers, and award winners, then copy the link to launch the deck.",
+                tag: "Tool",
+                bg: "#f8edcc",
+                fg: "#20180c",
+                accent: "#c44d24",
+                border: "#20180c",
+              }}
+            />
+            <CardLink
+              link={{
+                href: "/velocicode/slides/showcase",
+                label: "Showcase",
+                description:
+                  "Award ceremony deck for August 1 — submissions gallery, sponsor thanks, and winner reveals.",
+                tag: "Event · Aug 1",
+                bg: "linear-gradient(135deg,#20180c,#5a3a18)",
+                fg: "#f5e6c2",
+                accent: "#f5c800",
+                border: "#20180c",
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

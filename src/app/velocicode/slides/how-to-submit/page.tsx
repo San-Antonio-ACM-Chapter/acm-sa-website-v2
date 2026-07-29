@@ -1513,7 +1513,7 @@ function ShowcaseSlide({
         >
           {[
             ["In-Person Only", true],
-            ["Venue TBA", false],
+            ["St. Mary's University, Moody Life Sciences", false],
             ["Prize-Eligible Teams Must Attend", true],
           ].map(([label, accent]) => (
             <div

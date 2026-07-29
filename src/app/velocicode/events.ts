@@ -127,10 +127,10 @@ export const STOPS: InputStop[] = [
   {
     date: "2026-08-01T11:00",
     title: "Showcase",
-    location: "Venue TBA",
-    meta: "Family-friendly. Tables, laptops, controllers, awards.",
+    location: "St. Mary's University, Moody Life Sciences",
+    meta: "Family-friendly. Tables, laptops, controllers, awards. Open to the public.",
     cta: "RSVP",
-    href: "https://www.meetup.com/acm-sa/events/312892527",
+    href: "https://www.devsa.community/events/community-showcase-velocicode-2-mpw3vfw7",
     external: true,
     medium: "in-person",
   },
