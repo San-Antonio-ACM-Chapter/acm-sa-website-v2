@@ -1048,9 +1048,6 @@ function ConfigureContent() {
                           style={{ width: 15, height: 15, cursor: "pointer" }}
                         />
                         <span>{track.title}</span>
-                        <span style={{ opacity: 0.4, fontSize: "0.75rem" }}>
-                          {track.file}
-                        </span>
                       </label>
                     ))}
                   </div>

@@ -60,4 +60,9 @@ export const COMMUNITY_PARTNERS: Ally[] = [
     src: "/gdg-logo.png",
     href: "https://gdg.community.dev/gdg-san-antonio/",
   },
+  {
+    name: "WulfSpar Gaming Nexus",
+    src: "/velocicode/wulfspar-logo.png",
+    href: "https://wulfspar.com/",
+  }
 ];

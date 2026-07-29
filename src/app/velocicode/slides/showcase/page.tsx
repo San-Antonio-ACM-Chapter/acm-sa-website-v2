@@ -8,7 +8,14 @@ import {
   Special_Elite,
 } from "next/font/google";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { COMMUNITY_PARTNERS, SPONSORS } from "../../allies";
 import kf from "../kickoff/kickoff.module.css";
 import { Eyebrow, makeQR, QRImg } from "../kickoff/slide-utils";
@@ -1290,10 +1297,100 @@ export type ClosingQrKey =
 function ClosingSlide({
   cls,
   qrs,
+  winners,
+  organizers,
+  games,
 }: {
   cls: string;
   qrs: Record<string, string | null>;
+  winners: Record<CatId, Winner[]>;
+  organizers: Organizer[];
+  games: Game[];
 }) {
+  type CreditItem =
+    | { type: "section"; text: string }
+    | { type: "winner"; name: string; game: string }
+    | { type: "game"; title: string; team: string }
+    | { type: "name"; text: string }
+    | { type: "role-pair"; items: Array<{ name: string; role: string }> };
+
+  const creditItems: CreditItem[] = [];
+
+  const winnerOrder: Array<{ id: CatId; label: string }> = [
+    { id: "overall", label: "Best Overall" },
+    { id: "theme", label: "Best Use of Theme" },
+    { id: "crowd", label: "Crowd Favorite" },
+  ];
+  for (const { id, label } of winnerOrder) {
+    const ws = winners[id] ?? [];
+    if (ws.length === 0) continue;
+    creditItems.push({ type: "section", text: label });
+    for (const w of ws) {
+      creditItems.push({ type: "winner", name: w.name, game: w.game });
+    }
+  }
+  if (games.length > 0) {
+    creditItems.push({ type: "section", text: "Game Submissions" });
+    for (const g of games)
+      creditItems.push({ type: "game", title: g.title, team: g.team });
+  }
+
+  if (SPONSORS.length > 0) {
+    creditItems.push({ type: "section", text: "Our Sponsors" });
+    for (const s of SPONSORS) creditItems.push({ type: "name", text: s.name });
+  }
+  if (COMMUNITY_PARTNERS.length > 0) {
+    creditItems.push({ type: "section", text: "Community Partners" });
+    for (const p of COMMUNITY_PARTNERS)
+      creditItems.push({ type: "name", text: p.name });
+  }
+  if (organizers.length > 0) {
+    creditItems.push({ type: "section", text: "Organized By" });
+    for (let i = 0; i < organizers.length; i += 2) {
+      creditItems.push({
+        type: "role-pair",
+        items: organizers.slice(i, i + 2),
+      });
+    }
+  }
+
+  const doubled = [...creditItems, ...creditItems];
+  const duration = Math.max(20, creditItems.length * 1.25);
+
+  const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const track = trackRef.current;
+    const container = containerRef.current;
+    if (!track || !container) return;
+    track.style.transform = "translateY(10000px)";
+    let singleH = 0;
+    let y = 0;
+    let pxPerFrame = 0;
+    let ready = false;
+    let rafId: number;
+    const tick = () => {
+      if (!ready) {
+        const ch = container.getBoundingClientRect().height;
+        const sh = track.scrollHeight / 2;
+        if (ch > 0 && sh > 0) {
+          singleH = sh;
+          pxPerFrame = sh / (duration * 60);
+          y = ch;
+          ready = true;
+        }
+      } else {
+        y -= pxPerFrame;
+        if (y <= -singleH) y += singleH;
+        track.style.transform = `translateY(${y}px)`;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [duration]);
+
   return (
     <div className={cls}>
       <div
@@ -1319,11 +1416,11 @@ function ClosingSlide({
           }}
         />
 
-        {/* Left: heading + 3 primary QRs */}
+        {/* Left column: heading + tagline + primary QRs */}
         <div
           className={kf.kfStagger}
           style={{
-            flex: 1,
+            flexShrink: 0,
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
@@ -1341,10 +1438,22 @@ function ClosingSlide({
               color: "var(--vc-cream)",
               lineHeight: 0.88,
               textShadow: "5px 5px 0 var(--vc-leaf-shadow)",
-              margin: "12px 0 10px",
+              marginTop: 12,
             }}
           >
-            THANKS FOR PLAYING
+            THANKS FOR
+          </div>
+          <div
+            style={{
+              fontFamily: luckiestGuy.style.fontFamily,
+              fontSize: 110,
+              color: "var(--vc-cream)",
+              lineHeight: 0.88,
+              textShadow: "5px 5px 0 var(--vc-leaf-shadow)",
+              marginBottom: 10,
+            }}
+          >
+            PLAYING
           </div>
           <div
             style={{
@@ -1352,7 +1461,7 @@ function ClosingSlide({
               fontSize: 42,
               color: "var(--vc-mustard)",
               transform: "rotate(-1.5deg)",
-              marginBottom: 40,
+              marginBottom: 18,
             }}
           >
             VelociCode 2026 · Expedition 02
@@ -1362,7 +1471,7 @@ function ClosingSlide({
               width: 320,
               height: 2,
               background: "rgba(245,198,0,0.22)",
-              marginBottom: 36,
+              marginBottom: 32,
             }}
           />
           <div style={{ display: "flex", gap: 40 }}>
@@ -1413,6 +1522,172 @@ function ClosingSlide({
             ))}
           </div>
         </div>
+
+        {/* Center column: scrolling credits */}
+        {creditItems.length > 0 && (
+          <div
+            ref={containerRef}
+            className={kf.kfStagger}
+            style={{
+              flex: 1,
+              alignSelf: "stretch",
+              overflow: "hidden",
+              position: "relative",
+              zIndex: 1,
+              padding: "0 48px",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+              maskImage:
+                "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)",
+            }}
+          >
+            <div ref={trackRef} style={{ textAlign: "center" }}>
+              {doubled.map((item, i) => {
+                if (item.type === "section") {
+                  return (
+                    <div
+                      // biome-ignore lint/suspicious/noArrayIndexKey: duplicated credits list
+                      key={i}
+                      style={{
+                        fontFamily: elite.style.fontFamily,
+                        fontSize: 17,
+                        color: "var(--vc-mustard)",
+                        letterSpacing: "0.25em",
+                        textTransform: "uppercase",
+                        opacity: 0.9,
+                        marginTop: 28,
+                        marginBottom: 10,
+                      }}
+                    >
+                      {item.text}
+                    </div>
+                  );
+                }
+                if (item.type === "winner") {
+                  return (
+                    <div
+                      // biome-ignore lint/suspicious/noArrayIndexKey: duplicated credits list
+                      key={i}
+                      style={{ marginBottom: 8 }}
+                    >
+                      <div
+                        style={{
+                          fontFamily: luckiestGuy.style.fontFamily,
+                          fontSize: 36,
+                          color: "var(--vc-cream)",
+                          lineHeight: 1.05,
+                        }}
+                      >
+                        {item.name}
+                      </div>
+                      {item.game && (
+                        <div
+                          style={{
+                            fontFamily: caveat.style.fontFamily,
+                            fontSize: 24,
+                            color: "var(--vc-mustard)",
+                            opacity: 0.75,
+                          }}
+                        >
+                          {item.game}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                if (item.type === "game") {
+                  return (
+                    <div
+                      // biome-ignore lint/suspicious/noArrayIndexKey: duplicated credits list
+                      key={i}
+                      style={{ marginBottom: 4 }}
+                    >
+                      <div
+                        style={{
+                          fontFamily: dmMono.style.fontFamily,
+                          fontSize: 18,
+                          color: "var(--vc-cream)",
+                        }}
+                      >
+                        {item.title}
+                      </div>
+                      {item.team && (
+                        <div
+                          style={{
+                            fontFamily: elite.style.fontFamily,
+                            fontSize: 13,
+                            color: "var(--vc-sand)",
+                            letterSpacing: "0.1em",
+                            opacity: 0.55,
+                          }}
+                        >
+                          {item.team}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                if (item.type === "role-pair") {
+                  return (
+                    <div
+                      // biome-ignore lint/suspicious/noArrayIndexKey: duplicated credits list
+                      key={i}
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: 48,
+                        marginBottom: 10,
+                      }}
+                    >
+                      {item.items.map((o, j) => (
+                        // biome-ignore lint/suspicious/noArrayIndexKey: stable pair
+                        <div key={j} style={{ textAlign: "center" }}>
+                          <div
+                            style={{
+                              fontFamily: dmMono.style.fontFamily,
+                              fontSize: 20,
+                              color: "var(--vc-cream)",
+                            }}
+                          >
+                            {o.name}
+                          </div>
+                          {o.role && (
+                            <div
+                              style={{
+                                fontFamily: elite.style.fontFamily,
+                                fontSize: 13,
+                                color: "var(--vc-sand)",
+                                letterSpacing: "0.15em",
+                                textTransform: "uppercase",
+                                opacity: 0.6,
+                              }}
+                            >
+                              {o.role}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                }
+                return (
+                  <div
+                    // biome-ignore lint/suspicious/noArrayIndexKey: duplicated credits list
+                    key={i}
+                    style={{
+                      fontFamily: dmMono.style.fontFamily,
+                      fontSize: 20,
+                      color: "var(--vc-cream)",
+                      marginBottom: 4,
+                    }}
+                  >
+                    {item.type === "name" ? item.text : null}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Vertical divider */}
         <div
@@ -1638,6 +1913,8 @@ function ShowcaseRuntime() {
   const fadeIntRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const volumeRef = useRef(0.15);
   const playingRef = useRef(false);
+  const activeTracksRef = useRef(activeTracks);
+  activeTracksRef.current = activeTracks;
 
   specsRef.current = specs;
   totalRef.current = TOTAL;
@@ -1789,17 +2066,27 @@ function ShowcaseRuntime() {
     }, dur);
   }, []);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === " ") advance(1);
-      else if (e.key === "ArrowLeft") advance(-1);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [advance]);
-
   const onPrev = useCallback(() => advance(-1), [advance]);
   const onNext = useCallback(() => advance(1), [advance]);
+
+  const skipTrack = useCallback((dir: 1 | -1) => {
+    const tracks = activeTracksRef.current;
+    if (!tracks.length) return;
+    const audioA = audioARef.current;
+    const audioB = audioBRef.current;
+    if (!audioA || !audioB) return;
+    if (fadeIntRef.current) clearInterval(fadeIntRef.current);
+    fadingRef.current = false;
+    audioA.pause();
+    audioB.pause();
+    audioB.src = "";
+    const nextIdx = (trackIdxRef.current + dir + tracks.length) % tracks.length;
+    trackIdxRef.current = nextIdx;
+    activeSlotRef.current = 0;
+    audioA.src = tracks[nextIdx];
+    audioA.volume = volumeRef.current;
+    if (playingRef.current) audioA.play().catch(() => {});
+  }, []);
 
   const toggleAudio = useCallback(async () => {
     const audio =
@@ -1819,6 +2106,18 @@ function ShowcaseRuntime() {
       }
     }
   }, [playing]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === " ") advance(1);
+      else if (e.key === "ArrowLeft") advance(-1);
+      else if (e.key === "v") toggleAudio();
+      else if (e.key === "z") skipTrack(-1);
+      else if (e.key === "x") skipTrack(1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [advance, toggleAudio, skipTrack]);
 
   const cc = (i: number) => cardCls(i, idx, swapping, outIdx, inIdx);
 
@@ -1894,7 +2193,14 @@ function ShowcaseRuntime() {
                 );
               case "closing":
                 return (
-                  <ClosingSlide key="closing" cls={cls} qrs={closingQrs} />
+                  <ClosingSlide
+                    key="closing"
+                    cls={cls}
+                    qrs={closingQrs}
+                    winners={categoryWinners}
+                    organizers={organizers}
+                    games={games}
+                  />
                 );
               default:
                 return null;

@@ -56,6 +56,23 @@
   animation: vcFloat 6s ease-in-out infinite;
 }
 
+/* ── Credits scroll ────────────────────────────────────────────── */
+.creditsTrack {
+  display: flex;
+  flex-direction: column;
+  animation: scrollCredits var(--credits-duration, 40s) linear infinite;
+  will-change: transform;
+}
+
+@keyframes scrollCredits {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
 @keyframes vcFloat {
   0%,
   100% {
