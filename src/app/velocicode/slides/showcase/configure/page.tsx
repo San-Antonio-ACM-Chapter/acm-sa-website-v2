@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 import styles from "../../configure/configure.module.css";
+import { SHOWCASE_MUSIC } from "../showcase-music";
 
 const luckiestGuy = Luckiest_Guy({
   subsets: ["latin"],
@@ -39,6 +40,12 @@ type Game = { title: string; team: string; url: string };
 type Organizer = { name: string; role: string };
 type Winner = { name: string; game: string };
 type CategoryWinners = Record<CatId, Winner[]>;
+type MusicConfig = {
+  enabled: boolean;
+  fadeSecs: number;
+  shuffle: boolean;
+  enabledTracks: number[];
+};
 
 function ensureHttps(url: string): string {
   const trimmed = url.trim();
@@ -52,6 +59,7 @@ function buildParams(
   games: Game[],
   organizers: Organizer[],
   winners: CategoryWinners,
+  music: MusicConfig,
 ): URLSearchParams {
   const p = new URLSearchParams();
 
@@ -83,6 +91,13 @@ function buildParams(
     }
   }
 
+  if (!music.enabled) p.set("music", "0");
+  if (music.fadeSecs !== 4) p.set("mfade", String(music.fadeSecs));
+  if (music.shuffle) p.set("mshuffle", "1");
+  if (music.enabledTracks.length < SHOWCASE_MUSIC.length) {
+    p.set("mon", music.enabledTracks.join(","));
+  }
+
   return p;
 }
 
@@ -91,8 +106,9 @@ function buildDeckUrl(
   games: Game[],
   organizers: Organizer[],
   winners: CategoryWinners,
+  music: MusicConfig,
 ): string {
-  const p = buildParams(games, organizers, winners);
+  const p = buildParams(games, organizers, winners, music);
   const qs = p.toString();
   return qs
     ? `${origin}/velocicode/slides/showcase?${qs}`
@@ -104,8 +120,9 @@ function buildConfigureUrl(
   games: Game[],
   organizers: Organizer[],
   winners: CategoryWinners,
+  music: MusicConfig,
 ): string {
-  const p = buildParams(games, organizers, winners);
+  const p = buildParams(games, organizers, winners, music);
   const qs = p.toString();
   return qs
     ? `${origin}/velocicode/slides/showcase/configure?${qs}`
@@ -267,6 +284,38 @@ function ConfigureContent() {
   const [games, setGames] = useState<Game[]>(initialGames);
   const [organizers, setOrganizers] = useState<Organizer[]>(initialOrganizers);
   const [winners, setWinners] = useState<CategoryWinners>(initialWinners);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: read once on mount
+  const initialMusic = useMemo<MusicConfig>(() => {
+    const monParam = params.get("mon");
+    const enabledTracks = monParam
+      ? monParam
+          .split(",")
+          .map(Number)
+          .filter((n) => n >= 0 && n < SHOWCASE_MUSIC.length)
+      : SHOWCASE_MUSIC.map((_, i) => i);
+    return {
+      enabled: params.get("music") !== "0",
+      fadeSecs: Math.max(0.5, Math.min(10, Number(params.get("mfade") ?? 4))),
+      shuffle: params.get("mshuffle") === "1",
+      enabledTracks,
+    };
+  }, []);
+
+  const [musicEnabled, setMusicEnabled] = useState(initialMusic.enabled);
+  const [fadeSecs, setFadeSecs] = useState(initialMusic.fadeSecs);
+  const [shuffleTracks, setShuffleTracks] = useState(initialMusic.shuffle);
+  const [enabledTracks, setEnabledTracks] = useState<Set<number>>(
+    () => new Set(initialMusic.enabledTracks),
+  );
+
+  const musicConfig: MusicConfig = {
+    enabled: musicEnabled,
+    fadeSecs,
+    shuffle: shuffleTracks,
+    enabledTracks: [...enabledTracks].sort((a, b) => a - b),
+  };
+
   const [copiedDeck, setCopiedDeck] = useState(false);
   const [copiedConfigure, setCopiedConfigure] = useState(false);
   const [origin, setOrigin] = useState("");
@@ -275,8 +324,14 @@ function ConfigureContent() {
     setOrigin(window.location.origin);
   }, []);
 
-  const deckUrl = buildDeckUrl(origin, games, organizers, winners);
-  const configureUrl = buildConfigureUrl(origin, games, organizers, winners);
+  const deckUrl = buildDeckUrl(origin, games, organizers, winners, musicConfig);
+  const configureUrl = buildConfigureUrl(
+    origin,
+    games,
+    organizers,
+    winners,
+    musicConfig,
+  );
 
   // ── Games ──────────────────────────────────────────────────────
 
@@ -891,6 +946,164 @@ function ConfigureContent() {
                 );
               })}
             </div>
+          </div>
+          {/* ── Music ──────────────────────────────────────────── */}
+          <div className={styles.section}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 16,
+              }}
+            >
+              <div className={styles.sectionLabel} style={{ marginBottom: 0 }}>
+                Music
+                <span
+                  style={{
+                    opacity: 0.55,
+                    fontWeight: 400,
+                    textTransform: "none",
+                    letterSpacing: 0,
+                    marginLeft: 10,
+                  }}
+                >
+                  — background audio with crossfade
+                </span>
+              </div>
+              <label
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  cursor: "pointer",
+                  fontFamily: dmMono.style.fontFamily,
+                  fontSize: "0.82rem",
+                  userSelect: "none",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  checked={musicEnabled}
+                  onChange={(e) => setMusicEnabled(e.target.checked)}
+                  style={{ width: 16, height: 16, cursor: "pointer" }}
+                />
+                Enable music
+              </label>
+            </div>
+
+            {SHOWCASE_MUSIC.length === 0 ? (
+              <div
+                style={{
+                  fontFamily: dmMono.style.fontFamily,
+                  fontSize: "0.82rem",
+                  color: "#8c3914",
+                  opacity: 0.7,
+                  padding: "12px 0",
+                }}
+              >
+                No tracks configured — add .mp3 files to{" "}
+                <code>/public/velocicode/music/</code> and list them in{" "}
+                <code>showcase-music.ts</code>.
+              </div>
+            ) : (
+              <div
+                style={{
+                  opacity: musicEnabled ? 1 : 0.4,
+                  pointerEvents: musicEnabled ? "auto" : "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 20,
+                }}
+              >
+                {/* Track list */}
+                <div>
+                  <div className={styles.label} style={{ marginBottom: 8 }}>
+                    Tracks
+                  </div>
+                  <div
+                    style={{ display: "flex", flexDirection: "column", gap: 6 }}
+                  >
+                    {SHOWCASE_MUSIC.map((track, i) => (
+                      <label
+                        key={track.file}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                          cursor: "pointer",
+                          fontFamily: dmMono.style.fontFamily,
+                          fontSize: "0.85rem",
+                        }}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={enabledTracks.has(i)}
+                          onChange={(e) => {
+                            const next = new Set(enabledTracks);
+                            if (e.target.checked) next.add(i);
+                            else next.delete(i);
+                            setEnabledTracks(next);
+                          }}
+                          style={{ width: 15, height: 15, cursor: "pointer" }}
+                        />
+                        <span>{track.title}</span>
+                        <span style={{ opacity: 0.4, fontSize: "0.75rem" }}>
+                          {track.file}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Crossfade + shuffle row */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 32,
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <div>
+                    <div className={styles.label} style={{ marginBottom: 6 }}>
+                      Crossfade — {fadeSecs}s
+                    </div>
+                    <input
+                      type="range"
+                      min={0.5}
+                      max={10}
+                      step={0.5}
+                      value={fadeSecs}
+                      onChange={(e) =>
+                        setFadeSecs(Number.parseFloat(e.target.value))
+                      }
+                      style={{ width: 160, accentColor: "#c44d24" }}
+                    />
+                  </div>
+                  <label
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 8,
+                      cursor: "pointer",
+                      fontFamily: dmMono.style.fontFamily,
+                      fontSize: "0.82rem",
+                      userSelect: "none",
+                      marginTop: 18,
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={shuffleTracks}
+                      onChange={(e) => setShuffleTracks(e.target.checked)}
+                      style={{ width: 15, height: 15, cursor: "pointer" }}
+                    />
+                    Shuffle
+                  </label>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

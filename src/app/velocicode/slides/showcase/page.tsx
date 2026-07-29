@@ -14,6 +14,7 @@ import kf from "../kickoff/kickoff.module.css";
 import { Eyebrow, makeQR, QRImg } from "../kickoff/slide-utils";
 import slides from "../slides.module.css";
 import sc from "./showcase.module.css";
+import { SHOWCASE_MUSIC } from "./showcase-music";
 import { SHOWCASE_PHOTOS } from "./showcase-photos";
 
 const luckiestGuy = Luckiest_Guy({
@@ -162,34 +163,6 @@ function cardCls(
     return kf.kfCard;
   }
   return `${kf.kfCard}${i === current ? ` ${kf.kfIsActive}` : ""}`;
-}
-
-function playAchievementSound() {
-  try {
-    const ctx = new AudioContext();
-    const notes = [
-      { freq: 523.25, t: 0, dur: 0.45 },
-      { freq: 659.25, t: 0.1, dur: 0.45 },
-      { freq: 783.99, t: 0.22, dur: 0.6 },
-      { freq: 1046.5, t: 0.22, dur: 0.6 },
-    ];
-    for (const { freq, t, dur } of notes) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.value = freq;
-      osc.type = "sine";
-      const start = ctx.currentTime + t;
-      gain.gain.setValueAtTime(0, start);
-      gain.gain.linearRampToValueAtTime(0.22, start + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.001, start + dur);
-      osc.start(start);
-      osc.stop(start + dur + 0.05);
-    }
-  } catch {
-    /* AudioContext not available */
-  }
 }
 
 // ── Slides ────────────────────────────────────────────────────────
@@ -1614,6 +1587,21 @@ function ShowcaseRuntime() {
     }
   }
 
+  const musicEnabled = params.get("music") !== "0";
+  const fadeDuration = Math.max(
+    0.5,
+    Math.min(10, Number(params.get("mfade") ?? 4)),
+  );
+  const shuffleTracks = params.get("mshuffle") === "1";
+  const monParam = params.get("mon");
+  const enabledIndices = monParam
+    ? new Set(monParam.split(",").map(Number))
+    : new Set(SHOWCASE_MUSIC.map((_, i) => i));
+  const activeTracks = SHOWCASE_MUSIC.filter((_, i) =>
+    enabledIndices.has(i),
+  ).map((t) => `/velocicode/music/${t.file}.${t.type ?? "mp3"}`);
+  const hasTracks = musicEnabled && activeTracks.length > 0;
+
   const specs = buildSpecs(games, organizers, categoryWinners);
   const TOTAL = specs.length;
 
@@ -1633,7 +1621,7 @@ function ShowcaseRuntime() {
   });
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
   const [playing, setPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.6);
+  const [volume, setVolume] = useState(0.15);
 
   const swappingRef = useRef(false);
   const swapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -1642,7 +1630,14 @@ function ShowcaseRuntime() {
   const specsRef = useRef(specs);
   const totalRef = useRef(TOTAL);
   const reducedRef = useRef(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioARef = useRef<HTMLAudioElement>(null);
+  const audioBRef = useRef<HTMLAudioElement>(null);
+  const activeSlotRef = useRef<0 | 1>(0);
+  const trackIdxRef = useRef(0);
+  const fadingRef = useRef(false);
+  const fadeIntRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const volumeRef = useRef(0.15);
+  const playingRef = useRef(false);
 
   specsRef.current = specs;
   totalRef.current = TOTAL;
@@ -1689,8 +1684,76 @@ function ShowcaseRuntime() {
   }, []);
 
   useEffect(() => {
-    if (audioRef.current) audioRef.current.volume = volume;
+    volumeRef.current = volume;
+    if (!fadingRef.current) {
+      const audio =
+        activeSlotRef.current === 0 ? audioARef.current : audioBRef.current;
+      if (audio) audio.volume = volume;
+    }
   }, [volume]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: activeTracks/fadeDuration/shuffleTracks are stable from URL params
+  useEffect(() => {
+    if (!hasTracks) return;
+    const audioA = audioARef.current;
+    const audioB = audioBRef.current;
+    if (!audioA || !audioB) return;
+
+    audioA.src = activeTracks[0];
+    audioA.volume = volumeRef.current;
+    activeSlotRef.current = 0;
+    trackIdxRef.current = 0;
+
+    const startCrossfade = () => {
+      if (fadingRef.current) return;
+      fadingRef.current = true;
+      const curSlot = activeSlotRef.current;
+      const nxtSlot: 0 | 1 = curSlot === 0 ? 1 : 0;
+      const curAudio = curSlot === 0 ? audioA : audioB;
+      const nxtAudio = nxtSlot === 0 ? audioA : audioB;
+      const nextIdx = shuffleTracks
+        ? Math.floor(Math.random() * activeTracks.length)
+        : (trackIdxRef.current + 1) % activeTracks.length;
+      nxtAudio.src = activeTracks[nextIdx];
+      nxtAudio.volume = 0;
+      if (playingRef.current) nxtAudio.play().catch(() => {});
+      const STEP_MS = 50;
+      const totalSteps = Math.max(1, (fadeDuration * 1000) / STEP_MS);
+      let step = 0;
+      if (fadeIntRef.current) clearInterval(fadeIntRef.current);
+      fadeIntRef.current = setInterval(() => {
+        step++;
+        const t = Math.min(1, step / totalSteps);
+        curAudio.volume = (1 - t) * volumeRef.current;
+        nxtAudio.volume = t * volumeRef.current;
+        if (t >= 1) {
+          if (fadeIntRef.current) clearInterval(fadeIntRef.current);
+          curAudio.pause();
+          curAudio.src = "";
+          activeSlotRef.current = nxtSlot;
+          trackIdxRef.current = nextIdx;
+          fadingRef.current = false;
+        }
+      }, STEP_MS);
+    };
+
+    const checkTime = () => {
+      const cur = activeSlotRef.current === 0 ? audioA : audioB;
+      if (fadingRef.current || !cur.duration) return;
+      if (cur.currentTime >= cur.duration - fadeDuration) startCrossfade();
+    };
+
+    audioA.addEventListener("timeupdate", checkTime);
+    audioB.addEventListener("timeupdate", checkTime);
+
+    return () => {
+      audioA.removeEventListener("timeupdate", checkTime);
+      audioB.removeEventListener("timeupdate", checkTime);
+      audioA.pause();
+      audioB.pause();
+      if (fadeIntRef.current) clearInterval(fadeIntRef.current);
+    };
+  }, []);
 
   const advance = useCallback((dir: 1 | -1) => {
     if (swappingRef.current) return;
@@ -1703,7 +1766,6 @@ function ShowcaseRuntime() {
       !revealedRef.current.has(cur)
     ) {
       setRevealed((prev) => new Set(prev).add(cur));
-      playAchievementSound();
       return;
     }
 
@@ -1740,14 +1802,17 @@ function ShowcaseRuntime() {
   const onNext = useCallback(() => advance(1), [advance]);
 
   const toggleAudio = useCallback(async () => {
-    const audio = audioRef.current;
+    const audio =
+      activeSlotRef.current === 0 ? audioARef.current : audioBRef.current;
     if (!audio) return;
     if (playing) {
       audio.pause();
+      playingRef.current = false;
       setPlaying(false);
     } else {
       try {
         await audio.play();
+        playingRef.current = true;
         setPlaying(true);
       } catch {
         /* autoplay blocked */
@@ -1759,8 +1824,14 @@ function ShowcaseRuntime() {
 
   return (
     <div className={slides.viewport}>
-      {/* biome-ignore lint/a11y/useMediaCaption: background ambient music */}
-      <audio ref={audioRef} src="/showcase-music.mp3" loop />
+      {hasTracks && (
+        <>
+          {/* biome-ignore lint/a11y/useMediaCaption: background ambient music */}
+          <audio ref={audioARef} preload="auto" />
+          {/* biome-ignore lint/a11y/useMediaCaption: background ambient music */}
+          <audio ref={audioBRef} preload="auto" />
+        </>
+      )}
 
       <div className={slides.frame} style={{ transform: `scale(${scale})` }}>
         <div className={slides.contour} />
@@ -1867,32 +1938,36 @@ function ShowcaseRuntime() {
         {/* biome-ignore lint/a11y/noStaticElementInteractions: presenter kiosk */}
         <div className={slides.zoneRight} onClick={onNext} />
 
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.05}
-          value={volume}
-          onChange={(e) => setVolume(Number.parseFloat(e.target.value))}
-          aria-label="Music volume"
-          style={{
-            position: "absolute",
-            right: 44,
-            bottom: 184,
-            width: 70,
-            accentColor: "var(--vc-mustard)",
-            cursor: "pointer",
-            zIndex: 9,
-          }}
-        />
-        <button
-          type="button"
-          className={slides.pause}
-          onClick={toggleAudio}
-          aria-label={playing ? "Pause music" : "Play music"}
-        >
-          {playing ? "❙❙" : "►"}
-        </button>
+        {hasTracks && (
+          <>
+            <input
+              type="range"
+              min={0}
+              max={0.3}
+              step={0.01}
+              value={volume}
+              onChange={(e) => setVolume(Number.parseFloat(e.target.value))}
+              aria-label="Music volume"
+              style={{
+                position: "absolute",
+                right: 44,
+                bottom: 184,
+                width: 70,
+                accentColor: "var(--vc-mustard)",
+                cursor: "pointer",
+                zIndex: 9,
+              }}
+            />
+            <button
+              type="button"
+              className={slides.pause}
+              onClick={toggleAudio}
+              aria-label={playing ? "Pause music" : "Play music"}
+            >
+              {playing ? "❙❙" : "►"}
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
