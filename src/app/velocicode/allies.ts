@@ -64,5 +64,5 @@ export const COMMUNITY_PARTNERS: Ally[] = [
     name: "WulfSpar Gaming Nexus",
     src: "/velocicode/wulfspar-logo.png",
     href: "https://wulfspar.com/",
-  }
+  },
 ];
