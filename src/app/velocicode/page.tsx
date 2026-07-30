@@ -212,6 +212,11 @@ const PRIZES = [
     prize: "7-day course access",
     for: "Participants",
   },
+  {
+    sponsor: "Mayon Coffee",
+    prize: "Coffee Gift Basket",
+    for: "Winners",
+  }
 ];
 
 const MARQUEE_ITEMS = [
@@ -408,16 +413,26 @@ export default function VelociCodePage() {
               </a>
               <a
                 className={`${styles.btn} ${styles["btn-yellow"]}`}
-                href="#schedule"
-              >
-                See the route
-              </a>
-              <a
-                className={`${styles.btn} ${styles["btn-jungle"]}`}
                 href="#partners"
               >
-                Partner with us
+                {/* See the route */}
+                Partners
               </a>
+              {process.env.VELOCICODE_OUTREACH !== "false" && (
+                <a
+                  className={`${styles.btn} ${styles["btn-jungle"]}`}
+                  href="#partners"
+                >
+                  Partner with us
+                </a>
+              ) || (
+                <a
+                  className={`${styles.btn} ${styles["btn-jungle"]}`}
+                  href="https://www.youtube.com/watch?v=9JMZur1lxUw"
+                >
+                  Watch the Awards ↗
+                </a>
+              )}
             </div>
           </div>
         </div>

@@ -33,7 +33,7 @@ export const SPONSORS: Ally[] = [
   },
   {
     name: "Mayon Coffee",
-    src: "/velocicode/mayon-logo.png",
+    src: "/velocicode/mayon-coffee-logo.png",
     href: "https://www.mayoncoffee.com/",
   },
 ];
