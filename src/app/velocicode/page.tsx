@@ -216,7 +216,7 @@ const PRIZES = [
     sponsor: "Mayon Coffee",
     prize: "Coffee Gift Basket",
     for: "Winners",
-  }
+  },
 ];
 
 const MARQUEE_ITEMS = [
@@ -418,14 +418,14 @@ export default function VelociCodePage() {
                 {/* See the route */}
                 Partners
               </a>
-              {process.env.VELOCICODE_OUTREACH !== "false" && (
+              {(process.env.VELOCICODE_OUTREACH !== "false" && (
                 <a
                   className={`${styles.btn} ${styles["btn-jungle"]}`}
                   href="#partners"
                 >
                   Partner with us
                 </a>
-              ) || (
+              )) || (
                 <a
                   className={`${styles.btn} ${styles["btn-jungle"]}`}
                   href="https://www.youtube.com/watch?v=9JMZur1lxUw"
