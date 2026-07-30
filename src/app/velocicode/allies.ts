@@ -31,6 +31,11 @@ export const SPONSORS: Ally[] = [
     src: "/velocicode/StMU-logo-blue.png",
     href: "https://www.stmarytx.edu/academics/school-of-science-engineering-and-technology/",
   },
+  {
+    name: "Mayon Coffee",
+    src: "/velocicode/mayon-coffee-logo.png",
+    href: "https://www.mayoncoffee.com/",
+  },
 ];
 
 export const COMMUNITY_PARTNERS: Ally[] = [

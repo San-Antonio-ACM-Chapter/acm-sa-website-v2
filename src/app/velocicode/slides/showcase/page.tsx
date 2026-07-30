@@ -174,7 +174,91 @@ function cardCls(
 
 // ── Slides ────────────────────────────────────────────────────────
 
-function TitleSlide({ cls }: { cls: string }) {
+const PHOTO_W = 156;
+const PHOTO_H = 117;
+const PHOTOS_PER_SIDE = 6;
+const FLOW_DUR = 20;
+
+function PathPhoto({
+  filename,
+  side,
+  index,
+  tilt,
+}: {
+  filename: string;
+  side: "left" | "right";
+  index: number;
+  tilt: number;
+}) {
+  const delay = -((index / PHOTOS_PER_SIDE) * FLOW_DUR);
+  return (
+    <div
+      className={side === "left" ? sc.pathPhotoLeft : sc.pathPhotoRight}
+      style={
+        {
+          "--flow-dur": `${FLOW_DUR}s`,
+          "--flow-delay": `${delay}s`,
+          transform: `rotate(${tilt}deg)`,
+        } as React.CSSProperties
+      }
+    >
+      <div
+        style={{
+          background: "#fff",
+          padding: "7px 7px 24px 7px",
+          boxShadow: "3px 6px 18px rgba(0,0,0,0.55)",
+          width: PHOTO_W + 14,
+          height: PHOTO_H + 31,
+          marginLeft: -(PHOTO_W + 14) / 2,
+          marginTop: -(PHOTO_H + 31) / 2,
+        }}
+      >
+        {/* biome-ignore lint/performance/noImgElement: kiosk slide */}
+        <img
+          src={`/velocicode/showcase-photos/${filename}`}
+          alt=""
+          style={{
+            width: PHOTO_W,
+            height: PHOTO_H,
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+type ReelPhotoData = {
+  filename: string;
+  side: "left" | "right";
+  index: number;
+  tilt: number;
+};
+
+function TitleSlide({ cls, photos }: { cls: string; photos: string[] }) {
+  const [reelPhotos, setReelPhotos] = useState<ReelPhotoData[]>([]);
+
+  useEffect(() => {
+    const shuffled = [...photos].sort(() => Math.random() - 0.5);
+    const left = shuffled.slice(0, PHOTOS_PER_SIDE);
+    const right = shuffled.slice(PHOTOS_PER_SIDE, PHOTOS_PER_SIDE * 2);
+    setReelPhotos([
+      ...left.map((filename, i) => ({
+        filename,
+        side: "left" as const,
+        index: i,
+        tilt: (Math.random() - 0.5) * 22,
+      })),
+      ...right.map((filename, i) => ({
+        filename,
+        side: "right" as const,
+        index: i,
+        tilt: (Math.random() - 0.5) * 22,
+      })),
+    ]);
+  }, [photos]);
+
   return (
     <div className={cls}>
       <div
@@ -189,7 +273,32 @@ function TitleSlide({ cls }: { cls: string }) {
           padding: "80px 160px",
         }}
       >
-        <div className={kf.kfStagger} style={{ textAlign: "center" }}>
+        {reelPhotos.length > 0 && (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              overflow: "hidden",
+              pointerEvents: "none",
+              zIndex: 0,
+            }}
+          >
+            {reelPhotos.map(({ filename, side, index, tilt }) => (
+              <PathPhoto
+                key={filename}
+                filename={filename}
+                side={side}
+                index={index}
+                tilt={tilt}
+              />
+            ))}
+          </div>
+        )}
+
+        <div
+          className={kf.kfStagger}
+          style={{ textAlign: "center", position: "relative", zIndex: 1 }}
+        >
           <div>
             {/* biome-ignore lint/performance/noImgElement: kiosk slide */}
             <img
@@ -979,7 +1088,7 @@ function PolaroidCarouselSlide({ cls }: { cls: string }) {
             >
               {/* biome-ignore lint/performance/noImgElement: kiosk slide */}
               <img
-                src={`/showcase-photos/${filename}`}
+                src={`/velocicode/showcase-photos/${filename}`}
                 alt=""
                 style={{
                   width: POLAROID_IMG_W,
@@ -2140,7 +2249,9 @@ function ShowcaseRuntime() {
             const cls = cc(i);
             switch (spec.kind) {
               case "title":
-                return <TitleSlide key="title" cls={cls} />;
+                return (
+                  <TitleSlide key="title" cls={cls} photos={SHOWCASE_PHOTOS} />
+                );
               case "thank-you":
                 return <ThankYouIntroSlide key="thank-you" cls={cls} />;
               case "sponsors":
