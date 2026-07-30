@@ -979,7 +979,7 @@ function PolaroidCarouselSlide({ cls }: { cls: string }) {
             >
               {/* biome-ignore lint/performance/noImgElement: kiosk slide */}
               <img
-                src={`/showcase-photos/${filename}`}
+                src={`/velocicode/showcase-photos/${filename}`}
                 alt=""
                 style={{
                   width: POLAROID_IMG_W,
