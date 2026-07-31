@@ -13,12 +13,16 @@ import { COMMUNITY_PARTNERS, SPONSORS } from "./allies";
 import { RSVP_URL, STOPS } from "./events";
 import { VCHeroScene } from "./graphics/VCHeroScene";
 import { VCSymbols } from "./graphics/VCSymbols";
-import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
+import { JudgesCarousel } from "./JudgesCarousel";
+import { OrganizersSection } from "./OrganizersSection";
 import styles from "./page.module.css";
+import { JUDGES, ORG_DIRECTOR, ORG_MEMBERS, WINNERS } from "./people";
+import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
 import { RouteSection } from "./RouteSection";
 import { buildRouteLayout } from "./routeLayout";
 import { SectionReveal } from "./SectionReveal";
 import { StatCounter } from "./StatCounter";
+import { WinnersSection } from "./WinnersSection";
 
 const luckiestGuy = Luckiest_Guy({
   subsets: ["latin"],
@@ -225,6 +229,7 @@ const MARQUEE_ITEMS = [
   "Made in San Antonio",
   "First-timers welcome",
 ];
+
 
 const FAQ_ITEMS: FaqItem[] = [
   {
@@ -642,8 +647,8 @@ export default function VelociCodePage() {
         </div>
       </section>
 
-      {/* ─── CHALLENGE ──────────────────────────────────────────────── */}
-      <SectionReveal
+      {/* ─── CHALLENGE — hidden once winners are announced ──────────── */}
+      {WINNERS.length === 0 && <SectionReveal
         className={`${styles.block} ${styles.challenge}`}
         id="challenge"
       >
@@ -706,7 +711,36 @@ export default function VelociCodePage() {
             </div>
           </div>
         </div>
-      </SectionReveal>
+      </SectionReveal>}
+
+      {/* ─── WINNERS ─────────────────────────────────────────────────── */}
+      <WinnersSection categories={WINNERS} />
+
+      {/* ─── JUDGING ─────────────────────────────────────────────────── */}
+      {JUDGES.length > 0 && (
+        <SectionReveal
+          className={`${styles.block} ${styles.judging}`}
+          id="judging"
+        >
+          <div className={styles.content}>
+            <div className={styles["section-eye"]}>
+              Field Site · Judges
+            </div>
+            <h2 className={styles["section-title"]}>
+              Meet the <span className={styles.accent}>judges.</span>
+              <span className={styles.scribble}>more get dug up as we go</span>
+            </h2>
+            <p className={styles["sec-lead"]}>
+              Local devs, designers, and studio folks who&apos;ll be evaluating
+              your build on showcase day. Bios ship as judges confirm.
+            </p>
+            <JudgesCarousel judges={JUDGES} />
+          </div>
+        </SectionReveal>
+      )}
+
+      {/* ─── ORGANIZERS ──────────────────────────────────────────────── */}
+      <OrganizersSection director={ORG_DIRECTOR} members={ORG_MEMBERS} />
 
       {/* ─── PARTNERS ───────────────────────────────────────────────── */}
       <SectionReveal
