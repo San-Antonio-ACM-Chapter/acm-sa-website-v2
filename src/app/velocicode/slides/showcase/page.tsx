@@ -77,7 +77,6 @@ type SlideSpec =
   | { kind: "partners" }
   | { kind: "who-made-it" }
   | { kind: "gallery" }
-  | { kind: "photos" }
   | { kind: "venue-thanks" }
   | { kind: "awards-intro" }
   | { kind: "award-title"; catLabel: string }
@@ -111,7 +110,6 @@ function buildSpecs(
     { kind: "partners" },
     { kind: "who-made-it" },
     ...(games.length > 0 ? [{ kind: "gallery" as const }] : []),
-    ...(SHOWCASE_PHOTOS.length > 0 ? [{ kind: "photos" as const }] : []),
     { kind: "venue-thanks" },
     { kind: "thank-you" },
   ];
@@ -180,20 +178,36 @@ const PHOTOS_PER_SIDE = 6;
 const FLOW_DUR = 20;
 
 function PathPhoto({
-  filename,
+  photos,
   side,
   index,
   tilt,
 }: {
-  filename: string;
+  photos: string[];
   side: "left" | "right";
   index: number;
   tilt: number;
 }) {
+  const [filename, setFilename] = useState(
+    () => photos[Math.floor(Math.random() * photos.length)],
+  );
   const delay = -((index / PHOTOS_PER_SIDE) * FLOW_DUR);
+
+  const handleIteration = useCallback(() => {
+    setFilename((cur) => {
+      if (photos.length <= 1) return cur;
+      let next: string;
+      do {
+        next = photos[Math.floor(Math.random() * photos.length)];
+      } while (next === cur);
+      return next;
+    });
+  }, [photos]);
+
   return (
     <div
       className={side === "left" ? sc.pathPhotoLeft : sc.pathPhotoRight}
+      onAnimationIteration={handleIteration}
       style={
         {
           "--flow-dur": `${FLOW_DUR}s`,
@@ -229,29 +243,23 @@ function PathPhoto({
   );
 }
 
-type ReelPhotoData = {
-  filename: string;
+type ReelSlot = {
   side: "left" | "right";
   index: number;
   tilt: number;
 };
 
 function TitleSlide({ cls, photos }: { cls: string; photos: string[] }) {
-  const [reelPhotos, setReelPhotos] = useState<ReelPhotoData[]>([]);
+  const [slots, setSlots] = useState<ReelSlot[]>([]);
 
   useEffect(() => {
-    const shuffled = [...photos].sort(() => Math.random() - 0.5);
-    const left = shuffled.slice(0, PHOTOS_PER_SIDE);
-    const right = shuffled.slice(PHOTOS_PER_SIDE, PHOTOS_PER_SIDE * 2);
-    setReelPhotos([
-      ...left.map((filename, i) => ({
-        filename,
+    setSlots([
+      ...Array.from({ length: PHOTOS_PER_SIDE }, (_, i) => ({
         side: "left" as const,
         index: i,
         tilt: (Math.random() - 0.5) * 22,
       })),
-      ...right.map((filename, i) => ({
-        filename,
+      ...Array.from({ length: PHOTOS_PER_SIDE }, (_, i) => ({
         side: "right" as const,
         index: i,
         tilt: (Math.random() - 0.5) * 22,
@@ -273,7 +281,7 @@ function TitleSlide({ cls, photos }: { cls: string; photos: string[] }) {
           padding: "80px 160px",
         }}
       >
-        {reelPhotos.length > 0 && (
+        {slots.length > 0 && (
           <div
             style={{
               position: "absolute",
@@ -283,10 +291,10 @@ function TitleSlide({ cls, photos }: { cls: string; photos: string[] }) {
               zIndex: 0,
             }}
           >
-            {reelPhotos.map(({ filename, side, index, tilt }) => (
+            {slots.map(({ side, index, tilt }) => (
               <PathPhoto
-                key={filename}
-                filename={filename}
+                key={`${side}-${index}`}
+                photos={photos}
                 side={side}
                 index={index}
                 tilt={tilt}
@@ -1004,102 +1012,6 @@ function GallerySlide({
             </div>
           </div>
         )}
-      </div>
-    </div>
-  );
-}
-
-const POLAROID_ROTATIONS = [
-  -7, 5, -3, 11, -8, 4, -12, 6, -2, 9, -5, 13, 3, -10, 7, -4,
-];
-const POLAROID_Y_OFFSETS = [
-  0, -28, 20, -14, 32, -20, 10, -36, 24, -8, 36, -30, 14, -22, 18, -6,
-];
-const POLAROID_IMG_W = 280;
-const POLAROID_IMG_H = 210;
-const POLAROID_W = POLAROID_IMG_W + 24; // 12px padding each side
-const POLAROID_GAP = 20;
-
-function PolaroidCarouselSlide({ cls }: { cls: string }) {
-  const photos = SHOWCASE_PHOTOS;
-  const duped = [...photos, ...photos];
-  const singleSetW = photos.length * (POLAROID_W + POLAROID_GAP);
-  const duration = Math.max(20, photos.length * 5);
-
-  return (
-    <div className={cls}>
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "var(--vc-ink)",
-          display: "flex",
-          alignItems: "center",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: 100,
-            background: "linear-gradient(to right, var(--vc-ink), transparent)",
-            zIndex: 2,
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 0,
-            bottom: 0,
-            width: 100,
-            background: "linear-gradient(to left, var(--vc-ink), transparent)",
-            zIndex: 2,
-            pointerEvents: "none",
-          }}
-        />
-        <div
-          className={sc.photoCarouselTrack}
-          style={
-            {
-              "--photo-duration": `${duration}s`,
-              paddingLeft: `${POLAROID_GAP}px`,
-              width: `${singleSetW * 2 + POLAROID_GAP}px`,
-            } as React.CSSProperties
-          }
-        >
-          {duped.map((filename, i) => (
-            <div
-              // biome-ignore lint/suspicious/noArrayIndexKey: duplicated carousel
-              key={i}
-              style={{
-                flexShrink: 0,
-                width: POLAROID_W,
-                background: "#fff",
-                padding: `12px 12px 52px`,
-                boxShadow:
-                  "3px 6px 20px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.3)",
-                transform: `rotate(${POLAROID_ROTATIONS[i % POLAROID_ROTATIONS.length]}deg) translateY(${POLAROID_Y_OFFSETS[i % POLAROID_Y_OFFSETS.length]}px)`,
-              }}
-            >
-              {/* biome-ignore lint/performance/noImgElement: kiosk slide */}
-              <img
-                src={`/velocicode/showcase-photos/${filename}`}
-                alt=""
-                style={{
-                  width: POLAROID_IMG_W,
-                  height: POLAROID_IMG_H,
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
@@ -2275,8 +2187,6 @@ function ShowcaseRuntime() {
                     qrs={qrs}
                   />
                 );
-              case "photos":
-                return <PolaroidCarouselSlide key="photos" cls={cls} />;
               case "venue-thanks":
                 return <VenueThanksSlide key="venue-thanks" cls={cls} />;
               case "awards-intro":
