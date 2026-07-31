@@ -95,12 +95,6 @@ export const JUDGES: Judge[] = [
     ],
   },
   {
-    name: "Rick Canfield",
-    title: "Project Manager, Native Creative",
-    photo: "rick-canfield.jpeg",
-    orgBadge: { src: "/unreal-engine-sa.png", alt: "Unreal Engine San Antio" },
-  },
-  {
     name: "Jonathan Perry",
     title: "Software Developer, Reactive",
     photo: "jonathan-perry.jpeg",
