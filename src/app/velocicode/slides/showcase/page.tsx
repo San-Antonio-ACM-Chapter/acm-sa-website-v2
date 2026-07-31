@@ -265,7 +265,7 @@ function TitleSlide({ cls, photos }: { cls: string; photos: string[] }) {
         tilt: (Math.random() - 0.5) * 22,
       })),
     ]);
-  }, [photos]);
+  }, []);
 
   return (
     <div className={cls}>
