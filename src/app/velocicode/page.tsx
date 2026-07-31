@@ -15,9 +15,9 @@ import { VCHeroScene } from "./graphics/VCHeroScene";
 import { VCSymbols } from "./graphics/VCSymbols";
 import { JudgesCarousel } from "./JudgesCarousel";
 import { OrganizersSection } from "./OrganizersSection";
+import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
 import styles from "./page.module.css";
 import { JUDGES, ORG_DIRECTOR, ORG_MEMBERS, WINNERS } from "./people";
-import { type PolaroidPhoto, PolaroidSlideshow } from "./PolaroidSlideshow";
 import { RouteSection } from "./RouteSection";
 import { buildRouteLayout } from "./routeLayout";
 import { SectionReveal } from "./SectionReveal";
@@ -229,7 +229,6 @@ const MARQUEE_ITEMS = [
   "Made in San Antonio",
   "First-timers welcome",
 ];
-
 
 const FAQ_ITEMS: FaqItem[] = [
   {
@@ -648,70 +647,72 @@ export default function VelociCodePage() {
       </section>
 
       {/* ─── CHALLENGE — hidden once winners are announced ──────────── */}
-      {WINNERS.length === 0 && <SectionReveal
-        className={`${styles.block} ${styles.challenge}`}
-        id="challenge"
-      >
-        <div className={styles.content}>
-          <div className={styles["section-eye"]}>The expedition · Glory</div>
-          <h2 className={styles["section-title"]}>
-            Top of the <span className={styles.accent}>heap.</span>
-            <span className={styles.scribble}>mind the podium</span>
-          </h2>
-          <p className={styles["sec-lead"]}>
-            Three prizes, one month of building. Chase all three or just the one
-            that you want — the game you finish is in the running.
-          </p>
-
-          <div className={styles.podium}>
-            {CHALLENGES.map((c) => (
-              <div
-                key={c.title}
-                className={`${styles.pcard} ${styles[`pcard-${c.pos}`]}`}
-              >
-                {c.badge && (
-                  <div className={styles["pcard-badge"]}>{c.badge}</div>
-                )}
-                <div
-                  className={`${styles["pcard-icon"]}${c.pos === "center" ? ` ${styles["pcard-icon-clay"]}` : ""}`}
-                >
-                  <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <use href={`#${c.icon}`} />
-                  </svg>
-                </div>
-                <span className={styles["pcard-rank"]}>{c.rank}</span>
-                <h3>{c.title}</h3>
-                <p className={styles["pcard-desc"]}>{c.desc}</p>
-                <div className={styles["pcard-prize"]}>{c.prize}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* loot callout — hidden until prizes are finalized */}
-          <div className={styles.loot}>
-            <div className={styles["loot-badge"]}>★ The loot ★</div>
-            <h3>What you&apos;re playing for.</h3>
-            <p>
-              Here&apos;s the part that gets loud once our sponsors lock in for
-              hardware, swag, and a year of bragging rights, for those
-              participating and the winners. We&apos;ll update this list as more
-              sponsors come on board, so check back
+      {WINNERS.length === 0 && (
+        <SectionReveal
+          className={`${styles.block} ${styles.challenge}`}
+          id="challenge"
+        >
+          <div className={styles.content}>
+            <div className={styles["section-eye"]}>The expedition · Glory</div>
+            <h2 className={styles["section-title"]}>
+              Top of the <span className={styles.accent}>heap.</span>
+              <span className={styles.scribble}>mind the podium</span>
+            </h2>
+            <p className={styles["sec-lead"]}>
+              Three prizes, one month of building. Chase all three or just the
+              one that you want — the game you finish is in the running.
             </p>
-            <div className={styles["loot-slots"]}>
-              {PRIZES.map((c) => (
+
+            <div className={styles.podium}>
+              {CHALLENGES.map((c) => (
                 <div
-                  key={`${c.sponsor}-${c.prize}`}
-                  className={styles["loot-slot"]}
+                  key={c.title}
+                  className={`${styles.pcard} ${styles[`pcard-${c.pos}`]}`}
                 >
-                  <span className={styles["ls-l"]}>{c.sponsor}</span>
-                  <span className={styles["ls-v"]}>{c.prize}</span>
-                  <span className={styles["ls-n"]}>{c.for}</span>
+                  {c.badge && (
+                    <div className={styles["pcard-badge"]}>{c.badge}</div>
+                  )}
+                  <div
+                    className={`${styles["pcard-icon"]}${c.pos === "center" ? ` ${styles["pcard-icon-clay"]}` : ""}`}
+                  >
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                      <use href={`#${c.icon}`} />
+                    </svg>
+                  </div>
+                  <span className={styles["pcard-rank"]}>{c.rank}</span>
+                  <h3>{c.title}</h3>
+                  <p className={styles["pcard-desc"]}>{c.desc}</p>
+                  <div className={styles["pcard-prize"]}>{c.prize}</div>
                 </div>
               ))}
             </div>
+
+            {/* loot callout — hidden until prizes are finalized */}
+            <div className={styles.loot}>
+              <div className={styles["loot-badge"]}>★ The loot ★</div>
+              <h3>What you&apos;re playing for.</h3>
+              <p>
+                Here&apos;s the part that gets loud once our sponsors lock in
+                for hardware, swag, and a year of bragging rights, for those
+                participating and the winners. We&apos;ll update this list as
+                more sponsors come on board, so check back
+              </p>
+              <div className={styles["loot-slots"]}>
+                {PRIZES.map((c) => (
+                  <div
+                    key={`${c.sponsor}-${c.prize}`}
+                    className={styles["loot-slot"]}
+                  >
+                    <span className={styles["ls-l"]}>{c.sponsor}</span>
+                    <span className={styles["ls-v"]}>{c.prize}</span>
+                    <span className={styles["ls-n"]}>{c.for}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </SectionReveal>}
+        </SectionReveal>
+      )}
 
       {/* ─── WINNERS ─────────────────────────────────────────────────── */}
       <WinnersSection categories={WINNERS} />
@@ -723,9 +724,7 @@ export default function VelociCodePage() {
           id="judging"
         >
           <div className={styles.content}>
-            <div className={styles["section-eye"]}>
-              Field Site · Judges
-            </div>
+            <div className={styles["section-eye"]}>Field Site · Judges</div>
             <h2 className={styles["section-title"]}>
               Meet the <span className={styles.accent}>judges.</span>
               <span className={styles.scribble}>more get dug up as we go</span>

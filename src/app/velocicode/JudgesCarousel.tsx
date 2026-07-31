@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
-import type { Judge } from "./people";
 import styles from "./page.module.css";
+import type { Judge } from "./people";
 
 export type { Judge };
 
@@ -52,8 +52,9 @@ export function JudgesCarousel({ judges }: { judges: Judge[] }) {
   const state = stateRef.current;
 
   return (
-    <div
+    <section
       className={styles["judges-carousel"]}
+      aria-label="Judges"
       onMouseEnter={() => {
         state.paused = true;
       }}
@@ -105,7 +106,9 @@ export function JudgesCarousel({ judges }: { judges: Judge[] }) {
                   tabIndex={isClone ? -1 : undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                />
+                >
+                  {judge.name}
+                </a>
               )}
               <div className={styles["judge-photo"]}>
                 {judge.photo && (
@@ -151,6 +154,6 @@ export function JudgesCarousel({ judges }: { judges: Judge[] }) {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }

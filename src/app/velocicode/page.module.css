@@ -2113,12 +2113,16 @@
   pointer-events: none;
   z-index: 1;
   background-image:
-    repeating-linear-gradient(90deg,
+    repeating-linear-gradient(
+      90deg,
       color-mix(in srgb, var(--bark) 14%, transparent) 0 1.5px,
-      transparent 1.5px 64px),
-    repeating-linear-gradient(0deg,
+      transparent 1.5px 64px
+    ),
+    repeating-linear-gradient(
+      0deg,
       color-mix(in srgb, var(--bark) 14%, transparent) 0 1.5px,
-      transparent 1.5px 64px);
+      transparent 1.5px 64px
+    );
   opacity: 0.5;
 }
 
@@ -2133,8 +2137,20 @@
   margin-top: 40px;
   overflow: hidden;
   position: relative;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
 }
 
 .judges-track {
@@ -2165,12 +2181,24 @@
 }
 
 /* nth-child rotation — 6n repeats correctly for the doubled array */
-.judges-track .judge-card:nth-child(6n+1) { transform: rotate(-1.4deg); }
-.judges-track .judge-card:nth-child(6n+2) { transform: rotate(1deg); }
-.judges-track .judge-card:nth-child(6n+3) { transform: rotate(-0.7deg); }
-.judges-track .judge-card:nth-child(6n+4) { transform: rotate(1.3deg); }
-.judges-track .judge-card:nth-child(6n+5) { transform: rotate(-1deg); }
-.judges-track .judge-card:nth-child(6n+6) { transform: rotate(0.8deg); }
+.judges-track .judge-card:nth-child(6n + 1) {
+  transform: rotate(-1.4deg);
+}
+.judges-track .judge-card:nth-child(6n + 2) {
+  transform: rotate(1deg);
+}
+.judges-track .judge-card:nth-child(6n + 3) {
+  transform: rotate(-0.7deg);
+}
+.judges-track .judge-card:nth-child(6n + 4) {
+  transform: rotate(1.3deg);
+}
+.judges-track .judge-card:nth-child(6n + 5) {
+  transform: rotate(-1deg);
+}
+.judges-track .judge-card:nth-child(6n + 6) {
+  transform: rotate(0.8deg);
+}
 
 /* higher specificity (0,3,0) wins over the nth-child rotation rules above */
 .judges-track .judge-card:hover {
@@ -2198,15 +2226,29 @@
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M13 24c-5 0-8 4-8 8s3 8 8 8c2.6 0 5-1 6.4-3.4l5-5.6h5.2l5 5.6c1.4 2.4 3.8 3.4 6.4 3.4 5 0 8-4 8-8s-3-8-8-8c-2.6 0-5 1-6.4 3.4l-5 5.6h-5.2l-5-5.6C18 25 15.6 24 13 24z' fill='none' stroke='%2320180c' stroke-width='3' stroke-linejoin='round'/></svg>");
 }
 
-.judge-photo:has(img)::before { display: none; }
+.judge-photo:has(img)::before {
+  display: none;
+}
 
 /* placeholder bg cycles through 6 palette stops; works for doubled array */
-.judges-track .judge-card:nth-child(6n+1) .judge-photo { background: var(--mustard); }
-.judges-track .judge-card:nth-child(6n+2) .judge-photo { background: var(--leaf-far); }
-.judges-track .judge-card:nth-child(6n+3) .judge-photo { background: var(--clay); }
-.judges-track .judge-card:nth-child(6n+4) .judge-photo { background: var(--sunrise); }
-.judges-track .judge-card:nth-child(6n+5) .judge-photo { background: var(--leaf-mid); }
-.judges-track .judge-card:nth-child(6n+6) .judge-photo { background: var(--rust); }
+.judges-track .judge-card:nth-child(6n + 1) .judge-photo {
+  background: var(--mustard);
+}
+.judges-track .judge-card:nth-child(6n + 2) .judge-photo {
+  background: var(--leaf-far);
+}
+.judges-track .judge-card:nth-child(6n + 3) .judge-photo {
+  background: var(--clay);
+}
+.judges-track .judge-card:nth-child(6n + 4) .judge-photo {
+  background: var(--sunrise);
+}
+.judges-track .judge-card:nth-child(6n + 5) .judge-photo {
+  background: var(--leaf-mid);
+}
+.judges-track .judge-card:nth-child(6n + 6) .judge-photo {
+  background: var(--rust);
+}
 
 .judge-org-badge {
   position: absolute;
@@ -2315,7 +2357,6 @@
   z-index: 2;
 }
 
-/* biome-ignore lint/style/noDescendingSpecificity: section-specific overrides for dark bg */
 .winners .section-eye {
   color: var(--mustard);
 }
@@ -2361,7 +2402,6 @@
   transform: rotate(1deg);
 }
 
-/* biome-ignore lint/style/noDescendingSpecificity: BEM modifier must override :last-child */
 .winner-card3--overall {
   background: var(--sand);
   margin-top: -22px;
@@ -2503,12 +2543,16 @@
   pointer-events: none;
   z-index: 1;
   background-image:
-    repeating-linear-gradient(90deg,
+    repeating-linear-gradient(
+      90deg,
       color-mix(in srgb, var(--bark) 14%, transparent) 0 1.5px,
-      transparent 1.5px 64px),
-    repeating-linear-gradient(0deg,
+      transparent 1.5px 64px
+    ),
+    repeating-linear-gradient(
+      0deg,
       color-mix(in srgb, var(--bark) 14%, transparent) 0 1.5px,
-      transparent 1.5px 64px);
+      transparent 1.5px 64px
+    );
   opacity: 0.5;
 }
 
@@ -2574,10 +2618,18 @@
     box-shadow 0.12s ease;
 }
 
-.org-grid .org-card:nth-child(4n+1) { transform: rotate(-1deg); }
-.org-grid .org-card:nth-child(4n+2) { transform: rotate(0.8deg); }
-.org-grid .org-card:nth-child(4n+3) { transform: rotate(-0.6deg); }
-.org-grid .org-card:nth-child(4n+4) { transform: rotate(1deg); }
+.org-grid .org-card:nth-child(4n + 1) {
+  transform: rotate(-1deg);
+}
+.org-grid .org-card:nth-child(4n + 2) {
+  transform: rotate(0.8deg);
+}
+.org-grid .org-card:nth-child(4n + 3) {
+  transform: rotate(-0.6deg);
+}
+.org-grid .org-card:nth-child(4n + 4) {
+  transform: rotate(1deg);
+}
 
 /* higher specificity (0,3,0) wins over the rotation rules above */
 .org-grid .org-card:hover {
@@ -2612,7 +2664,6 @@
   margin-top: 6px;
 }
 
-/* biome-ignore lint/style/noDescendingSpecificity: org/director context for judge-links centering */
 .org-card .judge-links,
 .org-director .judge-links {
   justify-content: center;

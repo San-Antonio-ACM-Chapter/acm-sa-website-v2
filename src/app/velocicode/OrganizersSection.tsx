@@ -1,6 +1,6 @@
+import styles from "./page.module.css";
 import type { OrgDirector, OrgMember } from "./people";
 import { SectionReveal } from "./SectionReveal";
-import styles from "./page.module.css";
 
 export type { OrgDirector, OrgMember };
 
@@ -14,10 +14,7 @@ export function OrganizersSection({
   if (!director && members.length === 0) return null;
 
   return (
-    <SectionReveal
-      className={`${styles.block} ${styles.organizers}`}
-      id="team"
-    >
+    <SectionReveal className={`${styles.block} ${styles.organizers}`} id="team">
       <div className={styles.content}>
         <div className={styles["section-eye"]}>
           <svg
