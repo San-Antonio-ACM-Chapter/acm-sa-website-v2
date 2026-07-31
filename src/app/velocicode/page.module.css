@@ -2095,6 +2095,615 @@
   }
 }
 
+/* ── NEW SECTIONS: Winners · Judging · Organizers ─────────────────────── */
+
+/* ── JUDGING ─────────────────────────────────────────────── */
+.judging {
+  background: var(--paper);
+  border-bottom: var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+/* excavation-grid dig-site texture */
+.judging::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bark) 14%, transparent) 0 1.5px,
+      transparent 1.5px 64px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--bark) 14%, transparent) 0 1.5px,
+      transparent 1.5px 64px
+    );
+  opacity: 0.5;
+}
+
+.fossil-badge {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  color: var(--rust);
+}
+
+.judges-carousel {
+  margin-top: 40px;
+  overflow: hidden;
+  position: relative;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 4%,
+    #000 96%,
+    transparent
+  );
+}
+
+.judges-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  padding: 6px 4px 20px;
+  cursor: grab;
+  touch-action: pan-y;
+  will-change: transform;
+}
+
+.judges-track:active {
+  cursor: grabbing;
+}
+
+.judge-card {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 240px;
+  background: var(--cream);
+  border: var(--line);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 16px 16px 18px;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+/* nth-child rotation — 6n repeats correctly for the doubled array */
+.judges-track .judge-card:nth-child(6n + 1) {
+  transform: rotate(-1.4deg);
+}
+.judges-track .judge-card:nth-child(6n + 2) {
+  transform: rotate(1deg);
+}
+.judges-track .judge-card:nth-child(6n + 3) {
+  transform: rotate(-0.7deg);
+}
+.judges-track .judge-card:nth-child(6n + 4) {
+  transform: rotate(1.3deg);
+}
+.judges-track .judge-card:nth-child(6n + 5) {
+  transform: rotate(-1deg);
+}
+.judges-track .judge-card:nth-child(6n + 6) {
+  transform: rotate(0.8deg);
+}
+
+/* higher specificity (0,3,0) wins over the nth-child rotation rules above */
+.judges-track .judge-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.judge-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 2px solid var(--ink);
+  overflow: hidden;
+}
+
+/* bone watermark for missing photos */
+.judge-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 46%;
+  opacity: 0.32;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><path d='M13 24c-5 0-8 4-8 8s3 8 8 8c2.6 0 5-1 6.4-3.4l5-5.6h5.2l5 5.6c1.4 2.4 3.8 3.4 6.4 3.4 5 0 8-4 8-8s-3-8-8-8c-2.6 0-5 1-6.4 3.4l-5 5.6h-5.2l-5-5.6C18 25 15.6 24 13 24z' fill='none' stroke='%2320180c' stroke-width='3' stroke-linejoin='round'/></svg>");
+}
+
+.judge-photo:has(img)::before {
+  display: none;
+}
+
+/* placeholder bg cycles through 6 palette stops; works for doubled array */
+.judges-track .judge-card:nth-child(6n + 1) .judge-photo {
+  background: var(--mustard);
+}
+.judges-track .judge-card:nth-child(6n + 2) .judge-photo {
+  background: var(--leaf-far);
+}
+.judges-track .judge-card:nth-child(6n + 3) .judge-photo {
+  background: var(--clay);
+}
+.judges-track .judge-card:nth-child(6n + 4) .judge-photo {
+  background: var(--sunrise);
+}
+.judges-track .judge-card:nth-child(6n + 5) .judge-photo {
+  background: var(--leaf-mid);
+}
+.judges-track .judge-card:nth-child(6n + 6) .judge-photo {
+  background: var(--rust);
+}
+
+.judge-org-badge {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(6deg);
+  padding: 5px;
+}
+
+.judge-org-badge img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.judge-name {
+  font-family: var(--vc-bowlby), system-ui;
+  font-size: 1.12rem;
+  line-height: 1.15;
+  margin-top: 14px;
+  color: var(--ink);
+}
+
+.judge-title {
+  font-family: var(--vc-dm-mono), monospace;
+  font-size: 0.84rem;
+  opacity: 0.8;
+  margin-top: 3px;
+}
+
+.judge-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.judge-link {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--paper);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease;
+}
+
+.judge-link:hover {
+  background: var(--mustard);
+  transform: translate(1px, 1px);
+}
+
+.judges-empty {
+  margin-top: 32px;
+  padding: 28px 32px;
+  border: 2px dashed var(--rust);
+  font-family: var(--vc-dm-mono), monospace;
+  font-size: 0.9rem;
+  opacity: 0.75;
+  max-width: 60ch;
+}
+
+.judge-card-mobile-link {
+  display: none;
+}
+
+/* ── WINNERS ─────────────────────────────────────────────── */
+.winners {
+  background: var(--ink);
+  color: var(--cream);
+  border-bottom: var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.winners::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--mustard) 5%, transparent) 0 2px,
+    transparent 2px 26px
+  );
+}
+
+.winners > .content {
+  position: relative;
+  z-index: 2;
+}
+
+.winners .section-eye {
+  color: var(--mustard);
+}
+
+.winners .section-eye::before {
+  background: var(--mustard);
+}
+
+.winners .section-title {
+  color: var(--cream);
+}
+
+.winners .section-title .accent {
+  color: var(--mustard);
+}
+
+.winners .scribble {
+  color: var(--mustard);
+}
+
+.winners-3col {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: 1fr 1.08fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.winner-card3 {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--line);
+  box-shadow: 7px 7px 0 var(--ink);
+  padding: 28px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transform: rotate(-1.2deg);
+}
+
+.winners-3col > .winner-card3:last-child {
+  transform: rotate(1deg);
+}
+
+.winner-card3--overall {
+  background: var(--sand);
+  margin-top: -22px;
+  padding-top: 46px;
+  box-shadow: 8px 8px 0 var(--ink);
+  z-index: 2;
+  transform: rotate(-0.4deg);
+}
+
+.winner-card3-ribbon {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  background: var(--rust);
+  color: var(--paper);
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 2px solid var(--ink);
+  white-space: nowrap;
+}
+
+.winner-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2.5px solid var(--ink);
+  background: var(--mustard);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.winner-card3--overall .winner-icon-circle {
+  background: var(--clay);
+}
+
+.winner-icon-circle svg {
+  width: 34px;
+  height: 34px;
+}
+
+.winner-eyebrow-hand {
+  font-family: var(--vc-caveat), cursive;
+  font-size: 1.05rem;
+  color: var(--rust);
+  transform: rotate(-1deg);
+  display: inline-block;
+}
+
+.winner-card3-title {
+  font-family: var(--vc-bowlby), system-ui;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  margin-top: 4px;
+}
+
+.winner-card3-divider {
+  border-top: 2px dashed color-mix(in srgb, var(--bark) 55%, transparent);
+}
+
+.winner-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.winner-project {
+  background: var(--cream);
+  border: 1.5px solid var(--ink);
+  padding: 14px 16px;
+  box-shadow: 3px 3px 0 var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.winner-project-rank {
+  align-self: flex-start;
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+}
+
+.winner-project-rank[data-rank="1"] {
+  background: var(--mustard);
+}
+
+.winner-project-rank[data-rank="3"] {
+  background: var(--rust);
+  color: var(--paper);
+}
+
+.winner-project-title {
+  font-family: var(--vc-bowlby), system-ui;
+  font-size: 1.18rem;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.winner-project-team {
+  font-family: var(--vc-caveat), cursive;
+  font-size: 1.08rem;
+  color: var(--rust);
+  transform: rotate(-1deg);
+  display: inline-block;
+}
+
+.winners-pending {
+  margin-top: 44px;
+  padding: 28px 32px;
+  border: 2px dashed color-mix(in srgb, var(--cream) 40%, transparent);
+  font-family: var(--vc-dm-mono), monospace;
+  font-size: 0.9rem;
+  opacity: 0.7;
+  max-width: 60ch;
+}
+
+/* ── ORGANIZERS ──────────────────────────────────────────── */
+.organizers {
+  background: var(--sand);
+  border-bottom: var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+/* excavation-grid dig-site texture */
+.organizers::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bark) 14%, transparent) 0 1.5px,
+      transparent 1.5px 64px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--bark) 14%, transparent) 0 1.5px,
+      transparent 1.5px 64px
+    );
+  opacity: 0.5;
+}
+
+.org-director {
+  margin: 44px auto 0;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.org-director-photo {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--ink);
+  overflow: hidden;
+  background: var(--leaf-deep);
+}
+
+.org-director-name {
+  font-family: var(--vc-bowlby), system-ui;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-top: 22px;
+}
+
+.org-director-role {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-top: 4px;
+}
+
+.org-grid {
+  margin: 48px auto 0;
+  max-width: 1000px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.org-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--paper);
+  border: var(--line);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 14px 10px 16px;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.org-grid .org-card:nth-child(4n + 1) {
+  transform: rotate(-1deg);
+}
+.org-grid .org-card:nth-child(4n + 2) {
+  transform: rotate(0.8deg);
+}
+.org-grid .org-card:nth-child(4n + 3) {
+  transform: rotate(-0.6deg);
+}
+.org-grid .org-card:nth-child(4n + 4) {
+  transform: rotate(1deg);
+}
+
+/* higher specificity (0,3,0) wins over the rotation rules above */
+.org-grid .org-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.org-photo {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  overflow: hidden;
+  background: var(--leaf-deep);
+}
+
+.org-name {
+  font-family: var(--vc-bowlby), system-ui;
+  font-size: 0.92rem;
+  line-height: 1.25;
+  margin-top: 16px;
+}
+
+.org-role {
+  font-family: var(--vc-special-elite), monospace;
+  font-size: 0.62rem;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-top: 6px;
+}
+
+.org-card .judge-links,
+.org-director .judge-links {
+  justify-content: center;
+  margin-top: 10px;
+}
+
+/* ── Responsive: new sections ───────────────────────────── */
+@media (max-width: 960px) {
+  .winners-3col {
+    grid-template-columns: 1fr;
+  }
+  .winner-card3--overall {
+    margin-top: 0;
+    order: -1;
+  }
+  .winner-card3,
+  .winners-3col > .winner-card3:last-child,
+  .winner-card3--overall {
+    transform: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .org-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .judge-links {
+    display: none;
+  }
+  .judge-card-mobile-link {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+  }
+}
+
 /* Route card reveals — data-animated set by RouteSection.tsx on mount,
    so cards degrade to fully visible if JS fails to load */
 .route-wrap[data-animated] .route-stop {

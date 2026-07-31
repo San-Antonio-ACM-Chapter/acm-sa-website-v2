@@ -250,6 +250,16 @@ export function VCSymbols() {
           <circle cx="48" cy="36" r="3" fill="#20180c" />
         </symbol>
 
+        <symbol id="vc-bone" viewBox="0 0 64 64">
+          <path
+            d="M13 24c-5 0-8 4-8 8s3 8 8 8c2.6 0 5-1 6.4-3.4l5-5.6h5.2l5 5.6c1.4 2.4 3.8 3.4 6.4 3.4 5 0 8-4 8-8s-3-8-8-8c-2.6 0-5 1-6.4 3.4l-5 5.6h-5.2l-5-5.6C18 25 15.6 24 13 24z"
+            fill="#f8edcc"
+            stroke="#20180c"
+            strokeWidth="2.4"
+            strokeLinejoin="round"
+          />
+        </symbol>
+
         {/* Palm tree — game-icons/delapouite (CC BY 3.0) */}
         <symbol id="vc-bigleaf" viewBox="0 0 512 512">
           <path
