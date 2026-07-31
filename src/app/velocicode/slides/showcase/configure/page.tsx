@@ -10,12 +10,14 @@ import {
   useRef,
   useState,
 } from "react";
-import styles from "../../configure/configure.module.css";
 import { ORG_DIRECTOR, ORG_MEMBERS } from "../../../people";
+import styles from "../../configure/configure.module.css";
 import { SHOWCASE_MUSIC } from "../showcase-music";
 
 const DEFAULT_ORGANIZERS: Organizer[] = [
-  ...(ORG_DIRECTOR ? [{ name: ORG_DIRECTOR.name, role: ORG_DIRECTOR.role }] : []),
+  ...(ORG_DIRECTOR
+    ? [{ name: ORG_DIRECTOR.name, role: ORG_DIRECTOR.role }]
+    : []),
   ...ORG_MEMBERS.map((m) => ({ name: m.name, role: m.role })),
 ];
 
@@ -270,7 +272,9 @@ function ConfigureContent() {
       out.push({ name: n, role: params.get(`o${i}r`) ?? "" });
     }
     if (out.length > 0) return out;
-    return DEFAULT_ORGANIZERS.length > 0 ? DEFAULT_ORGANIZERS : [{ name: "", role: "" }];
+    return DEFAULT_ORGANIZERS.length > 0
+      ? DEFAULT_ORGANIZERS
+      : [{ name: "", role: "" }];
   }, []);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: read once on mount from URL params
