@@ -81,24 +81,25 @@ export const JUDGES: Judge[] = [
     title: "Software Engineer",
     photo: "gene-tigner.jpg",
     orgBadge: { src: "/acm-logo.svg", alt: "ACM San Antonio" },
-    links: [
-      {
-        label: "web",
-        href: "https://www.malaylainteractive.com/",
-        ariaLabel: "Website",
-      },
-      {
-        label: "ig",
-        href: "https://www.instagram.com/malaylainteractive/",
-        ariaLabel: "Instagram",
-      },
-    ],
   },
   {
     name: "Jonathan Perry",
     title: "Software Developer, Reactive",
     photo: "jonathan-perry.jpeg",
     orgBadge: { src: "/unreal-engine-sa.png", alt: "Unreal Engine San Antio" },
+  },
+  {
+    name: "Al Dungo",
+    title: "Doctoral of IT Student, Capella University/Department of Air Force",
+    photo: "al-dungo.jpg",
+    orgBadge: { src: "/devsa.png", alt: "DEVSA" },
+    links: [
+      {
+        label: "in",
+        href: "https://www.linkedin.com/in/al-dungo-543688113",
+        ariaLabel: "Linkedin",
+      },
+    ],
   },
 ];
 
