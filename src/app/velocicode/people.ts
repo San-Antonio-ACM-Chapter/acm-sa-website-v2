@@ -92,7 +92,7 @@ export const JUDGES: Judge[] = [
     name: "Al Dungo",
     title: "Doctoral of IT Student, Capella University/Department of Air Force",
     photo: "al-dungo.jpg",
-    orgBadge: { src: "/devsa.png", alt: "DEVSA" },
+    orgBadge: { src: "/devsa-logo.svg", alt: "DEVSA" },
     links: [
       {
         label: "in",
