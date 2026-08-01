@@ -350,6 +350,20 @@ export default function SlidesHubPage() {
             }}
           />
 
+          <CardLink
+            link={{
+              href: "/velocicode/slides/judges",
+              label: "Judge Briefing",
+              description:
+                "Judge-only training deck — two awards, judging criteria, the clock, Jury flow, ranking, and stars.",
+              tag: "Event · Aug 1",
+              bg: "linear-gradient(135deg,#20180c,#1e6016)",
+              fg: "#f5e6c2",
+              accent: "#f5c800",
+              border: "#20180c",
+            }}
+          />
+
           {/* ── Showcase: configure + deck side by side ──────────── */}
           <div
             style={{
