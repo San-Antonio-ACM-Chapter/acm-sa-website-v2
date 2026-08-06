@@ -48,20 +48,28 @@ export function WinnersSection({
               <div className={styles["winner-card3-divider"]} />
               <div className={styles["winner-projects"]}>
                 {cat.projects.map((p) => (
-                  <div key={p.title} className={styles["winner-project"]}>
-                    <span
-                      className={styles["winner-project-rank"]}
-                      data-rank={p.rankNum}
-                    >
-                      {p.rankLabel}
-                    </span>
-                    <div className={styles["winner-project-title"]}>
-                      {p.title}
+                  <a
+                    key={p.title}
+                    href={p.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <div className={styles["winner-project"]}>
+                      <span
+                        className={styles["winner-project-rank"]}
+                        data-rank={p.rankNum}
+                      >
+                        {p.rankLabel}
+                      </span>
+                      <div className={styles["winner-project-title"]}>
+                        {p.title}
+                      </div>
+                      <span className={styles["winner-project-team"]}>
+                        — {p.team}
+                      </span>
                     </div>
-                    <span className={styles["winner-project-team"]}>
-                      — {p.team}
-                    </span>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
