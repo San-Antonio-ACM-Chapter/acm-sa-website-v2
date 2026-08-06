@@ -2480,6 +2480,14 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.winner-project:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
 .winner-project-rank {
