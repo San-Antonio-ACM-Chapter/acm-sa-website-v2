@@ -19,6 +19,7 @@ export interface WinnerProject {
   team: string;
   rankLabel: string;
   rankNum: 1 | 2 | 3;
+  link: string;
 }
 
 export interface WinnerCategory {
@@ -116,12 +117,14 @@ export const WINNERS: WinnerCategory[] = [
         title: "Drone Fossil Hunter",
         team: "Gary Popov",
         rankLabel: "Winner",
+        link: "https://itch.io/jam/velocicode-2/rate/4820062",
         rankNum: 1,
       },
       {
         title: "Fossilized The Game",
         team: "Xander Vasquez, Lisa Vasquez, Tomas Vasquez",
         rankLabel: "Runner-up",
+        link: "https://itch.io/jam/velocicode-2/rate/4846620",
         rankNum: 2,
       },
     ],
@@ -137,12 +140,14 @@ export const WINNERS: WinnerCategory[] = [
         title: "Rocky's Guide to Paleontology",
         team: "Jilliann Mena, Brian Marquez, Kylee Choat, Joey Barrientes",
         rankLabel: "Winner",
+        link: "https://itch.io/jam/velocicode-2/rate/4843008",
         rankNum: 1,
       },
       {
         title: "What Remains",
         team: "Roonie Hunt, EJ Rodriguez",
         rankLabel: "Runner-up",
+        link: "https://itch.io/jam/velocicode-2/rate/4817022",
         rankNum: 2,
       },
     ],
@@ -156,6 +161,7 @@ export const WINNERS: WinnerCategory[] = [
         title: "Quetzalcoatl",
         team: "Werner Mendizabal",
         rankLabel: "Winner",
+        link: "https://itch.io/jam/velocicode-2/rate/4847279",
         rankNum: 1,
       },
     ],
