@@ -351,11 +351,11 @@ export default function VelociCodePage() {
           </div>
           <a
             className={styles["nav-cta"]}
-            href="https://itch.io/jam/velocicode-2"
+            href="https://itch.io/jam/velocicode-2/entries"
             target="_blank"
             rel="noopener noreferrer"
           >
-            RSVP&nbsp;↗
+            2026&nbsp;Games
           </a>
         </div>
       </nav>
@@ -409,11 +409,9 @@ export default function VelociCodePage() {
             <div className={styles["hero-cta"]}>
               <a
                 className={`${styles.btn} ${styles["btn-primary"]}`}
-                href="https://itch.io/jam/velocicode-2"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#winners"
               >
-                Register on Itch.io ↗
+                Winners
               </a>
               <a
                 className={`${styles.btn} ${styles["btn-yellow"]}`}

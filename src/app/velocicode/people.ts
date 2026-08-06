@@ -106,18 +106,23 @@ export const JUDGES: Judge[] = [
 // Winners — must be ordered [Theme, Overall, Crowd] for the CSS layout to
 // work correctly (center card is elevated, first rotates left, last right).
 // Empty = "pending" message; populate after the showcase.
-export const WINNERS: WinnerCategory[] = [];
-export const WINNERS01: WinnerCategory[] = [
+export const WINNERS: WinnerCategory[] = [
   {
     icon: "vc-compass",
     eyebrow: "stayed on brief",
     title: "Best Use of Theme",
     projects: [
       {
-        title: "Bone Deep",
-        team: "Team Marrow",
+        title: "Drone Fossil Hunter",
+        team: "Gary Popov",
         rankLabel: "Winner",
         rankNum: 1,
+      },
+      {
+        title: "Fossilized The Game",
+        team: "Xander Vasquez, Lisa Vasquez, Tomas Vasquez",
+        rankLabel: "Runner-up",
+        rankNum: 2,
       },
     ],
   },
@@ -129,14 +134,14 @@ export const WINNERS01: WinnerCategory[] = [
     ribbon: "★ The Headline Award ★",
     projects: [
       {
-        title: "Fossil Run",
-        team: "Team Sedimentary Rockers",
+        title: "Rocky's Guide to Paleontology",
+        team: "Jilliann Mena, Brian Marquez, Kylee Choat, Joey Barrientes",
         rankLabel: "Winner",
         rankNum: 1,
       },
       {
-        title: "Nightshift Diner",
-        team: "Team Late Shift",
+        title: "What Remains",
+        team: "Roonie Hunt, EJ Rodriguez",
         rankLabel: "Runner-up",
         rankNum: 2,
       },
@@ -147,18 +152,11 @@ export const WINNERS01: WinnerCategory[] = [
     eyebrow: "voted by the room",
     title: "Crowd Favorite",
     projects: [
-      { title: "Sedimentary", team: "Casey Lin", rankLabel: "1st", rankNum: 1 },
       {
-        title: "Pixel Paleo",
-        team: "Jordan Reyes",
-        rankLabel: "2nd",
-        rankNum: 2,
-      },
-      {
-        title: "Last Dino Standing",
-        team: "Marcus Webb",
-        rankLabel: "3rd",
-        rankNum: 3,
+        title: "Quetzalcoatl",
+        team: "Werner Mendizabal",
+        rankLabel: "Winner",
+        rankNum: 1,
       },
     ],
   },
