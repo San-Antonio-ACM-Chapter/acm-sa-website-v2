@@ -1,76 +1,21 @@
 "use client";
 
-import {
-  Bowlby_One_SC,
-  Caveat_Brush,
-  DM_Mono,
-  Luckiest_Guy,
-  Rubik_Dirt,
-  Special_Elite,
-} from "next/font/google";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { COMMUNITY_PARTNERS, SPONSORS } from "../../allies";
+import { Suspense, useEffect, useState } from "react";
 import kf from "../kickoff/kickoff.module.css";
-import { Eyebrow, makeQR, QRImg } from "../kickoff/slide-utils";
+import {
+  cardCls,
+  Eyebrow,
+  makeQR,
+  QRImg,
+  useSlideNav,
+} from "../kickoff/slide-utils";
+import { SlideFrame } from "../SlideFrame";
+import { CommunityPartnersSlide, SponsorsSlide } from "../shared-slides";
+import { SLIDE_FONT_CLASSES } from "../slide-fonts";
 import slides from "../slides.module.css";
 
-const luckiestGuy = Luckiest_Guy({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const rubikDirt = Rubik_Dirt({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const bowlby = Bowlby_One_SC({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const caveat = Caveat_Brush({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const elite = Special_Elite({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-const FONT_TRIGGER_CLASS = [
-  luckiestGuy.className,
-  rubikDirt.className,
-  bowlby.className,
-  caveat.className,
-  elite.className,
-  dmMono.className,
-].join(" ");
-
 const TOTAL = 19;
-
-function cardCls(
-  i: number,
-  current: number,
-  swapping: boolean,
-  outIdx: number,
-  inIdx: number,
-): string {
-  if (swapping) {
-    if (i === outIdx) return `${kf.kfCard} ${kf.kfIsOut}`;
-    if (i === inIdx) return `${kf.kfCard} ${kf.kfIsIn}`;
-    return kf.kfCard;
-  }
-  return `${kf.kfCard}${i === current ? ` ${kf.kfIsActive}` : ""}`;
-}
 
 // ── Shared: field card ────────────────────────────────────────────────
 
@@ -2068,213 +2013,6 @@ function SubmissionsDueSlide({
   );
 }
 
-// ── Slide 13: Sponsors ────────────────────────────────────────────────
-
-function SponsorsSlide({ cls }: { cls: string }) {
-  return (
-    <div
-      className={cls}
-      style={{
-        background: "var(--vc-paper)",
-        backgroundImage:
-          "repeating-linear-gradient(180deg,transparent 0 47px,rgba(90,58,24,.06) 47px 48px)",
-      }}
-    >
-      <div
-        className={kf.kfStagger}
-        style={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "18px",
-          padding: "40px 120px 100px",
-          textAlign: "center",
-        }}
-      >
-        <Eyebrow>Outfitted by</Eyebrow>
-        <div
-          style={{
-            fontFamily: "var(--vc-font-display-1)",
-            fontSize: "104px",
-            lineHeight: ".9",
-            color: "var(--vc-ink)",
-          }}
-        >
-          THANK YOU,{" "}
-          <span
-            style={{
-              fontFamily: "var(--vc-font-display-2)",
-              color: "var(--vc-rust)",
-            }}
-          >
-            SPONSORS.
-          </span>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            gap: "48px",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            marginTop: "30px",
-          }}
-        >
-          {SPONSORS.map((s, i) => (
-            <div
-              key={s.name}
-              className={slides.float}
-              style={{
-                background: "var(--vc-paper)",
-                border: "4px solid #20180c",
-                borderRadius: "22px",
-                padding: "46px 56px",
-                boxShadow: "7px 7px 0 #20180c",
-                position: "relative",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "320px",
-                height: "200px",
-                transform:
-                  i % 3 === 0
-                    ? "rotate(-2deg)"
-                    : i % 3 === 1
-                      ? "rotate(1.4deg)"
-                      : "rotate(-1deg)",
-                animationDelay: `${i * 0.55}s`,
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: "12px",
-                  border: "2px dashed rgba(32,24,12,.5)",
-                  borderRadius: "14px",
-                }}
-              />
-              {/* biome-ignore lint/performance/noImgElement: kiosk slide, fixed-size layout */}
-              <img
-                src={s.src}
-                alt={s.name}
-                style={{
-                  maxWidth: "220px",
-                  maxHeight: "100px",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ── Slide 14: Community Partners ──────────────────────────────────────
-
-function CommunityPartnersSlide({ cls }: { cls: string }) {
-  return (
-    <div
-      className={cls}
-      style={{
-        background: "var(--vc-paper)",
-        backgroundImage:
-          "repeating-linear-gradient(180deg,transparent 0 47px,rgba(90,58,24,.06) 47px 48px)",
-      }}
-    >
-      <div
-        className={kf.kfStagger}
-        style={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "18px",
-          padding: "40px 120px 100px",
-          textAlign: "center",
-        }}
-      >
-        <Eyebrow>Made possible by</Eyebrow>
-        <div
-          style={{
-            fontFamily: "var(--vc-font-display-1)",
-            fontSize: "80px",
-            lineHeight: ".9",
-            color: "var(--vc-ink)",
-          }}
-        >
-          THANK YOU,{" "}
-          <span
-            style={{
-              fontFamily: "var(--vc-font-display-2)",
-              color: "var(--vc-leaf-deep)",
-            }}
-          >
-            COMMUNITY PARTNERS.
-          </span>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            gap: "36px",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            marginTop: "28px",
-          }}
-        >
-          {COMMUNITY_PARTNERS.map((p, i) => (
-            <div
-              key={p.name}
-              className={slides.float}
-              style={{
-                background: "var(--vc-paper)",
-                border: "3.5px solid #20180c",
-                borderRadius: "18px",
-                padding: "36px 44px",
-                boxShadow: "6px 6px 0 #20180c",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "14px",
-                minWidth: "230px",
-                height: "180px",
-                transform: i % 2 === 0 ? "rotate(-1.5deg)" : "rotate(1.2deg)",
-                animationDelay: `${i * 0.4}s`,
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: "10px",
-                  border: "1.5px dashed rgba(32,24,12,.4)",
-                  borderRadius: "11px",
-                }}
-              />
-              {/* biome-ignore lint/performance/noImgElement: kiosk slide, fixed-size layout */}
-              <img
-                src={p.src}
-                alt={p.name}
-                style={{
-                  maxWidth: "160px",
-                  maxHeight: "72px",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ── Slide 15: Closing ─────────────────────────────────────────────────
 
 function ClosingSlide({
@@ -2409,40 +2147,7 @@ function HowToSubmitRuntime() {
     Math.min(TOTAL - 1, (parseInt(params.get("slide") ?? "1", 10) || 1) - 1),
   );
 
-  const [idx, setIdx] = useState(initialIdx);
-  const [outIdx, setOutIdx] = useState(-1);
-  const [inIdx, setInIdx] = useState(-1);
-  const [swapping, setSwapping] = useState(false);
-  const [scale, setScale] = useState(1);
   const [qrs, setQrs] = useState<Record<string, string | null>>({});
-
-  const swappingRef = useRef(false);
-  const idxRef = useRef(initialIdx);
-  const swapTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  );
-  const reducedRef = useRef(false);
-
-  useEffect(() => {
-    swappingRef.current = swapping;
-  }, [swapping]);
-  useEffect(() => {
-    idxRef.current = idx;
-  }, [idx]);
-
-  useEffect(() => {
-    const fit = () =>
-      setScale(Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
-    fit();
-    window.addEventListener("resize", fit);
-    return () => window.removeEventListener("resize", fit);
-  }, []);
-
-  useEffect(() => {
-    reducedRef.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-  }, []);
 
   useEffect(() => {
     (async () => {
@@ -2455,98 +2160,43 @@ function HowToSubmitRuntime() {
     })();
   }, []);
 
-  const advance = useCallback((dir: 1 | -1) => {
-    if (swappingRef.current) return;
-    const next = (((idxRef.current + dir) % TOTAL) + TOTAL) % TOTAL;
-    setSwapping(true);
-    setOutIdx(idxRef.current);
-    setInIdx(next);
-    setIdx(next);
-    if (swapTimerRef.current) clearTimeout(swapTimerRef.current);
-    const dur = reducedRef.current ? 60 : 500;
-    swapTimerRef.current = setTimeout(() => {
-      setSwapping(false);
-      setOutIdx(-1);
-      setInIdx(-1);
-    }, dur);
-  }, []);
-
-  const onPrev = useCallback(() => advance(-1), [advance]);
-  const onNext = useCallback(() => advance(1), [advance]);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === " ") onNext();
-      if (e.key === "ArrowLeft") onPrev();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onNext, onPrev]);
+  const { idx, outIdx, inIdx, swapping, scale, onPrev, onNext } = useSlideNav({
+    total: TOTAL,
+    wrap: true,
+    initialIdx,
+  });
 
   const cc = (i: number) => cardCls(i, idx, swapping, outIdx, inIdx);
 
   return (
-    <div className={slides.viewport}>
-      <div className={slides.frame} style={{ transform: `scale(${scale})` }}>
-        <div className={slides.contour} />
-
-        <div className={slides.cards}>
-          <TitleSlide cls={cc(0)} />
-          <AgendaSlide cls={cc(1)} />
-          <ThemeSlide cls={cc(2)} />
-          <PrizesSlide cls={cc(3)} />
-          <JudgingSlide cls={cc(4)} />
-          <JoinJamSlide cls={cc(5)} />
-          <UploadSlide cls={cc(6)} />
-          <GamePageSlide cls={cc(7)} />
-          <FormSlide1 cls={cc(8)} />
-          <FormSlide2 cls={cc(9)} />
-          <FormSlide3 cls={cc(10)} />
-          <SubmissionTipsSlide cls={cc(11)} />
-          <ShowcaseSlide cls={cc(12)} qrs={qrs} />
-          <RSVPSlide cls={cc(13)} qrs={qrs} />
-          <PresentingTipsSlide cls={cc(14)} qrs={qrs} />
-          <SubmissionsDueSlide cls={cc(15)} qrs={qrs} />
-          <SponsorsSlide cls={cc(16)} />
-          <CommunityPartnersSlide cls={cc(17)} />
-          <ClosingSlide cls={cc(18)} qrs={qrs} />
-        </div>
-
-        <div className={slides.brand}>
-          {/* biome-ignore lint/performance/noImgElement: kiosk slide, fixed-size layout */}
-          <img
-            src="/velocicode-logo.png"
-            alt="VelociCode"
-            className={slides.brandImg}
-          />
-        </div>
-
-        <div className={kf.kfCount}>
-          {idx + 1} / {TOTAL}
-        </div>
-
-        <div className={slides.footer}>
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "16px",
-            }}
-          >
-            <span className={slides.footerDot} />
-            VelociCode &middot; Expedition 02
-          </span>
-          <span>How to Submit &middot; 12:00 PM &middot; Virtual</span>
-        </div>
-
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: presenter kiosk — keyboard handled by window listener */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: presenter kiosk — keyboard handled by window listener */}
-        <div className={slides.zoneLeft} onClick={onPrev} />
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: presenter kiosk — keyboard handled by window listener */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: presenter kiosk — keyboard handled by window listener */}
-        <div className={slides.zoneRight} onClick={onNext} />
-      </div>
-    </div>
+    <SlideFrame
+      scale={scale}
+      idx={idx}
+      total={TOTAL}
+      footerRight="How to Submit · 12:00 PM · Virtual"
+      onPrev={onPrev}
+      onNext={onNext}
+    >
+      <TitleSlide cls={cc(0)} />
+      <AgendaSlide cls={cc(1)} />
+      <ThemeSlide cls={cc(2)} />
+      <PrizesSlide cls={cc(3)} />
+      <JudgingSlide cls={cc(4)} />
+      <JoinJamSlide cls={cc(5)} />
+      <UploadSlide cls={cc(6)} />
+      <GamePageSlide cls={cc(7)} />
+      <FormSlide1 cls={cc(8)} />
+      <FormSlide2 cls={cc(9)} />
+      <FormSlide3 cls={cc(10)} />
+      <SubmissionTipsSlide cls={cc(11)} />
+      <ShowcaseSlide cls={cc(12)} qrs={qrs} />
+      <RSVPSlide cls={cc(13)} qrs={qrs} />
+      <PresentingTipsSlide cls={cc(14)} qrs={qrs} />
+      <SubmissionsDueSlide cls={cc(15)} qrs={qrs} />
+      <SponsorsSlide cls={cc(16)} />
+      <CommunityPartnersSlide cls={cc(17)} />
+      <ClosingSlide cls={cc(18)} qrs={qrs} />
+    </SlideFrame>
   );
 }
 
@@ -2554,7 +2204,7 @@ export default function HowToSubmitPage() {
   return (
     <>
       <span
-        className={FONT_TRIGGER_CLASS}
+        className={SLIDE_FONT_CLASSES}
         style={{ display: "none" }}
         aria-hidden="true"
       />

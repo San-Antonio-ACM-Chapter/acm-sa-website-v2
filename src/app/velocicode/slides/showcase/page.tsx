@@ -1,12 +1,5 @@
 "use client";
 
-import {
-  Caveat_Brush,
-  DM_Mono,
-  Luckiest_Guy,
-  Rubik_Dirt,
-  Special_Elite,
-} from "next/font/google";
 import { useSearchParams } from "next/navigation";
 import {
   Suspense,
@@ -18,45 +11,19 @@ import {
 } from "react";
 import { COMMUNITY_PARTNERS, SPONSORS } from "../../allies";
 import kf from "../kickoff/kickoff.module.css";
-import { Eyebrow, makeQR, QRImg } from "../kickoff/slide-utils";
+import {
+  cardCls,
+  Eyebrow,
+  makeQR,
+  QRImg,
+  useSlideNav,
+} from "../kickoff/slide-utils";
+import { SlideFrame } from "../SlideFrame";
+import { SLIDE_FONT_CLASSES } from "../slide-fonts";
 import slides from "../slides.module.css";
 import sc from "./showcase.module.css";
 import { SHOWCASE_MUSIC } from "./showcase-music";
 import { SHOWCASE_PHOTOS } from "./showcase-photos";
-
-const luckiestGuy = Luckiest_Guy({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const rubikDirt = Rubik_Dirt({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const caveat = Caveat_Brush({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const elite = Special_Elite({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-const FONT_TRIGGER_CLASS = [
-  luckiestGuy.className,
-  rubikDirt.className,
-  caveat.className,
-  elite.className,
-  dmMono.className,
-].join(" ");
 
 // Crowd Favorite announced first (lowest stakes), Best Overall last (top billing)
 const CATEGORIES = [
@@ -89,10 +56,8 @@ type SlideSpec =
   | { kind: "closing" };
 
 function getPlaceLabel(total: number, rank: number, catLabel: string): string {
-  // rank is 1-indexed. rank=1 is the top winner.
   if (total <= 1) return catLabel;
   if (total === 2) return rank === 1 ? catLabel : "Runner-Up";
-  // 3+: rank=1 gets catLabel, others get ordinal
   if (rank === 1) return catLabel;
   if (rank === 2) return "2nd Place";
   if (rank === 3) return "3rd Place";
@@ -124,7 +89,6 @@ function buildSpecs(
     specs.push({ kind: "award-title", catLabel: cat.label });
 
     if (ws.length === 0) {
-      // No winners configured — show placeholder
       specs.push({
         kind: "award-winner",
         catLabel: cat.label,
@@ -139,7 +103,6 @@ function buildSpecs(
         winner: ws[0],
       });
     } else {
-      // Announce from last place to first (runner-up → winner)
       for (let i = ws.length - 1; i >= 0; i--) {
         specs.push({
           kind: "award-winner",
@@ -153,21 +116,6 @@ function buildSpecs(
 
   specs.push({ kind: "closing" });
   return specs;
-}
-
-function cardCls(
-  i: number,
-  current: number,
-  swapping: boolean,
-  outIdx: number,
-  inIdx: number,
-): string {
-  if (swapping) {
-    if (i === outIdx) return `${kf.kfCard} ${kf.kfIsOut}`;
-    if (i === inIdx) return `${kf.kfCard} ${kf.kfIsIn}`;
-    return kf.kfCard;
-  }
-  return `${kf.kfCard}${i === current ? ` ${kf.kfIsActive}` : ""}`;
 }
 
 // ── Slides ────────────────────────────────────────────────────────
@@ -320,7 +268,7 @@ function TitleSlide({ cls, photos }: { cls: string; photos: string[] }) {
           </div>
           <div
             style={{
-              fontFamily: luckiestGuy.style.fontFamily,
+              fontFamily: "var(--vc-font-display-1)",
               fontSize: 170,
               color: "var(--vc-cream)",
               lineHeight: 0.86,
@@ -332,7 +280,7 @@ function TitleSlide({ cls, photos }: { cls: string; photos: string[] }) {
           </div>
           <div
             style={{
-              fontFamily: elite.style.fontFamily,
+              fontFamily: "var(--vc-font-stamp)",
               fontSize: 30,
               color: "var(--vc-sand)",
               letterSpacing: "0.2em",
@@ -351,7 +299,7 @@ function TitleSlide({ cls, photos }: { cls: string; photos: string[] }) {
           </div>
           <div
             style={{
-              fontFamily: elite.style.fontFamily,
+              fontFamily: "var(--vc-font-stamp)",
               fontSize: 22,
               color: "var(--vc-sand)",
               opacity: 0.45,
@@ -389,7 +337,7 @@ function ThankYouIntroSlide({ cls }: { cls: string }) {
           </div>
           <div
             style={{
-              fontFamily: luckiestGuy.style.fontFamily,
+              fontFamily: "var(--vc-font-display-1)",
               fontSize: 150,
               color: "var(--vc-cream)",
               lineHeight: 0.86,
@@ -401,7 +349,7 @@ function ThankYouIntroSlide({ cls }: { cls: string }) {
           </div>
           <div
             style={{
-              fontFamily: elite.style.fontFamily,
+              fontFamily: "var(--vc-font-stamp)",
               fontSize: 36,
               color: "var(--vc-sand)",
               letterSpacing: "0.12em",
@@ -440,7 +388,7 @@ function VenueThanksSlide({ cls }: { cls: string }) {
           </div>
           <div
             style={{
-              fontFamily: luckiestGuy.style.fontFamily,
+              fontFamily: "var(--vc-font-display-1)",
               fontSize: 150,
               color: "var(--vc-cream)",
               lineHeight: 0.86,
@@ -460,7 +408,7 @@ function VenueThanksSlide({ cls }: { cls: string }) {
           </div>
           <div
             style={{
-              fontFamily: elite.style.fontFamily,
+              fontFamily: "var(--vc-font-stamp)",
               fontSize: 28,
               color: "var(--vc-sand)",
               letterSpacing: "0.14em",
@@ -507,7 +455,7 @@ function SponsorsSlide({ cls }: { cls: string }) {
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div
               style={{
-                fontFamily: elite.style.fontFamily,
+                fontFamily: "var(--vc-font-stamp)",
                 fontSize: 17,
                 letterSpacing: "0.36em",
                 textTransform: "uppercase",
@@ -520,7 +468,7 @@ function SponsorsSlide({ cls }: { cls: string }) {
             </div>
             <div
               style={{
-                fontFamily: luckiestGuy.style.fontFamily,
+                fontFamily: "var(--vc-font-display-1)",
                 fontSize: 90,
                 color: "var(--vc-cream)",
                 lineHeight: 0.88,
@@ -597,7 +545,7 @@ function PartnersSlide({ cls }: { cls: string }) {
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div
               style={{
-                fontFamily: elite.style.fontFamily,
+                fontFamily: "var(--vc-font-stamp)",
                 fontSize: 17,
                 letterSpacing: "0.36em",
                 textTransform: "uppercase",
@@ -610,7 +558,7 @@ function PartnersSlide({ cls }: { cls: string }) {
             </div>
             <div
               style={{
-                fontFamily: luckiestGuy.style.fontFamily,
+                fontFamily: "var(--vc-font-display-1)",
                 fontSize: 90,
                 color: "var(--vc-cream)",
                 lineHeight: 0.88,
@@ -695,7 +643,7 @@ function WhoMadeItHappenSlide({
           </div>
           <div
             style={{
-              fontFamily: luckiestGuy.style.fontFamily,
+              fontFamily: "var(--vc-font-display-1)",
               fontSize: 90,
               color: "var(--vc-cream)",
               lineHeight: 0.88,
@@ -707,7 +655,7 @@ function WhoMadeItHappenSlide({
           </div>
           <div
             style={{
-              fontFamily: caveat.style.fontFamily,
+              fontFamily: "var(--vc-font-hand)",
               fontSize: 40,
               color: "var(--vc-mustard)",
               transform: "rotate(-1deg)",
@@ -737,7 +685,7 @@ function WhoMadeItHappenSlide({
               >
                 <div
                   style={{
-                    fontFamily: luckiestGuy.style.fontFamily,
+                    fontFamily: "var(--vc-font-display-1)",
                     fontSize: 38,
                     color: "var(--vc-cream)",
                     marginBottom: o.role ? 6 : 0,
@@ -748,7 +696,7 @@ function WhoMadeItHappenSlide({
                 {o.role && (
                   <div
                     style={{
-                      fontFamily: elite.style.fontFamily,
+                      fontFamily: "var(--vc-font-stamp)",
                       fontSize: 16,
                       color: "var(--vc-mustard)",
                       letterSpacing: "0.2em",
@@ -795,7 +743,6 @@ function GallerySlide({
           overflow: "hidden",
         }}
       >
-        {/* Centered header — clear of the brand logo at top-left */}
         <div
           className={kf.kfStagger}
           style={{ textAlign: "center", padding: "0 80px", marginBottom: 40 }}
@@ -803,7 +750,7 @@ function GallerySlide({
           <div>
             <div
               style={{
-                fontFamily: elite.style.fontFamily,
+                fontFamily: "var(--vc-font-stamp)",
                 fontSize: 18,
                 color: "var(--vc-rust)",
                 letterSpacing: "0.28em",
@@ -816,7 +763,7 @@ function GallerySlide({
           </div>
           <div
             style={{
-              fontFamily: luckiestGuy.style.fontFamily,
+              fontFamily: "var(--vc-font-display-1)",
               fontSize: 74,
               color: "var(--vc-ink)",
               lineHeight: 0.88,
@@ -826,7 +773,6 @@ function GallerySlide({
           </div>
         </div>
 
-        {/* Stamp — sits below the slide counter (top:30px right:40px) */}
         <div
           style={{
             position: "absolute",
@@ -843,7 +789,7 @@ function GallerySlide({
         >
           <div
             style={{
-              fontFamily: rubikDirt.style.fontFamily,
+              fontFamily: "var(--vc-font-display-2)",
               fontSize: 96,
               color: "var(--vc-rust)",
               lineHeight: 1,
@@ -853,7 +799,7 @@ function GallerySlide({
           </div>
           <div
             style={{
-              fontFamily: elite.style.fontFamily,
+              fontFamily: "var(--vc-font-stamp)",
               fontSize: 14,
               color: "var(--vc-rust)",
               letterSpacing: "0.3em",
@@ -872,7 +818,7 @@ function GallerySlide({
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontFamily: elite.style.fontFamily,
+              fontFamily: "var(--vc-font-stamp)",
               fontSize: 28,
               color: "var(--vc-rust)",
               letterSpacing: "0.14em",
@@ -949,7 +895,7 @@ function GallerySlide({
                   >
                     <div
                       style={{
-                        fontFamily: luckiestGuy.style.fontFamily,
+                        fontFamily: "var(--vc-font-display-1)",
                         fontSize: 38,
                         color: "var(--vc-ink)",
                         lineHeight: 1.1,
@@ -960,7 +906,7 @@ function GallerySlide({
                     </div>
                     <div
                       style={{
-                        fontFamily: elite.style.fontFamily,
+                        fontFamily: "var(--vc-font-stamp)",
                         fontSize: 18,
                         color: "var(--vc-rust)",
                         letterSpacing: "0.14em",
@@ -969,7 +915,6 @@ function GallerySlide({
                     >
                       {g.team}
                     </div>
-                    {/* Fixed-height QR area — same size regardless of QR presence */}
                     <div
                       style={{
                         marginTop: 10,
@@ -995,7 +940,7 @@ function GallerySlide({
                           </div>
                           <div
                             style={{
-                              fontFamily: dmMono.style.fontFamily,
+                              fontFamily: "var(--vc-font-mono)",
                               fontSize: 13,
                               color: "var(--vc-rust)",
                               opacity: 0.6,
@@ -1017,7 +962,7 @@ function GallerySlide({
   );
 }
 
-// ── Award slides (playtest-night style) ───────────────────────────
+// ── Award slides ──────────────────────────────────────────────────
 
 function AwardsIntroSlide({ cls }: { cls: string }) {
   return (
@@ -1063,7 +1008,7 @@ function AwardsIntroSlide({ cls }: { cls: string }) {
           <div>
             <div
               style={{
-                fontFamily: elite.style.fontFamily,
+                fontFamily: "var(--vc-font-stamp)",
                 fontSize: 22,
                 letterSpacing: "0.32em",
                 textTransform: "uppercase",
@@ -1078,7 +1023,7 @@ function AwardsIntroSlide({ cls }: { cls: string }) {
           <div>
             <div
               style={{
-                fontFamily: luckiestGuy.style.fontFamily,
+                fontFamily: "var(--vc-font-display-1)",
                 fontSize: 160,
                 color: "var(--vc-cream)",
                 lineHeight: 0.88,
@@ -1103,7 +1048,7 @@ function AwardsIntroSlide({ cls }: { cls: string }) {
                   style={{
                     border: "2px solid rgba(245,230,194,0.35)",
                     padding: "12px 32px",
-                    fontFamily: elite.style.fontFamily,
+                    fontFamily: "var(--vc-font-stamp)",
                     fontSize: 17,
                     color: "var(--vc-cream)",
                     letterSpacing: "0.2em",
@@ -1147,7 +1092,7 @@ function AwardTitleSlide({ cls, label }: { cls: string; label: string }) {
       >
         <div
           style={{
-            fontFamily: elite.style.fontFamily,
+            fontFamily: "var(--vc-font-stamp)",
             fontSize: "22px",
             letterSpacing: ".32em",
             textTransform: "uppercase",
@@ -1158,7 +1103,7 @@ function AwardTitleSlide({ cls, label }: { cls: string; label: string }) {
         </div>
         <div
           style={{
-            fontFamily: luckiestGuy.style.fontFamily,
+            fontFamily: "var(--vc-font-display-1)",
             fontSize: label.length > 14 ? "120px" : "160px",
             lineHeight: ".82",
             color: "#f5e6c2",
@@ -1195,7 +1140,6 @@ function AwardWinnerSlide({
   winner: Winner | null;
   revealed: boolean;
 }) {
-  // placeLabel differs from catLabel when announcing runner-up / ordinal positions
   const isTopWinner = placeLabel === catLabel;
 
   return (
@@ -1218,7 +1162,7 @@ function AwardWinnerSlide({
       >
         <div
           style={{
-            fontFamily: elite.style.fontFamily,
+            fontFamily: "var(--vc-font-stamp)",
             fontSize: "24px",
             letterSpacing: ".28em",
             textTransform: "uppercase",
@@ -1229,7 +1173,7 @@ function AwardWinnerSlide({
         </div>
         <div
           style={{
-            fontFamily: luckiestGuy.style.fontFamily,
+            fontFamily: "var(--vc-font-display-1)",
             fontSize: "36px",
             letterSpacing: ".1em",
             color: "rgba(32,24,12,.5)",
@@ -1242,7 +1186,7 @@ function AwardWinnerSlide({
           <div
             className={revealed ? kf.winnerRevealed : kf.winnerHidden}
             style={{
-              fontFamily: rubikDirt.style.fontFamily,
+              fontFamily: "var(--vc-font-display-2)",
               fontSize: "148px",
               lineHeight: ".85",
               color: "var(--vc-leaf-deep)",
@@ -1254,7 +1198,7 @@ function AwardWinnerSlide({
           {winner?.game && revealed && (
             <div
               style={{
-                fontFamily: caveat.style.fontFamily,
+                fontFamily: "var(--vc-font-hand)",
                 fontSize: "42px",
                 color: "rgba(32,24,12,.6)",
                 marginTop: 8,
@@ -1454,7 +1398,7 @@ function ClosingSlide({
           </div>
           <div
             style={{
-              fontFamily: luckiestGuy.style.fontFamily,
+              fontFamily: "var(--vc-font-display-1)",
               fontSize: 110,
               color: "var(--vc-cream)",
               lineHeight: 0.88,
@@ -1466,7 +1410,7 @@ function ClosingSlide({
           </div>
           <div
             style={{
-              fontFamily: luckiestGuy.style.fontFamily,
+              fontFamily: "var(--vc-font-display-1)",
               fontSize: 110,
               color: "var(--vc-cream)",
               lineHeight: 0.88,
@@ -1478,7 +1422,7 @@ function ClosingSlide({
           </div>
           <div
             style={{
-              fontFamily: caveat.style.fontFamily,
+              fontFamily: "var(--vc-font-hand)",
               fontSize: 42,
               color: "var(--vc-mustard)",
               transform: "rotate(-1.5deg)",
@@ -1518,7 +1462,7 @@ function ClosingSlide({
                 </div>
                 <div
                   style={{
-                    fontFamily: dmMono.style.fontFamily,
+                    fontFamily: "var(--vc-font-mono)",
                     fontSize: 13,
                     color: "var(--vc-cream)",
                     opacity: 0.7,
@@ -1529,7 +1473,7 @@ function ClosingSlide({
                 </div>
                 <div
                   style={{
-                    fontFamily: elite.style.fontFamily,
+                    fontFamily: "var(--vc-font-stamp)",
                     fontSize: 13,
                     color: "var(--vc-mustard)",
                     letterSpacing: "0.22em",
@@ -1570,7 +1514,7 @@ function ClosingSlide({
                       // biome-ignore lint/suspicious/noArrayIndexKey: duplicated credits list
                       key={i}
                       style={{
-                        fontFamily: elite.style.fontFamily,
+                        fontFamily: "var(--vc-font-stamp)",
                         fontSize: 17,
                         color: "var(--vc-mustard)",
                         letterSpacing: "0.25em",
@@ -1593,7 +1537,7 @@ function ClosingSlide({
                     >
                       <div
                         style={{
-                          fontFamily: luckiestGuy.style.fontFamily,
+                          fontFamily: "var(--vc-font-display-1)",
                           fontSize: 36,
                           color: "var(--vc-cream)",
                           lineHeight: 1.05,
@@ -1604,7 +1548,7 @@ function ClosingSlide({
                       {item.game && (
                         <div
                           style={{
-                            fontFamily: caveat.style.fontFamily,
+                            fontFamily: "var(--vc-font-hand)",
                             fontSize: 24,
                             color: "var(--vc-mustard)",
                             opacity: 0.75,
@@ -1625,7 +1569,7 @@ function ClosingSlide({
                     >
                       <div
                         style={{
-                          fontFamily: dmMono.style.fontFamily,
+                          fontFamily: "var(--vc-font-mono)",
                           fontSize: 18,
                           color: "var(--vc-cream)",
                         }}
@@ -1635,7 +1579,7 @@ function ClosingSlide({
                       {item.team && (
                         <div
                           style={{
-                            fontFamily: elite.style.fontFamily,
+                            fontFamily: "var(--vc-font-stamp)",
                             fontSize: 13,
                             color: "var(--vc-sand)",
                             letterSpacing: "0.1em",
@@ -1665,7 +1609,7 @@ function ClosingSlide({
                         <div key={j} style={{ textAlign: "center" }}>
                           <div
                             style={{
-                              fontFamily: dmMono.style.fontFamily,
+                              fontFamily: "var(--vc-font-mono)",
                               fontSize: 20,
                               color: "var(--vc-cream)",
                             }}
@@ -1675,7 +1619,7 @@ function ClosingSlide({
                           {o.role && (
                             <div
                               style={{
-                                fontFamily: elite.style.fontFamily,
+                                fontFamily: "var(--vc-font-stamp)",
                                 fontSize: 13,
                                 color: "var(--vc-sand)",
                                 letterSpacing: "0.15em",
@@ -1696,7 +1640,7 @@ function ClosingSlide({
                     // biome-ignore lint/suspicious/noArrayIndexKey: duplicated credits list
                     key={i}
                     style={{
-                      fontFamily: dmMono.style.fontFamily,
+                      fontFamily: "var(--vc-font-mono)",
                       fontSize: 20,
                       color: "var(--vc-cream)",
                       marginBottom: 4,
@@ -1755,7 +1699,7 @@ function ClosingSlide({
                 >
                   <div
                     style={{
-                      fontFamily: luckiestGuy.style.fontFamily,
+                      fontFamily: "var(--vc-font-display-1)",
                       fontSize: 21,
                       color: "var(--vc-ink)",
                       lineHeight: 1.05,
@@ -1767,7 +1711,7 @@ function ClosingSlide({
                   </div>
                   <div
                     style={{
-                      fontFamily: elite.style.fontFamily,
+                      fontFamily: "var(--vc-font-stamp)",
                       fontSize: 12,
                       color: "var(--vc-ink)",
                       opacity: 0.65,
@@ -1812,7 +1756,7 @@ function ClosingSlide({
                 </div>
                 <div
                   style={{
-                    fontFamily: dmMono.style.fontFamily,
+                    fontFamily: "var(--vc-font-mono)",
                     fontSize: 12,
                     color: "var(--vc-cream)",
                     opacity: 0.75,
@@ -1824,7 +1768,7 @@ function ClosingSlide({
                 </div>
                 <div
                   style={{
-                    fontFamily: elite.style.fontFamily,
+                    fontFamily: "var(--vc-font-stamp)",
                     fontSize: 11,
                     color: "var(--vc-mustard)",
                     letterSpacing: "0.18em",
@@ -1901,11 +1845,6 @@ function ShowcaseRuntime() {
   const specs = buildSpecs(games, organizers, categoryWinners);
   const TOTAL = specs.length;
 
-  const [idx, setIdx] = useState(0);
-  const [outIdx, setOutIdx] = useState(-1);
-  const [inIdx, setInIdx] = useState(-1);
-  const [swapping, setSwapping] = useState(false);
-  const [scale, setScale] = useState(1);
   const [qrs, setQrs] = useState<Map<string, string | null>>(new Map());
   const [closingQrs, setClosingQrs] = useState<Record<string, string | null>>({
     site: null,
@@ -1919,13 +1858,8 @@ function ShowcaseRuntime() {
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.15);
 
-  const swappingRef = useRef(false);
-  const swapTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const idxRef = useRef(0);
-  const revealedRef = useRef<Set<number>>(new Set());
   const specsRef = useRef(specs);
-  const totalRef = useRef(TOTAL);
-  const reducedRef = useRef(false);
+  const revealedRef = useRef<Set<number>>(new Set());
   const audioARef = useRef<HTMLAudioElement>(null);
   const audioBRef = useRef<HTMLAudioElement>(null);
   const activeSlotRef = useRef<0 | 1>(0);
@@ -1936,29 +1870,32 @@ function ShowcaseRuntime() {
   const playingRef = useRef(false);
   const activeTracksRef = useRef(activeTracks);
   activeTracksRef.current = activeTracks;
-
   specsRef.current = specs;
-  totalRef.current = TOTAL;
 
-  useEffect(() => {
-    idxRef.current = idx;
-  }, [idx]);
   useEffect(() => {
     revealedRef.current = revealed;
   }, [revealed]);
-  useEffect(() => {
-    reducedRef.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-  }, []);
 
-  useEffect(() => {
-    const update = () =>
-      setScale(Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
+  const { idx, outIdx, inIdx, swapping, scale, onPrev, onNext } = useSlideNav({
+    total: TOTAL,
+    onIntercept: (dir, cur) => {
+      const spec = specsRef.current[cur];
+      if (
+        dir === 1 &&
+        spec?.kind === "award-winner" &&
+        !revealedRef.current.has(cur)
+      ) {
+        setRevealed((prev) => new Set(prev).add(cur));
+        return true;
+      }
+      return false;
+    },
+    extraKeys: (e) => {
+      if (e.key === "v") toggleAudio();
+      else if (e.key === "z") skipTrack(-1);
+      else if (e.key === "x") skipTrack(1);
+    },
+  });
 
   useEffect(() => {
     const urls = games.filter((g) => g.url).map((g) => g.url);
@@ -2053,43 +1990,6 @@ function ShowcaseRuntime() {
     };
   }, []);
 
-  const advance = useCallback((dir: 1 | -1) => {
-    if (swappingRef.current) return;
-    const cur = idxRef.current;
-    const spec = specsRef.current[cur];
-
-    if (
-      dir === 1 &&
-      spec?.kind === "award-winner" &&
-      !revealedRef.current.has(cur)
-    ) {
-      setRevealed((prev) => new Set(prev).add(cur));
-      return;
-    }
-
-    const total = totalRef.current;
-    const next = Math.max(0, Math.min(total - 1, cur + dir));
-    if (next === cur) return;
-
-    swappingRef.current = true;
-    setSwapping(true);
-    setOutIdx(cur);
-    setInIdx(next);
-    setIdx(next);
-
-    if (swapTimerRef.current) clearTimeout(swapTimerRef.current);
-    const dur = reducedRef.current ? 60 : 500;
-    swapTimerRef.current = setTimeout(() => {
-      swappingRef.current = false;
-      setSwapping(false);
-      setOutIdx(-1);
-      setInIdx(-1);
-    }, dur);
-  }, []);
-
-  const onPrev = useCallback(() => advance(-1), [advance]);
-  const onNext = useCallback(() => advance(1), [advance]);
-
   const skipTrack = useCallback((dir: 1 | -1) => {
     const tracks = activeTracksRef.current;
     if (!tracks.length) return;
@@ -2128,144 +2028,28 @@ function ShowcaseRuntime() {
     }
   }, [playing]);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === " ") advance(1);
-      else if (e.key === "ArrowLeft") advance(-1);
-      else if (e.key === "v") toggleAudio();
-      else if (e.key === "z") skipTrack(-1);
-      else if (e.key === "x") skipTrack(1);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [advance, toggleAudio, skipTrack]);
-
   const cc = (i: number) => cardCls(i, idx, swapping, outIdx, inIdx);
 
   return (
-    <div className={slides.viewport}>
-      {hasTracks && (
-        <>
-          {/* biome-ignore lint/a11y/useMediaCaption: background ambient music */}
-          <audio ref={audioARef} preload="auto" />
-          {/* biome-ignore lint/a11y/useMediaCaption: background ambient music */}
-          <audio ref={audioBRef} preload="auto" />
-        </>
-      )}
-
-      <div className={slides.frame} style={{ transform: `scale(${scale})` }}>
-        <div className={slides.contour} />
-
-        <div className={slides.cards}>
-          {specs.map((spec, i) => {
-            const cls = cc(i);
-            switch (spec.kind) {
-              case "title":
-                return (
-                  <TitleSlide key="title" cls={cls} photos={SHOWCASE_PHOTOS} />
-                );
-              case "thank-you":
-                return <ThankYouIntroSlide key="thank-you" cls={cls} />;
-              case "sponsors":
-                return <SponsorsSlide key="sponsors" cls={cls} />;
-              case "partners":
-                return <PartnersSlide key="partners" cls={cls} />;
-              case "who-made-it":
-                return (
-                  <WhoMadeItHappenSlide
-                    key="who-made-it"
-                    cls={cls}
-                    organizers={organizers}
-                  />
-                );
-              case "gallery":
-                return (
-                  <GallerySlide
-                    key="gallery"
-                    cls={cls}
-                    games={games}
-                    qrs={qrs}
-                  />
-                );
-              case "venue-thanks":
-                return <VenueThanksSlide key="venue-thanks" cls={cls} />;
-              case "awards-intro":
-                return <AwardsIntroSlide key="awards-intro" cls={cls} />;
-              case "award-title":
-                return (
-                  <AwardTitleSlide
-                    // biome-ignore lint/suspicious/noArrayIndexKey: spec index is stable (from URL params)
-                    key={`at-${i}`}
-                    cls={cls}
-                    label={spec.catLabel}
-                  />
-                );
-              case "award-winner":
-                return (
-                  <AwardWinnerSlide
-                    // biome-ignore lint/suspicious/noArrayIndexKey: spec index is stable (from URL params)
-                    key={`aw-${i}`}
-                    cls={cls}
-                    catLabel={spec.catLabel}
-                    placeLabel={spec.placeLabel}
-                    winner={spec.winner}
-                    revealed={revealed.has(i)}
-                  />
-                );
-              case "closing":
-                return (
-                  <ClosingSlide
-                    key="closing"
-                    cls={cls}
-                    qrs={closingQrs}
-                    winners={categoryWinners}
-                    organizers={organizers}
-                    games={games}
-                  />
-                );
-              default:
-                return null;
-            }
-          })}
-        </div>
-
-        <div className={slides.brand}>
-          {/* biome-ignore lint/performance/noImgElement: kiosk slide */}
-          <img
-            src="/velocicode-logo.png"
-            className={slides.brandImg}
-            alt="VelociCode"
-          />
-        </div>
-
-        <div className={kf.kfCount}>
-          {idx + 1} / {TOTAL}
-        </div>
-
-        <div className={slides.footer}>
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "16px",
-            }}
-          >
-            <span className={slides.footerDot} />
-            VelociCode &middot; Expedition 02
-          </span>
-          <span>
-            Showcase &middot; Aug 1 &middot; St. Mary&apos;s University
-          </span>
-        </div>
-
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: presenter kiosk */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: presenter kiosk */}
-        <div className={slides.zoneLeft} onClick={onPrev} />
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: presenter kiosk */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: presenter kiosk */}
-        <div className={slides.zoneRight} onClick={onNext} />
-
-        {hasTracks && (
+    <SlideFrame
+      scale={scale}
+      idx={idx}
+      total={TOTAL}
+      footerRight="Showcase · Aug 1 · St. Mary's University"
+      onPrev={onPrev}
+      onNext={onNext}
+      beforeFrame={
+        hasTracks ? (
+          <>
+            {/* biome-ignore lint/a11y/useMediaCaption: background ambient music */}
+            <audio ref={audioARef} preload="auto" />
+            {/* biome-ignore lint/a11y/useMediaCaption: background ambient music */}
+            <audio ref={audioBRef} preload="auto" />
+          </>
+        ) : null
+      }
+      afterCards={
+        hasTracks ? (
           <>
             <input
               type="range"
@@ -2294,9 +2078,75 @@ function ShowcaseRuntime() {
               {playing ? "❙❙" : "►"}
             </button>
           </>
-        )}
-      </div>
-    </div>
+        ) : null
+      }
+    >
+      {specs.map((spec, i) => {
+        const cls = cc(i);
+        switch (spec.kind) {
+          case "title":
+            return (
+              <TitleSlide key="title" cls={cls} photos={SHOWCASE_PHOTOS} />
+            );
+          case "thank-you":
+            return <ThankYouIntroSlide key="thank-you" cls={cls} />;
+          case "sponsors":
+            return <SponsorsSlide key="sponsors" cls={cls} />;
+          case "partners":
+            return <PartnersSlide key="partners" cls={cls} />;
+          case "who-made-it":
+            return (
+              <WhoMadeItHappenSlide
+                key="who-made-it"
+                cls={cls}
+                organizers={organizers}
+              />
+            );
+          case "gallery":
+            return (
+              <GallerySlide key="gallery" cls={cls} games={games} qrs={qrs} />
+            );
+          case "venue-thanks":
+            return <VenueThanksSlide key="venue-thanks" cls={cls} />;
+          case "awards-intro":
+            return <AwardsIntroSlide key="awards-intro" cls={cls} />;
+          case "award-title":
+            return (
+              <AwardTitleSlide
+                // biome-ignore lint/suspicious/noArrayIndexKey: spec index is stable (from URL params)
+                key={`at-${i}`}
+                cls={cls}
+                label={spec.catLabel}
+              />
+            );
+          case "award-winner":
+            return (
+              <AwardWinnerSlide
+                // biome-ignore lint/suspicious/noArrayIndexKey: spec index is stable (from URL params)
+                key={`aw-${i}`}
+                cls={cls}
+                catLabel={spec.catLabel}
+                placeLabel={spec.placeLabel}
+                winner={spec.winner}
+                revealed={revealed.has(i)}
+              />
+            );
+          case "closing":
+            return (
+              <ClosingSlide
+                key="closing"
+                cls={cls}
+                qrs={closingQrs}
+                winners={categoryWinners}
+                organizers={organizers}
+                games={games}
+              />
+            );
+          default:
+            return null;
+        }
+      })}
+    </SlideFrame>
   );
 }
 
@@ -2304,7 +2154,7 @@ export default function ShowcasePage() {
   return (
     <>
       <span
-        className={FONT_TRIGGER_CLASS}
+        className={SLIDE_FONT_CLASSES}
         style={{ display: "none" }}
         aria-hidden="true"
       />

@@ -1,57 +1,11 @@
 "use client";
 
-import {
-  Bowlby_One_SC,
-  Caveat_Brush,
-  DM_Mono,
-  Luckiest_Guy,
-  Rubik_Dirt,
-  Special_Elite,
-} from "next/font/google";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { COMMUNITY_PARTNERS, SPONSORS } from "../../allies";
+import { makeQR, QRImg } from "../kickoff/slide-utils";
+import { SLIDE_FONT_CLASSES } from "../slide-fonts";
 import styles from "../slides.module.css";
-
-const luckiestGuy = Luckiest_Guy({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const rubikDirt = Rubik_Dirt({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const bowlby = Bowlby_One_SC({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const caveat = Caveat_Brush({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const elite = Special_Elite({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-const FONT_TRIGGER_CLASS = [
-  luckiestGuy.className,
-  rubikDirt.className,
-  bowlby.className,
-  caveat.className,
-  elite.className,
-  dmMono.className,
-].join(" ");
 
 type CardSlug =
   | "title"
@@ -118,27 +72,6 @@ function buildSequence(
   return seq;
 }
 
-async function makeQR(data: string, size: number): Promise<string | null> {
-  try {
-    const mod = await import("qrcode-generator");
-    const qrcode = mod.default as (
-      t: number,
-      ec: string,
-    ) => {
-      addData(s: string): void;
-      make(): void;
-      createDataURL(cellSize: number, margin: number): string;
-    };
-    const qr = qrcode(0, "M");
-    qr.addData(data);
-    qr.make();
-    const cellSize = Math.max(3, Math.round(size / 33));
-    return qr.createDataURL(cellSize, 1);
-  } catch {
-    return null;
-  }
-}
-
 function cardCls(
   slug: CardSlug,
   seq: CardSlug[],
@@ -158,21 +91,6 @@ function cardCls(
     return styles.card;
   }
   return `${styles.card}${seq[idx] === slug ? ` ${styles.isActive}` : ""}`;
-}
-
-function QRImg({ src, size }: { src: string | null; size: number }) {
-  if (!src)
-    return <div style={{ width: size, height: size, background: "#eee" }} />;
-  return (
-    // biome-ignore lint/performance/noImgElement: kiosk slide
-    <img
-      src={src}
-      width={size}
-      height={size}
-      alt=""
-      style={{ display: "block", imageRendering: "pixelated" }}
-    />
-  );
 }
 
 function AllyCard({
@@ -1971,7 +1889,7 @@ export default function DisplayPage() {
   return (
     <>
       <span
-        className={FONT_TRIGGER_CLASS}
+        className={SLIDE_FONT_CLASSES}
         style={{ display: "none" }}
         aria-hidden="true"
       />
