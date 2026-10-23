@@ -1,75 +1,20 @@
 "use client";
 
-import {
-  Bowlby_One_SC,
-  Caveat_Brush,
-  DM_Mono,
-  Luckiest_Guy,
-  Rubik_Dirt,
-  Special_Elite,
-} from "next/font/google";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import kf from "../kickoff/kickoff.module.css";
-import { Eyebrow, makeQR, QRImg } from "../kickoff/slide-utils";
+import {
+  cardCls,
+  Eyebrow,
+  makeQR,
+  QRImg,
+  useSlideNav,
+} from "../kickoff/slide-utils";
+import { SlideFrame } from "../SlideFrame";
+import { SLIDE_FONT_CLASSES } from "../slide-fonts";
 import slides from "../slides.module.css";
 
-const luckiestGuy = Luckiest_Guy({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const rubikDirt = Rubik_Dirt({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const bowlby = Bowlby_One_SC({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const caveat = Caveat_Brush({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const elite = Special_Elite({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-const dmMono = DM_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-});
-
-const FONT_TRIGGER_CLASS = [
-  luckiestGuy.className,
-  rubikDirt.className,
-  bowlby.className,
-  caveat.className,
-  elite.className,
-  dmMono.className,
-].join(" ");
-
 const TOTAL = 8;
-
-function cardCls(
-  i: number,
-  current: number,
-  swapping: boolean,
-  outIdx: number,
-  inIdx: number,
-): string {
-  if (swapping) {
-    if (i === outIdx) return `${kf.kfCard} ${kf.kfIsOut}`;
-    if (i === inIdx) return `${kf.kfCard} ${kf.kfIsIn}`;
-    return kf.kfCard;
-  }
-  return `${kf.kfCard}${i === current ? ` ${kf.kfIsActive}` : ""}`;
-}
 
 // ── Slide 0: Title ────────────────────────────────────────────────────
 
@@ -1188,40 +1133,7 @@ function JudgesRuntime() {
     Math.min(TOTAL - 1, (parseInt(params.get("slide") ?? "1", 10) || 1) - 1),
   );
 
-  const [idx, setIdx] = useState(initialIdx);
-  const [outIdx, setOutIdx] = useState(-1);
-  const [inIdx, setInIdx] = useState(-1);
-  const [swapping, setSwapping] = useState(false);
-  const [scale, setScale] = useState(1);
   const [qrs, setQrs] = useState<Record<string, string | null>>({});
-
-  const swappingRef = useRef(false);
-  const idxRef = useRef(initialIdx);
-  const swapTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined,
-  );
-  const reducedRef = useRef(false);
-
-  useEffect(() => {
-    swappingRef.current = swapping;
-  }, [swapping]);
-  useEffect(() => {
-    idxRef.current = idx;
-  }, [idx]);
-
-  useEffect(() => {
-    const fit = () =>
-      setScale(Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
-    fit();
-    window.addEventListener("resize", fit);
-    return () => window.removeEventListener("resize", fit);
-  }, []);
-
-  useEffect(() => {
-    reducedRef.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-  }, []);
 
   useEffect(() => {
     (async () => {
@@ -1230,87 +1142,32 @@ function JudgesRuntime() {
     })();
   }, []);
 
-  const advance = useCallback((dir: 1 | -1) => {
-    if (swappingRef.current) return;
-    const next = (((idxRef.current + dir) % TOTAL) + TOTAL) % TOTAL;
-    setSwapping(true);
-    setOutIdx(idxRef.current);
-    setInIdx(next);
-    setIdx(next);
-    if (swapTimerRef.current) clearTimeout(swapTimerRef.current);
-    const dur = reducedRef.current ? 60 : 500;
-    swapTimerRef.current = setTimeout(() => {
-      setSwapping(false);
-      setOutIdx(-1);
-      setInIdx(-1);
-    }, dur);
-  }, []);
-
-  const onPrev = useCallback(() => advance(-1), [advance]);
-  const onNext = useCallback(() => advance(1), [advance]);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === " ") onNext();
-      if (e.key === "ArrowLeft") onPrev();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onNext, onPrev]);
+  const { idx, outIdx, inIdx, swapping, scale, onPrev, onNext } = useSlideNav({
+    total: TOTAL,
+    wrap: true,
+    initialIdx,
+  });
 
   const cc = (i: number) => cardCls(i, idx, swapping, outIdx, inIdx);
 
   return (
-    <div className={slides.viewport}>
-      <div className={slides.frame} style={{ transform: `scale(${scale})` }}>
-        <div className={slides.contour} />
-
-        <div className={slides.cards}>
-          <TitleSlide cls={cc(0)} />
-          <RoleSlide cls={cc(1)} />
-          <CriteriaSlide cls={cc(2)} />
-          <ClockSlide cls={cc(3)} />
-          <FlowSlide cls={cc(4)} />
-          <RankingSlide cls={cc(5)} />
-          <StarsSlide cls={cc(6)} />
-          <LoginSlide cls={cc(7)} qrs={qrs} />
-        </div>
-
-        <div className={slides.brand}>
-          {/* biome-ignore lint/performance/noImgElement: kiosk slide, fixed-size layout */}
-          <img
-            src="/velocicode-logo.png"
-            alt="VelociCode"
-            className={slides.brandImg}
-          />
-        </div>
-
-        <div className={kf.kfCount}>
-          {idx + 1} / {TOTAL}
-        </div>
-
-        <div className={slides.footer}>
-          <span
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "16px",
-            }}
-          >
-            <span className={slides.footerDot} />
-            VelociCode &middot; Expedition 02
-          </span>
-          <span>Judge Briefing &middot; Aug 1, 2026</span>
-        </div>
-
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: presenter kiosk — keyboard handled by window listener */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: presenter kiosk — keyboard handled by window listener */}
-        <div className={slides.zoneLeft} onClick={onPrev} />
-        {/* biome-ignore lint/a11y/useKeyWithClickEvents: presenter kiosk — keyboard handled by window listener */}
-        {/* biome-ignore lint/a11y/noStaticElementInteractions: presenter kiosk — keyboard handled by window listener */}
-        <div className={slides.zoneRight} onClick={onNext} />
-      </div>
-    </div>
+    <SlideFrame
+      scale={scale}
+      idx={idx}
+      total={TOTAL}
+      footerRight="Judge Briefing · Aug 1, 2026"
+      onPrev={onPrev}
+      onNext={onNext}
+    >
+      <TitleSlide cls={cc(0)} />
+      <RoleSlide cls={cc(1)} />
+      <CriteriaSlide cls={cc(2)} />
+      <ClockSlide cls={cc(3)} />
+      <FlowSlide cls={cc(4)} />
+      <RankingSlide cls={cc(5)} />
+      <StarsSlide cls={cc(6)} />
+      <LoginSlide cls={cc(7)} qrs={qrs} />
+    </SlideFrame>
   );
 }
 
@@ -1318,7 +1175,7 @@ export default function JudgesPage() {
   return (
     <>
       <span
-        className={FONT_TRIGGER_CLASS}
+        className={SLIDE_FONT_CLASSES}
         style={{ display: "none" }}
         aria-hidden="true"
       />

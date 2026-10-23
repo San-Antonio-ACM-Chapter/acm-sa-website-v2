@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { InputStop } from "../../routeLayout";
+import kf from "./kickoff.module.css";
 
 export type SlideProps = { cls: string };
 export type QRSlideProps = { cls: string; qrs: Record<string, string | null> };
@@ -168,4 +170,194 @@ export function Eyebrow({
       {children}
     </div>
   );
+}
+
+// ── Shared slide navigation ───────────────────────────────────────
+
+export function cardCls(
+  i: number,
+  current: number,
+  swapping: boolean,
+  outIdx: number,
+  inIdx: number,
+): string {
+  if (swapping) {
+    if (i === outIdx) return `${kf.kfCard} ${kf.kfIsOut}`;
+    if (i === inIdx) return `${kf.kfCard} ${kf.kfIsIn}`;
+    return kf.kfCard;
+  }
+  return `${kf.kfCard}${i === current ? ` ${kf.kfIsActive}` : ""}`;
+}
+
+/**
+ * Manages scale-to-viewport, swap state, keyboard navigation, and the advance
+ * function for a kiosk slide deck.
+ *
+ * @param total - total number of slides (can change across renders)
+ * @param wrap  - whether advancing past the last slide wraps to the first
+ * @param initialIdx - starting slide index (default 0)
+ * @param onIntercept - called before each advance; return true to cancel it
+ *   (e.g. to reveal a winner name instead of moving to the next slide)
+ * @param extraKeys - handler for any keys beyond ArrowLeft / ArrowRight / Space
+ * @param onStep - called with the destination index whenever a slide change starts
+ * @param autoplaySec - when set, enables a paused-by-default autoplay timer that
+ *   advances every N seconds (bypassing onIntercept)
+ */
+export function useSlideNav({
+  total,
+  wrap = false,
+  initialIdx = 0,
+  onIntercept,
+  extraKeys,
+  onStep,
+  autoplaySec,
+}: {
+  total: number;
+  wrap?: boolean;
+  initialIdx?: number;
+  onIntercept?: (dir: 1 | -1, cur: number) => boolean;
+  extraKeys?: (e: KeyboardEvent) => void;
+  onStep?: (next: number) => void;
+  autoplaySec?: number;
+}) {
+  const [idx, setIdx] = useState(initialIdx);
+  const [outIdx, setOutIdx] = useState(-1);
+  const [inIdx, setInIdx] = useState(-1);
+  const [swapping, setSwapping] = useState(false);
+  const [scale, setScale] = useState(1);
+  const [paused, setPaused] = useState(true);
+  const [progress, setProgress] = useState(0);
+
+  const swappingRef = useRef(false);
+  const idxRef = useRef(initialIdx);
+  const totalRef = useRef(total);
+  const swapTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+  const reducedRef = useRef(false);
+  const pausedRef = useRef(true);
+  const elapsedRef = useRef(0);
+  const lastRef = useRef(0);
+  const onInterceptRef = useRef(onIntercept);
+  const extraKeysRef = useRef(extraKeys);
+  const onStepRef = useRef(onStep);
+
+  totalRef.current = total;
+  pausedRef.current = paused;
+  onInterceptRef.current = onIntercept;
+  extraKeysRef.current = extraKeys;
+  onStepRef.current = onStep;
+
+  useEffect(() => {
+    idxRef.current = idx;
+  }, [idx]);
+
+  useEffect(() => {
+    reducedRef.current = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+  }, []);
+
+  useEffect(() => {
+    const fit = () =>
+      setScale(Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, []);
+
+  const step = useCallback(
+    (dir: 1 | -1) => {
+      if (swappingRef.current) return;
+      const cur = idxRef.current;
+      const total = totalRef.current;
+      const next = wrap
+        ? (((cur + dir) % total) + total) % total
+        : Math.max(0, Math.min(total - 1, cur + dir));
+      if (next === cur) return;
+
+      elapsedRef.current = 0;
+      lastRef.current = performance.now();
+
+      swappingRef.current = true;
+      setSwapping(true);
+      setOutIdx(cur);
+      setInIdx(next);
+      setIdx(next);
+      setProgress(0);
+      onStepRef.current?.(next);
+
+      if (swapTimerRef.current) clearTimeout(swapTimerRef.current);
+      const dur = reducedRef.current ? 60 : 500;
+      swapTimerRef.current = setTimeout(() => {
+        swappingRef.current = false;
+        setSwapping(false);
+        setOutIdx(-1);
+        setInIdx(-1);
+        lastRef.current = performance.now();
+      }, dur);
+    },
+    [wrap],
+  );
+
+  const advance = useCallback(
+    (dir: 1 | -1) => {
+      if (swappingRef.current) return;
+      if (onInterceptRef.current?.(dir, idxRef.current)) {
+        elapsedRef.current = 0;
+        return;
+      }
+      step(dir);
+    },
+    [step],
+  );
+
+  useEffect(() => {
+    if (!autoplaySec) return;
+    lastRef.current = performance.now();
+    const tick = setInterval(() => {
+      if (pausedRef.current || swappingRef.current) {
+        lastRef.current = performance.now();
+        return;
+      }
+      const now = performance.now();
+      elapsedRef.current += now - lastRef.current;
+      lastRef.current = now;
+      const dur = autoplaySec * 1000;
+      if (elapsedRef.current >= dur) step(1);
+      else setProgress(Math.min(1, elapsedRef.current / dur));
+    }, 80);
+    return () => clearInterval(tick);
+  }, [autoplaySec, step]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === " ") advance(1);
+      else if (e.key === "ArrowLeft") advance(-1);
+      else extraKeysRef.current?.(e);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [advance]);
+
+  const onPrev = useCallback(() => advance(-1), [advance]);
+  const onNext = useCallback(() => advance(1), [advance]);
+  const onTogglePause = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setPaused((p) => !p);
+  }, []);
+
+  return {
+    idx,
+    outIdx,
+    inIdx,
+    swapping,
+    scale,
+    advance,
+    onPrev,
+    onNext,
+    paused,
+    progress,
+    onTogglePause,
+  };
 }

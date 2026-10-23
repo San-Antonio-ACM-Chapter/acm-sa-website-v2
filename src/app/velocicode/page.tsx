@@ -309,6 +309,42 @@ function VelociCodeJsonLd() {
   );
 }
 
+function AllyCard({
+  name,
+  src,
+  href,
+}: {
+  name: string;
+  src?: string;
+  href?: string;
+}) {
+  const Tag = href ? "a" : "div";
+  return (
+    <Tag
+      className={styles.ally}
+      {...(href ? { href, target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
+      <div className={styles["logo-box"]}>
+        {src ? (
+          // biome-ignore lint/performance/noImgElement: partner logo, small fixed asset
+          <img
+            src={src}
+            alt={name}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "contain",
+            }}
+          />
+        ) : (
+          <span className={styles["logo-ph"]}>{name}</span>
+        )}
+      </div>
+      <span className={styles["ally-name"]}>{name}</span>
+    </Tag>
+  );
+}
+
 export default function VelociCodePage() {
   const {
     stops: computedStops,
@@ -765,40 +801,14 @@ export default function VelociCodePage() {
                 </span>
               </div>
               <div className={styles.wall}>
-                {SPONSORS.map((s) => {
-                  const Tag = s.href ? "a" : "div";
-                  return (
-                    <Tag
-                      key={s.name}
-                      className={styles.ally}
-                      {...(s.href
-                        ? {
-                            href: s.href,
-                            target: "_blank",
-                            rel: "noopener noreferrer",
-                          }
-                        : {})}
-                    >
-                      <div className={styles["logo-box"]}>
-                        {s.src ? (
-                          // biome-ignore lint/performance/noImgElement: partner logo, small fixed asset
-                          <img
-                            src={s.src}
-                            alt={s.name}
-                            style={{
-                              maxWidth: "100%",
-                              maxHeight: "100%",
-                              objectFit: "contain",
-                            }}
-                          />
-                        ) : (
-                          <span className={styles["logo-ph"]}>{s.name}</span>
-                        )}
-                      </div>
-                      <span className={styles["ally-name"]}>{s.name}</span>
-                    </Tag>
-                  );
-                })}
+                {SPONSORS.map((s) => (
+                  <AllyCard
+                    key={s.name}
+                    name={s.name}
+                    src={s.src}
+                    href={s.href}
+                  />
+                ))}
                 {process.env.VELOCICODE_OUTREACH !== "false" && (
                   <a
                     className={`${styles.ally} ${styles["ally-add"]}`}
@@ -820,40 +830,9 @@ export default function VelociCodePage() {
             </span>
           </div>
           <div className={styles.wall}>
-            {COMMUNITY_PARTNERS.map((p) => {
-              const Tag = p.href ? "a" : "div";
-              return (
-                <Tag
-                  key={p.name}
-                  className={styles.ally}
-                  {...(p.href
-                    ? {
-                        href: p.href,
-                        target: "_blank",
-                        rel: "noopener noreferrer",
-                      }
-                    : {})}
-                >
-                  <div className={styles["logo-box"]}>
-                    {p.src ? (
-                      // biome-ignore lint/performance/noImgElement: partner logo, small fixed asset
-                      <img
-                        src={p.src}
-                        alt={p.name}
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: "100%",
-                          objectFit: "contain",
-                        }}
-                      />
-                    ) : (
-                      <span className={styles["logo-ph"]}>{p.name}</span>
-                    )}
-                  </div>
-                  <span className={styles["ally-name"]}>{p.name}</span>
-                </Tag>
-              );
-            })}
+            {COMMUNITY_PARTNERS.map((p) => (
+              <AllyCard key={p.name} name={p.name} src={p.src} href={p.href} />
+            ))}
             {process.env.VELOCICODE_OUTREACH !== "false" && (
               <a
                 className={`${styles.ally} ${styles["ally-add"]}`}
