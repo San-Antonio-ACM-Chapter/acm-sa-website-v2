@@ -92,13 +92,6 @@ exports[`Navigator should match snapshot 1`] = `
             Contact
           </a>
         </li>
-        <li>
-          <a
-            href="/velocicode"
-          >
-            VelociCode
-          </a>
-        </li>
       </ul>
     </div>
   </nav>

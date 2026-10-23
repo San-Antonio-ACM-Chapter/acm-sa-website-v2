@@ -55,11 +55,6 @@ const Navigator = () => {
               Contact
             </a>
           </li>
-          <li>
-            <a href="/velocicode" onClick={closeMenu}>
-              VelociCode
-            </a>
-          </li>
         </ul>
       </div>
     </nav>
