@@ -7,7 +7,6 @@
     "dev:webpack": "NODE_OPTIONS=--max-old-space-size=4096 next dev --no-turbopack",
     "build": "next build",
     "start": "next start",
-    "events:sync:devsa": "ts-node scripts/importDevsaEvents.ts",
     "lint": "biome check",
     "format": "biome format --write",
     "test": "jest",

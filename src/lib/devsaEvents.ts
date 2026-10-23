@@ -1,14 +1,12 @@
 import { parseDevsaFeed } from "@/lib/devsaFeed";
 import type { ImportedEvent } from "@/lib/events";
 
-const FEED_URL = "https://devsa.community/api/events/feed?communityId=acm-sa";
-const CACHE_SECONDS = 60 * 60 * 12;
+export const FEED_URL =
+  "https://www.devsa.community/api/events/feed?communityId=acm-sa";
 
 export const getDevsaAcmEvents = async (): Promise<ImportedEvent[]> => {
   try {
-    const response = await fetch(FEED_URL, {
-      next: { revalidate: CACHE_SECONDS },
-    });
+    const response = await fetch(FEED_URL);
 
     if (!response.ok) {
       throw new Error(

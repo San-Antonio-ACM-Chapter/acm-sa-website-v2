@@ -26,6 +26,19 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before first paint. The static HTML is built without a theme, so
+// setting it any later (e.g. in a React effect) flashes light mode first.
+const themeInitScript = `(() => {
+  let theme = null;
+  try {
+    theme = localStorage.getItem("theme");
+  } catch {}
+  if (theme !== "dark" && theme !== "light") {
+    theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  document.documentElement.dataset.theme = theme;
+})();`;
+
 export default function RootLayout({
   children,
 }: {
@@ -35,7 +48,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${jockeyOne.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script>{themeInitScript}</script>
+      </head>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
       </body>

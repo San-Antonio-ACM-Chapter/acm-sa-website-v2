@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import EventCard from "@/components/EventCard/EventCard";
+import { FEED_URL } from "@/lib/devsaEvents";
+import { parseDevsaFeed } from "@/lib/devsaFeed";
 import type { Event } from "@/lib/events";
 import styles from "./EventsSection.module.css";
 
@@ -69,9 +71,33 @@ const getIsMobileViewport = () =>
   typeof window.matchMedia === "function" &&
   window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
-const EventsSection = ({ events }: EventsSectionProps) => {
+const EventsSection = ({ events: buildTimeEvents }: EventsSectionProps) => {
   const [, setIsMobileViewport] = useState(getIsMobileViewport);
   const [showAllEvents, setShowAllEvents] = useState(false);
+  const [liveEvents, setLiveEvents] = useState<Event[] | null>(null);
+  const events = liveEvents ?? buildTimeEvents;
+
+  // The site is a static export, so buildTimeEvents is frozen at the last
+  // deploy. Refresh from the feed on load; keep the build copy if that fails.
+  useEffect(() => {
+    if (typeof fetch !== "function") {
+      return;
+    }
+
+    const controller = new AbortController();
+
+    fetch(FEED_URL, { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`DEVSA feed returned ${response.status}`);
+        }
+        return response.text();
+      })
+      .then((xml) => setLiveEvents(parseDevsaFeed(xml)))
+      .catch(() => {});
+
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     if (

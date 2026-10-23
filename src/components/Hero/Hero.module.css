@@ -47,6 +47,7 @@
 
 .heroContainer img {
   height: var(--logo-size);
+  width: auto;
 }
 
 .heroContainer h1 {
