@@ -30,3 +30,14 @@
 .themeToggle:hover .icon {
   fill: var(--primary);
 }
+
+/* Chosen by data-theme rather than React state, so the right icon shows from
+   first paint instead of swapping after hydration. */
+.sunIcon,
+[data-theme="dark"] .moonIcon {
+  display: none;
+}
+
+[data-theme="dark"] .sunIcon {
+  display: block;
+}

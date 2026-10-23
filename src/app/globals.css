@@ -25,6 +25,8 @@
   /* Navigator */
   --nav-bg: rgba(255, 255, 255, 0.85);
   --nav-border: var(--primary);
+
+  color-scheme: light;
 }
 
 [data-theme="dark"] {
@@ -54,6 +56,8 @@
   /* Navigator */
   --nav-bg: rgba(10, 10, 10, 0.85);
   --nav-border: var(--primary);
+
+  color-scheme: dark;
 }
 
 /* this is to tell everything to have no margin and no border so we can have more control*/
