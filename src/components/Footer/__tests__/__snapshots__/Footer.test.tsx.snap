@@ -78,6 +78,15 @@ exports[`Footer should match snapshot 1`] = `
               </li>
               <li>
                 <a
+                  href="https://hub.velocicode.acmsa.org"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  VelociCode
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://drive.google.com/file/d/1lFlJEjQDp0WzkichhVQ6q7eQr2tDQKBF/view?usp=sharing"
                   rel="noopener noreferrer"
                   target="_blank"
