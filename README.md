@@ -6,7 +6,7 @@ The official website for the Association for Computing Machinery - San Antonio C
 
 - [Getting Started](#getting-started)
 - [Available Scripts](#available-scripts)
-- [Docker & Deployment](#docker--deployment)
+- [Deployment](#deployment)
 - [Development Container](#development-container)
 - [Code Quality & Formatting](#code-quality--formatting)
 - [Events System](#events-system)
@@ -58,50 +58,13 @@ npx biome format --write src/components/**/*.tsx
 npx biome lint --verbose
 ```
 
-## Docker & Deployment
+## Deployment
 
-### Production Build
+The site is a static export (`output: "export"` in `next.config.ts`) hosted as a Render static site. `npm run build` writes the site to `out/`.
 
-Build and run the production Docker container:
+On every push to `main`, `.github/workflows/render-deploy.yml` runs lint, tests, and a build, then triggers Render's deploy hook. Render builds from `package-lock.json`, so keep it in sync when dependencies change.
 
-```bash
-# Build the Docker image
-docker build -t acm-sa-website .
-
-# Run the container
-docker run -p 3000:3000 acm-sa-website
-```
-
-The production Dockerfile uses a multi-stage build process:
-1. **deps**: Installs dependencies
-2. **builder**: Builds the Next.js standalone server bundle
-3. **runner**: Runs the packaged Next.js server
-
-### Docker Architecture
-
-- **Base Image**: Node.js 20 Alpine (lightweight)
-- **Output**: Next.js standalone server (`.next/standalone`)
-- **Server**: Node.js running `server.js`
-- **Port**: 3000 (exposed and configurable)
-
-### Deployment Model
-
-This repository is now configured as a server-backed Next.js app for Render or any other Node-compatible host:
-
-- `next.config.ts` sets `output: "standalone"`
-- the Docker image runs the packaged Next.js server
-- Render should treat this app as a **Web Service**, not a static site
-
-That deployment model supports request-time Next.js features such as route handlers, server components, and proxy or middleware logic.
-
-The auth gate itself is not enabled yet in this repo. The example proxy file remains opt-in until session logic is implemented:
-
-1. Rename `src/proxy.example.ts` to `src/proxy.ts`
-2. Replace the placeholder logic with real session validation
-3. Add the required auth/session environment variables in Render
-4. Deploy the updated Web Service
-
-If the membership portal stays as a separate project, this site can still stay server-capable while linking to that portal or calling its API.
+Because the site is static, request-time features (route handlers, proxy/middleware) aren't available. `src/proxy.example.ts` is a placeholder for a future auth gate and would require moving off static export to enable.
 
 ## Development Container
 
@@ -191,78 +154,19 @@ See `BIOME_GUIDE.md` for detailed configuration and usage.
 
 ## Events System
 
-The website features a robust events management system with JSON-based data storage and Zod validation.
+Events come from the ACM SA community feed on [DEVSA](https://www.devsa.community) (`FEED_URL` in `src/lib/devsaEvents.ts`). The feed is fetched at build time so the page ships with events in its HTML, then fetched again in the browser on load so new events show up without a redeploy. `src/lib/devsaFeed.ts` parses the RSS feed into the types in `src/lib/events.ts`.
 
-### Adding New Events
-
-1. Open `/public/data/events.json`
-2. Add a new event object to the `events` array
-3. Follow the schema (see below)
-4. Save - validation happens automatically
-
-### Event Schema
-
-#### Required Fields
-
-```json
-{
-  "id": "unique-event-id",
-  "title": "Event Title",
-  "description": "Event description",
-  "date": "2026-04-15T09:00:00.000Z",
-  "location": {
-    "venue": "Venue Name"
-  }
-}
-```
-
-#### Optional Fields
-
-- `endDate`: ISO 8601 datetime string
-- `location.address`, `location.city`, `location.state`
-- `location.isVirtual`: Boolean (default: `false`)
-- `location.virtualLink`: URL for virtual events
-- `imageUrl`: Path to event image
-- `registrationUrl`: Event registration link
-- `tags`: Array of strings (e.g., `["workshop", "python"]`)
-- `capacity`: Maximum attendees (number)
-- `isFeatured`: Highlight event (boolean)
-- `organizer`: Organizing entity (default: "ACM San Antonio")
-
-### Example: Adding a Workshop
-
-```json
-{
-  "id": "python-workshop-june-2026",
-  "title": "Python for Beginners Workshop",
-  "description": "Learn Python basics in this hands-on workshop.",
-  "date": "2026-06-10T14:00:00.000Z",
-  "endDate": "2026-06-10T17:00:00.000Z",
-  "location": {
-    "venue": "Geekdom",
-    "address": "131 Soledad St",
-    "city": "San Antonio",
-    "state": "TX"
-  },
-  "registrationUrl": "https://example.com/register",
-  "tags": ["workshop", "python", "beginner"],
-  "capacity": 30,
-  "isFeatured": false
-}
-```
-
-See `EVENTS_README.md` for complete documentation.
+To add an event, publish it on DEVSA under the ACM SA community. Nothing in this repo needs to change.
 
 ## Tech Stack
 
 - **Framework**: [Next.js 16](https://nextjs.org) with App Router
 - **React**: Version 19 with React Compiler enabled
 - **Styling**: CSS Modules
-- **3D Graphics**: Three.js with React Three Fiber (@react-three/fiber, @react-three/drei)
-- **Type Safety**: TypeScript + Zod schema validation
+- **Type Safety**: TypeScript
 - **Linting/Formatting**: [Biome](https://biomejs.dev/)
 - **Testing**: Jest + React Testing Library
-- **Build**: Next.js standalone server output with image optimization disabled
+- **Build**: Next.js static export with image optimization disabled
 - **Fonts**: Google Fonts (Jockey One, JetBrains Mono)
 
 ## Project Structure
@@ -275,8 +179,6 @@ acm-sa-website-v2/
 │   ├── Dockerfile.dev      # Development Dockerfile
 │   └── README.md           # Dev container documentation
 ├── public/
-│   ├── data/
-│   │   └── events.json     # Events data (JSON schema)
 │   └── *.svg, *.png        # Static assets
 ├── src/
 │   ├── app/                # Next.js App Router
@@ -289,17 +191,17 @@ acm-sa-website-v2/
 │   │   ├── ContactSection/
 │   │   ├── EventCard/      # Individual event display
 │   │   ├── EventsSection/  # Events list with filters
-│   │   ├── Hero/           # Hero section with 3D
+│   │   ├── Hero/           # Hero section
 │   │   ├── Navigator/      # Navigation bar
 │   │   ├── SocialLink/     # Social media links
 │   │   └── ThemeToggle/    # Dark/light mode toggle
 │   ├── contexts/
 │   │   └── ThemeContext.tsx # Theme context provider
+│   ├── lib/                # DEVSA events feed fetching and parsing
 │   └── utils/
 │       └── session.ts      # Utility functions
 ├── coverage/               # Test coverage reports
-├── Dockerfile              # Production Dockerfile
-├── .dockerignore           # Docker ignore patterns
+├── .dockerignore           # Docker ignore patterns (dev container)
 ├── biome.json              # Biome configuration
 ├── jest.config.ts          # Jest configuration
 ├── jest.setup.ts           # Jest setup file
@@ -307,7 +209,6 @@ acm-sa-website-v2/
 ├── tsconfig.json           # TypeScript configuration
 ├── package.json            # Dependencies and scripts
 ├── BIOME_GUIDE.md          # Biome usage guide
-├── EVENTS_README.md        # Events system documentation
 └── README.md               # This file
 ```
 
@@ -352,10 +253,7 @@ This is the official ACM San Antonio website. If you're interested in contributi
 - [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API
 - [React Documentation](https://react.dev) - Learn React
 - [Biome Documentation](https://biomejs.dev/) - Code quality tools
-- [Three.js Documentation](https://threejs.org/docs/) - 3D graphics
-- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/) - Three.js in React
 - [Jest Documentation](https://jestjs.io/docs/getting-started) - Testing framework
-- [Zod Documentation](https://zod.dev/) - Schema validation
 
 ### Project Resources
 
