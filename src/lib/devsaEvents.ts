@@ -1,7 +1,8 @@
 import { parseDevsaFeed } from "@/lib/devsaFeed";
 import type { ImportedEvent } from "@/lib/events";
 
-const FEED_URL = "https://devsa.community/api/events/feed?communityId=acm-sa";
+export const FEED_URL =
+  "https://www.devsa.community/api/events/feed?communityId=acm-sa";
 const CACHE_SECONDS = 60 * 60 * 12;
 
 export const getDevsaAcmEvents = async (): Promise<ImportedEvent[]> => {
